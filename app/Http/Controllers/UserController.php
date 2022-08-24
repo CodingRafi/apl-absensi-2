@@ -12,10 +12,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($role)
+    public function index()
     {
-        $users = User::getUserRole($role, \Auth::user()->sekolah);
-        return view('users.index_siswa');
+        //
     }
 
     /**

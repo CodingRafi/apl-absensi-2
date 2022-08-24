@@ -22,16 +22,18 @@
             <div class="collapse" id="data-user">
                 <ul class="nav flex-column sub-menu">
                     @foreach ($roles as $role)
-                    @if ($role->name != 'yayasan' && $role->name  != 'admin_smp' && $role->name != 'admin_smk' && $role->name != 'guru_piket')
-                    <li class="nav-item"><a class="nav-link text-capitalize" href="/users/{{ $role->name }}">Data {{ $role->name }}</a></li>
+                    @if ($role->name != 'yayasan' && $role->name != 'admin_smp' && $role->name != 'admin_smk' &&
+                    $role->name != 'guru_piket')
+                    <li class="nav-item"><a class="nav-link text-capitalize" href="/users/{{ $role->name }}">Data {{
+                            $role->name }}</a></li>
                     @endif
                     @endforeach
+                    <li class="nav-item"><a class="nav-link text-capitalize" href="/siswa">Data Siswa</a></li>
                 </ul>
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false"
-                aria-controls="ui-basic">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                 <i class="bi bi-journal-text menu-icon"></i>
                 <span class="menu-title">Absensi</span>
                 <i class="menu-arrow"></i>
