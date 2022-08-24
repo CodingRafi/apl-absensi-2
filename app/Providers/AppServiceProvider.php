@@ -32,8 +32,10 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer('*', function($view)
         {
-            $tahun_ajarans = TahunAjaran::where('sekolah', \Auth::user()->sekolah)->get();
-            View::share('tahun_ajarans', $tahun_ajarans);
+            if (\Auth::user()) {
+                $tahun_ajarans = TahunAjaran::where('sekolah', \Auth::user()->sekolah)->get();
+                View::share('tahun_ajarans', $tahun_ajarans);
+            }
         });
     }
 }
