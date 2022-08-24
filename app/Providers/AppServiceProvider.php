@@ -3,6 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Spatie\Permission\Models\Role;
+use App\Models\TahunAjaran;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +27,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $roles = Role::all();
+        View::share('roles', $roles);
+
+        view()->composer('*', function($view)
+        {
+            $tahun_ajarans = TahunAjaran::where('sekolah', \Auth::user()->sekolah)->get();
+            View::share('tahun_ajarans', $tahun_ajarans);
+        });
     }
 }

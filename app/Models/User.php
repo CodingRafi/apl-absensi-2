@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
-
+use Spatie\Permission\Models\Role;
 
 class User extends Authenticatable
 {
@@ -19,10 +19,8 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
+    protected $guarded = [
+        'id',
     ];
 
     /**
@@ -43,4 +41,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function kelas(){
+        return $this->belongsTo(Kelas::class);
+    }
+
+    public static function getUserRole($role, $sekolah){
+        $roles = Role::all();
+        $users = \App\Models\User::with('roles')->get();
+        $userRole = [];
+
+        foreach ($users as $key => $user) {
+            if ($user->hasRole($role) && $user->sekolah == $sekolah) {
+                $userRole[] = $user;
+            }
+        }
+
+        return $userRole;
+    }
 }

@@ -1,118 +1,78 @@
 <!DOCTYPE html>
-<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="/assets/"
-    data-template="vertical-menu-template-free">
+<html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Dashboard</title>
 
-    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="/template/vendors/feather/feather.css">
+    <link rel="stylesheet" href="/template/vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="/template/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <!-- endinject -->
 
-    <meta name="description" content="" />
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="/template/vendors/ti-icons/css/themify-icons.css">
+    <!-- End plugin css for this page -->
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/assets/img/favicon/favicon.ico" />
+    <!-- inject:css -->
+    <link rel="stylesheet" href="/template/css/vertical-layout-light/style.css">
+    <!-- endinject -->
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-        rel="stylesheet" />
-
-    <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="/assets/vendor/fonts/boxicons.css" />
-
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="/assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="/assets/css/demo.css" />
-
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-
-    <link rel="stylesheet" href="/assets/vendor/libs/apex-charts/apex-charts.css" />
-
-
-    {{-- Tambahan Css --}}
-    @yield('tambahancss')
-
-    <!-- Helpers -->
-    <script src="/assets/vendor/js/helpers.js"></script>
-
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="/assets/js/config.js"></script>
-
-    <style>
-        .menu-inner {
-            overflow-x: hidden !important;
-            overflow-y: auto !important;
-        }
-
-        /* Sembunyikan scrollbar dari Chrome, Safari dan Opera */
-        .menu-inner::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* Sembunyikan scrollbar untuk IE, Edge dan Firefox */
-        .menu-inner {
-            -ms-overflow-style: none;
-            /* IE dan Edge */
-            scrollbar-width: none;
-            /* Firefox */
-        }
-
-    </style>
+    <link rel="shortcut icon" href="/template/images/favicon.png" />
 </head>
 
 <body>
-    <!-- Layout wrapper -->
-    <div class="layout-wrapper layout-content-navbar">
-        <div class="layout-container">
+    <div class="container-scroller">
+
+        <!-- partial:partials/_navbar.html -->
+        @include('mypartials.navbar')
+        <!-- partial -->
+
+        <div class="container-fluid page-body-wrapper">
+
+            <!-- partial:partials/_settings-panel.html -->
+            @include('mypartials.settings-panel')
+            <!-- partial -->
+
+            <!-- partial:partials/_sidebar.html -->
             @include('mypartials.aside')
-            <!-- Layout container -->
-            <div class="layout-page">
-                {{-- Navbar --}}
-                @include('mypartials.navbar')
-                {{-- End Navbar --}}
+            <!-- partial -->
 
-                <!-- Content wrapper -->
-                @yield('container')
-                <!-- Content wrapper -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    @yield('container')
+                </div>
+                <!-- content-wrapper ends -->
             </div>
-            <!-- / Layout page -->
+            <!-- main-panel ends -->
         </div>
-
-        <!-- Overlay -->
-        <div class="layout-overlay layout-menu-toggle"></div>
+        <!-- page-body-wrapper ends -->
     </div>
-    <!-- / Layout wrapper -->
+    <!-- container-scroller -->
 
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-    <script src="/assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="/assets/vendor/libs/popper/popper.js"></script>
-    <script src="/assets/vendor/js/bootstrap.js"></script>
-    <script src="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <!-- plugins:js -->
+    <script src="/template/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="/template/vendors/chart.js/Chart.min.js"></script>
 
-    <script src="/assets/vendor/js/menu.js"></script>
-    <!-- endbuild -->
-
-    <!-- Vendors JS -->
-    <script src="/assets/vendor/libs/apex-charts/apexcharts.js"></script>
-
-    <!-- Main JS -->
-    <script src="/assets/js/main.js"></script>
-
-    <!-- Page JS -->
-    <script src="/assets/js/dashboards-analytics.js"></script>
-
-    <!-- Place this tag in your head or just before your close body tag. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-
-    @yield('tambahanjs')
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="/template/js/off-canvas.js"></script>
+    <script src="/template/js/hoverable-collapse.js"></script>
+    <script src="/template/js/template.js"></script>
+    <script src="/template/js/settings.js"></script>
+    <script src="/template/js/todolist.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <script src="/template/js/dashboard.js"></script>
+    <script src="/template/js/Chart.roundedBarCharts.js"></script>
+    <script src="/template/js/chart.js"></script>
+    <!-- End custom js for this page-->
 </body>
 
 </html>

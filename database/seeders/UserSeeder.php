@@ -17,14 +17,15 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $admin = User::create([
-            'name' => 'Admin',
-            'email' => 'admin@gmail.com',
+        $yayasan = User::create([
+            'name' => 'yayasan',
+            'email' => 'yayasan@gmail.com',
             'password' => bcrypt('12345678'),
+            'sekolah' => 'yayasan'
         ]);
 
         $role = Role::create([
-            'name' => 'admin',
+            'name' => 'yayasan',
             'guard_name' => 'web'
         ]);
 
@@ -32,43 +33,121 @@ class UserSeeder extends Seeder
    
         $role->syncPermissions($permissions);
 
-        $admin->assignRole([$role->id]);
+        $yayasan->assignRole([$role->id]);
 
 
-        //? Membuat role Teacher 
-        $roleTeacher = Role::create([
-            'name' => 'teacher',
+        //? Membuat role admin smp 
+        $roleAdminSmp = Role::create([
+            'name' => 'admin_smp',
             'guard_name' => 'web'
         ]);
 
-        $izinTeachers = ['1', '9', '10', '11', '12', '13', '14', '15', '16'];
-        $resultTeacher = array_map(function($izinTeacher){
-            return $izinTeacher;
-        }, $izinTeachers);
+        $izinAdminSmp = ['1', '9', '10', '11', '12', '13', '14', '15', '16'];
+        $resultAdminSmp = array_map(function($izinAdmin){
+            return $izinAdmin;
+        }, $izinAdminSmp);
 
-        $roleTeacher->syncPermissions($resultTeacher);
+        $roleAdminSmp->syncPermissions($resultAdminSmp);
 
+        $adminSmp = User::create([
+            'name' => 'Admin SMP',
+            'email' => 'adminsmp@gmail.com',
+            'password' => bcrypt('12345678'),
+            'sekolah' => 'smp'
+        ]);
+
+        $adminSmp->assignRole('admin_smp');
+
+        //? Membuat role admin smk 
+        $roleAdminSmk = Role::create([
+            'name' => 'admin_smk',
+            'guard_name' => 'web'
+        ]);
+
+        $izinAdminSmk = ['1', '9', '10', '11', '12', '13', '14', '15', '16'];
+        $resultAdminSmk = array_map(function($izinAdmin){
+            return $izinAdmin;
+        }, $izinAdminSmk);
+
+        $roleAdminSmk->syncPermissions($resultAdminSmk);
+
+        $adminSmk = User::create([
+            'name' => 'Admin SMK',
+            'email' => 'adminsmk@gmail.com',
+            'password' => bcrypt('12345678'),
+            'sekolah' => 'smk'
+        ]);
+
+        $adminSmk->assignRole('admin_smp');
+
+        
+        // guru piket
+        $rolePiket = Role::create([
+            'name' => 'guru_piket',
+            'guard_name' => 'web'
+        ]);
+
+        $izinGuruPiket = ['1', '9', '10', '11', '12', '13', '14', '15', '16'];
+        $resultGuruPiket = array_map(function($izinPiket){
+            return $izinPiket;
+        }, $izinGuruPiket);
+        $rolePiket->syncPermissions($resultGuruPiket);
+
+        // role guru
+        $roleGuru = Role::create([
+            'name' => 'guru',
+            'guard_name' => 'web'
+        ]);
+
+        $izinGuru = ['1', '9', '10', '11', '12', '13', '14', '15', '16'];
+        $resultGuru = array_map(function($izin){
+            return $izin;
+        }, $izinGuru);
+        $roleGuru->syncPermissions($resultGuru);
+
+        // role siswa
+        $roleSiswa = Role::create([
+            'name' => 'siswa',
+            'guard_name' => 'web'
+        ]);
+
+        $izinSiswa = ['1', '9', '10', '11', '12', '13', '14', '15', '16'];
+        $resultSiswa = array_map(function($izin){
+            return $izin;
+        }, $izinSiswa);
+        $roleSiswa->syncPermissions($resultSiswa);
+
+        $roleKaryawan = Role::create([
+            'name' => 'karyawan',
+            'guard_name' => 'web'
+        ]);
+
+        $izinKaryaran = ['1', '9', '10', '11', '12', '13', '14', '15', '16'];
+        $resultKaryawan = array_map(function($izin){
+            return $izin;
+        }, $izinKaryaran);
+        $roleKaryawan->syncPermissions($resultKaryawan);
 
         //? Membuat Role Student 
-        $roleStudent = Role::create([
-            'name' => 'student',
-            'guard_name' => 'web'
-        ]);
+        // $roleStudent = Role::create([
+        //     'name' => 'student',
+        //     'guard_name' => 'web'
+        // ]);
 
-        $izinStudents = ['9', '13'];
+        // $izinStudents = ['9', '13'];
 
-        $resultStudent = array_map(function($izinStudent){
-            return $izinStudent;
-        },$izinStudents);
+        // $resultStudent = array_map(function($izinStudent){
+        //     return $izinStudent;
+        // },$izinStudents);
 
-        $roleStudent->syncPermissions($resultStudent);
+        // $roleStudent->syncPermissions($resultStudent);
 
-        $user = User::create([
-            'name' => 'User',
-            'email' => 'user@gmail.com',
-            'password' => bcrypt('12345678'),
-        ]);
+        // $user = User::create([
+        //     'name' => 'User',
+        //     'email' => 'user@gmail.com',
+        //     'password' => bcrypt('12345678'),
+        // ]);
 
-        $user->assignRole('student');
+        // $user->assignRole('student');
     }
 }
