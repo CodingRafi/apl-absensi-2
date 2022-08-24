@@ -7,6 +7,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link {{ Request::is('/kompetensi') ? 'active' : '' }}" href="/kompetensi">
+                <i class="icon-grid menu-icon"></i>
+                <span class="menu-title">Kompetensi</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#data-user" aria-expanded="false"
                 aria-controls="data-user">
                 <i class="bi bi-journal-text menu-icon"></i>

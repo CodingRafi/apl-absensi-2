@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\KompetensiController;
 use App\Http\Controllers\RegisteredUserController;
 
 /*
@@ -22,6 +23,7 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
+    Route::resource('kompetensi', KompetensiController::class);
     Route::get('users/{role}', [UserController::class, 'index']);
 });
 
