@@ -106,16 +106,16 @@ class UserSeeder extends Seeder
         $roleGuru->syncPermissions($resultGuru);
 
         // role siswa
-        $roleSiswa = Role::create([
-            'name' => 'siswa',
-            'guard_name' => 'web'
-        ]);
+        // $roleSiswa = Role::create([
+        //     'name' => 'siswa',
+        //     'guard_name' => 'web'
+        // ]);
 
-        $izinSiswa = ['1', '9', '10', '11', '12', '13', '14', '15', '16'];
-        $resultSiswa = array_map(function($izin){
-            return $izin;
-        }, $izinSiswa);
-        $roleSiswa->syncPermissions($resultSiswa);
+        // $izinSiswa = ['1', '9', '10', '11', '12', '13', '14', '15', '16'];
+        // $resultSiswa = array_map(function($izin){
+        //     return $izin;
+        // }, $izinSiswa);
+        // $roleSiswa->syncPermissions($resultSiswa);
 
         $roleKaryawan = Role::create([
             'name' => 'karyawan',

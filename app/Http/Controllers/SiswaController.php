@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Models\Siswa;
+use App\Http\Requests\StoreSiswaRequest;
+use App\Http\Requests\UpdateSiswaRequest;
 
-class UserController extends Controller
+class SiswaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return view('siswa.index');
     }
 
     /**
@@ -30,10 +31,10 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreSiswaRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSiswaRequest $request)
     {
         //
     }
@@ -41,10 +42,10 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Siswa $siswa)
     {
         //
     }
@@ -52,10 +53,10 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Siswa $siswa)
     {
         //
     }
@@ -63,11 +64,11 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
+     * @param  \App\Http\Requests\UpdateSiswaRequest  $request
+     * @param  \App\Models\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateSiswaRequest $request, Siswa $siswa)
     {
         //
     }
@@ -75,10 +76,10 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Siswa $siswa)
     {
         //
     }
