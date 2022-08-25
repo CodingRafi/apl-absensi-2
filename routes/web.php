@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\KelasController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\KompetensiController;
 use App\Http\Controllers\TahunAjaranController;
@@ -26,6 +27,7 @@ Route::get('/', function () {
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('kompetensi', KompetensiController::class);
+    Route::resource('kelas', KelasController::class);
     Route::get('users/{role}', [UserController::class, 'index']);
     Route::resource('siswa', SiswaController::class);
     Route::resource('tahun-ajaran', TahunAjaranController::class);

@@ -1,7 +1,9 @@
 <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-3" href="index.html"><img src="/template/images/smkTarunaBhakti.png" alt="logo" /></a>
-        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="/template/images/smkTarunaBhakti.png" alt="logo" /></a>
+        <a class="navbar-brand brand-logo mr-3" href="index.html"><img src="/template/images/smkTarunaBhakti.png"
+                alt="logo" /></a>
+        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="/template/images/smkTarunaBhakti.png"
+                alt="logo" /></a>
         <div class="brand-logo text-left">
             <p class="m-0 muted">SMK</p>
             TARUNA BHAKTI
@@ -17,12 +19,26 @@
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupSelect01">Tahun Ajaran</label>
                     </div>
-                    <select class="custom-select ml-4" id="inputGroupSelect01">
-                        @foreach ($tahun_ajarans as $tahun)
-                        <option selected>{{ $tahun->tahun_awal }}/{{ $tahun->tahun_akhir }} Semester {{ $tahun->semester }}</option>
-                        @endforeach
-                    </select>
                 </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Tahun Ajaran
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    @foreach ($tahun_ajarans as $tahun)
+                    <li>
+                        <form action="" method="get">
+                            <input type="hidden" name="tahun_awal" value="{{ $tahun->tahun_awal }}">
+                            <input type="hidden" name="tahun_akhir" value="{{ $tahun->tahun_akhir }}">
+                            <input type="hidden" name="semester" value="{{ $tahun->semester }}">
+                            <button type="submit" class="dropdown-item">{{ $tahun->tahun_awal }}/{{ $tahun->tahun_akhir }}
+                                Semester {{ $tahun->semester }}</button>
+                        </form>
+                    </li>
+                    @endforeach
+                </ul>
             </li>
         </ul>
         <ul class="navbar-nav navbar-nav-right">
