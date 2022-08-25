@@ -11,7 +11,7 @@
                 @if (request('semester'))
                 <input type="hidden" name="semester" value="{{ request('semester') }}">
                 @endif
-                <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"><i class="icon-grid menu-icon"></i> Dasboard</button>
+                <button class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}"><i class="icon-grid menu-icon"></i> Dasboard</button>
             </form>
         </li>
         <li class="nav-item">
