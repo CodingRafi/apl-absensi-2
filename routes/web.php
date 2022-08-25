@@ -54,3 +54,11 @@ Route::get('/agenda-siswa', function() {
 Route::get('/agenda-siswa', function() {
     return view('agenda.siswa');
 });
+
+Route::get('/absensi-guru', function() {
+    return view('users.absensiguru');
+});
+
+Route::get('/detail-absensi-guru', function() {
+    return view('users.detailabsensiguru');
+});
