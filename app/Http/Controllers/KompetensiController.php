@@ -15,7 +15,7 @@ class KompetensiController extends Controller
      */
     public function index()
     {
-        $kompetensis = Kompetensi::all();
+        $kompetensis = Kompetensi::where('sekolah_id', \Auth::user()->sekolah_id)->get();
 
         return view('kompetensi.index', [
             'kompetensis' => $kompetensis
@@ -43,7 +43,8 @@ class KompetensiController extends Controller
         Kompetensi::create([
             'kompetensi' => $request->kompetensi,
             'bidang' => $request->bidang,
-            'program' => $request->program
+            'program' => $request->program,
+            'sekolah_id' => \Auth::user()->sekolah_id
         ]);
 
         return redirect('/kompetensi')->with('message', 'Jurusan Berhasil Ditambahkan');

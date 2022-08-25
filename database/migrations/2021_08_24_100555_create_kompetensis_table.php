@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('kompetensi');
             $table->string('program');
             $table->string('bidang');
+            $table->foreignId('sekolah_id')->constrained();
             $table->timestamps();
         });
     }

@@ -10,29 +10,29 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Kompetensi Keahlian</th>
-                    <th scope="col">Program Keahlian</th>
-                    <th scope="col">Bidang Keahlian</th>
+                    <th scope="col">Tahun Awal</th>
+                    <th scope="col">Tahun Akhir</th>
+                    <th scope="col">Semester</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                {{-- @foreach ($kompetensis as $kompetensi)
+                @foreach ($tahun_ajarans as $tahun_ajaran)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $kompetensi->kompetensi }}</td>
-                    <td>{{ $kompetensi->program }}</td>
-                    <td>{{ $kompetensi->bidang }}</td>
+                    <td>{{ $tahun_ajaran->tahun_awal }}</td>
+                    <td>{{ $tahun_ajaran->tahun_akhir }}</td>
+                    <td>{{ $tahun_ajaran->semester }}</td>
                     <td>
-                        <a href="/kompetensi/{{ $kompetensi->id }}/edit" class="btn btn-warning text-white">Edit</a>
-                        <form action="/kompetensi/{{ $kompetensi->id }}" method="post">
+                        <a href="/tahun_ajaran/{{ $tahun_ajaran->id }}/edit" class="btn btn-warning text-white">Edit</a>
+                        <form action="/tahun_ajaran/{{ $tahun_ajaran->id }}" method="post">
                             @csrf
                             @method('delete')
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin?')">Hapus</button>
                         </form>
                     </td>
                 </tr>
-                @endforeach --}}
+                @endforeach
             </tbody>
         </table>
     </div>

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('tempat_lahir')->nullable();
             $table->string('tanggal_lahir')->nullable();
             $table->string('agama')->nullable();
-            $table->enum('sekolah', ['smp', 'smk', 'yayasan']);
+            $table->foreignId('sekolah_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

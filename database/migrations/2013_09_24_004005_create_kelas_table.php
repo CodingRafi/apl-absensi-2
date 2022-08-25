@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('tahun_ajaran_id')->constrained();
             $table->string('nama');
-            $table->enum('sekolah', ['smp', 'smk']);
+            $table->foreignId('sekolah_id')->constrained();
             $table->timestamps();
         });
     }

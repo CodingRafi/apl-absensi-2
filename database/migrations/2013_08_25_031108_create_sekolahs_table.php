@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tahun_ajarans', function (Blueprint $table) {
+        Schema::create('sekolahs', function (Blueprint $table) {
             $table->id();
-            $table->integer('tahun_awal');
-            $table->integer('tahun_akhir');
-            $table->enum('semester', ['ganjil', 'genap']);
-            $table->enum('status', ['aktif', 'tidak']);
+            $table->string('nama');
+            $table->string('npsn');
+            $table->string('alamat');
+            $table->enum('tingkat', ['sd', 'smp', 'smk', 'sma']);
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tahun_ajarans');
+        Schema::dropIfExists('sekolahs');
     }
 };

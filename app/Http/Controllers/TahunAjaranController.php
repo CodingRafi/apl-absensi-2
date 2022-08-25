@@ -15,7 +15,7 @@ class TahunAjaranController extends Controller
      */
     public function index()
     {
-        $tahun_ajarans = TahunAjaran::where('sekolah', \Auth::user()->sekolah)->get();
+        $tahun_ajarans = TahunAjaran::all();
         return view('tahun-ajaran.index', [
             'tahun_ajarans' => $tahun_ajarans
         ]);

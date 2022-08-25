@@ -14,14 +14,23 @@
             <span class="icon-menu"></span>
         </button>
         <div class="dropdown">
-            <button class="btn dropdown-toggle ml-3" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="border: none">
-              Tahun Ajaran
+            <button class="btn dropdown-toggle ml-3" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                aria-expanded="false" style="border: none">
+                Tahun Ajaran
             </button>
             <ul class="dropdown-menu ml-1" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
+                @foreach ($tahun_ajarans as $tahun_ajaran)
+                <li>
+                    <form action="" method="get">
+                        <input type="hidden" name="tahun_awal" value="{{ $tahun_ajaran->tahun_awal }}">
+                        <input type="hidden" name="tahun_akhir" value="{{ $tahun_ajaran->tahun_akhir }}">
+                        <input type="hidden" name="semester" value="{{ $tahun_ajaran->semester }}">
+                        <button type="submit" class="dropdown-item">{{ $tahun_ajaran->tahun_awal }}/{{ $tahun_ajaran->tahun_akhir }} Semester {{ $tahun_ajaran->semester }}</button>
+                    </form>
+                </li>
+                @endforeach
             </ul>
-          </div>
+        </div>
         <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item nav-profile dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">

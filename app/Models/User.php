@@ -41,6 +41,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    public function sekolah(){
+        return $this->belongsTo(Sekolah::class);
+    }
 
     public static function getUserRole($role, $sekolah){
         $roles = Role::all();
