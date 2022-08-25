@@ -32,3 +32,11 @@ Route::group(['middleware' => ['auth']], function() {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/create-siswa', function() {
+    return view('create.siswa');
+});
+
+Route::get('/create-guru', function() {
+    return view('create.guru');
+});
