@@ -19,16 +19,14 @@ class TahunAjaranSeeder extends Seeder
             'tahun_awal' => 2022,
             'tahun_akhir' => 2023,
             'semester' => 'genap',
-            'status' => 'aktif',
-            'sekolah' => 'smk'
+            'status' => 'aktif'
         ]);
 
         TahunAjaran::create([
             'tahun_awal' => 2022,
             'tahun_akhir' => 2023,
             'semester' => 'genap',
-            'status' => 'aktif',
-            'sekolah' => 'smp'
+            'status' => 'aktif'
         ]);
     }
 }

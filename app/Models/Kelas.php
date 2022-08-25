@@ -18,4 +18,8 @@ class Kelas extends Model
     public function siswa(){
         return $this->hasMany(Siswa::class);
     }
+
+    public function sekolah(){
+        return $this->belongsTo(Sekolah::class);
+    }
 }

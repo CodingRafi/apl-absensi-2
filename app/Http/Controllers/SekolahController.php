@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kelas;
-use App\Http\Requests\StoreKelasRequest;
-use App\Http\Requests\UpdateKelasRequest;
+use App\Models\Sekolah;
+use App\Http\Requests\StoreSekolahRequest;
+use App\Http\Requests\UpdateSekolahRequest;
 
-class KelasController extends Controller
+class SekolahController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class KelasController extends Controller
      */
     public function index()
     {
-        return view('kelas.index');
+        //
     }
 
     /**
@@ -25,16 +25,16 @@ class KelasController extends Controller
      */
     public function create()
     {
-        return view('kelas.create');
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreKelasRequest  $request
+     * @param  \App\Http\Requests\StoreSekolahRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreKelasRequest $request)
+    public function store(StoreSekolahRequest $request)
     {
         //
     }
@@ -42,10 +42,10 @@ class KelasController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Kelas  $kelas
+     * @param  \App\Models\Sekolah  $sekolah
      * @return \Illuminate\Http\Response
      */
-    public function show(Kelas $kelas)
+    public function show(Sekolah $sekolah)
     {
         //
     }
@@ -53,10 +53,10 @@ class KelasController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Kelas  $kelas
+     * @param  \App\Models\Sekolah  $sekolah
      * @return \Illuminate\Http\Response
      */
-    public function edit(Kelas $kelas)
+    public function edit(Sekolah $sekolah)
     {
         //
     }
@@ -64,11 +64,11 @@ class KelasController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateKelasRequest  $request
-     * @param  \App\Models\Kelas  $kelas
+     * @param  \App\Http\Requests\UpdateSekolahRequest  $request
+     * @param  \App\Models\Sekolah  $sekolah
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateKelasRequest $request, Kelas $kelas)
+    public function update(UpdateSekolahRequest $request, Sekolah $sekolah)
     {
         //
     }
@@ -76,10 +76,10 @@ class KelasController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Kelas  $kelas
+     * @param  \App\Models\Sekolah  $sekolah
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Kelas $kelas)
+    public function destroy(Sekolah $sekolah)
     {
         //
     }

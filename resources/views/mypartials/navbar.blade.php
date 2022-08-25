@@ -13,34 +13,24 @@
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
             <span class="icon-menu"></span>
         </button>
-        <ul class="navbar-nav mr-lg-2">
-            <li class="nav-item nav-search d-none d-lg-block">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Tahun Ajaran</label>
-                    </div>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    Tahun Ajaran
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    @foreach ($tahun_ajarans as $tahun)
-                    <li>
-                        <form action="" method="get">
-                            <input type="hidden" name="tahun_awal" value="{{ $tahun->tahun_awal }}">
-                            <input type="hidden" name="tahun_akhir" value="{{ $tahun->tahun_akhir }}">
-                            <input type="hidden" name="semester" value="{{ $tahun->semester }}">
-                            <button type="submit" class="dropdown-item">{{ $tahun->tahun_awal }}/{{ $tahun->tahun_akhir }}
-                                Semester {{ $tahun->semester }}</button>
-                        </form>
-                    </li>
-                    @endforeach
-                </ul>
-            </li>
-        </ul>
+        <div class="dropdown">
+            <button class="btn dropdown-toggle ml-3" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                aria-expanded="false" style="border: none">
+                Tahun Ajaran
+            </button>
+            <ul class="dropdown-menu ml-1" aria-labelledby="dropdownMenuButton1">
+                @foreach ($tahun_ajarans as $tahun_ajaran)
+                <li>
+                    <form action="" method="get">
+                        <input type="hidden" name="tahun_awal" value="{{ $tahun_ajaran->tahun_awal }}">
+                        <input type="hidden" name="tahun_akhir" value="{{ $tahun_ajaran->tahun_akhir }}">
+                        <input type="hidden" name="semester" value="{{ $tahun_ajaran->semester }}">
+                        <button type="submit" class="dropdown-item">{{ $tahun_ajaran->tahun_awal }}/{{ $tahun_ajaran->tahun_akhir }} Semester {{ $tahun_ajaran->semester }}</button>
+                    </form>
+                </li>
+                @endforeach
+            </ul>
+        </div>
         <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item nav-profile dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">

@@ -17,13 +17,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $yayasan = User::create([
-            'name' => 'yayasan',
-            'email' => 'yayasan@gmail.com',
-            'password' => bcrypt('12345678'),
-            'sekolah' => 'yayasan'
-        ]);
-
+        //? Role Yayasan 
         $role = Role::create([
             'name' => 'yayasan',
             'guard_name' => 'web'
@@ -33,34 +27,27 @@ class UserSeeder extends Seeder
    
         $role->syncPermissions($permissions);
 
-        $yayasan->assignRole([$role->id]);
-
-
-        //? Membuat role admin smp 
-        $roleAdminSmp = Role::create([
-            'name' => 'admin_smp',
-            'guard_name' => 'web'
-        ]);
-
-        $izinAdminSmp = ['1', '9', '10', '11', '12', '13', '14', '15', '16'];
-        $resultAdminSmp = array_map(function($izinAdmin){
-            return $izinAdmin;
-        }, $izinAdminSmp);
-
-        $roleAdminSmp->syncPermissions($resultAdminSmp);
-
-        $adminSmp = User::create([
-            'name' => 'Admin SMP',
-            'email' => 'adminsmp@gmail.com',
+        $yayasanSmk = User::create([
+            'name' => 'yayasan SMK',
+            'email' => 'yayasansmk@gmail.com',
             'password' => bcrypt('12345678'),
-            'sekolah' => 'smp'
+            'sekolah_id' => 1
         ]);
 
-        $adminSmp->assignRole('admin_smp');
+        $yayasanSmk->assignRole('yayasan');
 
-        //? Membuat role admin smk 
+        $yayasanSmp = User::create([
+            'name' => 'yayasan SMP',
+            'email' => 'yayasansmp@gmail.com',
+            'password' => bcrypt('12345678'),
+            'sekolah_id' => 2
+        ]);
+
+        $yayasanSmp->assignRole('yayasan');
+
+        //? Membuat role admin 
         $roleAdminSmk = Role::create([
-            'name' => 'admin_smk',
+            'name' => 'admin',
             'guard_name' => 'web'
         ]);
 
@@ -75,13 +62,22 @@ class UserSeeder extends Seeder
             'name' => 'Admin SMK',
             'email' => 'adminsmk@gmail.com',
             'password' => bcrypt('12345678'),
-            'sekolah' => 'smk'
+            'sekolah_id' => 1
         ]);
 
-        $adminSmk->assignRole('admin_smp');
+        $adminSmk->assignRole('admin');
+
+        $adminSmp = User::create([
+            'name' => 'Admin SMP',
+            'email' => 'adminsmp@gmail.com',
+            'password' => bcrypt('12345678'),
+            'sekolah_id' => 2
+        ]);
+
+        $adminSmp->assignRole('admin');
 
         
-        // guru piket
+        //? guru piket
         $rolePiket = Role::create([
             'name' => 'guru_piket',
             'guard_name' => 'web'
@@ -93,7 +89,7 @@ class UserSeeder extends Seeder
         }, $izinGuruPiket);
         $rolePiket->syncPermissions($resultGuruPiket);
 
-        // role guru
+        //? role guru
         $roleGuru = Role::create([
             'name' => 'guru',
             'guard_name' => 'web'
@@ -105,18 +101,25 @@ class UserSeeder extends Seeder
         }, $izinGuru);
         $roleGuru->syncPermissions($resultGuru);
 
-        // role siswa
-        // $roleSiswa = Role::create([
-        //     'name' => 'siswa',
-        //     'guard_name' => 'web'
-        // ]);
+        //? role super admin
+        $roleSuperAdmin = Role::create([
+            'name' => 'super_admin',
+            'guard_name' => 'web'
+        ]);
 
-        // $izinSiswa = ['1', '9', '10', '11', '12', '13', '14', '15', '16'];
-        // $resultSiswa = array_map(function($izin){
-        //     return $izin;
-        // }, $izinSiswa);
-        // $roleSiswa->syncPermissions($resultSiswa);
+        $permissions = Permission::pluck('id','id')->all();
+   
+        $role->syncPermissions($permissions);
 
+        $superAdmin = User::create([
+            'name' => 'Super Admin',
+            'email' => 'superadmin@gmail.com',
+            'password' => bcrypt('12345678')
+        ]);
+
+        $superAdmin->assignRole('super_admin');
+
+        //? Role Karyawan
         $roleKaryawan = Role::create([
             'name' => 'karyawan',
             'guard_name' => 'web'
