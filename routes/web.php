@@ -38,3 +38,15 @@ Route::get('/create-siswa', function() {
 Route::get('/create-guru', function() {
     return view('create.guru');
 });
+
+Route::get('/agenda-guru', function() {
+    return view('agenda.guru');
+});
+
+Route::get('/agenda-siswa', function() {
+    return view('agenda.siswa');
+});
+
+Route::get('/agenda-siswa', function() {
+    return view('agenda.siswa');
+});

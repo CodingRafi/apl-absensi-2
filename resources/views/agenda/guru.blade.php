@@ -3,11 +3,11 @@
 @section('container')
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title float-left">Data Siswa</h4>
+        <h4 class="card-title float-left">Agenda Guru</h4>
         <ul class="nav float-right mb-4" style="gap: 1rem;">
             <li class="nav-item">
                 <div class="input-group">
-                    <select class="custom-select" id="inputGroupSelect01" style="height: 30px; padding: 0; padding-left: 10px;">
+                    <select class="custom-select" id="inputGroupSelect01" style="height: 30px; padding: 0; padding-left: 10px">
                         <option selected>Jurusan</option>
                         <option value="1">Rekayasa Perangkat Lunak</option>
                     </select>
@@ -15,7 +15,7 @@
             </li>
             <li class="nav-item">
                 <div class="input-group">
-                    <select class="custom-select" id="inputGroupSelect02" style="height: 30px; padding: 0; padding-left: 10px;">
+                    <select class="custom-select" id="inputGroupSelect02" style="height: 30px; padding: 0; padding-left: 10px">
                         <option selected>Kelas</option>
                         <option value="1">XII RPL 2</option>
                     </select>
@@ -28,39 +28,42 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a href="" class="btn btn-sm text-white font-weight-bold" style="background-color: #3bae9c">Export</a>
-            </li>
-            <li class="nav-item">
-                <a href="" class="btn btn-sm text-white font-weight-bold" style="background-color: #3bae9c">Import</a>
-            </li>
-            <li class="nav-item">
                 <a href="" class="btn btn-sm text-white font-weight-bold" style="background-color: #3bae9c">Tambah Data</a>
             </li>
         </ul>
         <div class="table-responsive">
             <table class="table">
                 <thead class="thead-light">
-                    <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Foto</th>
-                        <th scope="col">Nama</th>
-                        <th scope="col">NISN</th>
-                        <th scope="col">Tanggal Lahir</th>
-                        <th scope="col">Jurusan</th>
-                        <th scope="col">Kelas</th>
+                    <tr class="text-center">
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Mapel</th>
+                        <th>Hari/ Tanggal</th>
+                        <th>Jam</th>
+                        <th>Kelas</th>
+                        <th>Materi</th>
+                        <th>Dokumentasi</th>
+                        <th>Absensi</th>
+                        <th>Keterangan</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>
-                            <img src="/template/images/faces/defaultProfile.jpg" class="rounded-circle" height="36" width="36" alt="image" style="object-fit: cover">
-                        </td>
-                        <td>Rudi Sugianto</td>
-                        <td>0065174732</td>
-                        <td>12 Agustus 2005</td>
-                        <td>Rekayasa Perangkat Lunak</td>
+                    <tr class="text-center">
+                        <td>1</td>
+                        <td>Puguh Rismadi</td>
+                        <td>PBO</td>
+                        <td>Senin, 30-08-2022</td>
+                        <td>07.00 - 12.50</td>
                         <td>XII RPL 2</td>
+                        <td>Vue JS</td>
+                        <td><i class="bi bi-filetype-pdf" style="color: red"></i></td>
+                        <td>Hadir</td>
+                        <td></td>
+                        <td>
+                            <a href="" class="btn btn-sm btn-warning text-white font-weight-bold">Edit</a>
+                            <a href="" class="btn btn-sm btn-danger text-white font-weight-bold">Delete</a>
+                        </td>
                     </tr>
                 </tbody>
             </table>

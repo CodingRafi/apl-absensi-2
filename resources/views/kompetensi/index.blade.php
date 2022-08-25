@@ -4,12 +4,12 @@
 <div class="card">
     <div class="card-body">
         <h4 class="card-title">Kompetensi</h4>
-        <a href="/kompetensi/create" class="btn btn-success position-absolute" style="top: .7rem; right: 1rem;">Tambah
+        <a href="/kompetensi/create" class="btn btn-sm text-white font-weight-bold position-absolute" style="top: .7rem; right: 1rem; background-color: #3bae9c">Tambah
             Kompetensi</a>
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">No</th>
                     <th scope="col">Kompetensi Keahlian</th>
                     <th scope="col">Program Keahlian</th>
                     <th scope="col">Bidang Keahlian</th>

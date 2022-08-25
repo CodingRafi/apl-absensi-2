@@ -54,8 +54,8 @@
             </a>
             <div class="collapse" id="form-elements">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"><a class="nav-link" href="#">submenu</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">submenu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="agenda-guru">Guru</a></li>
+                    <li class="nav-item"><a class="nav-link" href="agenda-siswa">Siswa</a></li>
                 </ul>
             </div>
         </li>
