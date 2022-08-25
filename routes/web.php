@@ -62,3 +62,7 @@ Route::get('/absensi-guru', function() {
 Route::get('/detail-absensi-guru', function() {
     return view('users.detailabsensiguru');
 });
+
+Route::get('/import', function() {
+    return view('import');
+});
