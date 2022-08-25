@@ -13,6 +13,7 @@
                     <th scope="col">Tahun Awal</th>
                     <th scope="col">Tahun Akhir</th>
                     <th scope="col">Semester</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -23,6 +24,7 @@
                     <td>{{ $tahun_ajaran->tahun_awal }}</td>
                     <td>{{ $tahun_ajaran->tahun_akhir }}</td>
                     <td>{{ $tahun_ajaran->semester }}</td>
+                    <td>{{ $tahun_ajaran->status }}</td>
                     <td>
                         <a href="/tahun_ajaran/{{ $tahun_ajaran->id }}/edit" class="btn btn-warning text-white">Edit</a>
                         <form action="/tahun_ajaran/{{ $tahun_ajaran->id }}" method="post">
