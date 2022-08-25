@@ -13,7 +13,7 @@ class UpdateTahunAjaranRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class UpdateTahunAjaranRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'tahun_awal' => 'required',
+            'tahun_akhir' => 'required',
+            'semester' => 'status'
         ];
     }
 }

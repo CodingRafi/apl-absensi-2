@@ -5,6 +5,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\KompetensiController;
+use App\Http\Controllers\TahunAjaranController;
 use App\Http\Controllers\RegisteredUserController;
 
 /*
@@ -27,6 +28,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('kompetensi', KompetensiController::class);
     Route::get('users/{role}', [UserController::class, 'index']);
     Route::resource('siswa', SiswaController::class);
+    Route::resource('tahun-ajaran', TahunAjaranController::class);
 });
 
 require __DIR__.'/auth.php';

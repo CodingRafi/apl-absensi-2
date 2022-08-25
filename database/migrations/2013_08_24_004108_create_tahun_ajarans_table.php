@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('tahun_ajarans', function (Blueprint $table) {
             $table->id();
-            $table->string('tahun_awal');
-            $table->string('tahun_akhir');
+            $table->integer('tahun_awal');
+            $table->integer('tahun_akhir');
             $table->enum('semester', ['ganjil', 'genap']);
             $table->enum('status', ['aktif', 'tidak']);
             $table->enum('sekolah', ['smp', 'smk']);

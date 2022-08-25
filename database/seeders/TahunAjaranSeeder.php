@@ -16,16 +16,16 @@ class TahunAjaranSeeder extends Seeder
     public function run()
     {
         TahunAjaran::create([
-            'tahun_awal' => '2022',
-            'tahun_akhir' => '2023',
+            'tahun_awal' => 2022,
+            'tahun_akhir' => 2023,
             'semester' => 'genap',
             'status' => 'aktif',
             'sekolah' => 'smk'
         ]);
 
         TahunAjaran::create([
-            'tahun_awal' => '2022',
-            'tahun_akhir' => '2023',
+            'tahun_awal' => 2022,
+            'tahun_akhir' => 2023,
             'semester' => 'genap',
             'status' => 'aktif',
             'sekolah' => 'smp'

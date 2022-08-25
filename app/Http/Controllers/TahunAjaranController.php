@@ -15,7 +15,10 @@ class TahunAjaranController extends Controller
      */
     public function index()
     {
-        //
+        $tahun_ajarans = TahunAjaran::where('sekolah', \Auth::user()->sekolah)->get();
+        return view('tahun-ajaran.index', [
+            'tahun_ajarans' => $tahun_ajarans
+        ]);
     }
 
     /**
@@ -25,7 +28,7 @@ class TahunAjaranController extends Controller
      */
     public function create()
     {
-        //
+        return view('tahun-ajaran.create');
     }
 
     /**
@@ -36,7 +39,15 @@ class TahunAjaranController extends Controller
      */
     public function store(StoreTahunAjaranRequest $request)
     {
-        //
+        TahunAjaran::create([
+            'tahun_awal' => $request->tahun_awal,
+            'tahun_akhir' => $request->tahun_akhir,
+            'semester' => $request->semester,
+            'status' => ($request->status == 'on') ? 'aktif' : 'tidak',
+            'sekolah' => \Auth::user()->sekolah,
+        ]);
+
+        return redirect('/tahun-ajaran')->with('Berhasil Menambahkan Tahun Ajaran Baru');
     }
 
     /**
@@ -70,7 +81,14 @@ class TahunAjaranController extends Controller
      */
     public function update(UpdateTahunAjaranRequest $request, TahunAjaran $tahunAjaran)
     {
-        //
+        $tahunAjaran->update([
+            'tahun_awal' => $request->tahun_awal,
+            'tahun_akhir' => $request->tahun_akhir,
+            'tahun_semester' => $request->tahun_semester,
+            'status' => $request->status,
+        ]);
+
+        return redirect('/tahun-ajaran')->with('Berhasil Di Update');
     }
 
     /**

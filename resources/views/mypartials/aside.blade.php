@@ -7,9 +7,15 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{ Request::is('/kompetensi') ? 'active' : '' }}" href="/kompetensi">
+            <a class="nav-link {{ Request::is('kompetensi') ? 'active' : '' }}" href="/kompetensi">
                 <i class="icon-grid menu-icon"></i>
                 <span class="menu-title">Kompetensi</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {{ Request::is('tahun-ajaran') ? 'active' : '' }}" href="/tahun-ajaran">
+                <i class="icon-grid menu-icon"></i>
+                <span class="menu-title">Tahun Ajaran</span>
             </a>
         </li>
         <li class="nav-item">
