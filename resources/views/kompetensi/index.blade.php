@@ -4,8 +4,18 @@
 <div class="card">
     <div class="card-body">
         <h4 class="card-title">Kompetensi</h4>
-        <a href="/kompetensi/create" class="btn btn-sm text-white font-weight-bold position-absolute" style="top: .7rem; right: 1rem; background-color: #3bae9c">Tambah
-            Kompetensi</a>
+        <form action="/kompetensi/create" method="get">
+            @if (request('tahun_awal'))
+            <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
+            @endif
+            @if (request('tahun_akhir'))
+            <input type="hidden" name="tahun_akhir" value="{{ request('tahun_akhir') }}">
+            @endif
+            @if (request('semester'))
+            <input type="hidden" name="semester" value="{{ request('semester') }}">
+            @endif
+            <button class="btn btn-sm text-white font-weight-bold position-absolute" style="top: .7rem; right: 1rem; background-color: #3bae9c">Tambah Kompetensi</button>
+        </form>
         <table class="table">
             <thead>
                 <tr>
@@ -28,7 +38,8 @@
                         <form action="/kompetensi/{{ $kompetensi->id }}" method="post">
                             @csrf
                             @method('delete')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin?')">Hapus</button>
+                            <button type="submit" class="btn btn-danger"
+                                onclick="return confirm('Yakin?')">Hapus</button>
                         </form>
                     </td>
                 </tr>

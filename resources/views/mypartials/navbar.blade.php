@@ -20,7 +20,8 @@
             </button>
             <ul class="dropdown-menu ml-1" aria-labelledby="dropdownMenuButton1">
                 @foreach ($tahun_ajarans as $tahun_ajaran)
-                <li>
+                <li class="
+                ">
                     <form action="" method="get">
                         <input type="hidden" name="tahun_awal" value="{{ $tahun_ajaran->tahun_awal }}">
                         <input type="hidden" name="tahun_akhir" value="{{ $tahun_ajaran->tahun_akhir }}">
@@ -42,10 +43,14 @@
                         <i class="ti-settings text-primary"></i>
                         Settings
                     </a>
-                    <a class="dropdown-item">
-                        <i class="ti-power-off text-primary"></i>
+                    <form action="/logout" method="post">
+                        @csrf
+                        <button class="dropdown-item text-danger" tabindex="-1" type="submit"
+                            style="border: none; background: none; color: grey;">
+                            <i class="ti-power-off text-primary"></i>
                         Logout
-                    </a>
+                        </button>
+                    </form>
                 </div>
             </li>
             <li class="nav-item nav-settings d-none d-lg-flex">

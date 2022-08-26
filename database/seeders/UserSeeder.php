@@ -107,7 +107,11 @@ class UserSeeder extends Seeder
             'guard_name' => 'web'
         ]);
 
-        $permissions = Permission::pluck('id','id')->all();
+        $izinSuperAdmin = ['5', '6', '7', '8'];
+        $resultSuperAdmin = array_map(function($izin){
+            return $izin;
+        }, $izinSuperAdmin);
+        $roleGuru->syncPermissions($resultSuperAdmin);
    
         $role->syncPermissions($permissions);
 

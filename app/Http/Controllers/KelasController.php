@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelas;
+use App\Models\TahunAjaran;
 use App\Http\Requests\StoreKelasRequest;
 use App\Http\Requests\UpdateKelasRequest;
+use Illuminate\Http\Request;
 
 class KelasController extends Controller
 {
@@ -13,9 +15,15 @@ class KelasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('kelas.index');
+        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+
+        $classes = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)->where('tahun_ajaran_id', $tahun_ajaran->id)->get();
+
+        return view('kelas.index', [
+            'classes' => $classes 
+        ]);
     }
 
     /**
@@ -35,8 +43,16 @@ class KelasController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreKelasRequest $request)
-    {
-        //
+    {   
+        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+
+        Kelas::create([
+            'tahun_ajaran_id' => $tahun_ajaran->id,
+            'nama' => $request->nama,
+            'sekolah_id' => \Auth::user()->sekolah_id
+        ]);
+
+        return redirect('/kelas')->with('message', 'Kelas Berhasil Ditambahkan');
     }
 
     /**
@@ -56,9 +72,12 @@ class KelasController extends Controller
      * @param  \App\Models\Kelas  $kelas
      * @return \Illuminate\Http\Response
      */
-    public function edit(Kelas $kelas)
+    public function edit(Kelas $kelas, $id)
     {
-        //
+        $kelas = Kelas::findOrFail($id);
+        return view('kelas.update', [
+            'kelas' => $kelas
+        ]);
     }
 
     /**
@@ -68,9 +87,14 @@ class KelasController extends Controller
      * @param  \App\Models\Kelas  $kelas
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateKelasRequest $request, Kelas $kelas)
+    public function update(UpdateKelasRequest $request, Kelas $kelas, $id)
     {
-        //
+        $kelas = Kelas::findOrFail($id);
+        $kelas->update([
+            'nama' => $request->nama
+        ]);
+
+        return redirect('/kelas');
     }
 
     /**

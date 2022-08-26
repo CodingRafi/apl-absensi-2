@@ -35,7 +35,10 @@ class PermissionTableSeeder extends Seeder
             'edit_lessons',
             'delete_lessons',
 
-            'view_admin',
+            'view_tahun_ajaran',
+            'add_tahun_ajaran',
+            'edit_tahun_ajaran',
+            'delete_tahun_ajaran',
         ];
 
         foreach ($permissions as $permission) {

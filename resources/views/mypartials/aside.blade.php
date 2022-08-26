@@ -1,5 +1,10 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
+        @if ( Auth::user()->hasRole('super_admin') )   
+        <li class="nav-item">
+            <a href="/roles" class="nav-link"><i class="icon-grid menu-icon"></i> Role</a>
+        </li>
+        @endif
         <li class="nav-item">
             <form action="/" method="get">
                 @if (request('tahun_awal'))
@@ -28,20 +33,11 @@
                 <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"><i class="icon-grid menu-icon"></i> Kompetensi</button>
             </form>
         </li>
+        @if ( Auth::user()->hasRole('super_admin') )   
         <li class="nav-item">
-            <form action="/tahun-ajaran" method="get">
-                @if (request('tahun_awal'))
-                <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
-                @endif
-                @if (request('tahun_akhir'))
-                <input type="hidden" name="tahun_akhir" value="{{ request('tahun_akhir') }}">
-                @endif
-                @if (request('semester'))
-                <input type="hidden" name="semester" value="{{ request('semester') }}">
-                @endif
-                <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"><i class="icon-grid menu-icon"></i> Tahun Ajaran</button>
-            </form>
+            <a href="/tahun-ajaran" class="nav-link"><i class="icon-grid menu-icon"></i> Tahun Ajaran</a>
         </li>
+        @endif
         <li class="nav-item">
             <form action="/kelas" method="get">
                 @if (request('tahun_awal'))
@@ -66,24 +62,23 @@
             <div class="collapse" id="data-user">
                 <ul class="nav flex-column sub-menu">
                     @foreach ($roles as $role)
-                    @if ($role->name != 'yayasan' && $role->name != 'admin_smp' && $role->name != 'admin_smk' &&
-                    $role->name != 'guru_piket')
-                    <li class="nav-item">
-                        <form action="/users/{{ $role->name }}" method="get">
-                            @if (request('tahun_awal'))
-                            <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
-                            @endif
-                            @if (request('tahun_akhir'))
-                            <input type="hidden" name="tahun_akhir" value="{{ request('tahun_akhir') }}">
-                            @endif
-                            @if (request('semester'))
-                            <input type="hidden" name="semester" value="{{ request('semester') }}">
-                            @endif
-                            <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"><i class="icon-grid menu-icon"></i> Data {{ $role->name }}
-                            </button>
-                        </form>
-                    </li>
-                    @endif
+                        @if ($role->name != 'yayasan' && $role->name != 'admin' && $role->name != 'super_admin')
+                        <li class="nav-item">
+                            <form action="/users/{{ $role->name }}" method="get">
+                                @if (request('tahun_awal'))
+                                <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
+                                @endif
+                                @if (request('tahun_akhir'))
+                                <input type="hidden" name="tahun_akhir" value="{{ request('tahun_akhir') }}">
+                                @endif
+                                @if (request('semester'))
+                                <input type="hidden" name="semester" value="{{ request('semester') }}">
+                                @endif
+                                <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"><i class="icon-grid menu-icon"></i> Data {{ $role->name }}
+                                </button>
+                            </form>
+                        </li>
+                        @endif
                     @endforeach
                     <li class="nav-item">
                         <form action="/siswa" method="get">

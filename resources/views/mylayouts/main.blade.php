@@ -29,6 +29,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
     <link rel="shortcut icon" href="/template/images/favicon.png" />
+
+    @yield('tambahcss')
 </head>
 
 <body>
@@ -79,6 +81,12 @@
     <script src="/template/js/Chart.roundedBarCharts.js"></script>
     <script src="/template/js/chart.js"></script>
     <!-- End custom js for this page-->
+    @yield('tambahjs')
+
+    <script>
+        const li_tahun_ajaran = document.querySelectorAll('.li_tahun_ajaran');
+        
+    </script>
 </body>
 
 </html>
