@@ -28,13 +28,13 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a href="" class="btn btn-sm text-white font-weight-bold" style="background-color: #3bae9c">Export</a>
+                <a href="" class="btn btn-sm text-white font-weight-bold px-3" style="background-color: #3bae9c">Export</a>
             </li>
             <li class="nav-item">
-                <a href="" class="btn btn-sm text-white font-weight-bold" style="background-color: #3bae9c">Import</a>
+                <a href="" class="btn btn-sm text-white font-weight-bold px-3" style="background-color: #3bae9c">Import</a>
             </li>
             <li class="nav-item">
-                <a href="" class="btn btn-sm text-white font-weight-bold" style="background-color: #3bae9c">Tambah Data</a>
+                <a href="" class="btn btn-sm text-white font-weight-bold px-3" style="background-color: #3bae9c">Tambah Data</a>
             </li>
         </ul>
         <div class="table-responsive">

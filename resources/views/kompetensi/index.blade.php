@@ -4,7 +4,7 @@
 <div class="card">
     <div class="card-body">
         <h4 class="card-title">Kompetensi</h4>
-        <a href="/kompetensi/create" class="btn btn-sm text-white font-weight-bold position-absolute" style="top: .7rem; right: 1rem; background-color: #3bae9c">Tambah
+        <a href="/kompetensi/create" class="btn btn-sm text-white font-weight-bold position-absolute px-3" style="top: .7rem; right: 1rem; background-color: #3bae9c">Tambah
             Kompetensi</a>
         <table class="table">
             <thead>

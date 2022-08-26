@@ -3,7 +3,7 @@
 @section('container')
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title float-left">Absensi Guru</h4>
+        <h4 class="card-title float-left">Absensi Siswa</h4>
         <ul class="nav float-right mb-4" style="gap: 1rem;">
             <li class="nav-item">
                 <div class="input-group">
@@ -74,9 +74,9 @@
                 <tbody>
                     <tr>
                         <th scope="row" rowspan="2" style="vertical-align: middle;">1</th>
-                        <td rowspan="2" style="vertical-align: middle;">Rudi Sugianto</td>
+                        <td rowspan="2" style="vertical-align: middle;">Rafi Prasetya</td>
                         <td class="bg-success">
-                            <form action="detail-absensi-guru" method="get">
+                            <form action="detail-absensi-siswa" method="get">
                                 @if (request('tahun_awal'))
                                 <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
                                 @endif
@@ -90,7 +90,7 @@
                             </form>
                         </td>
                         <td class="bg-danger">
-                            <form action="detail-absensi-guru" method="get">
+                            <form action="detail-absensi-siswa" method="get">
                                 @if (request('tahun_awal'))
                                 <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
                                 @endif
@@ -104,7 +104,7 @@
                             </form>
                         </td>
                         <td class="bg-danger">
-                            <form action="detail-absensi-guru" method="get">
+                            <form action="detail-absensi-siswa" method="get">
                                 @if (request('tahun_awal'))
                                 <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
                                 @endif
@@ -118,7 +118,7 @@
                             </form>
                         </td>
                         <td class="bg-danger">
-                            <form action="detail-absensi-guru" method="get">
+                            <form action="detail-absensi-siswa" method="get">
                                 @if (request('tahun_awal'))
                                 <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
                                 @endif
@@ -132,7 +132,7 @@
                             </form>
                         </td>
                         <td class="bg-danger">
-                            <form action="detail-absensi-guru" method="get">
+                            <form action="detail-absensi-siswa" method="get">
                                 @if (request('tahun_awal'))
                                 <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
                                 @endif
@@ -146,7 +146,7 @@
                             </form>
                         </td>
                         <td class="bg-danger">
-                            <form action="detail-absensi-guru" method="get">
+                            <form action="detail-absensi-siswa" method="get">
                                 @if (request('tahun_awal'))
                                 <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
                                 @endif
@@ -160,7 +160,7 @@
                             </form>
                         </td>
                         <td class="bg-danger">
-                            <form action="detail-absensi-guru" method="get">
+                            <form action="detail-absensi-siswa" method="get">
                                 @if (request('tahun_awal'))
                                 <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
                                 @endif
@@ -174,7 +174,7 @@
                             </form>
                         </td>
                         <td class="bg-danger">
-                            <form action="detail-absensi-guru" method="get">
+                            <form action="detail-absensi-siswa" method="get">
                                 @if (request('tahun_awal'))
                                 <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
                                 @endif
@@ -188,7 +188,7 @@
                             </form>
                         </td>
                         <td class="bg-danger">
-                            <form action="detail-absensi-guru" method="get">
+                            <form action="detail-absensi-siswa" method="get">
                                 @if (request('tahun_awal'))
                                 <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
                                 @endif
@@ -202,7 +202,7 @@
                             </form>
                         </td>
                         <td class="bg-danger">
-                            <form action="detail-absensi-guru" method="get">
+                            <form action="detail-absensi-siswa" method="get">
                                 @if (request('tahun_awal'))
                                 <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
                                 @endif
@@ -218,7 +218,7 @@
                     </tr>
                     <tr>
                         <td class="bg-success">
-                            <form action="detail-absensi-guru" method="get">
+                            <form action="detail-absensi-siswa" method="get">
                                 @if (request('tahun_awal'))
                                 <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
                                 @endif
@@ -232,7 +232,7 @@
                             </form>
                         </td>
                         <td class="bg-danger">
-                            <form action="detail-absensi-guru" method="get">
+                            <form action="detail-absensi-siswa" method="get">
                                 @if (request('tahun_awal'))
                                 <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
                                 @endif
@@ -246,7 +246,7 @@
                             </form>
                         </td>
                         <td class="bg-danger">
-                            <form action="detail-absensi-guru" method="get">
+                            <form action="detail-absensi-siswa" method="get">
                                 @if (request('tahun_awal'))
                                 <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
                                 @endif
@@ -260,7 +260,7 @@
                             </form>
                         </td>
                         <td class="bg-danger">
-                            <form action="detail-absensi-guru" method="get">
+                            <form action="detail-absensi-siswa" method="get">
                                 @if (request('tahun_awal'))
                                 <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
                                 @endif
@@ -274,7 +274,7 @@
                             </form>
                         </td>
                         <td class="bg-danger">
-                            <form action="detail-absensi-guru" method="get">
+                            <form action="detail-absensi-siswa" method="get">
                                 @if (request('tahun_awal'))
                                 <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
                                 @endif
@@ -288,7 +288,7 @@
                             </form>
                         </td>
                         <td class="bg-danger">
-                            <form action="detail-absensi-guru" method="get">
+                            <form action="detail-absensi-siswa" method="get">
                                 @if (request('tahun_awal'))
                                 <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
                                 @endif
@@ -302,7 +302,7 @@
                             </form>
                         </td>
                         <td class="bg-danger">
-                            <form action="detail-absensi-guru" method="get">
+                            <form action="detail-absensi-siswa" method="get">
                                 @if (request('tahun_awal'))
                                 <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
                                 @endif
@@ -316,7 +316,7 @@
                             </form>
                         </td>
                         <td class="bg-danger">
-                            <form action="detail-absensi-guru" method="get">
+                            <form action="detail-absensi-siswa" method="get">
                                 @if (request('tahun_awal'))
                                 <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
                                 @endif
@@ -330,7 +330,7 @@
                             </form>
                         </td>
                         <td class="bg-danger">
-                            <form action="detail-absensi-guru" method="get">
+                            <form action="detail-absensi-siswa" method="get">
                                 @if (request('tahun_awal'))
                                 <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
                                 @endif
@@ -344,7 +344,7 @@
                             </form>
                         </td>
                         <td class="bg-danger">
-                            <form action="detail-absensi-guru" method="get">
+                            <form action="detail-absensi-siswa" method="get">
                                 @if (request('tahun_awal'))
                                 <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
                                 @endif
