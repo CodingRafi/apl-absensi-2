@@ -22,4 +22,9 @@ class Sekolah extends Model
     public function kelas(){
         return $this->hasMany(Kelas::class);
     }
+
+    public function siswa(){
+        return $this->hasMany(Siswa::class);
+    }
 }
+

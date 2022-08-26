@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('nisn');
             $table->string('nipd');
+            $table->enum('jk', ['L', 'P'])->nullable();
             $table->string('tempat_lahir');
             $table->string('tanggal_lahir');
             $table->foreignId('kelas_id')->constrained();
@@ -27,7 +28,7 @@ return new class extends Migration
             $table->string('jalan');
             $table->string('kelurahan');
             $table->string('kecamatan');
-            $table->enum('sekolah', ['smp', 'smk']);
+            $table->foreignId('sekolah_id')->constrained();
             $table->timestamps();
         });
     }

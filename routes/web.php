@@ -31,6 +31,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('users/{role}', [UserController::class, 'index']);
     Route::resource('siswa', SiswaController::class);
     Route::resource('tahun-ajaran', TahunAjaranController::class);
+    Route::get('/import', [SiswaController::class, 'import']);
+    Route::post('/import', [SiswaController::class, 'saveimport']);
 });
 
 require __DIR__.'/auth.php';
@@ -61,8 +63,4 @@ Route::get('/absensi-guru', function() {
 
 Route::get('/detail-absensi-guru', function() {
     return view('users.detailabsensiguru');
-});
-
-Route::get('/import', function() {
-    return view('import');
 });

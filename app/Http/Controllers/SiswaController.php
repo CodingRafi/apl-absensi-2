@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Siswa;
+use App\Models\Kelas;
+use App\Models\TahunAjaran;
+use App\Models\Kompetensi;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreSiswaRequest;
 use App\Http\Requests\UpdateSiswaRequest;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 class SiswaController extends Controller
 {
@@ -13,9 +18,18 @@ class SiswaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('siswa.index');
+        $siswas = [];
+        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+        $classes = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)->where('tahun_ajaran_id', $tahun_ajaran->id)->get();
+        foreach ($classes as $key => $kelas) {
+            $siswas[] = $kelas->siswa;
+        }
+
+        return view('siswa.index',[
+            'siswas' => $siswas
+        ]);
     }
 
     /**
@@ -82,5 +96,43 @@ class SiswaController extends Controller
     public function destroy(Siswa $siswa)
     {
         //
+    }
+
+    public function import(Request $request){
+        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+        $classes = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)->where('tahun_ajaran_id', $tahun_ajaran->id)->get();
+        $kompetensis = Kompetensi::where('sekolah_id', \Auth::user()->sekolah_id)->get();
+
+        return view('import', [
+            'classes' => $classes,
+            'kompetensis' => $kompetensis
+        ]);
+    }
+
+    public function saveimport(Request $request){
+        $siswas = (new FastExcel)->import($request->file);
+
+        foreach ($siswas as $key => $siswa) {
+            if ($key > 0) {
+                Siswa::create([
+                    'name' => $siswa['name'],
+                    'nisn' => $siswa['nisn'],
+                    'nipd' => $siswa['nipd'],
+                    'jk' => ($siswa['jk'] == 'L' || $siswa['jk'] == 'P') ? $siswa['jk'] : null,
+                    'tempat_lahir' => $siswa['tempat_lahir'],
+                    'tanggal_lahir' => $siswa['tanggal_lahir'],
+                    'nik' => $siswa['nik'],
+                    'agama' => $siswa['agama'],
+                    'jalan' => $siswa['jalan'],
+                    'kelurahan' => $siswa['kelurahan'],
+                    'kecamatan' => $siswa['kecamatan'],
+                    'sekolah_id' => \Auth::user()->sekolah_id,
+                    'kompetensi_id' => $request->kompetensi_id,
+                    'kelas_id' => $request->kelas_id,
+                ]);
+            }
+        }
+
+        return redirect('/siswa');
     }
 }

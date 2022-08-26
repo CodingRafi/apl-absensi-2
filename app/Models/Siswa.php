@@ -18,4 +18,14 @@ class Siswa extends Model
     public function kompetensi(){
         return $this->belongsTo(Kompetensi::class);
     }
+
+    public function sekolah(){
+        return $this->belongsTo(Sekolah::class);
+    }
+
+    public function scopeFilter($query, array $search){
+        // $query->when($search['tahun_awal'] ?? false, function($query, $search){
+        //     return $query->where('profils.npsn', 'like', '%' . $search . '%');
+        // });
+    }
 }
