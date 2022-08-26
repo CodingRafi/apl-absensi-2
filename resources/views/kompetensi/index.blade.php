@@ -14,7 +14,7 @@
             @if (request('semester'))
             <input type="hidden" name="semester" value="{{ request('semester') }}">
             @endif
-            <button class="btn btn-sm text-white font-weight-bold position-absolute" style="top: .7rem; right: 1rem; background-color: #3bae9c">Tambah Kompetensi</button>
+            <button class="btn btn-sm text-white font-weight-bold position-absolute px-3" style="top: .7rem; right: 1rem; background-color: #3bae9c">Tambah Kompetensi</button>
         </form>
         <table class="table">
             <thead>

@@ -16,7 +16,7 @@
                 @if (request('semester'))
                 <input type="hidden" name="semester" value="{{ request('semester') }}">
                 @endif
-                <button class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}"><i class="icon-grid menu-icon"></i> Dasboard</button>
+                <button class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}" style="background-color: #ffffff; border: none; min-width: 200px"><i class="icon-grid menu-icon"></i> Dasboard</button>
             </form>
         </li>
         <li class="nav-item">
@@ -30,7 +30,7 @@
                 @if (request('semester'))
                 <input type="hidden" name="semester" value="{{ request('semester') }}">
                 @endif
-                <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"><i class="icon-grid menu-icon"></i> Kompetensi</button>
+                <button class="nav-link {{ Request::is('/') ? 'active' : '' }}" style="background-color: #ffffff; border: none; min-width: 200px"><i class="icon-grid menu-icon"></i> Kompetensi</button>
             </form>
         </li>
         @if ( Auth::user()->hasRole('super_admin') )   
@@ -49,7 +49,7 @@
                 @if (request('semester'))
                 <input type="hidden" name="semester" value="{{ request('semester') }}">
                 @endif
-                <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"><i class="icon-grid menu-icon"></i> Kelas</button>
+                <button class="nav-link {{ Request::is('/') ? 'active' : '' }}" style="background-color: #ffffff; border: none; min-width: 200px"><i class="icon-grid menu-icon"></i> Kelas</button>
             </form>
         </li>
         <li class="nav-item">
@@ -91,7 +91,7 @@
                             @if (request('semester'))
                             <input type="hidden" name="semester" value="{{ request('semester') }}">
                             @endif
-                            <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"><i class="icon-grid menu-icon"></i> Data Siswa</button>
+                            <button class="nav-link {{ Request::is('/') ? 'active' : '' }}" style="background-color: #3bae9c; border: none; min-width: 150px">Data Siswa</button>
                         </form>
                     </li>
                 </ul>
@@ -116,7 +116,7 @@
                             @if (request('semester'))
                             <input type="hidden" name="semester" value="{{ request('semester') }}">
                             @endif
-                            <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"><i class="icon-grid menu-icon"></i> Absensi Guru</button>
+                            <button class="nav-link {{ Request::is('/') ? 'active' : '' }}" style="background-color: #3bae9c; border: none; min-width: 150px">Absensi Guru</button>
                         </form>
                     </li>
                     <li class="nav-item">
@@ -130,7 +130,7 @@
                             @if (request('semester'))
                             <input type="hidden" name="semester" value="{{ request('semester') }}">
                             @endif
-                            <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"><i class="icon-grid menu-icon"></i> Absensi Siswa</button>
+                            <button class="nav-link {{ Request::is('/') ? 'active' : '' }}" style="background-color: #3bae9c; border: none; min-width: 150px">Absensi Siswa</button>
                         </form>
                     </li>
                 </ul>
@@ -156,7 +156,7 @@
                             @if (request('semester'))
                             <input type="hidden" name="semester" value="{{ request('semester') }}">
                             @endif
-                            <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"><i class="icon-grid menu-icon"></i> Agenda Guru</button>
+                            <button class="nav-link {{ Request::is('/') ? 'active' : '' }}" style="background-color: #3bae9c; border: none; min-width: 150px">Agenda Guru</button>
                         </form>
                     </li>
                     <li class="nav-item">
@@ -170,7 +170,7 @@
                             @if (request('semester'))
                             <input type="hidden" name="semester" value="{{ request('semester') }}">
                             @endif
-                            <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"><i class="icon-grid menu-icon"></i> Agenda Siswa</button>
+                            <button class="nav-link {{ Request::is('/') ? 'active' : '' }}" style="background-color: #3bae9c; border: none; min-width: 150px">Agenda Siswa</button>
                         </form>
                     </li>
                 </ul>

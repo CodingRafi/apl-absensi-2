@@ -4,12 +4,12 @@
 <div class="card">
     <div class="card-body">
         <h4 class="card-title">Kelas</h4>
-        <a href="/kelas/create" class="btn btn-success position-absolute" style="top: .7rem; right: 1rem;">Tambah
+        <a href="/Kelas/create" class="btn btn-sm text-white font-weight-bold position-absolute px-3" style="top: .7rem; right: 1rem; background-color: #3bae9c;">Tambah
             Kelas</a>
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">No</th>
                     <th scope="col">Nama Kelas</th>
                     <th scope="col">Action</th>
                 </tr>

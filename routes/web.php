@@ -64,3 +64,12 @@ Route::get('/absensi-guru', function() {
 Route::get('/detail-absensi-guru', function() {
     return view('users.detailabsensiguru');
 });
+
+Route::get('/absensi-siswa', function() {
+    return view('users.absensisiswa');
+});
+
+Route::get('/detail-absensi-siswa', function() {
+    return view('users.detailabsensisiswa');
+});
+

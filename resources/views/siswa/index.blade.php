@@ -30,7 +30,7 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a href="" class="btn btn-sm text-white font-weight-bold" style="background-color: #3bae9c">Export</a>
+                <a href="" class="btn btn-sm text-white font-weight-bold px-3" style="background-color: #3bae9c">Export</a>
             </li>
             <li class="nav-item">
                 <form action="/import" method="get">
@@ -88,7 +88,7 @@
                         <td>{{ $student->kelurahan }}</td>
                         <td>{{ $student->kecamatan }}</td>
                         <td>
-                            
+
                         </td>
                     </tr>
                     @endforeach
