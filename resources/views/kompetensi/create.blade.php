@@ -6,6 +6,7 @@
         <h4 class="card-title">Create Kompetensi</h4>
         <form action="/kompetensi" method="POST">
             @csrf
+            @include('mypartials.tahunajaran')
             <div class="mb-3">
                 <label for="kompetensi" class="form-label">Kompetensi Keahlian</label>
                 <input type="text" class="form-control" id="kompetensi" name="kompetensi">

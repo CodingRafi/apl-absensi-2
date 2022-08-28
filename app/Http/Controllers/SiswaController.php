@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreSiswaRequest;
 use App\Http\Requests\UpdateSiswaRequest;
 use Rap2hpoutre\FastExcel\FastExcel;
+use Carbon\Carbon;
 
 class SiswaController extends Controller
 {
@@ -20,15 +21,16 @@ class SiswaController extends Controller
      */
     public function index(Request $request)
     {
-        $siswas = [];
         $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
-        $classes = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)->where('tahun_ajaran_id', $tahun_ajaran->id)->get();
-        foreach ($classes as $key => $kelas) {
-            $siswas[] = $kelas->siswa;
-        }
+        $kelas_filter = Kelas::where('tahun_ajaran_id', $tahun_ajaran->id)->get();
+        $kompetensis = Kompetensi::where('sekolah_id', \Auth::user()->sekolah_id)->get();
+
+        $siswas = Siswa::filter(request(['idk', 'idj', 'search']))->select('siswas.*', 'kelas.nama as kelas', 'kompetensis.kompetensi as jurusan')->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->get();
 
         return view('siswa.index',[
-            'siswas' => $siswas
+            'siswas' => $siswas,
+            'kompetensis' => $kompetensis,
+            'kelas_filter' => $kelas_filter
         ]);
     }
 
@@ -37,9 +39,15 @@ class SiswaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('siswa.create');
+        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+        $classes = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)->where('tahun_ajaran_id', $tahun_ajaran->id)->get();
+        $kompetensis = Kompetensi::where('sekolah_id', \Auth::user()->sekolah_id)->get();
+        return view('siswa.create',[
+            'classes' => $classes,
+            'kompetensis' => $kompetensis
+        ]);
     }
 
     /**
@@ -50,7 +58,26 @@ class SiswaController extends Controller
      */
     public function store(StoreSiswaRequest $request)
     {
-        //
+        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+
+        Siswa::create([
+            'name' => $request->name,
+            'nisn' => $request->nisn,
+            'nipd' => $request->nipd,
+            'nik' => $request->nik,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'agama' => $request->agama,
+            'jk' => $request->jk,
+            'kelas_id' => $request->kelas_id,
+            'kompetensi_id' => $request->kompetensi_id,
+            'jalan' => $request->jalan,
+            'kelurahan' => $request->kelurahan,
+            'kecamatan' => $request->kecamatan,
+            'sekolah_id' => \Auth::user()->sekolah_id
+        ]);
+
+        return TahunAjaran::redirectTahunAjaran('/siswa', $request, 'Berhasil menambahkan siswa');
     }
 
     /**
@@ -70,9 +97,18 @@ class SiswaController extends Controller
      * @param  \App\Models\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
-    public function edit(Siswa $siswa)
+    public function edit(Request $request, $id)
     {
-        //
+        $siswa = Siswa::findOrFail($id);
+        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+        $classes = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)->where('tahun_ajaran_id', $tahun_ajaran->id)->get();
+        $kompetensis = Kompetensi::where('sekolah_id', \Auth::user()->sekolah_id)->get();
+
+        return view('siswa.update', [
+            'classes' => $classes,
+            'kompetensis' => $kompetensis,
+            'siswa' => $siswa
+        ]);
     }
 
     /**
@@ -84,7 +120,23 @@ class SiswaController extends Controller
      */
     public function update(UpdateSiswaRequest $request, Siswa $siswa)
     {
-        //
+        $siswa->update([
+            'name' => $request->name,
+            'nisn' => $request->nisn,
+            'nipd' => $request->nipd,
+            'nik' => $request->nik,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'agama' => $request->agama,
+            'jk' => $request->jk,
+            'kelas_id' => $request->kelas_id,
+            'kompetensi_id' => $request->kompetensi_id,
+            'jalan' => $request->jalan,
+            'kelurahan' => $request->kelurahan,
+            'kecamatan' => $request->kecamatan,
+        ]);
+
+        return TahunAjaran::redirectTahunAjaran('/siswa', $request, 'Berhasil Mengupdate Siswa');
     }
 
     /**
@@ -113,26 +165,37 @@ class SiswaController extends Controller
         $siswas = (new FastExcel)->import($request->file);
 
         foreach ($siswas as $key => $siswa) {
-            if ($key > 0) {
-                Siswa::create([
-                    'name' => $siswa['name'],
-                    'nisn' => $siswa['nisn'],
-                    'nipd' => $siswa['nipd'],
-                    'jk' => ($siswa['jk'] == 'L' || $siswa['jk'] == 'P') ? $siswa['jk'] : null,
-                    'tempat_lahir' => $siswa['tempat_lahir'],
-                    'tanggal_lahir' => $siswa['tanggal_lahir'],
-                    'nik' => $siswa['nik'],
-                    'agama' => $siswa['agama'],
-                    'jalan' => $siswa['jalan'],
-                    'kelurahan' => $siswa['kelurahan'],
-                    'kecamatan' => $siswa['kecamatan'],
-                    'sekolah_id' => \Auth::user()->sekolah_id,
-                    'kompetensi_id' => $request->kompetensi_id,
-                    'kelas_id' => $request->kelas_id,
-                ]);
+            if (array_key_exists("nisn",$siswa) && array_key_exists("nipd",$siswa) && array_key_exists("nik",$siswa)) {
+                if ($siswa['name'] != null && $siswa['nisn'] != null && $siswa['nipd'] != null) {
+                    Siswa::create([
+                        'name' => $siswa['name'],
+                        'nisn' => $siswa['nisn'],
+                        'nipd' => $siswa['nipd'],
+                        'jk' => ($siswa['jk'] == 'L' || $siswa['jk'] == 'P') ? strtoupper($siswa['jk']) : null,
+                        'tempat_lahir' => $siswa['tempat_lahir'],
+                        'tanggal_lahir' => Siswa::filterDate($siswa['tanggal_lahir']),
+                        'nik' => $siswa['nik'],
+                        'agama' => $siswa['agama'],
+                        'jalan' => $siswa['jalan'],
+                        'kelurahan' => $siswa['kelurahan'],
+                        'kecamatan' => $siswa['kecamatan'],
+                        'sekolah_id' => \Auth::user()->sekolah_id,
+                        'kompetensi_id' => $request->kompetensi_id,
+                        'kelas_id' => $request->kelas_id,
+                    ]);
+                }
+            }else{
+                return TahunAjaran::redirectTahunAjaran('/import', $request, 'kolom tidak valid');
             }
         }
 
-        return redirect('/siswa');
+        return TahunAjaran::redirectTahunAjaran('/siswa', $request, 'Berhasil menginport siswa');
+    }
+
+    public function export(Request $request){
+        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+        $siswas = Siswa::filter(request(['idk', 'idj', 'search']))->select('siswas.name', 'siswas.nisn', 'siswas.nipd', 'kelas.nama as Kelas', 'kompetensis.kompetensi as Jurusan', 'siswas.jk', 'siswas.tempat_lahir', 'siswas.tanggal_lahir', 'siswas.nik', 'siswas.agama', 'siswas.jalan', 'siswas.kelurahan', 'siswas.kecamatan')->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->get();
+
+        return (new FastExcel($siswas))->download('file.xlsx');
     }
 }

@@ -5,8 +5,11 @@
         <a class="navbar-brand brand-logo-mini" href="index.html"><img src="/template/images/smkTarunaBhakti.png"
                 alt="logo" /></a>
         <div class="brand-logo text-left">
-            <p class="m-0 muted">SMK</p>
-            TARUNA BHAKTI
+            @if (Auth::user()->sekolah)
+            <p class="m-0 muted">{{ Auth::user()->sekolah->nama }}</p>
+            @else
+            <p class="m-0 muted">Super Admin</p>
+            @endif
         </div>
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">

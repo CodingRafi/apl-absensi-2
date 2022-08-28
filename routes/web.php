@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\KelasController;
+use App\Http\Controllers\MapelController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\KompetensiController;
 use App\Http\Controllers\TahunAjaranController;
@@ -28,18 +29,21 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('kompetensi', KompetensiController::class);
     Route::resource('kelas', KelasController::class);
+    Route::resource('mapel', MapelController::class);
     Route::get('users/{role}', [UserController::class, 'index']);
+    Route::get('users/create/{role}', [UserController::class, 'create']);
+    Route::resource('users', UserController::class);
     Route::resource('siswa', SiswaController::class);
     Route::resource('tahun-ajaran', TahunAjaranController::class);
     Route::get('/import', [SiswaController::class, 'import']);
     Route::post('/import', [SiswaController::class, 'saveimport']);
+    Route::get('/export', [SiswaController::class, 'export']);
+    Route::get('/import/users/{role}', [UserController::class, 'import']);
+    Route::post('/import/users/{role}', [UserController::class, 'saveimport']);
+    Route::get('/export/users/{role}', [UserController::class, 'export']);
 });
 
 require __DIR__.'/auth.php';
-
-Route::get('/create-siswa', function() {
-    return view('create.siswa');
-});
 
 Route::get('/create-guru', function() {
     return view('create.guru');
@@ -55,7 +59,7 @@ Route::get('/agenda-siswa', function() {
 
 Route::get('/agenda-siswa', function() {
     return view('agenda.siswa');
-});
+}); 
 
 Route::get('/absensi-guru', function() {
     return view('users.absensiguru');

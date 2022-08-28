@@ -3,14 +3,13 @@
 @section('container')
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">Update Kelas</h4>
-        <form action="/kelas/{{ $kelas->id }}" method="POST">
+        <h4 class="card-title">Create Mata Pelajaran</h4>
+        <form action="/mapel" method="POST">
             @csrf
-            @method('patch')
             @include('mypartials.tahunajaran')
             <div class="mb-3">
-                <label for="nama" class="form-label">Nama Kelas</label>
-                <input type="text" class="form-control" id="nama" name="nama" value="{{ $kelas->nama }}">
+                <label for="nama" class="form-label">Mata Pelajaran</label>
+                <input type="text" class="form-control" id="nama" name="nama">
             </div>
             <button type="submit" class="btn btn-success">Simpan</button>
         </form>

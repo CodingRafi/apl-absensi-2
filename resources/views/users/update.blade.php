@@ -1,77 +1,90 @@
 @extends('mylayouts.main')
 
 @section('container')
-    <div class="content-wrapper">
-        <!-- Content -->
-
-        <div class="container-xxl flex-grow-1 container-p-y">
-
-            <div class="row">
-                <form action="{{ route('users.update', $user->id) }}" method="POST">
-                    @csrf
-                    @method('patch')
-                    <div class="col-xl-12">
-                        <!-- HTML5 Inputs -->
-                        <div class="card mb-4">
-                            <h5 class="card-header">HTML5 Inputs</h5>
-                            <div class="card-body">
-                                <div class="mb-3 row">
-                                    <label for="html5-text-input" class="col-md-2 col-form-label">Name</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control @error('name') is-invalid @enderror" type="text"
-                                            value="{{ $user->name, old('name') }}" id="html5-text-input"
-                                            placeholder="Name User" name="name"/>
-                                        @error('name')
-                                            <div class="invalid-feedback d-block">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="html5-email-input" class="col-md-2 col-form-label">Email User</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control @error('name') is-invalid @enderror" type="email"
-                                            placeholder="john@example.com" id="html5-email-input"
-                                            value="{{ $user->email, old('email') }}" name="email"/>
-                                        @error('email')
-                                            <div class="invalid-feedback d-block">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="exampleDataList" class="col-form-label col-md-2">Role</label>
-                                    <div class="col-md-10">
-                                        
-                                        <select name="roles" id="datalistOptions" class="form-select">
-                                            @foreach ($roles as $role)
-                                                @if ($role !== 'admin')
-                                                    @if ($role == $userRole[0]['name'])
-                                                        <option value="{{ $role }}" selected>{{ $role }}
-                                                        </option>
-                                                    @else
-                                                        <option value="{{ $role }}">{{ $role }}</option>
-                                                    @endif
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <button class="btn btn-primary" type="submit">Simpan Perubahan</button>
-                                  </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </form>
-            </div>
-        </div>
-        <!-- / Content -->
-
-        <div class="content-backdrop fade"></div>
-    </div>
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title float-left">Update {{ $role }}</h4>
+    <form action="/users/{{ $role }}" method="get">
+      @if (request('tahun_awal'))
+      <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
+      @endif
+      @if (request('tahun_akhir'))
+      <input type="hidden" name="tahun_akhir" value="{{ request('tahun_akhir') }}">
+      @endif
+      @if (request('semester'))
+      <input type="hidden" name="semester" value="{{ request('semester') }}">
+      @endif
+      <button class="btn btn-sm btn-danger font-weight-bold float-right text-white" type="submit">Kembali</button>
+    </form>
+    <form class="mt-5" action="/users/{{ $user->id }}" method="POST" enctype="multipart/form-data">
+      @csrf
+      @method('patch')
+      <input type="hidden" name="role" value="{{ $role }}">
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Nama Lengkap</label>
+        <input type="text" class="form-control" placeholder="Masukan Nama" name="name" value="{{ $user->name }}">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">NIP</label>
+        <input type="number" class="form-control" placeholder="Masukan NIP" name="nip" value="{{ $user->nip }}">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Tempat Lahir</label>
+        <input type="text" class="form-control" placeholder="Masukan Tempat Lahir" name="tempat_lahir"
+          value="{{ $user->tempat_lahir }}">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Tanggal Lahir</label>
+        <input type="date" class="form-control" placeholder="Masukan Tanggal Lahir" name="tanggal_lahir"
+          value="{{ $user->tanggal_lahir }}">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Agama</label>
+        <input type="text" class="form-control" placeholder="Masukan Agama" name="agama" value="{{ $user->agama }}">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Jenis Kelamin</label>
+        <select class="form-control" aria-label="Default select example" name="jk">
+          <option value="L" {{ ($user->jk == 'L') ? 'selected' : '' }}>Laki-laki</option>
+          <option value="P" {{ ($user->jk == 'P') ? 'selected' : '' }}>Perempuan</option>
+        </select>
+      </div>
+      @if ($role == 'guru')
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Mapel</label>
+        <select class="form-control" aria-label="Default select example" name="mapel[]" multiple required>
+          @foreach ($mapels as $mapel)
+          @foreach ($user->mapel as $mapel_pilih)
+          @if ($mapel->id == $mapel_pilih->id)
+          <option value="{{ $mapel->id }}" selected>{{ $mapel->nama }}</option>
+          @else
+          <option value="{{ $mapel->id }}">{{ $mapel->nama }}</option>
+          @endif
+          @endforeach
+          @endforeach
+        </select>
+      </div>
+      @endif
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Jalan</label>
+        <input type="text" class="form-control" placeholder="Masukan Jalan" name="jalan" value="{{ $user->jalan }}">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Kelurahan</label>
+        <input type="text" class="form-control" placeholder="Masukan Kelurahan" name="kelurahan"
+          value="{{ $user->kelurahan }}">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Kecamatan</label>
+        <input type="text" class="form-control" placeholder="Masukan Kecamatan" name="kecamatan"
+          value="{{ $user->kecamatan }}">
+      </div>
+      {{-- <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Profil</label>
+        <input type="file" class="form-control" name="profil">
+      </div> --}}
+      <button type="submit" class="btn text-white font-weight-bold" style="background-color: #3bae9c">Simpan</button>
+    </form>
+  </div>
+</div>
 @endsection
-

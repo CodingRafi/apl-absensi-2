@@ -7,49 +7,84 @@
         <ul class="nav float-right mb-4" style="gap: 1rem;">
             <li class="nav-item">
                 <div class="input-group">
-                    <select class="custom-select" id="inputGroupSelect01"
-                        style="height: 30px; padding: 0; padding-left: 10px;">
-                        <option selected>Jurusan</option>
-                        <option value="1">Rekayasa Perangkat Lunak</option>
-                    </select>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Jurusan
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            @foreach ($kompetensis as $kompetensi)
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    <input type="hidden" name="idj" value="{{ $kompetensi->id }}">
+                                    <button type="submit" class="dropdown-item">{{ $kompetensi->kompetensi }}</button>
+                                </form>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
             </li>
             <li class="nav-item">
                 <div class="input-group">
-                    <select class="custom-select" id="inputGroupSelect02"
-                        style="height: 30px; padding: 0; padding-left: 10px;">
-                        <option selected>Kelas</option>
-                        <option value="1">XII RPL 2</option>
-                    </select>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Kelas
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            @foreach ($kelas_filter as $kelas)
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    <input type="hidden" name="idk" value="{{ $kelas->id }}">
+                                    <button type="submit" class="dropdown-item">{{ $kelas->nama }}</button>
+                                </form>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
             </li>
             <li class="nav-item">
                 <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                        placeholder="Search" style="height: 29px;">
+                    <form action="" method="get">
+                        @include('mypartials.tahunajaran')
+                        <input type="text" class="form-control" placeholder="Search" style="height: 29px;" name="search" value="{{ request('search') }}">
+                        <button type="submit">Search</button>
+                    </form>
                 </div>
             </li>
             <li class="nav-item">
-                <a href="" class="btn btn-sm text-white font-weight-bold px-3" style="background-color: #3bae9c">Export</a>
+                <form action="/export" method="get">
+                    @include('mypartials.tahunajaran')
+                    @if (request('idk'))
+                        <input type="hidden" name="idk" value="{{ request('idk') }}">
+                    @endif
+                    @if (request('idj'))
+                        <input type="hidden" name="idj" value="{{ request('idj') }}">
+                    @endif
+                    @if (request('search'))
+                        <input type="hidden" name="search" value="{{ request('search') }}">
+                    @endif
+                    <button type="submit" class="btn btn-sm text-white font-weight-bold px-3"
+                    style="background-color: #3bae9c">Export</button>
+                </form>
             </li>
             <li class="nav-item">
                 <form action="/import" method="get">
-                    @if (request('tahun_awal'))
-                    <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
-                    @endif
-                    @if (request('tahun_akhir'))
-                    <input type="hidden" name="tahun_akhir" value="{{ request('tahun_akhir') }}">
-                    @endif
-                    @if (request('semester'))
-                    <input type="hidden" name="semester" value="{{ request('semester') }}">
-                    @endif
+                    @include('mypartials.tahunajaran')
                     <button class="btn btn-sm text-white font-weight-bold"
                         style="background-color: #3bae9c">Import</button>
                 </form>
             </li>
             <li class="nav-item">
-                <a href="" class="btn btn-sm text-white font-weight-bold" style="background-color: #3bae9c">Tambah
-                    Data</a>
+                <form action="/siswa/create" method="get">
+                    @include('mypartials.tahunajaran')
+                    <button class="btn btn-sm text-white font-weight-bold" style="background-color: #3bae9c">Tambah
+                        Siswa</button>
+                </form>
             </li>
         </ul>
         <div class="table-responsive">
@@ -60,6 +95,8 @@
                         <th scope="col">NISN</th>
                         <th scope="col">NIPD</th>
                         <th scope="col">Name</th>
+                        <th scope="col">Kelas</th>
+                        <th scope="col">Jurusan</th>
                         <th scope="col">JK</th>
                         <th scope="col">Tempat Lahir</th>
                         <th scope="col">Tanggal Lahir</th>
@@ -72,13 +109,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($siswas as $siswa)
-                    @foreach ($siswa as $student)
+                    @foreach ($siswas as $student)
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>{{ $student->nisn }}</td>
                         <td>{{ $student->nipd }}</td>
                         <td>{{ $student->name }}</td>
+                        <td>{{ $student->kelas }}</td>
+                        <td>{{ $student->jurusan }}</td>
                         <td>{{ $student->jk }}</td>
                         <td>{{ $student->tempat_lahir }}</td>
                         <td>{{ $student->tanggal_lahir }}</td>
@@ -88,10 +126,17 @@
                         <td>{{ $student->kelurahan }}</td>
                         <td>{{ $student->kecamatan }}</td>
                         <td>
-
+                            <form action="/siswa/{{ $student->id }}/edit" method="get">
+                                @include('mypartials.tahunajaran')
+                                <button class="btn btn-warning">Edit</button>
+                            </form>
+                            <form action="/siswa/{{ $student->id }}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-danger">Hapus</button>
+                            </form>
                         </td>
                     </tr>
-                    @endforeach
                     @endforeach
                 </tbody>
             </table>

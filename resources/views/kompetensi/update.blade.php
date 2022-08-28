@@ -7,6 +7,7 @@
         <form action="/kompetensi/{{ $kompetensi->id }}" method="POST">
             @csrf
             @method('patch')
+            @include('mypartials.tahunajaran')
             <div class="mb-3">
                 <label for="kompetensi" class="form-label">Kompetensi Keahlian</label>
                 <input type="text" class="form-control" id="kompetensi" name="kompetensi" value="{{ $kompetensi->kompetensi }}">

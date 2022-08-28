@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kompetensi;
+use App\Models\TahunAjaran;
 use App\Http\Requests\StoreKompetensiRequest;
 use App\Http\Requests\UpdateKompetensiRequest;
 
@@ -47,7 +48,7 @@ class KompetensiController extends Controller
             'sekolah_id' => \Auth::user()->sekolah_id
         ]);
 
-        return redirect('/kompetensi')->with('message', 'Jurusan Berhasil Ditambahkan');
+        return TahunAjaran::redirectTahunAjaran('/kompetensi', $request, 'Berhasil Menambahkan Kompetensi');
     }
 
     /**
@@ -89,7 +90,7 @@ class KompetensiController extends Controller
             'program' => $request->program,
         ]);
 
-        return redirect('/kompetensi')->with('message', 'Kompetensi Berhasil Diupdate');
+        return TahunAjaran::redirectTahunAjaran('/kompetensi', $request, 'Berhasil Mengupdate Kompetensi');
     }
 
     /**

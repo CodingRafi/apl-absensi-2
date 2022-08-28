@@ -46,6 +46,10 @@ class User extends Authenticatable
         return $this->belongsTo(Sekolah::class);
     }
 
+    public function mapel(){
+        return $this->belongsToMany(Mapel::class);
+    }
+
     public static function getUserRole($role, $sekolah){
         $roles = Role::all();
         $users = \App\Models\User::with('roles')->get();
@@ -59,4 +63,13 @@ class User extends Authenticatable
 
         return $userRole;
     }
+
+    public function scopeFilter($query, array $filter){
+        $query->when($filter['search'] ?? false, function($query, $filter){
+            return $query->where('users.name', 'like', '%' . $filter . '%')
+                        ->orWhere('users.email', 'like', '%' . $filter . '%')
+                        ->orWhere('users.nip', 'like', '%' . $filter . '%');
+        });
+    }
+
 }

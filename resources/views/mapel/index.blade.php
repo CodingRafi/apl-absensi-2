@@ -3,34 +3,30 @@
 @section('container')
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">Kompetensi</h4>
-        <form action="/kompetensi/create" method="get">
+        <h4 class="card-title">Mata Pelajaran</h4>
+        <form action="/mapel/create" method="get">
             @include('mypartials.tahunajaran')
-            <button class="btn btn-sm text-white font-weight-bold position-absolute px-3" style="top: .7rem; right: 1rem; background-color: #3bae9c">Tambah Kompetensi</button>
+            <button class="btn btn-sm text-white font-weight-bold position-absolute px-3" style="top: .7rem; right: 1rem; background-color: #3bae9c">Tambah Mata Pelajaran</button>
         </form>
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">No</th>
-                    <th scope="col">Kompetensi Keahlian</th>
-                    <th scope="col">Program Keahlian</th>
-                    <th scope="col">Bidang Keahlian</th>
+                    <th scope="col">Nama Mapel</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($kompetensis as $kompetensi)
+                @foreach ($mapels as $mapel)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $kompetensi->kompetensi }}</td>
-                    <td>{{ $kompetensi->program }}</td>
-                    <td>{{ $kompetensi->bidang }}</td>
+                    <td>{{ $mapel->nama }}</td>
                     <td>
-                        <form action="/kompetensi/{{ $kompetensi->id }}/edit" method="get">
+                        <form action="/mapel/{{ $mapel->id }}/edit" method="get">
                             @include('mypartials.tahunajaran')
                             <button type="submit" class="btn btn-warning text-white">Edit</button>
                         </form>
-                        <form action="/kompetensi/{{ $kompetensi->id }}" method="post">
+                        <form action="/mapel/{{ $mapel->id }}" method="post">
                             @csrf
                             @method('delete')
                             <button type="submit" class="btn btn-danger"

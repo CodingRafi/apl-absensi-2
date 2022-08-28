@@ -39,6 +39,14 @@ class TahunAjaranController extends Controller
      */
     public function store(StoreTahunAjaranRequest $request)
     {
+        if($request->status == 'on'){
+            foreach (TahunAjaran::all() as $key => $tahunAjaran) {
+                $tahunAjaran->update([
+                    'status' => 'tidak'
+                ]);
+            }
+        }
+
         TahunAjaran::create([
             'tahun_awal' => $request->tahun_awal,
             'tahun_akhir' => $request->tahun_akhir,
@@ -81,6 +89,14 @@ class TahunAjaranController extends Controller
      */
     public function update(UpdateTahunAjaranRequest $request, TahunAjaran $tahunAjaran)
     {
+        if($request->status == 'on'){
+            foreach (TahunAjaran::all() as $key => $tahunAjaran) {
+                $tahunAjaran->update([
+                    'status' => 'tidak'
+                ]);
+            }
+        }
+        
         $tahunAjaran->update([
             'tahun_awal' => $request->tahun_awal,
             'tahun_akhir' => $request->tahun_akhir,

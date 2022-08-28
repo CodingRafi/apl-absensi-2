@@ -52,7 +52,7 @@ class KelasController extends Controller
             'sekolah_id' => \Auth::user()->sekolah_id
         ]);
 
-        return redirect('/kelas')->with('message', 'Kelas Berhasil Ditambahkan');
+        return TahunAjaran::redirectTahunAjaran('/kelas', $request, 'Kelas Berhasil Ditambahkan');
     }
 
     /**
@@ -94,7 +94,7 @@ class KelasController extends Controller
             'nama' => $request->nama
         ]);
 
-        return redirect('/kelas');
+        return TahunAjaran::redirectTahunAjaran('/kelas', $request, 'Kelas Berhasil Diupdate');
     }
 
     /**

@@ -20,6 +20,15 @@
         </form>
         <form action="/import" method="post" enctype="multipart/form-data">
             @csrf
+            @if (request('tahun_awal'))
+            <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
+            @endif
+            @if (request('tahun_akhir'))
+            <input type="hidden" name="tahun_akhir" value="{{ request('tahun_akhir') }}">
+            @endif
+            @if (request('semester'))
+            <input type="hidden" name="semester" value="{{ request('semester') }}">
+            @endif
             <div class="mb-3 mt-4">
                 <label for="formFile" class="form-label">Pilih File</label>
                 <input class="form-control" type="file" id="formFile" style="height: 37px" name="file">

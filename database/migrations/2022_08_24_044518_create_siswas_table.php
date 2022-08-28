@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('nipd');
             $table->enum('jk', ['L', 'P'])->nullable();
             $table->string('tempat_lahir');
-            $table->string('tanggal_lahir');
+            $table->date('tanggal_lahir')->nullable();
             $table->foreignId('kelas_id')->constrained();
             $table->foreignId('kompetensi_id')->constrained();
             $table->string('nik');

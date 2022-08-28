@@ -13,7 +13,7 @@ class StoreSiswaRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,19 @@ class StoreSiswaRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'nisn' => 'required',
+            'nipd' => 'required',
+            'nik' => 'required',
+            'jk' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'kelas_id' => 'required',
+            'kompetensi_id' => 'required',
+            'agama' => 'required',
+            'jalan' => 'required',
+            'kelurahan' => 'required',
+            'kecamatan' => 'required',
         ];
     }
 }

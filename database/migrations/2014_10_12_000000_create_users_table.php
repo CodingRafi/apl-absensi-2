@@ -16,14 +16,18 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('profil')->default('/img/profil.png');
             $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->string('nip')->nullable();
-            $table->enum('jk', ['l', 'p'])->nullable();
+            $table->enum('jk', ['L', 'P'])->nullable();
             $table->string('tempat_lahir')->nullable();
-            $table->string('tanggal_lahir')->nullable();
+            $table->date('tanggal_lahir')->nullable();
             $table->string('agama')->nullable();
+            $table->string('jalan')->nullable();
+            $table->string('kelurahan')->nullable();
+            $table->string('kecamatan')->nullable();
             $table->foreignId('sekolah_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
