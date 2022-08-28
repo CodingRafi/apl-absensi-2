@@ -38,7 +38,7 @@ Route::group(['middleware' => ['auth']], function() {
 require __DIR__.'/auth.php';
 
 Route::get('/create-siswa', function() {
-    return view('create.siswa');
+    return view('siswa.create');
 });
 
 Route::get('/create-guru', function() {
@@ -71,5 +71,21 @@ Route::get('/absensi-siswa', function() {
 
 Route::get('/detail-absensi-siswa', function() {
     return view('users.detailabsensisiswa');
+});
+
+Route::get('/create-agenda-guru', function() {
+    return view('agenda.createagendaguru');
+});
+
+Route::get('/create-agenda-siswa', function() {
+    return view('agenda.createagendasiswa');
+});
+
+Route::get('/forgot-password', function() {
+    return view('myauth.forgot-password');
+});
+
+Route::get('/user-settings', function() {
+    return view('myauth.settings');
 });
 
