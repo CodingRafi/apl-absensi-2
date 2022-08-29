@@ -24,13 +24,13 @@
                     <td>
                         <form action="/mapel/{{ $mapel->id }}/edit" method="get">
                             @include('mypartials.tahunajaran')
-                            <button type="submit" class="btn btn-warning text-white">Edit</button>
+                            <button type="submit" class="btn btn-sm btn-warning text-white" style="width: 5rem; margin: 0.1rem">Edit</button>
                         </form>
                         <form action="/mapel/{{ $mapel->id }}" method="post">
                             @csrf
                             @method('delete')
-                            <button type="submit" class="btn btn-danger"
-                                onclick="return confirm('Yakin?')">Hapus</button>
+                            <button type="submit" class="btn btn-sm btn-danger"
+                                onclick="return confirm('Yakin?')" style="width: 5rem; margin: 0.1rem">Hapus</button>
                         </form>
                     </td>
                 </tr>

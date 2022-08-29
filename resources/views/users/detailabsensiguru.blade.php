@@ -32,21 +32,20 @@
                         <li class="font-weight-bold">JENIS KELAMIN</li>
                     </ul>
                     <ul style="list-style: none">
-                        <li class="font-weight-bold">:</li>
-                        <li class="font-weight-bold">:</li>
-                        <li class="font-weight-bold">:</li>
-                        <li class="font-weight-bold">:</li>
+                        <li>:</li>
+                        <li>:</li>
+                        <li>:</li>
+                        <li>:</li>
                     </ul>
                     <ul style="list-style: none">
-                        <li class="font-weight-bold">0123456789</li>
-                        <li class="font-weight-bold">PUGUH RISMADI</li>
-                        <li class="font-weight-bold">KEPALA PROGRAM REKAYASA PERANGKAT LUNAK (RPL)</li>
-                        <li class="font-weight-bold">LAKI-LAKI</li>
+                        <li>0123456789</li>
+                        <li>PUGUH RISMADI</li>
+                        <li>KEPALA PROGRAM REKAYASA PERANGKAT LUNAK (RPL)</li>
+                        <li>LAKI-LAKI</li>
                     </ul>
                 </div>
                 <div class="garis-vertical" style="border-left: 1px solid black; height:150px;"></div>
                 <div>
-                    <h4 class="font-weight-bold">Absensi</h4>
                     <ul style="list-style: none">
                         <li><input type="radio" name="keterangan" id="hadir"> Hadir</li>
                         <li><input type="radio" name="keterangan" id="alpha"> Alpha</li>

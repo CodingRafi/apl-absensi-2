@@ -38,7 +38,7 @@
                     <label for="">Alamat</label>
                     <div><textarea class="form-label" cols="102" rows="10" placeholder="Masukan Alamat"></textarea></div>
                 </div>
-                <button type="submit" class="btn text-white font-weight-bold" style="background-color: #3bae9c">Simpan</button>
+                <button type="submit" class="btn text-white" style="background-color: #3bae9c">Simpan</button>
               </form>
         </div>
     </div>

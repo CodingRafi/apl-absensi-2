@@ -8,8 +8,8 @@
             <li class="nav-item">
                 <div class="input-group">
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 7rem; padding: 0.1rem">
                             Jurusan
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -29,8 +29,8 @@
             <li class="nav-item">
                 <div class="input-group">
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 5rem; padding: 0.1rem">
                             Kelas
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -49,10 +49,10 @@
             </li>
             <li class="nav-item">
                 <div class="input-group input-group-sm">
-                    <form action="" method="get">
+                    <form action="" method="get" style="display: flex; gap: 0.3rem">
                         @include('mypartials.tahunajaran')
-                        <input type="text" class="form-control" placeholder="Search" style="height: 29px;" name="search" value="{{ request('search') }}">
-                        <button type="submit">Search</button>
+                        <input type="text" class="form-control" placeholder="Search" style="height: 1.9rem;" name="search" value="{{ request('search') }}">
+                        <button type="submit" class="btn" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 2.5rem; padding: 0.1rem"><i class="bi bi-search"></i></button>
                     </form>
                 </div>
             </li>
@@ -90,7 +90,7 @@
         <div class="table-responsive">
             <table class="table">
                 <thead class="thead-light">
-                    <tr>
+                    <tr class="text-center">
                         <th scope="col">No</th>
                         <th scope="col">NISN</th>
                         <th scope="col">NIPD</th>
@@ -132,12 +132,12 @@
                         <td>
                             <form action="/siswa/{{ $student->id }}/edit" method="get">
                                 @include('mypartials.tahunajaran')
-                                <button class="btn btn-warning">Edit</button>
+                                <button class="btn btn-sm btn-warning text-white font-weight-bold" style="width: 5rem; margin: 0.1rem;">Edit</button>
                             </form>
                             <form action="/siswa/{{ $student->id }}" method="post">
                                 @csrf
                                 @method('delete')
-                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                <button type="submit" class="btn btn-sm btn-danger font-weight-bold" style="width: 5rem; margin: 0.1rem;">Hapus</button>
                             </form>
                         </td>
                     </tr>

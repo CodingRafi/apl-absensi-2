@@ -48,7 +48,7 @@
                         <li class="nav-item">
                             <form action="/users/{{ $role->name }}" method="get">
                                 @include('mypartials.tahunajaran')
-                                <button class="nav-link {{ Request::is('/') ? 'active' : '' }}" style="text-transform: capitalize;"><i class="icon-grid menu-icon"></i> Data {{ str_replace("_", " ", $role->name) }}
+                                <button class="nav-link {{ Request::is('/') ? 'active' : '' }}" style="background-color: #3bae9c; border: none; min-width: 150px">Data {{ str_replace("_", " ", $role->name) }}
                                 </button>
                             </form>
                         </li>

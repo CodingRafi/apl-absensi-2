@@ -7,11 +7,11 @@
         <ul class="nav float-right mb-4" style="gap: 1rem;">
             <li class="nav-item">
                 <div class="input-group input-group-sm">
-                    <form action="" method="get">
+                    <form action="" method="get" style="display: flex; gap: 0.3rem;">
                         @include('mypartials.tahunajaran')
-                        <input type="text" class="form-control" placeholder="Search" style="height: 29px;" name="search"
+                        <input type="text" class="form-control" placeholder="Search" style="height: 1.9rem;" name="search"
                             value="{{ request('search') }}">
-                        <button type="submit">Search</button>
+                        <button type="submit" class="btn" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 2.5rem; padding: 0.1rem"><i class="bi bi-search"></i></button>
                     </form>
                 </div>
             </li>
@@ -85,12 +85,12 @@
                         <td>
                             <form action="/users/{{ $user->id }}/edit" method="get">
                                 @include('mypartials.tahunajaran')
-                                <button class="btn btn-warning">Edit</button>
+                                <button class="btn btn-sm btn-warning text-white font-weight-bold" style="width: 5rem; margin: 0.1rem;">Edit</button>
                             </form>
                             <form action="/users/{{ $user->id }}" method="post">
                                 @csrf
                                 @method('delete')
-                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                <button type="submit" class="btn btn-sm btn-danger font-weight-bold" style="width: 5rem; margin: 0.1rem;">Hapus</button>
                             </form>
                         </td>
                     </tr>
