@@ -1,5 +1,38 @@
 @extends('mylayouts.main')
 
+@section('tambahcss')
+    <link rel="stylesheet" href="/css/fstdropdown.css">
+
+    <style>
+        .nav-pills .show>.nav-link {
+            background-color: transparent !important;
+        }
+
+        .dropdown-menu.show {
+            top: .4rem !important;
+            left: -8rem !important;
+        }
+
+        .fstdropdown>.fstlist {
+            min-height: 10rem !important;
+        }
+
+        /* .fstAll {
+            display: none !important;
+        } */
+
+        /* .fstsearch{
+          border: 1px solid rgb(205, 205, 205);
+          margin: 0.5rem;
+          width: 54rem;
+        } */
+
+        .nama-koleksi {
+            font-size: 16px;
+        }
+    </style>
+@endsection
+
 @section('container')
 <div class="card">
   <div class="card-body">
@@ -53,7 +86,7 @@
       @if ($role == 'guru')
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Mapel</label>
-        <select class="form-control" aria-label="Default select example" name="mapel[]" multiple required>
+        <select class="fstdropdown-select" name="mapel[]" style="height: 5rem" multiple>
           @foreach ($mapels as $mapel)
           <option value="{{ $mapel->id }}">{{ $mapel->nama }}</option>
           @endforeach
@@ -84,4 +117,11 @@
     </form>
   </div>
 </div>
+@endsection
+
+@section('tambahjs')
+<script src="/js/fstdropdown.js"></script>
+    <script>
+        setFstDropdown();
+    </script>
 @endsection
