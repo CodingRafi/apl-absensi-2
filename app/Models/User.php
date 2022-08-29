@@ -50,6 +50,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Mapel::class);
     }
 
+    public function agenda(){
+        return $this->hasMany(Agenda::class);
+    }
+
     public static function getUserRole($role, $sekolah){
         $roles = Role::all();
         $users = \App\Models\User::with('roles')->get();

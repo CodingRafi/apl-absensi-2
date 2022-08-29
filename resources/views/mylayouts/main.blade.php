@@ -81,6 +81,10 @@
     <script src="/template/js/Chart.roundedBarCharts.js"></script>
     <script src="/template/js/chart.js"></script>
     <!-- End custom js for this page-->
+
+    {{-- ajax --}}
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
     @yield('tambahjs')
 
     <script>

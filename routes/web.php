@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\KompetensiController;
 use App\Http\Controllers\TahunAjaranController;
 use App\Http\Controllers\RegisteredUserController;
@@ -35,6 +36,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('users', UserController::class);
     Route::resource('siswa', SiswaController::class);
     Route::resource('tahun-ajaran', TahunAjaranController::class);
+    Route::resource('agenda', AgendaController::class);
+    Route::get('get-mapel/{id}', [AgendaController::class, 'get_mapel']);
+    Route::get('agenda/kelas/{id}', [AgendaController::class, 'showJadwal']);
     Route::get('/import', [SiswaController::class, 'import']);
     Route::post('/import', [SiswaController::class, 'saveimport']);
     Route::get('/export', [SiswaController::class, 'export']);
@@ -44,15 +48,6 @@ Route::group(['middleware' => ['auth']], function() {
 });
 
 require __DIR__.'/auth.php';
-
-
-Route::get('/create-siswa', function() {
-    return view('siswa.create');
-});
-
-Route::get('/create-guru', function() {
-    return view('create.guru');
-});
 
 Route::get('/agenda-guru', function() {
     return view('agenda.guru');
