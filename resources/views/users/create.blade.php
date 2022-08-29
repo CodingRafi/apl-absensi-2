@@ -80,7 +80,7 @@
         <label for="exampleInputEmail1" class="form-label">Profil</label>
         <input type="file" class="form-control" name="profil">
       </div> --}}
-      <button type="submit" class="btn text-white font-weight-bold" style="background-color: #3bae9c">Simpan</button>
+      <button type="submit" class="btn text-white" style="background-color: #3bae9c">Simpan</button>
     </form>
   </div>
 </div>

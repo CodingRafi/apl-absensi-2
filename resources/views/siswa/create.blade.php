@@ -74,7 +74,7 @@
         <label for="exampleInputEmail1" class="form-label">Kecamatan</label>
         <input type="text" class="form-control" placeholder="Masukan Kecamatan" name="kecamatan">
       </div>
-      <button type="submit" class="btn text-white font-weight-bold" style="background-color: #3bae9c">Simpan</button>
+      <button type="submit" class="btn text-white" style="background-color: #3bae9c">Simpan</button>
     </form>
   </div>
 </div>

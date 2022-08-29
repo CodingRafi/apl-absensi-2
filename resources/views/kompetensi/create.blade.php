@@ -19,7 +19,7 @@
                 <label for="bidang" class="form-label">Bidang Keahlian</label>
                 <input type="text" class="form-control" id="bidang" name="bidang">
             </div>
-            <button type="submit" class="btn btn-success">Simpan</button>
+            <button type="submit" class="btn text-white" style="background-color: #3bae9c">Simpan</button>
         </form>
     </div>
 </div>
