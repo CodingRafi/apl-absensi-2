@@ -18,4 +18,8 @@ class Mapel extends Model
     public function sekolah(){
         return $this->belongsTo(Sekolah::class);
     }
+
+    public function agenda(){
+        return $this->hasMany(Agenda::class);
+    }
 }
