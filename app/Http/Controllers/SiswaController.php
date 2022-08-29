@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Siswa;
+use App\Models\Rfid;
 use App\Models\Kelas;
 use App\Models\TahunAjaran;
 use App\Models\Kompetensi;
@@ -60,7 +61,7 @@ class SiswaController extends Controller
     {
         $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
 
-        Siswa::create([
+        $siswa = Siswa::create([
             'name' => $request->name,
             'nisn' => $request->nisn,
             'nipd' => $request->nipd,
@@ -76,6 +77,10 @@ class SiswaController extends Controller
             'kecamatan' => $request->kecamatan,
             'sekolah_id' => \Auth::user()->sekolah_id
         ]);
+
+        if ($request->rfid) {
+            Rfid::createRfid($request->rfid, $siswa->id, null, $request->status_rfid);
+        }
 
         return TahunAjaran::redirectTahunAjaran('/siswa', $request, 'Berhasil menambahkan siswa');
     }
@@ -136,6 +141,10 @@ class SiswaController extends Controller
             'kecamatan' => $request->kecamatan,
         ]);
 
+        if($request->id_rfid){
+            Rfid::updateRfid($request);
+        }
+
         return TahunAjaran::redirectTahunAjaran('/siswa', $request, 'Berhasil Mengupdate Siswa');
     }
 
@@ -167,7 +176,7 @@ class SiswaController extends Controller
         foreach ($siswas as $key => $siswa) {
             if (array_key_exists("nisn",$siswa) && array_key_exists("nipd",$siswa) && array_key_exists("nik",$siswa)) {
                 if ($siswa['name'] != null && $siswa['nisn'] != null && $siswa['nipd'] != null) {
-                    Siswa::create([
+                    $siswa = Siswa::create([
                         'name' => $siswa['name'],
                         'nisn' => $siswa['nisn'],
                         'nipd' => $siswa['nipd'],
@@ -183,6 +192,10 @@ class SiswaController extends Controller
                         'kompetensi_id' => $request->kompetensi_id,
                         'kelas_id' => $request->kelas_id,
                     ]);
+
+                    if($siswa['rfid']){
+                        Rfid::createRfid($request['rfid'], $siswa->id, ($siswa['status_rfid']) ? $siswa['status_rfid'] : '');
+                    }
                 }
             }else{
                 return TahunAjaran::redirectTahunAjaran('/import', $request, 'kolom tidak valid');
@@ -194,7 +207,7 @@ class SiswaController extends Controller
 
     public function export(Request $request){
         $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
-        $siswas = Siswa::filter(request(['idk', 'idj', 'search']))->select('siswas.name', 'siswas.nisn', 'siswas.nipd', 'kelas.nama as Kelas', 'kompetensis.kompetensi as Jurusan', 'siswas.jk', 'siswas.tempat_lahir', 'siswas.tanggal_lahir', 'siswas.nik', 'siswas.agama', 'siswas.jalan', 'siswas.kelurahan', 'siswas.kecamatan')->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->get();
+        $siswas = Siswa::filter(request(['idk', 'idj', 'search']))->select('siswas.name', 'siswas.nisn', 'siswas.nipd', 'kelas.nama as Kelas', 'kompetensis.kompetensi as Jurusan', 'siswas.jk', 'siswas.tempat_lahir', 'siswas.tanggal_lahir', 'siswas.nik', 'siswas.agama', 'siswas.jalan', 'siswas.kelurahan', 'siswas.kecamatan', 'rfids.rfid_number', 'rfids.status as status_rfid')->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')->leftJoin('rfids', 'rfids.siswa_id', 'siswas.id')->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->get();
 
         return (new FastExcel($siswas))->download('file.xlsx');
     }

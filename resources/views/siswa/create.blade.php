@@ -74,7 +74,26 @@
         <label for="exampleInputEmail1" class="form-label">Kecamatan</label>
         <input type="text" class="form-control" placeholder="Masukan Kecamatan" name="kecamatan">
       </div>
-      <button type="submit" class="btn text-white" style="background-color: #3bae9c">Simpan</button>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Rfid</label>
+        <input type="text" class="form-control" placeholder="Masukan Rfid" name="rfid">
+      </div>
+      <div class="">
+        <label for="exampleInputEmail1" class="form-label">Status Rfid</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="status_rfid" id="aktif" value="on">
+        <label class="form-check-label" for="aktif">
+          Aktif
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="status_rfid" id="tidak" value="tidak">
+        <label class="form-check-label" for="tidak">
+          Tidak
+        </label>
+      </div>
+      <button type="submit" class="btn text-white font-weight-bold" style="background-color: #3bae9c">Simpan</button>
     </form>
   </div>
 </div>

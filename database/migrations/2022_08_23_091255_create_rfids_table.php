@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('rfids', function (Blueprint $table) {
             $table->id();
+            $table->string('rfid_number')->unique();
+            $table->foreignId('user_id')->constrined()->nullable();
+            $table->foreignId('siswa_id')->constrined()->nullable();
+            $table->enum('status', ['aktif', 'tidak']);
             $table->timestamps();
         });
     }

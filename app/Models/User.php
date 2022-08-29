@@ -54,6 +54,14 @@ class User extends Authenticatable
         return $this->hasMany(Agenda::class);
     }
 
+    public function rfid(){
+        return $this->hasOne(Rfid::class);
+    }
+
+    public function absensi(){
+        return $this->hasMany(absensi::class);
+    }
+
     public static function getUserRole($role, $sekolah){
         $roles = Role::all();
         $users = \App\Models\User::with('roles')->get();

@@ -105,6 +105,8 @@
                         <th scope="col">Jalan</th>
                         <th scope="col">kelurahan</th>
                         <th scope="col">kecamatan</th>
+                        <th scope="col">RFID Number</th>
+                        <th scope="col">Status RFID</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -125,6 +127,8 @@
                         <td>{{ $student->jalan }}</td>
                         <td>{{ $student->kelurahan }}</td>
                         <td>{{ $student->kecamatan }}</td>
+                        {{-- <td>{{ $student->rfid->rfid_number }}</td>
+                        <td>{{ $student->rfid->status }}</td> --}}
                         <td>
                             <form action="/siswa/{{ $student->id }}/edit" method="get">
                                 @include('mypartials.tahunajaran')

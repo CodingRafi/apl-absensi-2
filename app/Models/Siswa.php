@@ -24,6 +24,14 @@ class Siswa extends Model
         return $this->belongsTo(Sekolah::class);
     }
 
+    public function rfid(){
+        return $this->hasOne(Rfid::class);
+    }
+
+    public function absensi(){
+        return $this->hasMany(Absensi::class);
+    }
+
     public function scopeFilter($query, array $filter){
         $query->when($filter['idk'] ?? false, function($query, $filter){
             return $query->where('kelas.id', $filter);
