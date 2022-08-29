@@ -85,6 +85,26 @@
         <label for="exampleInputEmail1" class="form-label">Kecamatan</label>
         <input type="text" class="form-control" placeholder="Masukan Kecamatan" name="kecamatan" value="{{ $siswa->kecamatan }}">
       </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Rfid</label>
+        <input type="hidden" name="id_rfid" value="{{ ($siswa->rfid != null) ? $siswa->rfid->id : '' }}">
+        <input type="text" class="form-control" placeholder="Masukan Rfid" name="rfid" value="{{ ($siswa->rfid != null) ? $siswa->rfid->rfid_number : '' }}">
+      </div>
+      <div class="">
+        <label for="exampleInputEmail1" class="form-label">Status Rfid</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="status_rfid" id="aktif" {{ ($siswa->rfid != null) ? ($siswa->rfid->status == 'aktif') ? 'checked' : '' : '' }} value="on">
+        <label class="form-check-label" for="aktif">
+          Aktif
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="status_rfid" id="tidak" {{ ($siswa->rfid != null) ? ($siswa->rfid->status == 'tidak') ? 'checked' : '' : '' }} value="tidak">
+        <label class="form-check-label" for="tidak">
+          Tidak
+        </label>
+      </div>
       <button type="submit" class="btn text-white font-weight-bold" style="background-color: #3bae9c">Simpan</button>
     </form>
   </div>

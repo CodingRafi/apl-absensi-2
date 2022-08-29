@@ -26,4 +26,8 @@ class Kelas extends Model
     public function agenda(){
         return $this->hasMany(Agenda::class);
     }
+
+    public function absensi(){
+        return $this->hasMany(Absensi::class);
+    }
 }

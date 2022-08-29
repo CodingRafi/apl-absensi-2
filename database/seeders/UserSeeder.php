@@ -101,6 +101,14 @@ class UserSeeder extends Seeder
         }, $izinGuru);
         $roleGuru->syncPermissions($resultGuru);
 
+        $userGuru = User::create([
+            'name' => 'pak',
+            'email' => 'bapak@gmail.com',
+            'password' => \Hash::make('12345678')
+        ]);
+
+        $userGuru->assignRole('guru');
+
         //? role super admin
         $roleSuperAdmin = Role::create([
             'name' => 'super_admin',

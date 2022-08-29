@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Sekolah;
+use App\Models\Rfid;
 
 class DatabaseSeeder extends Seeder
 {
@@ -29,9 +30,16 @@ class DatabaseSeeder extends Seeder
             'tingkat' => 'smp'
         ]);
 
+        
         // \App\Models\User::factory(10)->create();
         $this->call(PermissionTableSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(TahunAjaranSeeder::class);
+
+        Rfid::create([
+            'rfid_number' => "0009251346",
+            'user_id' => '5',
+            'status' => 'aktif'
+        ]); 
     }
 }

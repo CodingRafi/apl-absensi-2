@@ -79,6 +79,26 @@
         <input type="text" class="form-control" placeholder="Masukan Kecamatan" name="kecamatan"
           value="{{ $user->kecamatan }}">
       </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Rfid</label>
+        <input type="hidden" name="id_rfid" value="{{ ($user->rfid) ? $user->rfid->id : '' }}">
+        <input type="text" class="form-control" placeholder="Masukan Rfid" name="rfid" value="{{ ($user->rfid) ? $user->rfid->rfid_number : '' }}">
+      </div>
+      <div class="">
+        <label for="exampleInputEmail1" class="form-label">Status Rfid</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="status_rfid" id="aktif" {{ ($user->rfid) ? ($user->rfid->status == 'aktif') ? 'checked' : '' : '' }} value="on">
+        <label class="form-check-label" for="aktif">
+          Aktif
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="status_rfid" id="tidak" {{ ($user->rfid) ? ($user->rfid->status == 'tidak') ? 'checked' : '' : '' }} value="tidak">
+        <label class="form-check-label" for="tidak">
+          Tidak
+        </label>
+      </div>
       {{-- <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Profil</label>
         <input type="file" class="form-control" name="profil">
