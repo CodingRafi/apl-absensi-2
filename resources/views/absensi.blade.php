@@ -77,7 +77,9 @@
                         <td rowspan="2" style="vertical-align: middle;">Rafi Prasetya</td>
                         @foreach ($date as $item)
                         @foreach ($user->absensi as $absensi)
-                        {{-- @dd($absensi) --}}
+                        {{-- @dd(explode(':', explode(' ',$absensi->presensi_masuk)[1])) --}}
+                        @if (explode( '-',$item)[0]. '-' . explode('-',$item)[1] . '-' . explode('-',$item)[2] == explode(' ',$absensi->presensi_masuk)[0])
+                            
                         <td class="bg-success">
                             <form action="detail-absensi-siswa" method="get">
                                 @if (request('tahun_awal'))
@@ -89,9 +91,34 @@
                                 @if (request('semester'))
                                 <input type="hidden" name="semester" value="{{ request('semester') }}">
                                 @endif
-                                <button class="btn text-white">06.45</button>
+                                <button class="btn text-white">{{  explode(':', explode(' ',$absensi->presensi_masuk)[1])[0]  }}:{{ explode(':', explode(' ',$absensi->presensi_masuk)[1])[1] }}</button>
+                            </form>
+                        </td>                            
+                        @endif
+                        @endforeach
+                        @endforeach
+                    </tr>
+                    <tr>
+                        @foreach ($date as $item)
+                        @foreach ($user->absensi as $absensi)
+                        {{-- @dd($absensi) --}}
+                        @if (explode( '-',$item)[0]. '-' . explode('-',$item)[1] . '-' . explode('-',$item)[2] == explode(' ',$absensi->presensi_pulang)[0])
+                            
+                        <td class="bg-success">
+                            <form action="detail-absensi-siswa" method="get">
+                                @if (request('tahun_awal'))
+                                <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
+                                @endif
+                                @if (request('tahun_akhir'))
+                                <input type="hidden" name="tahun_akhir" value="{{ request('tahun_akhir') }}">
+                                @endif
+                                @if (request('semester'))
+                                <input type="hidden" name="semester" value="{{ request('semester') }}">
+                                @endif
+                                <button class="btn text-white">{{  explode(':', explode(' ',$absensi->presensi_pulang)[1])[0]  }}:{{ explode(':', explode(' ',$absensi->presensi_pulang)[1])[1] }}</button>
                             </form>
                         </td>
+                        @endif
                         @endforeach
                         @endforeach
                     </tr>
