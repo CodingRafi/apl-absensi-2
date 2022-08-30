@@ -24,6 +24,18 @@ class AbsensiController extends Controller
      */
     public function index(Request $request, $role)
     {
+        $now = Carbon::now();
+        $date=[];
+        $month = $now->month;
+        $year = $now->year;
+        
+        for($d=0; $d<=32; $d++)
+        {
+            $time=mktime(24, 0, 0, $month, $d, $year);  
+            if (date('m', $time)==$month)       
+                $date[]=date('Y-m-d-D', $time);
+        }
+
         if($role == 'siswa'){
             $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
             $kelas_filter = Kelas::where('tahun_ajaran_id', $tahun_ajaran->id)->get();
@@ -33,7 +45,8 @@ class AbsensiController extends Controller
 
             return view('absensi', [
                 'users' => $siswas,
-                'role' => $role
+                'role' => $role,
+                'date' => $date
             ]);
         }else{
             $users_query = User::filter(request(['search']))->where('sekolah_id', \Auth::user()->sekolah_id)->get();
@@ -47,7 +60,8 @@ class AbsensiController extends Controller
 
             return view('absensi', [
                 'users' => $users,
-                'role' => $role
+                'role' => $role,
+                'date' => $date
             ]);
         }
     }

@@ -7,7 +7,8 @@
         <ul class="nav float-right mb-4" style="gap: 1rem;">
             <li class="nav-item">
                 <div class="input-group">
-                    <select class="custom-select" id="inputGroupSelect02" style="height: 30px; width: 100px; padding: 0; padding-left: 10px;">
+                    <select class="custom-select" id="inputGroupSelect02"
+                        style="height: 30px; width: 100px; padding: 0; padding-left: 10px;">
                         <option selected>Bulan</option>
                         <option value="1">Januari</option>
                     </select>
@@ -26,11 +27,13 @@
                 Hadir
             </li>
             <li class="nav-item">
-                <span class="badge badge-pill" style="background: rgba(226, 138, 7, 1); color: rgba(0, 0, 0, 0)">1</span>
+                <span class="badge badge-pill"
+                    style="background: rgba(226, 138, 7, 1); color: rgba(0, 0, 0, 0)">1</span>
                 Sakit
             </li>
             <li class="nav-item">
-                <span class="badge badge-pill" style="background: rgba(243, 248, 10, 1); color: rgba(0, 0, 0, 0)">1</span>
+                <span class="badge badge-pill"
+                    style="background: rgba(243, 248, 10, 1); color: rgba(0, 0, 0, 0)">1</span>
                 Izin
             </li>
             <li class="nav-item">
@@ -38,11 +41,13 @@
                 Alpha
             </li>
             <li class="nav-item">
-                <span class="badge badge-pill" style="background: rgba(235, 0, 255, 1); color: rgba(0, 0, 0, 0)">1</span>
+                <span class="badge badge-pill"
+                    style="background: rgba(235, 0, 255, 1); color: rgba(0, 0, 0, 0)">1</span>
                 Terlambat
             </li>
             <li class="nav-item">
-                <span class="badge badge-pill" style="background: rgba(15, 210, 237, 1); color: rgba(0, 0, 0, 0)">1</span>
+                <span class="badge badge-pill"
+                    style="background: rgba(15, 210, 237, 1); color: rgba(0, 0, 0, 0)">1</span>
                 Kegiatan Sekolah
             </li>
             <li class="nav-item">
@@ -51,6 +56,7 @@
             </li>
         </ul>
         <div class="table-responsive">
+            <div id='calendar'></div>
             <table class="table text-center">
                 <thead class="thead-light">
                     <tr>
@@ -356,11 +362,35 @@
                                 @endif
                                 <button class="btn text-white"></button>
                             </form>
-                        </td>   
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+@endsection
+
+@section('tambahjs')
+<script>
+    // var dt = new Date();
+    // console.log(dt)
+    // var month = dt.getMonth();
+    // console.log(month)
+    // var year = dt.getFullYear();
+    // console.log(year)
+    // daysInMonth = new Date(year, month, 0).getDate();
+
+    // function getDayNamesInMonth(month, year) {
+    //     let date = new Date(year, month, 1);
+    //     let days = [];
+    //     while (date.getMonth() === month) {
+    //         days.push(new Date(date).toLocaleDateString('en-ID', { weekday: 'short' }));
+    //         date.setDate(date.getDate() + 1);
+    //     }
+    //     return dayNames;
+    // }
+
+    // console.log(daysInMonth)
+</script>
 @endsection
