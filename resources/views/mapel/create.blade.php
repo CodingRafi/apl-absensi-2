@@ -9,7 +9,12 @@
             @include('mypartials.tahunajaran')
             <div class="mb-3">
                 <label for="nama" class="form-label">Mata Pelajaran</label>
-                <input type="text" class="form-control" id="nama" name="nama">
+                <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ old('nama') }}" required>
+                @error('nama')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <button type="submit" class="btn text-white" style="background-color: #3bae9c">Simpan</button>
         </form>

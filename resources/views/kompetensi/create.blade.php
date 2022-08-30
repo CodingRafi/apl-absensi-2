@@ -9,15 +9,30 @@
             @include('mypartials.tahunajaran')
             <div class="mb-3">
                 <label for="kompetensi" class="form-label">Kompetensi Keahlian</label>
-                <input type="text" class="form-control" id="kompetensi" name="kompetensi">
+                <input type="text" class="form-control @error('kompetensi') is-invalid @enderror" id="kompetensi" name="kompetensi" value="{{ old('kompetensi') }}" required>
+                @error('kompetensi')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="program" class="form-label">Program Keahlian</label>
-                <input type="text" class="form-control" id="program" name="program">
+                <input type="text" class="form-control @error('program') is-invalid @enderror" id="program" name="program" value="{{ old('program') }}" required>
+                @error('program')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="bidang" class="form-label">Bidang Keahlian</label>
-                <input type="text" class="form-control" id="bidang" name="bidang">
+                <input type="text" class="form-control @error('bidang') is-invalid @enderror" id="bidang" name="bidang" value="{{ old('bidang') }}" required>
+                @error('bidang')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <button type="submit" class="btn text-white" style="background-color: #3bae9c">Simpan</button>
         </form>
