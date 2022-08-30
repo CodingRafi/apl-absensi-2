@@ -8,8 +8,8 @@
             <li class="nav-item">
                 <div class="input-group">
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid rgb(205, 205, 205);; width: 7rem; height: 1.9rem; padding: 0.1rem">
                             Hari
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -19,12 +19,6 @@
                         </ul>
                     </div>
                 </div>
-            </li>
-            <li class="nav-item">
-                <form action="/agenda/create" method="get">
-                    @include('mypartials.tahunajaran')
-                    <button type="submit" class="btn btn-sm text-white font-weight-bold px-3" style="background-color: #3bae9c">Tambah Agenda</button>
-                </form>
             </li>
         </ul>
         <div class="table-responsive">
@@ -44,7 +38,7 @@
                         <td>
                             <form action="/agenda/kelas/{{ $kelas->id }}" method="get">
                                 @include('mypartials.tahunajaran')
-                                <button type="submit" class="btn btn-sm btn-warning text-white font-weight-bold">Show Jadwal</button>
+                                <button type="submit" class="btn btn-sm text-white text-white font-weight-bold" style="background-color: #3bae9c">Show Jadwal</button>
                             </form>
                         </td>
                     </tr>
