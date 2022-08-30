@@ -104,7 +104,8 @@ class UserSeeder extends Seeder
         $userGuru = User::create([
             'name' => 'pak',
             'email' => 'bapak@gmail.com',
-            'password' => \Hash::make('12345678')
+            'password' => \Hash::make('12345678'),
+            'sekolah_id' => 1
         ]);
 
         $userGuru->assignRole('guru');

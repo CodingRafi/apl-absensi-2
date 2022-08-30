@@ -62,25 +62,22 @@
                     <tr>
                         <th scope="col" rowspan="2" style="vertical-align: middle;">No</th>
                         <th scope="col" rowspan="2" style="vertical-align: middle;">Nama</th>
-                        <th scope="col" colspan="10">Agustus</th>
+                        <th scope="col" colspan="10">{{ explode('-', $date[0])[1] }}</th>
                     </tr>
                     <tr>
-                        <th scope="col">1</th>
-                        <th scope="col">2</th>
-                        <th scope="col">3</th>
-                        <th scope="col">4</th>
-                        <th scope="col">5</th>
-                        <th scope="col">6</th>
-                        <th scope="col">7</th>
-                        <th scope="col">8</th>
-                        <th scope="col">9</th>
-                        <th scope="col">10</th>
+                        @foreach ($date as $dt)
+                        <th scope="col">{{ explode('-', $dt)[2] }}</th>
+                        @endforeach
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($users as $user)
                     <tr>
                         <th scope="row" rowspan="2" style="vertical-align: middle;">1</th>
                         <td rowspan="2" style="vertical-align: middle;">Rafi Prasetya</td>
+                        @foreach ($date as $item)
+                        @foreach ($user->absensi as $absensi)
+                        {{-- @dd($absensi) --}}
                         <td class="bg-success">
                             <form action="detail-absensi-siswa" method="get">
                                 @if (request('tahun_awal'))
@@ -95,275 +92,10 @@
                                 <button class="btn text-white">06.45</button>
                             </form>
                         </td>
-                        <td class="bg-danger">
-                            <form action="detail-absensi-siswa" method="get">
-                                @if (request('tahun_awal'))
-                                <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
-                                @endif
-                                @if (request('tahun_akhir'))
-                                <input type="hidden" name="tahun_akhir" value="{{ request('tahun_akhir') }}">
-                                @endif
-                                @if (request('semester'))
-                                <input type="hidden" name="semester" value="{{ request('semester') }}">
-                                @endif
-                                <button class="btn text-white"></button>
-                            </form>
-                        </td>
-                        <td class="bg-danger">
-                            <form action="detail-absensi-siswa" method="get">
-                                @if (request('tahun_awal'))
-                                <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
-                                @endif
-                                @if (request('tahun_akhir'))
-                                <input type="hidden" name="tahun_akhir" value="{{ request('tahun_akhir') }}">
-                                @endif
-                                @if (request('semester'))
-                                <input type="hidden" name="semester" value="{{ request('semester') }}">
-                                @endif
-                                <button class="btn text-white"></button>
-                            </form>
-                        </td>
-                        <td class="bg-danger">
-                            <form action="detail-absensi-siswa" method="get">
-                                @if (request('tahun_awal'))
-                                <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
-                                @endif
-                                @if (request('tahun_akhir'))
-                                <input type="hidden" name="tahun_akhir" value="{{ request('tahun_akhir') }}">
-                                @endif
-                                @if (request('semester'))
-                                <input type="hidden" name="semester" value="{{ request('semester') }}">
-                                @endif
-                                <button class="btn text-white"></button>
-                            </form>
-                        </td>
-                        <td class="bg-danger">
-                            <form action="detail-absensi-siswa" method="get">
-                                @if (request('tahun_awal'))
-                                <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
-                                @endif
-                                @if (request('tahun_akhir'))
-                                <input type="hidden" name="tahun_akhir" value="{{ request('tahun_akhir') }}">
-                                @endif
-                                @if (request('semester'))
-                                <input type="hidden" name="semester" value="{{ request('semester') }}">
-                                @endif
-                                <button class="btn text-white"></button>
-                            </form>
-                        </td>
-                        <td class="bg-danger">
-                            <form action="detail-absensi-siswa" method="get">
-                                @if (request('tahun_awal'))
-                                <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
-                                @endif
-                                @if (request('tahun_akhir'))
-                                <input type="hidden" name="tahun_akhir" value="{{ request('tahun_akhir') }}">
-                                @endif
-                                @if (request('semester'))
-                                <input type="hidden" name="semester" value="{{ request('semester') }}">
-                                @endif
-                                <button class="btn text-white"></button>
-                            </form>
-                        </td>
-                        <td class="bg-danger">
-                            <form action="detail-absensi-siswa" method="get">
-                                @if (request('tahun_awal'))
-                                <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
-                                @endif
-                                @if (request('tahun_akhir'))
-                                <input type="hidden" name="tahun_akhir" value="{{ request('tahun_akhir') }}">
-                                @endif
-                                @if (request('semester'))
-                                <input type="hidden" name="semester" value="{{ request('semester') }}">
-                                @endif
-                                <button class="btn text-white"></button>
-                            </form>
-                        </td>
-                        <td class="bg-danger">
-                            <form action="detail-absensi-siswa" method="get">
-                                @if (request('tahun_awal'))
-                                <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
-                                @endif
-                                @if (request('tahun_akhir'))
-                                <input type="hidden" name="tahun_akhir" value="{{ request('tahun_akhir') }}">
-                                @endif
-                                @if (request('semester'))
-                                <input type="hidden" name="semester" value="{{ request('semester') }}">
-                                @endif
-                                <button class="btn text-white"></button>
-                            </form>
-                        </td>
-                        <td class="bg-danger">
-                            <form action="detail-absensi-siswa" method="get">
-                                @if (request('tahun_awal'))
-                                <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
-                                @endif
-                                @if (request('tahun_akhir'))
-                                <input type="hidden" name="tahun_akhir" value="{{ request('tahun_akhir') }}">
-                                @endif
-                                @if (request('semester'))
-                                <input type="hidden" name="semester" value="{{ request('semester') }}">
-                                @endif
-                                <button class="btn text-white"></button>
-                            </form>
-                        </td>
-                        <td class="bg-danger">
-                            <form action="detail-absensi-siswa" method="get">
-                                @if (request('tahun_awal'))
-                                <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
-                                @endif
-                                @if (request('tahun_akhir'))
-                                <input type="hidden" name="tahun_akhir" value="{{ request('tahun_akhir') }}">
-                                @endif
-                                @if (request('semester'))
-                                <input type="hidden" name="semester" value="{{ request('semester') }}">
-                                @endif
-                                <button class="btn text-white"></button>
-                            </form>
-                        </td>
+                        @endforeach
+                        @endforeach
                     </tr>
-                    <tr>
-                        <td class="bg-success">
-                            <form action="detail-absensi-siswa" method="get">
-                                @if (request('tahun_awal'))
-                                <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
-                                @endif
-                                @if (request('tahun_akhir'))
-                                <input type="hidden" name="tahun_akhir" value="{{ request('tahun_akhir') }}">
-                                @endif
-                                @if (request('semester'))
-                                <input type="hidden" name="semester" value="{{ request('semester') }}">
-                                @endif
-                                <button class="btn text-white">12.20</button>
-                            </form>
-                        </td>
-                        <td class="bg-danger">
-                            <form action="detail-absensi-siswa" method="get">
-                                @if (request('tahun_awal'))
-                                <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
-                                @endif
-                                @if (request('tahun_akhir'))
-                                <input type="hidden" name="tahun_akhir" value="{{ request('tahun_akhir') }}">
-                                @endif
-                                @if (request('semester'))
-                                <input type="hidden" name="semester" value="{{ request('semester') }}">
-                                @endif
-                                <button class="btn text-white"></button>
-                            </form>
-                        </td>
-                        <td class="bg-danger">
-                            <form action="detail-absensi-siswa" method="get">
-                                @if (request('tahun_awal'))
-                                <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
-                                @endif
-                                @if (request('tahun_akhir'))
-                                <input type="hidden" name="tahun_akhir" value="{{ request('tahun_akhir') }}">
-                                @endif
-                                @if (request('semester'))
-                                <input type="hidden" name="semester" value="{{ request('semester') }}">
-                                @endif
-                                <button class="btn text-white"></button>
-                            </form>
-                        </td>
-                        <td class="bg-danger">
-                            <form action="detail-absensi-siswa" method="get">
-                                @if (request('tahun_awal'))
-                                <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
-                                @endif
-                                @if (request('tahun_akhir'))
-                                <input type="hidden" name="tahun_akhir" value="{{ request('tahun_akhir') }}">
-                                @endif
-                                @if (request('semester'))
-                                <input type="hidden" name="semester" value="{{ request('semester') }}">
-                                @endif
-                                <button class="btn text-white"></button>
-                            </form>
-                        </td>
-                        <td class="bg-danger">
-                            <form action="detail-absensi-siswa" method="get">
-                                @if (request('tahun_awal'))
-                                <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
-                                @endif
-                                @if (request('tahun_akhir'))
-                                <input type="hidden" name="tahun_akhir" value="{{ request('tahun_akhir') }}">
-                                @endif
-                                @if (request('semester'))
-                                <input type="hidden" name="semester" value="{{ request('semester') }}">
-                                @endif
-                                <button class="btn text-white"></button>
-                            </form>
-                        </td>
-                        <td class="bg-danger">
-                            <form action="detail-absensi-siswa" method="get">
-                                @if (request('tahun_awal'))
-                                <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
-                                @endif
-                                @if (request('tahun_akhir'))
-                                <input type="hidden" name="tahun_akhir" value="{{ request('tahun_akhir') }}">
-                                @endif
-                                @if (request('semester'))
-                                <input type="hidden" name="semester" value="{{ request('semester') }}">
-                                @endif
-                                <button class="btn text-white"></button>
-                            </form>
-                        </td>
-                        <td class="bg-danger">
-                            <form action="detail-absensi-siswa" method="get">
-                                @if (request('tahun_awal'))
-                                <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
-                                @endif
-                                @if (request('tahun_akhir'))
-                                <input type="hidden" name="tahun_akhir" value="{{ request('tahun_akhir') }}">
-                                @endif
-                                @if (request('semester'))
-                                <input type="hidden" name="semester" value="{{ request('semester') }}">
-                                @endif
-                                <button class="btn text-white"></button>
-                            </form>
-                        </td>
-                        <td class="bg-danger">
-                            <form action="detail-absensi-siswa" method="get">
-                                @if (request('tahun_awal'))
-                                <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
-                                @endif
-                                @if (request('tahun_akhir'))
-                                <input type="hidden" name="tahun_akhir" value="{{ request('tahun_akhir') }}">
-                                @endif
-                                @if (request('semester'))
-                                <input type="hidden" name="semester" value="{{ request('semester') }}">
-                                @endif
-                                <button class="btn text-white"></button>
-                            </form>
-                        </td>
-                        <td class="bg-danger">
-                            <form action="detail-absensi-siswa" method="get">
-                                @if (request('tahun_awal'))
-                                <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
-                                @endif
-                                @if (request('tahun_akhir'))
-                                <input type="hidden" name="tahun_akhir" value="{{ request('tahun_akhir') }}">
-                                @endif
-                                @if (request('semester'))
-                                <input type="hidden" name="semester" value="{{ request('semester') }}">
-                                @endif
-                                <button class="btn text-white"></button>
-                            </form>
-                        </td>
-                        <td class="bg-danger">
-                            <form action="detail-absensi-siswa" method="get">
-                                @if (request('tahun_awal'))
-                                <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
-                                @endif
-                                @if (request('tahun_akhir'))
-                                <input type="hidden" name="tahun_akhir" value="{{ request('tahun_akhir') }}">
-                                @endif
-                                @if (request('semester'))
-                                <input type="hidden" name="semester" value="{{ request('semester') }}">
-                                @endif
-                                <button class="btn text-white"></button>
-                            </form>
-                        </td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

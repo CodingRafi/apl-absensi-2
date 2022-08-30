@@ -58,6 +58,7 @@
                 </thead>
                 <tbody>
                     @foreach ($users as $user)
+                    {{-- @dd($user) --}}
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>
