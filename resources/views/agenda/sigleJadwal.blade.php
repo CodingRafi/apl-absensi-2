@@ -7,7 +7,12 @@
         <form action="/agenda/create" method="get">
             @include('mypartials.tahunajaran')
             <input type="hidden" name="idk" value="{{ $kelas->id }}">
-            <button type="submit" class="btn btn-success">Tambah Jadwal</button>
+            <button type="submit" class="btn btn-sm text-white font-weight-bold float-right" style="background-color: #3bae9c">Tambah Jadwal</button>
+        </form>
+        <form action="/agenda" method="get">
+            @include('mypartials.tahunajaran')
+            <input type="hidden" name="idk" value="{{ $kelas->id }}">
+            <button type="submit" class="btn btn-sm text-white font-weight-bold float-right mr-2" style="background-color: red">Kembali</button>
         </form>
 
         <div class="container-fluid p-0">
