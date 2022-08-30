@@ -17,6 +17,13 @@ use Illuminate\Http\Request;
 
 class AbsensiController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:view_absensi|add_absensi|edit_absensi|delete_absensi', ['only' => ['index','store']]);
+         $this->middleware('permission:add_absensi', ['only' => ['create','store']]);
+         $this->middleware('permission:edit_absensi', ['only' => ['edit','update']]);
+         $this->middleware('permission:delete_absensi', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -94,7 +101,8 @@ class AbsensiController extends Controller
             ]);
 
             return response()->json([
-                'message' => 'Hati hati dijalan'
+                'message' => 'Hati hati dijalan',
+                'kode_respon' => '2'
             ], 200);
         }else{
             if(!$absensi){
@@ -111,7 +119,8 @@ class AbsensiController extends Controller
 
                     return response()->json([
                         'message' => 'Berhasil absen masuk',
-                        'agendas' => $agendas
+                        'agendas' => $agendas,
+                        'kode_respon' => '1'
                     ], 200);
                 }else{
                     Absensi::create([
@@ -123,19 +132,22 @@ class AbsensiController extends Controller
                     if ($rfid->user->hasRole('guru')) {
                         return response()->json([
                             'message' => 'Berhasil absen masuk',
-                            'agendas' => $rfid->user->agenda
+                            'agendas' => $rfid->user->agenda,
+                            'kode_respon' => '1'
                         ], 200);
                         return $rfid->user->mapel;
                     }else{
                         return response()->json([
-                            'message' => 'Berhasil absen masuk'
+                            'message' => 'Berhasil absen masuk',
+                            'kode_respon' => '1'
                         ], 200);
                     }
 
                 }
             }else{
                 return response()->json([
-                    'message' => 'hari ini sudah absen masuk ataupun pulang'
+                    'message' => 'hari ini sudah absen masuk ataupun pulang',
+                    'kode_respon' => '3'
                 ], 200);
             }
         }

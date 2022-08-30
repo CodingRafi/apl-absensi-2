@@ -8,6 +8,13 @@ use App\Http\Requests\UpdateTahunAjaranRequest;
 
 class TahunAjaranController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:view_tahun_ajaran|add_tahun_ajaran|edit_tahun_ajaran|delete_tahun_ajaran', ['only' => ['index','store']]);
+         $this->middleware('permission:add_tahun_ajaran', ['only' => ['create','store']]);
+         $this->middleware('permission:edit_tahun_ajaran', ['only' => ['edit','update']]);
+         $this->middleware('permission:delete_tahun_ajaran', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *

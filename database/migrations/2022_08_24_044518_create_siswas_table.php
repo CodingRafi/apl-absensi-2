@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir')->nullable();
             $table->foreignId('kelas_id')->constrained();
-            $table->foreignId('kompetensi_id')->constrained();
+            $table->foreignId('kompetensi_id')->nullable()->constrained();
             $table->string('nik');
             $table->string('agama');
             $table->string('jalan');

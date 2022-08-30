@@ -12,6 +12,13 @@ use Illuminate\Http\Request;
 
 class AgendaController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:view_agenda|add_agenda|edit_agenda|delete_agenda', ['only' => ['index','store']]);
+         $this->middleware('permission:add_agenda', ['only' => ['create','store']]);
+         $this->middleware('permission:edit_agenda', ['only' => ['edit','update']]);
+         $this->middleware('permission:delete_agenda', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *

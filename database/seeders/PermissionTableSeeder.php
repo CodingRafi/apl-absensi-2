@@ -20,25 +20,59 @@ class PermissionTableSeeder extends Seeder
             'add_users',
             'edit_users',
             'delete_users',
+            'import_users',
+            'export_users',
 
             'view_roles',
             'add_roles',
             'edit_roles',
 
-            'view_courses',
-            'add_courses',
-            'edit_courses',
-            'delete_courses',
-
-            'view_lessons',
-            'add_lessons',
-            'edit_lessons',
-            'delete_lessons',
-
             'view_tahun_ajaran',
             'add_tahun_ajaran',
             'edit_tahun_ajaran',
             'delete_tahun_ajaran',
+
+            'view_sekolah',
+            'add_sekolah',
+            'edit_sekolah',
+            'delete_sekolah',
+
+            'view_kelas',
+            'add_kelas',
+            'edit_kelas',
+            'delete_kelas',
+
+            'view_kompetensi',
+            'add_kompetensi',
+            'edit_kompetensi',
+            'delete_kompetensi',
+
+            'view_rfid',
+            'add_rfid',
+            'edit_rfid',
+            'delete_rfid',
+
+            'view_siswa',
+            'add_siswa',
+            'edit_siswa',
+            'delete_siswa',
+            'import_siswa',
+            'export_siswa',
+
+            'view_mapel',
+            'add_mapel',
+            'edit_mapel',
+            'delete_mapel',
+
+            'view_agenda',
+            'add_agenda',
+            'edit_agenda',
+            'delete_agenda',
+
+            'view_absensi',
+            'add_absensi',
+            'edit_absensi',
+            'delete_absensi',
         ];
 
         foreach ($permissions as $permission) {

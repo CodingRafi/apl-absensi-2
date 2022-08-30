@@ -8,6 +8,13 @@ use App\Http\Requests\UpdateSekolahRequest;
 
 class SekolahController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:view_sekolah|add_sekolah|edit_sekolah|delete_sekolah', ['only' => ['index','store']]);
+         $this->middleware('permission:add_sekolah', ['only' => ['create','store']]);
+         $this->middleware('permission:edit_sekolah', ['only' => ['edit','update']]);
+         $this->middleware('permission:delete_sekolah', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *

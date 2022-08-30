@@ -13,6 +13,15 @@ use Rap2hpoutre\FastExcel\FastExcel;
 
 class UserController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:view_users|add_users|edit_users|delete_users', ['only' => ['index','store']]);
+         $this->middleware('permission:add_users', ['only' => ['create','store']]);
+         $this->middleware('permission:edit_users', ['only' => ['edit','update']]);
+         $this->middleware('permission:delete_users', ['only' => ['destroy']]);
+         $this->middleware('permission:import_users', ['only' => ['import', 'saveimport']]);
+         $this->middleware('permission:export_users', ['only' => ['export']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -205,9 +214,6 @@ class UserController extends Controller
         $user->delete();
 
         return TahunAjaran::redirectTahunAjaran('/users/' . $user->getRoleNames()[0], $request, 'Berhasil menghapus ' . $user->getRoleNames()[0]);
-
-        dd('oke');
-        
     }
 
     public function import($role){

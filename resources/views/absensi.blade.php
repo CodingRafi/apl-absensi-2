@@ -7,11 +7,99 @@
         <ul class="nav float-right mb-4" style="gap: 1rem;">
             <li class="nav-item">
                 <div class="input-group">
-                    <select class="custom-select" id="inputGroupSelect02"
-                        style="height: 30px; width: 100px; padding: 0; padding-left: 10px;">
-                        <option selected>Bulan</option>
-                        <option value="1">Januari</option>
-                    </select>
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false"
+                            style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 7rem; padding: 0.1rem">
+                            Bulan
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="max-height: 50vh;overflow: auto;">
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    <input type="hidden" name="idb" value="1">
+                                    <button type="submit" class="dropdown-item">Januari</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    <input type="hidden" name="idb" value="2">
+                                    <button type="submit" class="dropdown-item">Februari</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    <input type="hidden" name="idb" value="3">
+                                    <button type="submit" class="dropdown-item">Maret</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    <input type="hidden" name="idb" value="4">
+                                    <button type="submit" class="dropdown-item">April</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    <input type="hidden" name="idb" value="5">
+                                    <button type="submit" class="dropdown-item">Mei</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    <input type="hidden" name="idb" value="6">
+                                    <button type="submit" class="dropdown-item">Juni</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    <input type="hidden" name="idb" value="7">
+                                    <button type="submit" class="dropdown-item">Juli</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    <input type="hidden" name="idb" value="8">
+                                    <button type="submit" class="dropdown-item">Agustus</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    <input type="hidden" name="idb" value="9">
+                                    <button type="submit" class="dropdown-item">September</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    <input type="hidden" name="idb" value="10">
+                                    <button type="submit" class="dropdown-item">Oktober</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    <input type="hidden" name="idb" value="11">
+                                    <button type="submit" class="dropdown-item">November</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    <input type="hidden" name="idb" value="12">
+                                    <button type="submit" class="dropdown-item">Desember</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </li>
             <li class="nav-item">
@@ -62,7 +150,8 @@
                     <tr>
                         <th scope="col" rowspan="2" style="vertical-align: middle;">No</th>
                         <th scope="col" rowspan="2" style="vertical-align: middle;">Nama</th>
-                        <th scope="col" colspan="10">{{ explode('-', $date[0])[1] }}</th>
+                        <th scope="col" colspan="{{ count($date) }}">{{ date("F", mktime(0, 0, 0, explode('-',
+                            $date[0])[1])) }}</th>
                     </tr>
                     <tr>
                         @foreach ($date as $dt)
@@ -73,13 +162,14 @@
                 <tbody>
                     @foreach ($users as $user)
                     <tr>
-                        <th scope="row" rowspan="2" style="vertical-align: middle;">1</th>
-                        <td rowspan="2" style="vertical-align: middle;">Rafi Prasetya</td>
+                        <th scope="row" rowspan="2" style="vertical-align: middle;">{{ $loop->iteration }}</th>
+                        <td rowspan="2" style="vertical-align: middle;">{{ $user->name }}</td>
                         @foreach ($date as $item)
                         @foreach ($user->absensi as $absensi)
                         {{-- @dd(explode(':', explode(' ',$absensi->presensi_masuk)[1])) --}}
-                        @if (explode( '-',$item)[0]. '-' . explode('-',$item)[1] . '-' . explode('-',$item)[2] == explode(' ',$absensi->presensi_masuk)[0])
-                            
+                        @if (explode( '-',$item)[0]. '-' . explode('-',$item)[1] . '-' . explode('-',$item)[2] ==
+                        explode(' ',$absensi->presensi_masuk)[0])
+
                         <td class="bg-success">
                             <form action="detail-absensi-siswa" method="get">
                                 @if (request('tahun_awal'))
@@ -91,9 +181,9 @@
                                 @if (request('semester'))
                                 <input type="hidden" name="semester" value="{{ request('semester') }}">
                                 @endif
-                                <button class="btn text-white">{{  explode(':', explode(' ',$absensi->presensi_masuk)[1])[0]  }}:{{ explode(':', explode(' ',$absensi->presensi_masuk)[1])[1] }}</button>
+                                <button class="btn text-white">{{ explode(':', explode(' ',$absensi->presensi_masuk)[1])[0] }}:{{ explode(':', explode(' ',$absensi->presensi_masuk)[1])[1] }}</button>
                             </form>
-                        </td>                            
+                        </td>
                         @endif
                         @endforeach
                         @endforeach
@@ -102,8 +192,9 @@
                         @foreach ($date as $item)
                         @foreach ($user->absensi as $absensi)
                         {{-- @dd($absensi) --}}
-                        @if (explode( '-',$item)[0]. '-' . explode('-',$item)[1] . '-' . explode('-',$item)[2] == explode(' ',$absensi->presensi_pulang)[0])
-                            
+                        @if (explode( '-',$item)[0]. '-' . explode('-',$item)[1] . '-' . explode('-',$item)[2] ==
+                        explode(' ',$absensi->presensi_pulang)[0])
+
                         <td class="bg-success">
                             <form action="detail-absensi-siswa" method="get">
                                 @if (request('tahun_awal'))
@@ -115,7 +206,7 @@
                                 @if (request('semester'))
                                 <input type="hidden" name="semester" value="{{ request('semester') }}">
                                 @endif
-                                <button class="btn text-white">{{  explode(':', explode(' ',$absensi->presensi_pulang)[1])[0]  }}:{{ explode(':', explode(' ',$absensi->presensi_pulang)[1])[1] }}</button>
+                                <button class="btn text-white">{{ explode(':', explode(' ',$absensi->presensi_pulang)[1])[0] }}:{{ explode(':', explode(' ',$absensi->presensi_pulang)[1])[1] }}</button>
                             </form>
                         </td>
                         @endif

@@ -11,6 +11,13 @@ use Illuminate\Http\Request;
 
 class KompetensiController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:view_kompetensi|add_kompetensi|edit_kompetensi|delete_kompetensi', ['only' => ['index','store']]);
+         $this->middleware('permission:add_kompetensi', ['only' => ['create','store']]);
+         $this->middleware('permission:edit_kompetensi', ['only' => ['edit','update']]);
+         $this->middleware('permission:delete_kompetensi', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,11 +25,15 @@ class KompetensiController extends Controller
      */
     public function index()
     {
-        $kompetensis = Kompetensi::where('sekolah_id', \Auth::user()->sekolah_id)->get();
-
-        return view('kompetensi.index', [
-            'kompetensis' => $kompetensis
-        ]);
+        if (\Auth::user()->sekolah->tingkat == 'smk') {
+            $kompetensis = Kompetensi::where('sekolah_id', \Auth::user()->sekolah_id)->get();
+    
+            return view('kompetensi.index', [
+                'kompetensis' => $kompetensis
+            ]);
+        }else{
+            abort(403);
+        }
     }
 
     /**
@@ -32,7 +43,11 @@ class KompetensiController extends Controller
      */
     public function create()
     {
-        return view('kompetensi.create');
+        if ( \Auth::user()->sekolah->tingkat == 'smk' ) {
+            return view('kompetensi.create');
+        }else{
+            abort(403);
+        }
     }
 
     /**
@@ -72,9 +87,13 @@ class KompetensiController extends Controller
      */
     public function edit(Kompetensi $kompetensi)
     {
-        return view('kompetensi.update', [
-            'kompetensi' => $kompetensi
-        ]);
+        if (\Auth::user()->sekolah->id == $kompetensi->sekolah_id) {
+            return view('kompetensi.update', [
+                'kompetensi' => $kompetensi
+            ]);
+        }else{
+            abort(403);
+        }
     }
 
     /**
@@ -86,13 +105,17 @@ class KompetensiController extends Controller
      */
     public function update(UpdateKompetensiRequest $request, Kompetensi $kompetensi)
     {
-        $kompetensi->update([
-            'kompetensi' => $request->kompetensi,
-            'bidang' => $request->bidang,
-            'program' => $request->program,
-        ]);
-
-        return TahunAjaran::redirectTahunAjaran('/kompetensi', $request, 'Berhasil Mengupdate Kompetensi');
+        if (\Auth::user()->sekolah->id == $kompetensi->sekolah_id) {
+            $kompetensi->update([
+                'kompetensi' => $request->kompetensi,
+                'bidang' => $request->bidang,
+                'program' => $request->program,
+            ]);
+    
+            return TahunAjaran::redirectTahunAjaran('/kompetensi', $request, 'Berhasil Mengupdate Kompetensi');
+        }else{
+            abort(403);
+        }
     }
 
     /**
@@ -104,11 +127,15 @@ class KompetensiController extends Controller
     public function destroy(Request $request, $id)
     {
         $kompetensi = Kompetensi::findOrFail($id);
-        foreach ($kompetensi->siswa as $key => $siswa) {
-            Siswa::deleteSiswa($siswa->id);
+        if (\Auth::user()->sekolah->id == $kompetensi->sekolah_id) {
+            foreach ($kompetensi->siswa as $key => $siswa) {
+                Siswa::deleteSiswa($siswa->id);
+            }
+    
+            $kompetensi->delete();
+            return TahunAjaran::redirectTahunAjaran('/kompetensi', $request, 'Berhasil meghapus Kompetensi');
+        }else{
+            abort(403);
         }
-
-        $kompetensi->delete();
-        return TahunAjaran::redirectTahunAjaran('/kompetensi', $request, 'Berhasil meghapus Kompetensi');
     }
 }

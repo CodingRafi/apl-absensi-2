@@ -10,6 +10,13 @@ use Illuminate\Http\Request;
 
 class MapelController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:view_mapel|add_mapel|edit_mapel|delete_mapel', ['only' => ['index','store']]);
+         $this->middleware('permission:add_mapel', ['only' => ['create','store']]);
+         $this->middleware('permission:edit_mapel', ['only' => ['edit','update']]);
+         $this->middleware('permission:delete_mapel', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -68,9 +75,13 @@ class MapelController extends Controller
      */
     public function edit(Mapel $mapel)
     {
-        return view('mapel.update', [
-            'mapel' => $mapel
-        ]);
+        if ($mapel->sekolah_id == \Auth::user()->sekolah->id) {
+            return view('mapel.update', [
+                'mapel' => $mapel
+            ]);
+        }else{
+            abort(403);
+        }
     }
 
     /**
@@ -82,11 +93,15 @@ class MapelController extends Controller
      */
     public function update(UpdateMapelRequest $request, Mapel $mapel)
     {
-        $mapel->update([
-            'nama' => $request->nama
-        ]);
-        
-        return TahunAjaran::redirectTahunAjaran('/mapel', $request,  'Berhasil mengupdate mapel');
+        if ($mapel->sekolah_id == \Auth::user()->sekolah->id) {
+            $mapel->update([
+                'nama' => $request->nama
+            ]);
+            
+            return TahunAjaran::redirectTahunAjaran('/mapel', $request,  'Berhasil mengupdate mapel');
+        }else{
+            abort(403);
+        }
     }
 
     /**
@@ -99,16 +114,20 @@ class MapelController extends Controller
     {
         $mapel = Mapel::findOrFail($id);
 
-        foreach ($mapel->user as $key => $guru) {
-            $guru->mapel()->detach($id);
+        if ($mapel->sekolah_id == \Auth::user()->sekolah->id) {
+            foreach ($mapel->user as $key => $guru) {
+                $guru->mapel()->detach($id);
+            }
+    
+            foreach ($mapel->agenda as $key => $agenda) {
+                $agenda->delete();
+            }
+    
+            $mapel->delete();
+    
+            return TahunAjaran::redirectTahunAjaran('/mapel', $request, 'Mapel Berhasil Dihapus');
+        }else{
+            abort(403);
         }
-
-        foreach ($mapel->agenda as $key => $agenda) {
-            $agenda->delete();
-        }
-
-        $mapel->delete();
-
-        return TahunAjaran::redirectTahunAjaran('/mapel', $request, 'Mapel Berhasil Dihapus');
     }
 }

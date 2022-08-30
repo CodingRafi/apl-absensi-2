@@ -15,6 +15,15 @@ use Carbon\Carbon;
 
 class SiswaController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:view_siswa|add_siswa|edit_siswa|delete_siswa', ['only' => ['index','store']]);
+         $this->middleware('permission:add_siswa', ['only' => ['create','store']]);
+         $this->middleware('permission:edit_siswa', ['only' => ['edit','update']]);
+         $this->middleware('permission:delete_siswa', ['only' => ['destroy']]);
+         $this->middleware('permission:import_siswa', ['only' => ['import', 'saveimport']]);
+         $this->middleware('permission:export_siswa', ['only' => ['export']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -61,23 +70,41 @@ class SiswaController extends Controller
     {
         $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
 
-        $siswa = Siswa::create([
-            'name' => $request->name,
-            'nisn' => $request->nisn,
-            'nipd' => $request->nipd,
-            'nik' => $request->nik,
-            'tempat_lahir' => $request->tempat_lahir,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'agama' => $request->agama,
-            'jk' => $request->jk,
-            'kelas_id' => $request->kelas_id,
-            'kompetensi_id' => $request->kompetensi_id,
-            'jalan' => $request->jalan,
-            'kelurahan' => $request->kelurahan,
-            'kecamatan' => $request->kecamatan,
-            'sekolah_id' => \Auth::user()->sekolah_id
-        ]);
-
+        if (\Auth::user()->sekolah->tingkat == 'smk') {
+            $siswa = Siswa::create([
+                'name' => $request->name,
+                'nisn' => $request->nisn,
+                'nipd' => $request->nipd,
+                'nik' => $request->nik,
+                'tempat_lahir' => $request->tempat_lahir,
+                'tanggal_lahir' => $request->tanggal_lahir,
+                'agama' => $request->agama,
+                'jk' => $request->jk,
+                'kelas_id' => $request->kelas_id,
+                'kompetensi_id' => $request->kompetensi_id,
+                'jalan' => $request->jalan,
+                'kelurahan' => $request->kelurahan,
+                'kecamatan' => $request->kecamatan,
+                'sekolah_id' => \Auth::user()->sekolah_id
+            ]);
+        }else{
+            $siswa = Siswa::create([
+                'name' => $request->name,
+                'nisn' => $request->nisn,
+                'nipd' => $request->nipd,
+                'nik' => $request->nik,
+                'tempat_lahir' => $request->tempat_lahir,
+                'tanggal_lahir' => $request->tanggal_lahir,
+                'agama' => $request->agama,
+                'jk' => $request->jk,
+                'kelas_id' => $request->kelas_id,
+                'jalan' => $request->jalan,
+                'kelurahan' => $request->kelurahan,
+                'kecamatan' => $request->kecamatan,
+                'sekolah_id' => \Auth::user()->sekolah_id
+            ]);
+        }
+        
         if ($request->rfid) {
             Rfid::createRfid($request->rfid, $siswa->id, null, $request->status_rfid);
         }
