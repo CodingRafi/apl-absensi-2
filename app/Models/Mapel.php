@@ -12,7 +12,7 @@ class Mapel extends Model
     protected $guarded = ['id'];
 
     public function user(){
-        return $this->belongToMany(User::class);
+        return $this->belongsToMany(User::class);
     }
 
     public function sekolah(){

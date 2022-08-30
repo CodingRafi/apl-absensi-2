@@ -6,6 +6,7 @@ use App\Models\Mapel;
 use App\Models\TahunAjaran;
 use App\Http\Requests\StoreMapelRequest;
 use App\Http\Requests\UpdateMapelRequest;
+use Illuminate\Http\Request;
 
 class MapelController extends Controller
 {
@@ -94,8 +95,20 @@ class MapelController extends Controller
      * @param  \App\Models\Mapel  $mapel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Mapel $mapel)
+    public function destroy(Request $request, $id)
     {
-        //
+        $mapel = Mapel::findOrFail($id);
+
+        foreach ($mapel->user as $key => $guru) {
+            $guru->mapel()->detach($id);
+        }
+
+        foreach ($mapel->agenda as $key => $agenda) {
+            $agenda->delete();
+        }
+
+        $mapel->delete();
+
+        return TahunAjaran::redirectTahunAjaran('/mapel', $request, 'Mapel Berhasil Dihapus');
     }
 }

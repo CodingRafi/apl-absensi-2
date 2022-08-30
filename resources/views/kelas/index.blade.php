@@ -29,7 +29,8 @@
                         <form action="/kelas/{{ $kelas->id }}" method="post">
                             @csrf
                             @method('delete')
-                            <button type="submit" class="btn btn-sm btn-danger font-weight-bold" onclick="return confirm('Yakin?')" style="width: 5rem; margin: 0.1rem">Hapus</button>
+                            @include('mypartials.tahunajaran')
+                            <button type="submit" class="btn btn-sm btn-danger font-weight-bold" onclick="return confirm('Ini akan menghapus semua siswa, dan agenda untuk kelas ini?')" style="width: 5rem; margin: 0.1rem">Hapus</button>
                         </form>
                     </td>
                 </tr>

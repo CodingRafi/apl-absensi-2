@@ -33,8 +33,9 @@
                         <form action="/kompetensi/{{ $kompetensi->id }}" method="post">
                             @csrf
                             @method('delete')
+                            @include('mypartials.tahunajaran')
                             <button type="submit" class="btn btn-sm btn-danger font-weight-bold"
-                                onclick="return confirm('Yakin?')" style="width: 5rem; margin: 0.1rem">Hapus</button>
+                                onclick="return confirm('apakah anda yakin akan menghapus jurusan ini? maka semua siswa pada jurusan ini akan terhapus')" style="width: 5rem; margin: 0.1rem">Hapus</button>
                         </form>
                     </td>
                 </tr>

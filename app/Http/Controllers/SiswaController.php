@@ -154,9 +154,10 @@ class SiswaController extends Controller
      * @param  \App\Models\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Siswa $siswa)
+    public function destroy(Request $request, $id)
     {
-        //
+        $user = Siswa::deleteSiswa($id);
+        return TahunAjaran::redirectTahunAjaran('/siswa', $request, 'Berhasil Menghapus Siswa');
     }
 
     public function import(Request $request){

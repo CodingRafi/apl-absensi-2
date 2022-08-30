@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelas;
+use App\Models\Siswa;
 use App\Models\TahunAjaran;
 use App\Http\Requests\StoreKelasRequest;
 use App\Http\Requests\UpdateKelasRequest;
@@ -103,8 +104,20 @@ class KelasController extends Controller
      * @param  \App\Models\Kelas  $kelas
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Kelas $kelas)
+    public function destroy(Request $request, $id)
     {
-        //
+        $kelas = Kelas::findOrFail($id);
+
+        foreach ($kelas->siswa as $key => $siswa) {
+            Siswa::deleteSiswa($siswa->id);
+        }
+
+        foreach ($kelas->agenda as $key => $agenda) {
+            $agenda->delete();
+        }
+
+        $kelas->delete();
+
+        return TahunAjaran::redirectTahunAjaran('/kelas', $request, 'Kelas Berhasil Dihapus');
     }
 }

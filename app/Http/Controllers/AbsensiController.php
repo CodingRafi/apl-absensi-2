@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Absensi;
 use App\Models\User;
+use App\Models\TahunAjaran;
+use App\Models\Kelas;
+use App\Models\Kompetensi;
+use App\Models\Siswa;
 use App\Models\Agenda;
 use App\Models\Rfid;
 use App\Http\Requests\StoreAbsensiRequest;
 use App\Http\Requests\UpdateAbsensiRequest;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class AbsensiController extends Controller
 {
@@ -17,9 +22,48 @@ class AbsensiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, $role)
     {
-        //
+        $now = Carbon::now();
+        $date=[];
+        $month = $now->month;
+        $year = $now->year;
+        
+        for($d=0; $d<=32; $d++)
+        {
+            $time=mktime(24, 0, 0, $month, $d, $year);  
+            if (date('m', $time)==$month)       
+                $date[]=date('Y-m-d-D', $time);
+        }
+
+        if($role == 'siswa'){
+            $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+            $kelas_filter = Kelas::where('tahun_ajaran_id', $tahun_ajaran->id)->get();
+            $kompetensis = Kompetensi::where('sekolah_id', \Auth::user()->sekolah_id)->get();
+
+            $siswas = Siswa::filter(request(['idk', 'idj', 'search']))->select('siswas.*', 'kelas.nama as kelas', 'kompetensis.kompetensi as jurusan')->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->get();
+
+            return view('absensi', [
+                'users' => $siswas,
+                'role' => $role,
+                'date' => $date
+            ]);
+        }else{
+            $users_query = User::filter(request(['search']))->where('sekolah_id', \Auth::user()->sekolah_id)->get();
+            $users = [];
+    
+            foreach ($users_query as $key => $user) {
+                if($user->hasRole($role)){
+                    $users[] = $user;
+                }
+            }
+
+            return view('absensi', [
+                'users' => $users,
+                'role' => $role,
+                'date' => $date
+            ]);
+        }
     }
 
     /**

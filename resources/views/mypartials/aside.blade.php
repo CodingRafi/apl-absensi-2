@@ -71,16 +71,21 @@
             </a>
             <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
+                    @foreach ($roles as $role)
+                        @if ($role->name != 'yayasan' && $role->name != 'admin' && $role->name != 'super_admin')
+                        <li class="nav-item">
+                            <form action="/absensi/{{ $role->name }}" method="get">
+                                @include('mypartials.tahunajaran')
+                                <button class="nav-link {{ Request::is('/') ? 'active' : '' }}" style="background-color: #3bae9c; border: none; min-width: 150px">Data {{ str_replace("_", " ", $role->name) }}
+                                </button>
+                            </form>
+                        </li>
+                        @endif
+                    @endforeach
                     <li class="nav-item">
-                        <form action="/absensi-guru" method="get">
+                        <form action="/absensi/siswa" method="get">
                             @include('mypartials.tahunajaran')
-                            <button class="nav-link {{ Request::is('/') ? 'active' : '' }}" style="background-color: #3bae9c; border: none; min-width: 150px">Absensi Guru</button>
-                        </form>
-                    </li>
-                    <li class="nav-item">
-                        <form action="/absensi-siswa" method="get">
-                            @include('mypartials.tahunajaran')
-                            <button class="nav-link {{ Request::is('/') ? 'active' : '' }}" style="background-color: #3bae9c; border: none; min-width: 150px">Absensi Siswa</button>
+                            <button class="nav-link {{ Request::is('/') ? 'active' : '' }}" style="background-color: #3bae9c; border: none; min-width: 150px">Data Siswa</button>
                         </form>
                     </li>
                 </ul>

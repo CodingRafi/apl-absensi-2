@@ -137,7 +137,8 @@
                             <form action="/siswa/{{ $student->id }}" method="post">
                                 @csrf
                                 @method('delete')
-                                <button type="submit" class="btn btn-sm btn-danger font-weight-bold" style="width: 5rem; margin: 0.1rem;">Hapus</button>
+                                @include('mypartials.tahunajaran')
+                                <button type="submit" class="btn btn-sm btn-danger font-weight-bold" style="width: 5rem; margin: 0.1rem;" onclick="return confirm('yakin?')">Hapus</button>
                             </form>
                         </td>
                     </tr>

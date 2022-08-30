@@ -7,6 +7,7 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\AgendaController;
+use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\KompetensiController;
 use App\Http\Controllers\TahunAjaranController;
 use App\Http\Controllers\RegisteredUserController;
@@ -37,6 +38,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('siswa', SiswaController::class);
     Route::resource('tahun-ajaran', TahunAjaranController::class);
     Route::resource('agenda', AgendaController::class);
+    Route::get('/absensi/{role}', [AbsensiController::class, 'index']);
     Route::get('get-mapel/{id}', [AgendaController::class, 'get_mapel']);
     Route::get('agenda/kelas/{id}', [AgendaController::class, 'showJadwal']);
     Route::get('/import', [SiswaController::class, 'import']);
