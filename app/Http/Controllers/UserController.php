@@ -173,9 +173,41 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
-    {
-        //
+    public function destroy(Request $request, $id)
+    {   
+        $user = User::findOrFail($id);
+
+        if ($user->hasRole('guru')) {
+            if (count($user->mapel) > 0) {
+                foreach ($user->mapel as $key => $mapel) {
+                    $mapel->user()->detach($user->id);
+                }
+            }
+
+            if(count($user->agenda) > 0){
+                foreach ($user->agenda as $key => $agenda) {
+                    $agenda->delete();
+                }
+            }
+        }
+
+        
+        if (count($user->absensi) > 0) {
+            foreach ($user->absensi as $key => $absensi) {
+                $absensi->delete();
+            }
+        }
+
+        if ($user->rfid) {
+            $user->rfid->delete();
+        }
+
+        $user->delete();
+
+        return TahunAjaran::redirectTahunAjaran('/users/' . $user->getRoleNames()[0], $request, 'Berhasil menghapus ' . $user->getRoleNames()[0]);
+
+        dd('oke');
+        
     }
 
     public function import($role){

@@ -35,6 +35,12 @@
                                 @include('mypartials.tahunajaran')
                                 <button type="submit" class="btn btn-warning">Edit</button>
                             </form>
+                            <form action="/agenda/{{ $sigleJadwal->id }}" method="post">
+                                @csrf
+                                @method('delete')
+                                @include('mypartials.tahunajaran')
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('yakin ingin menghapus ini?')">Delete</button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach

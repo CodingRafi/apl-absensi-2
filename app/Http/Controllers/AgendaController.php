@@ -135,9 +135,11 @@ class AgendaController extends Controller
      * @param  \App\Models\Agenda  $agenda
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Agenda $agenda)
+    public function destroy(Request $request, $id)
     {
-        //
+        $agenda = Agenda::findOrFail($id);
+        $agenda->delete();
+        return TahunAjaran::redirectTahunAjaran('/agenda/kelas/' . $agenda->kelas_id, $request, 'Jadwal Berhasil Dihapus');
     }
 
     public function get_mapel($id){

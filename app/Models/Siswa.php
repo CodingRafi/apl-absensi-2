@@ -94,4 +94,15 @@ class Siswa extends Model
         }
 
     }
+
+    public static function deleteSiswa($id){
+        $siswa = Siswa::findOrFail($id);
+        if ($siswa->rfid) {
+            $siswa->rfid->delete();
+        }
+        foreach ($siswa->absensi as $key => $absensi) {
+            $absensi->delete();
+        }
+        $siswa->delete();
+    }
 }

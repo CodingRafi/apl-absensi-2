@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kompetensi;
+use App\Models\Siswa;
 use App\Models\TahunAjaran;
 use App\Http\Requests\StoreKompetensiRequest;
 use App\Http\Requests\UpdateKompetensiRequest;
+use Illuminate\Http\Request;
 
 class KompetensiController extends Controller
 {
@@ -99,8 +101,14 @@ class KompetensiController extends Controller
      * @param  \App\Models\Kompetensi  $kompetensi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Kompetensi $kompetensi)
+    public function destroy(Request $request, $id)
     {
-        //
+        $kompetensi = Kompetensi::findOrFail($id);
+        foreach ($kompetensi->siswa as $key => $siswa) {
+            Siswa::deleteSiswa($siswa->id);
+        }
+
+        $kompetensi->delete();
+        return TahunAjaran::redirectTahunAjaran('/kompetensi', $request, 'Berhasil meghapus Kompetensi');
     }
 }

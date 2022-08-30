@@ -29,8 +29,9 @@
                         <form action="/mapel/{{ $mapel->id }}" method="post">
                             @csrf
                             @method('delete')
+                            @include('mypartials.tahunajaran')
                             <button type="submit" class="btn btn-sm btn-danger"
-                                onclick="return confirm('Yakin?')" style="width: 5rem; margin: 0.1rem">Hapus</button>
+                                onclick="return confirm('semua agenda dan guru yang menggunakan mapel ini akan berubah')" style="width: 5rem; margin: 0.1rem">Hapus</button>
                         </form>
                     </td>
                 </tr>

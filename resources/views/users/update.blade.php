@@ -54,6 +54,7 @@
         <label for="exampleInputEmail1" class="form-label">Mapel</label>
         <select class="form-control" aria-label="Default select example" name="mapel[]" multiple required>
           @foreach ($mapels as $mapel)
+          @if (count($user->mapel) > 0)
           @foreach ($user->mapel as $mapel_pilih)
           @if ($mapel->id == $mapel_pilih->id)
           <option value="{{ $mapel->id }}" selected>{{ $mapel->nama }}</option>
@@ -61,6 +62,9 @@
           <option value="{{ $mapel->id }}">{{ $mapel->nama }}</option>
           @endif
           @endforeach
+          @else
+          <option value="{{ $mapel->id }}">{{ $mapel->nama }}</option>
+          @endif
           @endforeach
         </select>
       </div>
@@ -82,19 +86,22 @@
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Rfid</label>
         <input type="hidden" name="id_rfid" value="{{ ($user->rfid) ? $user->rfid->id : '' }}">
-        <input type="text" class="form-control" placeholder="Masukan Rfid" name="rfid" value="{{ ($user->rfid) ? $user->rfid->rfid_number : '' }}">
+        <input type="text" class="form-control" placeholder="Masukan Rfid" name="rfid"
+          value="{{ ($user->rfid) ? $user->rfid->rfid_number : '' }}">
       </div>
       <div class="">
         <label for="exampleInputEmail1" class="form-label">Status Rfid</label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="status_rfid" id="aktif" {{ ($user->rfid) ? ($user->rfid->status == 'aktif') ? 'checked' : '' : '' }} value="on">
+        <input class="form-check-input" type="radio" name="status_rfid" id="aktif" {{ ($user->rfid) ?
+        ($user->rfid->status == 'aktif') ? 'checked' : '' : '' }} value="on">
         <label class="form-check-label" for="aktif">
           Aktif
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="status_rfid" id="tidak" {{ ($user->rfid) ? ($user->rfid->status == 'tidak') ? 'checked' : '' : '' }} value="tidak">
+        <input class="form-check-input" type="radio" name="status_rfid" id="tidak" {{ ($user->rfid) ?
+        ($user->rfid->status == 'tidak') ? 'checked' : '' : '' }} value="tidak">
         <label class="form-check-label" for="tidak">
           Tidak
         </label>

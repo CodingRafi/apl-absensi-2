@@ -3,30 +3,7 @@
 @section('container')
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title float-left">Agenda Guru</h4>
-        <ul class="nav float-right mb-4" style="gap: 1rem;">
-            <li class="nav-item">
-                <div class="input-group">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Hari
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </li>
-            <li class="nav-item">
-                <form action="/agenda/create" method="get">
-                    @include('mypartials.tahunajaran')
-                    <button type="submit" class="btn btn-sm text-white font-weight-bold px-3" style="background-color: #3bae9c">Tambah Agenda</button>
-                </form>
-            </li>
-        </ul>
+        <h4 class="card-title float-left">Agenda</h4>
         <div class="table-responsive">
             <table class="table">
                 <thead class="thead-light">
