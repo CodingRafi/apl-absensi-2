@@ -97,3 +97,8 @@ Route::get('/user-settings', function() {
     return view('myauth.settings');
 });
 
+Route::get('/register', function() {
+    return view('myauth.register');
+});
+
+

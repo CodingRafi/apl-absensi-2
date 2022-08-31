@@ -17,15 +17,17 @@
   <link rel="stylesheet" href="/template/css/vertical-layout-light/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="/template/images/favicon.png" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 </head>
 
 <body>
   <div class="container-scroller">
-    <div class="container-fluid page-body-wrapper full-page-wrapper">
-      <div class="content-wrapper d-flex align-items-center auth px-0">
+    <div class="container-fluid page-body-wrapper full-page-wrapper p-0">
+      <div class="content-wrapper d-flex align-items-center auth px-0" style="background-image: url('/img/bgc.jpg'); background-size: cover; background-repeat: no-repeat">
         <div class="row w-100 mx-0">
           <div class="col-lg-4 mx-auto">
-            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5" style="border-radius: 10px; box-shadow: box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.276);">
               <h3>Forgot Password</h3>
               <p>Enter your email and we'll send you instructions to reset your password</p>
               <!-- Session Status -->
@@ -37,13 +39,14 @@
               <form class="pt-3" action="{{ route('password.email') }}" method="post">
                 @csrf
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-lg" placeholder="Email" name="login"
-                    name="email">
+                  <input type="email" class="form-control form-control-lg" placeholder="Email"
+                    name="email" style="border-radius: 5px">
                 </div>
                 <div class="mt-3">
-                  <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Send
+                  <button type="submit" class="btn btn-block btn-lg text-white font-weight-medium auth-form-btn" style="background-color: #3bae9c">Send
                     Reset Password</button>
-                </div>
+                  </div>
+                  <a href="/login" class="d-flex justify-content-center mt-3"><i class="bi bi-arrow-left-circle mr-2"></i> Back to login</a>
               </form>
             </div>
           </div>

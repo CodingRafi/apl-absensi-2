@@ -4,11 +4,11 @@
 <div class="card">
     <div class="card-body">
         <h4 class="card-title float-left">Agenda Guru</h4>
-        <ul class="nav float-right mb-4" style="gap: 1rem;">
+        <ul class="nav float-right mb-3">
             <li class="nav-item">
                 <div class="dropdown">
                     <button class="btn dropdown-toggle ml-3" type="button" id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown" aria-expanded="false" style="border: none">
+                        data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid rgb(205, 205, 205)">
                         Tahun Ajaran
                     </button>
                     <ul class="dropdown-menu ml-1" aria-labelledby="dropdownMenuButton1">
