@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\AbsensiPelajaran;
+use App\Models\TahunAjaran;
 use App\Http\Requests\StoreAbsensiPelajaranRequest;
 use App\Http\Requests\UpdateAbsensiPelajaranRequest;
+use Illuminate\Http\Request;
 
 class AbsensiPelajaranController extends Controller
 {
@@ -13,9 +15,12 @@ class AbsensiPelajaranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        dd('oke');
+        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+        return view('absensipelajaran.index', [
+            'absensi_pelajarans' => \Auth::user()->absensi_pelajaran->where('tahun_ajaran_id', $tahun_ajaran->id)
+        ]);
     }
 
     /**

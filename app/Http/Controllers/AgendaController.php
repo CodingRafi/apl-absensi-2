@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Kelas;
 use App\Models\Agenda;
 use App\Models\TahunAjaran;
+use App\Models\AbsensiPelajaran;
 use App\Http\Requests\StoreAgendaRequest;
 use App\Http\Requests\UpdateAgendaRequest;
 use Illuminate\Http\Request;
@@ -79,6 +80,18 @@ class AgendaController extends Controller
             'jam_akhir' => $request->jam_akhir,
             'urutan' => $request->urutan,
         ]);
+
+        $agenda = Agenda::where('kelas_id', $request->kelas_id)->where('user_id', $request->user_id)->where('kelas_id', $request->kelas_id)->count();
+
+        if ($agenda == 1) {
+            AbsensiPelajaran::create([
+                'tahun_ajaran_id' => $tahun_ajaran->id,
+                'kelas_id' => $request->kelas_id,
+                'user_id' => $request->user_id,
+                'mapel_id' => $request->mapel_id,
+                'sekolah_id' => \Auth::user()->sekolah_id
+            ]);
+        }
 
         return TahunAjaran::redirectTahunAjaran('/agenda/kelas/' . $request->kelas_id, $request, 'Jadwal Berhasil Ditambahkan');
     }

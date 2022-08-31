@@ -30,4 +30,8 @@ class AbsensiPelajaran extends Model
     public function tahun_ajaran(){
         return $this->belongsTo(TahunAjaran::class);
     }
+
+    public function sekolah(){
+        return $this->belongsTo(Sekolah::class);
+    }
 }

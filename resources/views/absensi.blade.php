@@ -287,16 +287,6 @@
                 Alpha
             </li>
             <li class="nav-item">
-                <span class="badge badge-pill"
-                    style="background: rgba(235, 0, 255, 1); color: rgba(0, 0, 0, 0)">1</span>
-                Terlambat
-            </li>
-            <li class="nav-item">
-                <span class="badge badge-pill"
-                    style="background: rgba(15, 210, 237, 1); color: rgba(0, 0, 0, 0)">1</span>
-                Kegiatan Sekolah
-            </li>
-            <li class="nav-item">
                 <span class="badge badge-pill badge-secondary" style="color: rgba(0, 0, 0, 0)">1</span>
                 Libur
             </li>
@@ -311,22 +301,24 @@
                         <th scope="col" colspan="{{ count($date) }}">{{ date("F", mktime(0, 0, 0, explode('-', $date[0])[1], 10)) }}</th>
                     </tr>
                     <tr>
-                        @foreach ($date as $dt)
-                        <th scope="col">{{ explode('-', $dt)[2] }}</th>
-                        @endforeach
+                            @foreach ($date as $dt)
+                            <th scope="col">{{ explode('-', $dt)[2] }}</th>
+                            @endforeach
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($absensis as $key => $absensi)
-                        <tr>
-                            <th scope="row" rowspan="2" style="vertical-align: middle;">{{ $loop->iteration }}</th>
+                    <tr>
+                        <th scope="row" rowspan="2" style="vertical-align: middle;">{{ $loop->iteration }}</th>
                             @if ($role == 'siswa')
                             <td rowspan="2" style="vertical-align: middle;">{{ $siswas[$key]->name }}</td>
                             @else
                             <td rowspan="2" style="vertical-align: middle;">{{ $users[$key]->name }}</td>
                             @endif
                             @foreach ($absensi as $k => $sigleAbsensi)
-                                @if ($sigleAbsensi)
+                            {{-- @dd(explode('-', $date[0])) --}}
+                            {{-- @dd(date("D", mktime(0, 0, 0, explode('-', $date[0])[1], $k, explode('-', $date[0])[0]))) --}}
+                            @if ($sigleAbsensi)
                                     <td class="bg-success">
                                         <form action="detail-absensi-siswa" method="get">
                                             @include('mypartials.tahunajaran')
@@ -334,7 +326,11 @@
                                         </form>
                                     </td>
                                 @else
-                                    <td></td>
+                                    @if (strtolower(date("D", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0]))) == 'sun')
+                                        <td class="bg-secondary" style="height: 2rem;"></td>
+                                    @else
+                                        <td></td>
+                                    @endif
                                 @endif
                             @endforeach
                         </tr>
@@ -348,7 +344,11 @@
                                         </form>
                                     </td>
                                 @else
-                                    <td></td>
+                                @if (strtolower(date("D", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0]))) == 'sun')
+                                <td class="bg-secondary" style="height: 2rem;"></td>
+                            @else
+                                <td></td>
+                            @endif
                                 @endif
                             @endforeach
                         </tr>

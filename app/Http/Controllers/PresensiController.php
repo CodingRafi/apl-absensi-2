@@ -3,8 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Presensi;
+use App\Models\TahunAjaran;
+use App\Models\Kompetensi;
+use App\Models\Siswa;
+use App\Models\Absensi;
 use App\Http\Requests\StorePresensiRequest;
 use App\Http\Requests\UpdatePresensiRequest;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class PresensiController extends Controller
 {
@@ -13,9 +19,38 @@ class PresensiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $now = Carbon::now();
+        $month = request('idb') ?? $now->month;
+        $year = $now->year;
+        $date=[];
+        
+        for($d=0; $d<=32; $d++)
+        {
+            $time=mktime(24, 0, 0, $month, $d, $year);  
+            if (date('m', $time)==$month)       
+            $date[]=date('Y-m-d', $time);
+            // $date[]=date('Y-m-d-D', $time);
+        }
+
+        $absensis = [];
+
+        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+        $kompetensis = Kompetensi::where('sekolah_id', \Auth::user()->sekolah_id)->get();
+
+        $siswas = Siswa::filter(request(['idk', 'idj', 'search']))->select('siswas.*', 'kelas.nama as kelas', 'kompetensis.kompetensi as jurusan')->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->get();
+
+        foreach ($siswas as $key => $siswa) {
+            $absensis[] = Absensi::get_absensi($siswa, $date);
+        }
+
+        return view('absensipelajaran.input', [
+            'date' => $date,
+            'kompetensis' => $kompetensis,
+            'absensis' => $absensis,
+            'siswas' => $siswas
+        ]);
     }
 
     /**
