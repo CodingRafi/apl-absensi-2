@@ -4,33 +4,6 @@
 <div class="card">
     <div class="card-body">
         <h4 class="card-title float-left">Agenda Guru</h4>
-        <ul class="nav float-right mb-4" style="gap: 1rem;">
-            <li class="nav-item">
-                <div class="input-group">
-                    <select class="custom-select" id="inputGroupSelect01" style="height: 30px; padding: 0; padding-left: 10px">
-                        <option selected>Jurusan</option>
-                        <option value="1">Rekayasa Perangkat Lunak</option>
-                    </select>
-                </div>
-            </li>
-            <li class="nav-item">
-                <div class="input-group">
-                    <select class="custom-select" id="inputGroupSelect02" style="height: 30px; padding: 0; padding-left: 10px">
-                        <option selected>Kelas</option>
-                        <option value="1">XII RPL 2</option>
-                    </select>
-                </div>
-            </li>
-            <li class="nav-item">
-                <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                        placeholder="Search" style="height: 29px;">
-                </div>
-            </li>
-            <li class="nav-item">
-                <a href="" class="btn btn-sm text-white font-weight-bold px-3" style="background-color: #3bae9c">Tambah Data</a>
-            </li>
-        </ul>
         <div class="table-responsive">
             <table class="table">
                 <thead class="thead-light">
