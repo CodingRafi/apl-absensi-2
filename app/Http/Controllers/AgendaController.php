@@ -9,6 +9,7 @@ use App\Models\TahunAjaran;
 use App\Http\Requests\StoreAgendaRequest;
 use App\Http\Requests\UpdateAgendaRequest;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class AgendaController extends Controller
 {
@@ -165,8 +166,12 @@ class AgendaController extends Controller
         ]);
     }
 
-    public function show_guru(){
-        
+    public function show_guru(Request $request){
+        $now = Carbon::now();
+        $month = $request->month ?? $now->month;
+        $day = $request->day ?? $now->day;
+        dd($day);
+
         return view('agenda.guru');
     }
 }
