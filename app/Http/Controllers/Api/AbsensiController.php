@@ -48,6 +48,7 @@ class AbsensiController extends Controller
                     return response()->json([
                         'message' => 'Berhasil absen masuk',
                         'agendas' => $agendas,
+                        'hari' => strtolower($now->isoFormat('dddd')),
                         'kode_respon' => '1'
                     ], 200);
                 }else{
@@ -61,6 +62,7 @@ class AbsensiController extends Controller
                         return response()->json([
                             'message' => 'Berhasil absen masuk',
                             'agendas' => $rfid->user->agenda,
+                            'hari' => strtolower($now->isoFormat('dddd')),
                             'kode_respon' => '1'
                         ], 200);
                         return $rfid->user->mapel;

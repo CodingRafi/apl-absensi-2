@@ -145,5 +145,13 @@
             </form>
         </li>
         @endif
+        <li class="nav-item">
+            <form action="/presensi-pelajaran" method="get">
+                @include('mypartials.tahunajaran')
+                <button class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}"
+                    style="background-color: #ffffff; border: none; min-width: 200px"><i
+                        class="bi bi-calendar-week menu-icon"></i> Presensi Pelajaran</button>
+            </form>
+        </li>
     </ul>
 </nav>

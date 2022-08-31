@@ -27,6 +27,10 @@ class Absensi extends Model
         return $this->belongsTo(Kelas::class);
     }
 
+    public function presensi(){
+        return $this->hasOne(Presensi::class);
+    }
+
     public static function get_absensi($user, $dates){
         $absensi_siswa = [];
         foreach ($dates as $key => $date) {

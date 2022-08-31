@@ -9,6 +9,7 @@ use App\Models\TahunAjaran;
 use App\Http\Requests\StoreAgendaRequest;
 use App\Http\Requests\UpdateAgendaRequest;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class AgendaController extends Controller
 {
@@ -165,8 +166,30 @@ class AgendaController extends Controller
         ]);
     }
 
-    public function show_guru(){
+    public function show_guru(Request $request){
+        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+
+        $now = Carbon::now();
+        $month = $request->idb ?? $now->month;
+        $day = $request->idt ?? $now->day;
+        $year = $tahun_ajaran->tahun_awal;
+
+        $dates=[];
         
-        return view('agenda.guru');
+        for($d=0; $d<=32; $d++)
+        {
+            $time=mktime(24, 0, 0, $month, $d, $year);  
+            if (date('m', $time)==$month)       
+            $dates[]=date('Y-m-d', $time);
+        }
+
+        $date = Carbon::parse(date("Y-m-d", mktime(0, 0, 0, $month, $day, $year)))->locale('id')->isoFormat('dddd');
+
+        $agendas = Agenda::where('tahun_ajaran_id', $tahun_ajaran->id)->where('hari', strtolower($date))->get();
+
+        return view('agenda.guru', [
+            'agendas' => $agendas,
+            'dates' => $dates
+        ]);
     }
 }

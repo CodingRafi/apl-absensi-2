@@ -4,7 +4,167 @@
 <div class="card">
     <div class="card-body">
         <h4 class="card-title float-left">Agenda Guru</h4>
-        <ul class="nav float-right mb-3">
+        <ul class="nav float-right mb-4" style="gap: 1rem;">
+            <div class="nav-item">
+                <div class="input-group">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false"
+                            style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 7rem; padding: 0.1rem">
+                            Tanggal
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
+                            style="max-height: 50vh;overflow: auto;">
+                            @foreach ($dates as $date)
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    @if (request('idb'))
+                                    <input type="hidden" name="idb" value="{{ request('idb') }}">
+                                    @endif
+                                    <input type="hidden" name="idt" value="{{ explode('-', $date)[2] }}">
+                                    <button type="submit" class="dropdown-item">{{ explode('-', $date)[2] }}</button>
+                                </form>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-item">
+                <div class="input-group">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false"
+                            style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 7rem; padding: 0.1rem">
+                            Bulan
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
+                            style="max-height: 50vh;overflow: auto;">
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    @if (request('idt'))
+                                    <input type="hidden" name="idt" value="{{ request('idt') }}">
+                                    @endif
+                                    <input type="hidden" name="idb" value="1">
+                                    <button type="submit" class="dropdown-item">Januari</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    @if (request('idt'))
+                                    <input type="hidden" name="idt" value="{{ request('idk') }}">
+                                    @endif
+                                    <input type="hidden" name="idb" value="2">
+                                    <button type="submit" class="dropdown-item">Februari</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    @if (request('idt'))
+                                    <input type="hidden" name="idt" value="{{ request('idk') }}">
+                                    @endif
+                                    <input type="hidden" name="idb" value="3">
+                                    <button type="submit" class="dropdown-item">Maret</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    @if (request('idt'))
+                                    <input type="hidden" name="idt" value="{{ request('idk') }}">
+                                    @endif
+                                    <input type="hidden" name="idb" value="4">
+                                    <button type="submit" class="dropdown-item">April</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    @if (request('idt'))
+                                    <input type="hidden" name="idt" value="{{ request('idk') }}">
+                                    @endif
+                                    <input type="hidden" name="idb" value="5">
+                                    <button type="submit" class="dropdown-item">Mei</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    @if (request('idt'))
+                                    <input type="hidden" name="idt" value="{{ request('idk') }}">
+                                    @endif
+                                    <input type="hidden" name="idb" value="6">
+                                    <button type="submit" class="dropdown-item">Juni</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    @if (request('idt'))
+                                    <input type="hidden" name="idt" value="{{ request('idk') }}">
+                                    @endif
+                                    <input type="hidden" name="idb" value="7">
+                                    <button type="submit" class="dropdown-item">Juli</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    @if (request('idt'))
+                                    <input type="hidden" name="idt" value="{{ request('idk') }}">
+                                    @endif
+                                    <input type="hidden" name="idb" value="8">
+                                    <button type="submit" class="dropdown-item">Agustus</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    @if (request('idt'))
+                                    <input type="hidden" name="idt" value="{{ request('idk') }}">
+                                    @endif
+                                    <input type="hidden" name="idb" value="9">
+                                    <button type="submit" class="dropdown-item">September</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    @if (request('idt'))
+                                    <input type="hidden" name="idt" value="{{ request('idk') }}">
+                                    @endif
+                                    <input type="hidden" name="idb" value="10">
+                                    <button type="submit" class="dropdown-item">Oktober</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    @if (request('idt'))
+                                    <input type="hidden" name="idt" value="{{ request('idk') }}">
+                                    @endif
+                                    <input type="hidden" name="idb" value="11">
+                                    <button type="submit" class="dropdown-item">November</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    @if (request('idt'))
+                                    <input type="hidden" name="idt" value="{{ request('idt') }}">
+                                    @endif
+                                    <input type="hidden" name="idb" value="12">
+                                    <button type="submit" class="dropdown-item">Desember</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
             <li class="nav-item">
                 <div class="dropdown">
                     <button class="btn dropdown-toggle ml-3" type="button" id="dropdownMenuButton1"
@@ -16,6 +176,12 @@
                         <li class="
                         ">
                             <form action="" method="get">
+                                @if (request('idt'))
+                                <input type="hidden" name="idt" value="{{ request('idt') }}">
+                                @endif
+                                @if (request('idb'))
+                                <input type="hidden" name="idb" value="{{ request('idb') }}">
+                                @endif
                                 <input type="hidden" name="tahun_awal" value="{{ $tahun_ajaran->tahun_awal }}">
                                 <input type="hidden" name="tahun_akhir" value="{{ $tahun_ajaran->tahun_akhir }}">
                                 <input type="hidden" name="semester" value="{{ $tahun_ajaran->semester }}">
@@ -27,65 +193,30 @@
                     </ul>
                 </div>
             </li>
-            <div class="nav-item">
-                <div class="input-group">
-                    {{-- @if (count($kelas_filter)>0)
-                    <div class="dropdown">
-                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false"
-                            style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 5rem; padding: 0.1rem">
-                            Kelas
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            @foreach ($kelas_filter as $kelas)
-                            <li>
-                                <form action="" method="get">
-                                    @include('mypartials.tahunajaran')
-                                    <input type="hidden" name="idk" value="{{ $kelas->id }}">
-                                    <button type="submit" class="dropdown-item">{{ $kelas->nama }}</button>
-                                </form>
-                            </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif --}}
-                </div>
-            </div>
         </ul>
         <div class="table-responsive">
             <table class="table">
                 <thead class="thead-light">
                     <tr class="text-center">
                         <th>No</th>
-                        <th>Nama</th>
                         <th>Mapel</th>
-                        <th>Hari/ Tanggal</th>
                         <th>Jam</th>
-                        <th>Kelas</th>
-                        <th>Materi</th>
-                        <th>Dokumentasi</th>
-                        <th>Absensi</th>
-                        <th>Keterangan</th>
-                        <th>Aksi</th>
+                        <th>Kelas</th>  
+                        <th>Action</th>  
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($agendas as $agenda)
                     <tr class="text-center">
-                        <td>1</td>
-                        <td>Puguh Rismadi</td>
-                        <td>PBO</td>
-                        <td>Senin, 30-08-2022</td>
-                        <td>07.00 - 12.50</td>
-                        <td>XII RPL 2</td>
-                        <td>Vue JS</td>
-                        <td><i class="bi bi-filetype-pdf" style="color: red"></i></td>
-                        <td>Hadir</td>
-                        <td></td>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $agenda->mapel->nama }}</td>
+                        <td>{{ $agenda->jam_awal }} - {{ $agenda->jam_akhir }}</td>
+                        <td>{{ $agenda->kelas->nama }}</td>
                         <td>
-                            <a href="" class="btn btn-sm btn-warning text-white font-weight-bold">Edit</a>
-                            <a href="" class="btn btn-sm btn-danger text-white font-weight-bold">Delete</a>
+                            form
                         </td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

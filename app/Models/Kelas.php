@@ -30,4 +30,8 @@ class Kelas extends Model
     public function absensi(){
         return $this->hasMany(Absensi::class );
     }
+
+    public function absensi_pelajaran(){
+        return $this->hasMany(AbsensiPelajaran::class);
+    }
 }

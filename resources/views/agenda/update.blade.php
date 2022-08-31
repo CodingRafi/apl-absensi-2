@@ -37,12 +37,12 @@
             <div class="mb-3">
                 <label for="kompetensi" class="form-label">Hari</label>
                 <select class="form-select" name="hari">
-                    <option value="senin" {{ ($agenda=='senin' ) ? 'selected' : '' }}>Senin</option>
-                    <option value="selasa" {{ ($agenda=='selasa' ) ? 'selected' : '' }}>Selasa</option>
-                    <option value="rabu" {{ ($agenda=='rabu' ) ? 'selected' : '' }}>Rabu</option>
-                    <option value="kamis" {{ ($agenda=='kamis' ) ? 'selected' : '' }}>Kamis</option>
-                    <option value="jumat" {{ ($agenda=='jumat' ) ? 'selected' : '' }}>Jumat</option>
-                    <option value="sabtu" {{ ($agenda=='sabtu' ) ? 'selected' : '' }}>Sabtu</option>
+                    <option value="senin" {{ ($agenda->hari =='senin' ) ? 'selected' : '' }}>Senin</option>
+                    <option value="selasa" {{ ($agenda->hari =='selasa' ) ? 'selected' : '' }}>Selasa</option>
+                    <option value="rabu" {{ ($agenda->hari =='rabu' ) ? 'selected' : '' }}>Rabu</option>
+                    <option value="kamis" {{ ($agenda->hari =='kamis' ) ? 'selected' : '' }}>Kamis</option>
+                    <option value="jumat" {{ ($agenda->hari =='jumat' ) ? 'selected' : '' }}>Jumat</option>
+                    <option value="sabtu" {{ ($agenda->hari =='sabtu' ) ? 'selected' : '' }}>Sabtu</option>
                 </select>
             </div>
             <div class="mb-3">

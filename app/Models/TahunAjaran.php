@@ -19,6 +19,10 @@ class TahunAjaran extends Model
         return $this->hasMany(Agenda::class);
     }
 
+    public function absensi_pelajaran(){
+        return $this->hasMany(AbsensiPelajaran::class);
+    }
+
     public static function getTahunAjaran($request){
         $tahun_ajaran;
         if($request->tahun_awal && $request->tahun_akhir && $request->semester){

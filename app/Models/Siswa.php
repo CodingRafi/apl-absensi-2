@@ -32,6 +32,10 @@ class Siswa extends Model
         return $this->hasMany(Absensi::class);
     }
 
+    public function presensi(){
+        return $this->hasMany(Presensi::class);
+    }
+
     public function scopeFilter($query, array $filter){
         $query->when($filter['idk'] ?? false, function($query, $filter){
             return $query->where('kelas.id', $filter);
