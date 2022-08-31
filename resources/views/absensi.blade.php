@@ -7,11 +7,16 @@
         <ul class="nav float-right mb-4" style="gap: 1rem;">
             <li class="nav-item">
                 <div class="input-group">
-                    <select class="custom-select" id="inputGroupSelect02"
-                        style="height: 30px; width: 100px; padding: 0; padding-left: 10px;">
-                        <option selected>Bulan</option>
-                        <option value="1">Januari</option>
-                    </select>
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 7rem; padding: 0.1rem">
+                          Bulan
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                          <li><a class="dropdown-item" href="#">Action</a></li>
+                          <li><a class="dropdown-item" href="#">Another action</a></li>
+                          <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div>
                 </div>
             </li>
             <li class="nav-item">
@@ -62,7 +67,7 @@
                     <tr>
                         <th scope="col" rowspan="2" style="vertical-align: middle;">No</th>
                         <th scope="col" rowspan="2" style="vertical-align: middle;">Nama</th>
-                        <th scope="col" colspan="10">{{ explode('-', $date[0])[1] }}</th>
+                        <th scope="col" colspan="{{ count($date) }}">{{ explode('-', $date[0])[1] }}</th>
                     </tr>
                     <tr>
                         @foreach ($date as $dt)
@@ -73,8 +78,8 @@
                 <tbody>
                     @foreach ($users as $user)
                     <tr>
-                        <th scope="row" rowspan="2" style="vertical-align: middle;">1</th>
-                        <td rowspan="2" style="vertical-align: middle;">Rafi Prasetya</td>
+                        <th scope="row" rowspan="2" style="vertical-align: middle;">{{ $loop->iteration }}</th>
+                        <td rowspan="2" style="vertical-align: middle;">muhammad rafi prasetya</td>
                         @foreach ($date as $item)
                         @foreach ($user->absensi as $absensi)
                         {{-- @dd(explode(':', explode(' ',$absensi->presensi_masuk)[1])) --}}

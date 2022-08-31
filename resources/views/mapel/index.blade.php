@@ -10,7 +10,7 @@
         </form>
         <table class="table">
             <thead>
-                <tr>
+                <tr class="text-center">
                     <th scope="col">No</th>
                     <th scope="col">Nama Mapel</th>
                     <th scope="col">Action</th>
@@ -18,7 +18,7 @@
             </thead>
             <tbody>
                 @foreach ($mapels as $mapel)
-                <tr>
+                <tr class="text-center">
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $mapel->nama }}</td>
                     <td>

@@ -7,6 +7,7 @@
   -ms-overflow-style: none;
   touch-action: auto;
   -ms-touch-action: auto;
+  background-color: aqua;
 }
 
 /*
@@ -39,7 +40,7 @@
 .ps--active-x > .ps__rail-x,
 .ps--active-y > .ps__rail-y {
   display: block;
-  background-color: transparent;
+  background-color: transparen;
 }
 
 .ps:hover > .ps__rail-x,

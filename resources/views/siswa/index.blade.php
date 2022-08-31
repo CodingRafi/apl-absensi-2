@@ -7,6 +7,7 @@
         <ul class="nav float-right mb-4" style="gap: 1rem;">
             <li class="nav-item">
                 <div class="input-group">
+                    @if (count($kompetensis)>0)
                     <div class="dropdown">
                         <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
                             data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 7rem; padding: 0.1rem">
@@ -24,10 +25,12 @@
                             @endforeach
                         </ul>
                     </div>
+                    @endif
                 </div>
             </li>
             <li class="nav-item">
                 <div class="input-group">
+                    @if (count($kelas_filter)>0)
                     <div class="dropdown">
                         <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
                             data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 5rem; padding: 0.1rem">
@@ -45,6 +48,7 @@
                             @endforeach
                         </ul>
                     </div>
+                    @endif
                 </div>
             </li>
             <li class="nav-item">
