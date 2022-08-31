@@ -44,85 +44,8 @@
                     <tr>
                         <th scope="row" rowspan="2" style="vertical-align: middle;">1</th>
                         <td rowspan="2" style="vertical-align: middle;">Rudi Sugianto</td>
-                        <td class="bg-success">
-                            <select name="" id="" style="width: 4rem; background: none; color: white; border: none;">
-                                <option class="text-dark" value="belum" selected></option>
-                                <option class="text-dark" value="hadir">Hadir</option>
-                                <option class="text-dark" value="izin">Izin</option>
-                                <option class="text-dark" value="alpha">Alpha</option>
-                            </select>
-                        </td>
-                        <td class="bg-danger">
-                            <select name="" id="" style="width: 4rem; background: none; color: white; border: none;">
-                                <option class="text-dark" value="belum" selected></option>
-                                <option class="text-dark" value="hadir">Hadir</option>
-                                <option class="text-dark" value="izin">Izin</option>
-                                <option class="text-dark" value="alpha">Alpha</option>
-                            </select>
-                        </td>
-                        <td class="bg-danger">
-                            <select name="" id="" style="width: 4rem; background: none; color: white; border: none;">
-                                <option class="text-dark" value="belum" selected></option>
-                                <option class="text-dark" value="hadir">Hadir</option>
-                                <option class="text-dark" value="izin">Izin</option>
-                                <option class="text-dark" value="alpha">Alpha</option>
-                            </select>
-                        </td>
-                        <td class="bg-danger">
-                            <select name="" id="" style="width: 4rem; background: none; color: white; border: none;">
-                                <option class="text-dark" value="belum" selected></option>
-                                <option class="text-dark" value="hadir">Hadir</option>
-                                <option class="text-dark" value="izin">Izin</option>
-                                <option class="text-dark" value="alpha">Alpha</option>
-                            </select>
-                        </td>
-                        <td class="bg-danger">
-                            <select name="" id="" style="width: 4rem; background: none; color: white; border: none;">
-                                <option class="text-dark" value="belum" selected></option>
-                                <option class="text-dark" value="hadir">Hadir</option>
-                                <option class="text-dark" value="izin">Izin</option>
-                                <option class="text-dark" value="alpha">Alpha</option>
-                            </select>
-                        </td>
-                        <td class="bg-danger">
-                            <select name="" id="" style="width: 4rem; background: none; color: white; border: none;">
-                                <option class="text-dark" value="belum" selected></option>
-                                <option class="text-dark" value="hadir">Hadir</option>
-                                <option class="text-dark" value="izin">Izin</option>
-                                <option class="text-dark" value="alpha">Alpha</option>
-                            </select>
-                        </td>
-                        <td class="bg-danger">
-                            <select name="" id="" style="width: 4rem; background: none; color: white; border: none;">
-                                <option class="text-dark" value="belum" selected></option>
-                                <option class="text-dark" value="hadir">Hadir</option>
-                                <option class="text-dark" value="izin">Izin</option>
-                                <option class="text-dark" value="alpha">Alpha</option>
-                            </select>
-                        </td>
-                        <td class="bg-danger">
-                            <select name="" id="" style="width: 4rem; background: none; color: white; border: none;">
-                                <option class="text-dark" value="belum" selected></option>
-                                <option class="text-dark" value="hadir">Hadir</option>
-                                <option class="text-dark" value="izin">Izin</option>
-                                <option class="text-dark" value="alpha">Alpha</option>
-                            </select>
-                        </td>
-                        <td class="bg-danger">
-                            <select name="" id="" style="width: 4rem; background: none; color: white; border: none;">
-                                <option class="text-dark" value="belum" selected></option>
-                                <option class="text-dark" value="hadir">Hadir</option>
-                                <option class="text-dark" value="izin">Izin</option>
-                                <option class="text-dark" value="alpha">Alpha</option>
-                            </select>
-                        </td>
-                        <td class="bg-danger">
-                            <select name="" id="" style="width: 4rem; background: none; color: white; border: none;">
-                                <option class="text-dark" value="belum" selected></option>
-                                <option class="text-dark" value="hadir">Hadir</option>
-                                <option class="text-dark" value="izin">Izin</option>
-                                <option class="text-dark" value="alpha">Alpha</option>
-                            </select>
+                        <td class="bg-success" data-toggle="modal"
+                        data-target="#ubah-absen">
                         </td>
                     </tr>
                 </tbody>
@@ -130,5 +53,35 @@
         </div>
     </div>
 </div>
-
+ <div class="modal fade" id="ubah-absen">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Masukan Username Baru</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label for="bidang" class="col-sm-2 col-form-label">Keterangan</label>
+                        <div class="col-sm-10">
+                            <select class="form-control text-dark" name="" id="">
+                                <option value="" selected>Pilih keterangan</option>
+                                <option value="">Hadir</option>
+                                <option value="">Izin</option>
+                                <option value="">Alpha</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn text-white float-right" style="background-color: #3bae9c">Simpan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

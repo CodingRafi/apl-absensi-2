@@ -4,7 +4,7 @@
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="/template/vendors/feather/feather.css">
@@ -26,14 +26,14 @@
     <div class="container-fluid page-body-wrapper full-page-wrapper p-0">
       <div class="content-wrapper d-flex align-items-center auth px-0" style="background-image: url('/img/bgc.jpg'); background-size: cover; background-repeat: no-repeat">
         <div class="row w-100 mx-0">
-          <div class="col-lg-4 mx-auto">
-            <div class="auth-form-light text-left py-5 px-4 px-sm-5" style="border-radius: 1rem">
-              <form action="/login" method="POST" style="width: 90%;">
+          <div class="col-lg-6 mx-auto">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5" style="border-radius: 1rem; box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.276)">
+              <form action="/login" method="POST" style="width: 100%;">
                 @csrf
                 <div class="container p-0">
                     <h1 class="mb-3" style="color: #263238;">Masuk</h1>
                     <div class="mb-3">
-                        <select class="form-select select-pilihan text-dark" aria-label="Default select example" style="width: 23vw; height: 7vh; border: 1px solid rgb(205, 205, 205); border-radius: 5px">
+                        <select class="form-select select-pilihan text-dark" aria-label="Default select example" style="width: 100%; height: 7vh; border: 1px solid rgb(205, 205, 205); border-radius: 5px">
                             <option value="belum" selected>Masuk Sebagai</option>
                             <option value="karyawan">Karyawan</option>
                             <option value="admin_sekolah">Admin Sekolah</option>
@@ -44,7 +44,7 @@
                     <div class="mb-3 div-email">
                         <label for="email" class="form-label">Email</label>
                         <input type="email" class="form-control input-email" id="email" placeholder="name@example.com"
-                            name="login" style="width: 23vw; height: 7vh;" disabled>
+                            name="login" style="width: 100%; height: 7vh;" disabled>
                     </div>
                     <div class="mb-3 div-nip" style="display: none;">
                         <label for="nip" class="form-label">NIP</label>
@@ -52,11 +52,11 @@
                     </div>
                     <div class="mb-3 form-password-toggle">
                         <label class="form-label" for="password">Password</label>
-                        <input type="password" id="password" class="form-control input-password" name="password" style="width: 23vw; height: 7vh; border: 1px solid rgb(205, 205, 205); border-radius: 5px" placeholder="&nbsp;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" disabled>
+                        <input type="password" id="password" class="form-control input-password" name="password" style="width: 100%; height: 7vh; border: 1px solid rgb(205, 205, 205); border-radius: 5px" placeholder="&nbsp;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" disabled>
                     </div>
                     <div class="mb-3">
                         <div class="container p-0">
-                            <div class="row">
+                            <div class="row" style=" width: 100%; display: flex; justify-content: space-between;">
                                 <div class="col-6">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="remember" name="remember">
@@ -64,17 +64,18 @@
                                     </div>
                                 </div>
                                 <div class="col-6 d-flex justify-content-end align-items-center">
-                                  <a href="" style="font-size: 12.5px; text-decoration: none; font-weight: 600; color:#3bae9c;">Lupa Password?</a>
+                                  <a href="forgot-password" style="font-size: 12.5px; text-decoration: none; font-weight: 600; color:#3bae9c;">Lupa Password?</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <div class="d-grid gap-2">
-                            <button class="btn text-white tombol-masuk" type="submit" style="background: #3bae9c; width: 23vw;" disabled>Masuk</button>
+                            <button class="btn text-white tombol-masuk" type="submit" style="background: #3bae9c; width: 100%;" disabled>Masuk</button>
                         </div>
                     </div>
                 </div>
+                <a href="/register" class="d-flex justify-content-center mt-3"><i class="bi bi-arrow-left-circle mr-2"></i> Don't have an account? register now!</a>
             </form>
             </div>
           </div>

@@ -168,7 +168,7 @@
             <li class="nav-item">
                 <div class="dropdown">
                     <button class="btn dropdown-toggle ml-3" type="button" id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown" aria-expanded="false" style="border: none">
+                        data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid rgb(205, 205, 205)">
                         Tahun Ajaran
                     </button>
                     <ul class="dropdown-menu ml-1" aria-labelledby="dropdownMenuButton1">
