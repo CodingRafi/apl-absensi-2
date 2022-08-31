@@ -1,18 +1,11 @@
 <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-    <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center" style="box-sizing: content-box">
+    <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center" style="width: 15.5rem;">
         <form action="/" method="get">
             @include('mypartials.tahunajaran')
             <button class="navbar-brand brand-logo mr-3" href="/" style="width: 3rem; height: 3rem; border: none; border-radius: 50px; background: none"><img src="/template/images/smkTarunaBhakti.png" alt="logo" /></button>
         </form>
-        <div class="brand-logo text-left">
-            @if (Auth::user()->sekolah)
-            <p class="m-0 muted">{{ Auth::user()->sekolah->nama }}</p>
-            @else
-            <p class="m-0 muted">Super Admin</p>
-            @endif
-        </div>
     </div>
-    <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+    <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end" style="width: calc(100% - 250px);">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
             <span class="icon-menu"></span>
         </button>

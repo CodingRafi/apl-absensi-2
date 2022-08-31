@@ -8,7 +8,7 @@
         <li class="nav-item">
             <form action="/" method="get">
                 @include('mypartials.tahunajaran')
-                <button class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}" style="background-color: #ffffff; border: none; min-width: 200px"><i class="icon-grid menu-icon"></i> Dasboard</button>
+                <button class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}" style="background-color: #ffffff; border: none; min-width: 200px"><i class="bi bi-house-fill mr-3"></i> Dasboard</button>
             </form>
         </li>
         <li class="nav-item">
