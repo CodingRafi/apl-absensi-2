@@ -86,7 +86,7 @@ class UserSeeder extends Seeder
             'guard_name' => 'web'
         ]);
 
-        $izinGuru = [];
+        $izinGuru = ['48'];
         $resultGuru = array_map(function($izin){
             return $izin;
         }, $izinGuru);
@@ -111,7 +111,7 @@ class UserSeeder extends Seeder
         $resultSuperAdmin = array_map(function($izin){
             return $izin;
         }, $izinSuperAdmin);
-        $roleGuru->syncPermissions($resultSuperAdmin);
+        $roleSuperAdmin->syncPermissions($resultSuperAdmin);
 
         $superAdmin = User::create([
             'name' => 'Super Admin',

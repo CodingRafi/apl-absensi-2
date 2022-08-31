@@ -1,3 +1,5 @@
+{{-- @dd(auth()->user()->getAllPermissions()) --}}
+
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
 
@@ -9,6 +11,16 @@
                         class="icon-grid menu-icon"></i> Dasboard</button>
             </form>
         </li>
+        @if (auth()->user()->can('show_agenda_guru')) 
+        <li class="nav-item">
+            <form action="/agenda" method="get">
+                @include('mypartials.tahunajaran')
+                <button class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}"
+                    style="background-color: #ffffff; border: none; min-width: 200px"><i
+                        class="bi bi-calendar-week menu-icon"></i> Agenda</button>
+            </form>
+        </li>
+        @endif
         @if (auth()->user()->can('view_roles') || auth()->user()->can('add_roles') || auth()->user()->can('edit_roles')) 
         <li class="nav-item">
             <a href="/roles" class="nav-link"><i class="icon-grid menu-icon"></i> Role</a>
@@ -106,7 +118,7 @@
                         <form action="/absensi/{{ $role->name }}" method="get">
                             @include('mypartials.tahunajaran')
                             <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"
-                                style="background-color: #3bae9c; border: none; min-width: 150px">Data {{
+                                style="background-color: #3bae9c; border: none; min-width: 150px">Absensi {{
                                 str_replace("_", " ", $role->name) }}
                             </button>
                         </form>
@@ -117,7 +129,7 @@
                         <form action="/absensi/siswa" method="get">
                             @include('mypartials.tahunajaran')
                             <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"
-                                style="background-color: #3bae9c; border: none; min-width: 150px">Data Siswa</button>
+                                style="background-color: #3bae9c; border: none; min-width: 150px">Absensi Siswa</button>
                         </form>
                     </li>
                 </ul>

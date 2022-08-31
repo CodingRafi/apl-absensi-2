@@ -5,6 +5,7 @@
     <div class="card-body">
         <h4 class="card-title float-left">Data Siswa</h4>
         <ul class="nav float-right mb-4" style="gap: 1rem;">
+            @if ( Auth::user()->sekolah->tingkat == 'smk' )
             <li class="nav-item">
                 <div class="input-group">
                     <div class="dropdown">
@@ -26,6 +27,7 @@
                     </div>
                 </div>
             </li>
+            @endif
             <li class="nav-item">
                 <div class="input-group">
                     <div class="dropdown">

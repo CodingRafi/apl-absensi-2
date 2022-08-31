@@ -73,6 +73,8 @@ class PermissionTableSeeder extends Seeder
             'add_absensi',
             'edit_absensi',
             'delete_absensi',
+            
+            'show_agenda_guru'
         ];
 
         foreach ($permissions as $permission) {

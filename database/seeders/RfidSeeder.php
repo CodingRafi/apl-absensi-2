@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Rfid;
 
 class RfidSeeder extends Seeder
 {
@@ -14,6 +15,10 @@ class RfidSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Rfid::create([
+            'rfid_number' => "0009251346",
+            'siswa_id' => '1',
+            'status' => 'aktif'
+        ]); 
     }
 }

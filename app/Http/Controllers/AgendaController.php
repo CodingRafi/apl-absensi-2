@@ -18,6 +18,7 @@ class AgendaController extends Controller
          $this->middleware('permission:add_agenda', ['only' => ['create','store']]);
          $this->middleware('permission:edit_agenda', ['only' => ['edit','update']]);
          $this->middleware('permission:delete_agenda', ['only' => ['destroy']]);
+         $this->middleware('permission:show_agenda_guru', ['only' => ['show_guru']]);
     }
     /**
      * Display a listing of the resource.
@@ -162,5 +163,9 @@ class AgendaController extends Controller
             'kelas' => $kelas,
             'agendas' => $agendas
         ]);
+    }
+
+    public function show_guru(){
+        dd('oke');
     }
 }
