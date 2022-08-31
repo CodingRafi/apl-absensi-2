@@ -10,7 +10,7 @@
         </form>
         <table class="table">
             <thead>
-                <tr>
+                <tr class="text-center">
                     <th scope="col">No</th>
                     <th scope="col">Kompetensi Keahlian</th>
                     <th scope="col">Program Keahlian</th>
@@ -20,7 +20,7 @@
             </thead>
             <tbody>
                 @foreach ($kompetensis as $kompetensi)
-                <tr>
+                <tr class="text-center">
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $kompetensi->kompetensi }}</td>
                     <td>{{ $kompetensi->program }}</td>
