@@ -15,7 +15,7 @@ class AbsensiPelajaranController extends Controller
      */
     public function index()
     {
-        dd('oke');
+        return view('absensipelajaran.index');
     }
 
     /**

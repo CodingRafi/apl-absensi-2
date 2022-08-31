@@ -30,7 +30,7 @@
     <div class="container-fluid page-body-wrapper full-page-wrapper p-0 ">
       <div class="content-wrapper d-flex align-items-center auth px-0" style="background-image: url('/img/bgc.jpg'); background-size: cover; background-repeat: no-repeat">
         <div class="row w-100 mx-0">
-          <div class="col-lg-8 mx-auto">
+          <div class="col-lg-6 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5" style="border-radius: 10px; box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.276)">
               <h3>Register</h3>
               <!-- Session Status -->
@@ -39,7 +39,7 @@
               <!-- Validation Errors -->
               <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-              <form class="pt-3" action="{{ route('password.email') }}" method="post" style=" width: 100%; display: flex; flex-wrap:wrap; justify-content: space-between">
+              <form class="pt-3" action="{{ route('password.email') }}" method="post" style=" width: 100%;">
                 @csrf
                 <div class="form-group">
                   <label for="nama" class="form-label">Nama Sekolah</label>
@@ -57,10 +57,6 @@
                     name="alamat" style="border-radius: 5px; width: 100%">
                 </div>
                 <div class="form-group">
-                  <label for="logo" class="form-label">Logo</label>
-                  <input class="form-control form-control-lg" type="file" id="formFile" name="file" style="border-radius: 5px; height: 2.2rem; width: 100%">
-                </div>
-                <div class="form-group">
                   <label for="logo" class="form-label">Tingkat</label>
                   <br>
                   <select name="" id="" class="text-dark form-control form-control-lg" style="border: 1px solid rgb(205, 205, 205); border-radius: 5px; height: 3rem; width: 100%">
@@ -70,6 +66,13 @@
                     <option value="">SMK</option>
                   </select>
                 </div>
+                <div class="form-group">
+                  <label for="logo" class="form-label">Logo</label>
+                  <input class="form-control form-control-lg" type="file" id="formFile" name="file" style="border-radius: 5px; height: 2.2rem; width: 100%">
+                </div>
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-block btn-lg text-white font-weight-medium auth-form-btn" style="background-color: #3bae9c">Register</button>
+                    </div>
             </form>
             <a href="/login" class="d-flex justify-content-center mt-3"><i class="bi bi-arrow-left-circle mr-2"></i> Back to login</a>
             </div>

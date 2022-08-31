@@ -26,7 +26,7 @@
     <div class="container-fluid page-body-wrapper full-page-wrapper p-0">
       <div class="content-wrapper d-flex align-items-center auth px-0" style="background-image: url('/img/bgc.jpg'); background-size: cover; background-repeat: no-repeat">
         <div class="row w-100 mx-0">
-          <div class="col-lg-8 mx-auto">
+          <div class="col-lg-6 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5" style="border-radius: 1rem; box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.276)">
               <form action="/login" method="POST" style="width: 100%;">
                 @csrf
@@ -75,6 +75,7 @@
                         </div>
                     </div>
                 </div>
+                <a href="/register" class="d-flex justify-content-center mt-3"><i class="bi bi-arrow-left-circle mr-2"></i> Don't have an account? register now!</a>
             </form>
             </div>
           </div>

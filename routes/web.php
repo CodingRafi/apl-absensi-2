@@ -103,4 +103,8 @@ Route::get('/register', function() {
     return view('myauth.register');
 });
 
+Route::get('/input-absensi', function() {
+    return view('absensipelajaran.input');
+});
+
 
