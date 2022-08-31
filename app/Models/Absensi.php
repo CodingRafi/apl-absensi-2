@@ -26,4 +26,19 @@ class Absensi extends Model
     public function kelas(){
         return $this->belongsTo(Kelas::class);
     }
+
+    public static function get_absensi($user, $dates){
+        $absensi_siswa = [];
+        foreach ($dates as $key => $date) {
+            $query = Absensi::where('user_id', $user->id)->orWhere('siswa_id', $user->id)->whereDate('presensi_masuk', '=', $date)->first();
+
+            if($query){
+                $absensi_siswa[] = $query;
+            }else{
+                $absensi_siswa[] = [];
+            }
+        }
+
+        return $absensi_siswa;
+    }
 }

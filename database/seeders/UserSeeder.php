@@ -23,9 +23,12 @@ class UserSeeder extends Seeder
             'guard_name' => 'web'
         ]);
 
-        $permissions = Permission::pluck('id','id')->all();
-   
-        $role->syncPermissions($permissions);
+        $izinYayasan = ['1', '18', '22', '30', '36', '40', '44'];
+        $resultYayasan = array_map(function($izin){
+            return $izin;
+        }, $izinYayasan);
+
+        $role->syncPermissions($resultYayasan);
 
         $yayasanSmk = User::create([
             'name' => 'yayasan SMK',
@@ -45,13 +48,14 @@ class UserSeeder extends Seeder
 
         $yayasanSmp->assignRole('yayasan');
 
+
         //? Membuat role admin 
         $roleAdminSmk = Role::create([
             'name' => 'admin',
             'guard_name' => 'web'
         ]);
 
-        $izinAdminSmk = ['1', '9', '10', '11', '12', '13', '14', '15', '16'];
+        $izinAdminSmk = ['1', '2', '3', '4', '5', '6', '18', '19', '20', '21', '22', '23', '24', '25', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47'];
         $resultAdminSmk = array_map(function($izinAdmin){
             return $izinAdmin;
         }, $izinAdminSmk);
@@ -76,26 +80,13 @@ class UserSeeder extends Seeder
 
         $adminSmp->assignRole('admin');
 
-        
-        //? guru piket
-        $rolePiket = Role::create([
-            'name' => 'guru_piket',
-            'guard_name' => 'web'
-        ]);
-
-        $izinGuruPiket = ['1', '9', '10', '11', '12', '13', '14', '15', '16'];
-        $resultGuruPiket = array_map(function($izinPiket){
-            return $izinPiket;
-        }, $izinGuruPiket);
-        $rolePiket->syncPermissions($resultGuruPiket);
-
         //? role guru
         $roleGuru = Role::create([
             'name' => 'guru',
             'guard_name' => 'web'
         ]);
 
-        $izinGuru = ['1', '9', '10', '11', '12', '13', '14', '15', '16'];
+        $izinGuru = ['48'];
         $resultGuru = array_map(function($izin){
             return $izin;
         }, $izinGuru);
@@ -105,7 +96,8 @@ class UserSeeder extends Seeder
             'name' => 'pak',
             'email' => 'bapak@gmail.com',
             'password' => \Hash::make('12345678'),
-            'sekolah_id' => 1
+            'sekolah_id' => 1,
+            'nip' => 123456789
         ]);
 
         $userGuru->assignRole('guru');
@@ -116,13 +108,11 @@ class UserSeeder extends Seeder
             'guard_name' => 'web'
         ]);
 
-        $izinSuperAdmin = ['5', '6', '7', '8'];
+        $izinSuperAdmin = ['7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17'];
         $resultSuperAdmin = array_map(function($izin){
             return $izin;
         }, $izinSuperAdmin);
-        $roleGuru->syncPermissions($resultSuperAdmin);
-   
-        $role->syncPermissions($permissions);
+        $roleSuperAdmin->syncPermissions($resultSuperAdmin);
 
         $superAdmin = User::create([
             'name' => 'Super Admin',
@@ -138,7 +128,7 @@ class UserSeeder extends Seeder
             'guard_name' => 'web'
         ]);
 
-        $izinKaryaran = ['1', '9', '10', '11', '12', '13', '14', '15', '16'];
+        $izinKaryaran = [];
         $resultKaryawan = array_map(function($izin){
             return $izin;
         }, $izinKaryaran);

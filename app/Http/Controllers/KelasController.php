@@ -11,6 +11,13 @@ use Illuminate\Http\Request;
 
 class KelasController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:view_kelas|add_kelas|edit_kelas|delete_kelas', ['only' => ['index','store']]);
+         $this->middleware('permission:add_kelas', ['only' => ['create','store']]);
+         $this->middleware('permission:edit_kelas', ['only' => ['edit','update']]);
+         $this->middleware('permission:delete_kelas', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -76,9 +83,13 @@ class KelasController extends Controller
     public function edit(Kelas $kelas, $id)
     {
         $kelas = Kelas::findOrFail($id);
-        return view('kelas.update', [
-            'kelas' => $kelas
-        ]);
+        if ($kelas->sekolah_id == \Auth::user()->sekolah->id) {
+            return view('kelas.update', [
+                'kelas' => $kelas
+            ]);
+        }else{
+            abort(403);
+        }
     }
 
     /**
@@ -91,11 +102,15 @@ class KelasController extends Controller
     public function update(UpdateKelasRequest $request, Kelas $kelas, $id)
     {
         $kelas = Kelas::findOrFail($id);
-        $kelas->update([
-            'nama' => $request->nama
-        ]);
-
-        return TahunAjaran::redirectTahunAjaran('/kelas', $request, 'Kelas Berhasil Diupdate');
+        if ($kelas->sekolah_id == \Auth::user()->sekolah->id) {
+            $kelas->update([
+                'nama' => $request->nama
+            ]);
+    
+            return TahunAjaran::redirectTahunAjaran('/kelas', $request, 'Kelas Berhasil Diupdate');
+        }else{
+            abort(403);
+        }
     }
 
     /**
@@ -108,16 +123,20 @@ class KelasController extends Controller
     {
         $kelas = Kelas::findOrFail($id);
 
-        foreach ($kelas->siswa as $key => $siswa) {
-            Siswa::deleteSiswa($siswa->id);
+        if ($kelas->sekolah_id == \Auth::user()->sekolah->id) {
+            foreach ($kelas->siswa as $key => $siswa) {
+                Siswa::deleteSiswa($siswa->id);
+            }
+    
+            foreach ($kelas->agenda as $key => $agenda) {
+                $agenda->delete();
+            }
+    
+            $kelas->delete();
+    
+            return TahunAjaran::redirectTahunAjaran('/kelas', $request, 'Kelas Berhasil Dihapus');
+        }else{
+            abort(403);
         }
-
-        foreach ($kelas->agenda as $key => $agenda) {
-            $agenda->delete();
-        }
-
-        $kelas->delete();
-
-        return TahunAjaran::redirectTahunAjaran('/kelas', $request, 'Kelas Berhasil Dihapus');
     }
 }

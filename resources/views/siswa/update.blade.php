@@ -61,6 +61,7 @@
           @endforeach
         </select>
       </div>
+      @if ( Auth::user()->sekolah->tingkat == 'smk' )
       <div class="mb-3 mt-4">
         <label for="formFile" class="form-label">Jurusan</label>
         <select class="form-select" name="kompetensi_id">
@@ -73,6 +74,7 @@
           @endforeach
         </select>
       </div>
+      @endif
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Jalan</label>
         <input type="text" class="form-control" placeholder="Masukan Jalan" name="jalan" value="{{ $siswa->jalan }}">

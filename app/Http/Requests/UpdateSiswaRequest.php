@@ -32,7 +32,6 @@ class UpdateSiswaRequest extends FormRequest
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
             'kelas_id' => 'required',
-            'kompetensi_id' => 'required',
             'agama' => 'required',
             'jalan' => 'required',
             'kelurahan' => 'required',

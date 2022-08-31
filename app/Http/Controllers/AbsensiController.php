@@ -14,9 +14,17 @@ use App\Http\Requests\StoreAbsensiRequest;
 use App\Http\Requests\UpdateAbsensiRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 class AbsensiController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:view_absensi|add_absensi|edit_absensi|delete_absensi', ['only' => ['index','store']]);
+         $this->middleware('permission:add_absensi', ['only' => ['create','store']]);
+         $this->middleware('permission:edit_absensi', ['only' => ['edit','update']]);
+         $this->middleware('permission:delete_absensi', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -26,15 +34,18 @@ class AbsensiController extends Controller
     {
         $now = Carbon::now();
         $date=[];
-        $month = $now->month;
+        $month = request('idb') ?? $now->month;
         $year = $now->year;
         
         for($d=0; $d<=32; $d++)
         {
             $time=mktime(24, 0, 0, $month, $d, $year);  
             if (date('m', $time)==$month)       
-                $date[]=date('Y-m-d-D', $time);
+            $date[]=date('Y-m-d', $time);
+            // $date[]=date('Y-m-d-D', $time);
         }
+
+        $absensis = [];
 
         if($role == 'siswa'){
             $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
@@ -43,10 +54,17 @@ class AbsensiController extends Controller
 
             $siswas = Siswa::filter(request(['idk', 'idj', 'search']))->select('siswas.*', 'kelas.nama as kelas', 'kompetensis.kompetensi as jurusan')->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->get();
 
+            foreach ($siswas as $key => $siswa) {
+                $absensis[] = Absensi::get_absensi($siswa, $date);
+            }
+
             return view('absensi', [
-                'users' => $siswas,
                 'role' => $role,
-                'date' => $date
+                'date' => $date,
+                'kompetensis' => $kompetensis,
+                'kelas_filter' => $kelas_filter,
+                'absensis' => $absensis,
+                'siswas' => $siswas
             ]);
         }else{
             $users_query = User::filter(request(['search']))->where('sekolah_id', \Auth::user()->sekolah_id)->get();
@@ -58,10 +76,15 @@ class AbsensiController extends Controller
                 }
             }
 
+            foreach ($users as $key => $user) {
+                $absensis[] = Absensi::get_absensi($user, $date);
+            }
+
             return view('absensi', [
-                'users' => $users,
                 'role' => $role,
-                'date' => $date
+                'date' => $date,
+                'users' => $users,
+                'absensis' => $absensis
             ]);
         }
     }
@@ -84,63 +107,7 @@ class AbsensiController extends Controller
      */
     public function store(StoreAbsensiRequest $request)
     {
-        $rfid = Rfid::where('rfid_number', $request->rfid)->first();
-
-        $absensi = Absensi::where('rfid_id', $rfid->id)->whereDate('presensi_masuk', Carbon::today())->first();
-
-        if($absensi && $absensi->presensi_pulang === null){
-            $absensi->update([
-                'presensi_pulang' => Carbon::now()
-            ]);
-
-            return response()->json([
-                'message' => 'Hati hati dijalan'
-            ], 200);
-        }else{
-            if(!$absensi){
-                $now = Carbon::now();
-                if ($rfid->siswa != '') {
-                    Absensi::create([
-                        'rfid_id' => $rfid->id,
-                        'siswa_id' => $rfid->siswa->id,
-                        'kelas_id' => $rfid->siswa->kelas->id,
-                        'presensi_masuk' => $now
-                    ]);
-
-                    $agendas = Agenda::where('kelas_id', $rfid->siswa->kelas->id)->where('hari', strtolower($now->isoFormat('dddd')))->get();
-
-                    return response()->json([
-                        'message' => 'Berhasil absen masuk',
-                        'agendas' => $agendas
-                    ], 200);
-                }else{
-                    Absensi::create([
-                        'rfid_id' => $rfid->id,
-                        'user_id' => $rfid->user->id,
-                        'presensi_masuk' => $now
-                    ]);
-                    
-                    if ($rfid->user->hasRole('guru')) {
-                        return response()->json([
-                            'message' => 'Berhasil absen masuk',
-                            'agendas' => $rfid->user->agenda
-                        ], 200);
-                        return $rfid->user->mapel;
-                    }else{
-                        return response()->json([
-                            'message' => 'Berhasil absen masuk'
-                        ], 200);
-                    }
-
-                }
-            }else{
-                return response()->json([
-                    'message' => 'hari ini sudah absen masuk ataupun pulang'
-                ], 200);
-            }
-        }
-
-
+        // 
     }
 
     /**
@@ -186,5 +153,66 @@ class AbsensiController extends Controller
     public function destroy(Absensi $absensi)
     {
         //
+    }
+
+    public function export(Request $request){
+        $now = Carbon::now();
+        $date=[];
+        $month = request('idb') ?? $now->month;
+        $year = $now->year;
+        
+        for($d=0; $d<=32; $d++)
+        {
+            $time=mktime(24, 0, 0, $month, $d, $year);  
+            if (date('m', $time)==$month)       
+            $date[]=date('Y-m-d', $time);
+            // $date[]=date('Y-m-d-D', $time);
+        }
+
+        $absensis = [];
+        
+        if($request->role == 'siswa'){
+            $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+            $kelas_filter = Kelas::where('tahun_ajaran_id', $tahun_ajaran->id)->get();
+            $kompetensis = Kompetensi::where('sekolah_id', \Auth::user()->sekolah_id)->get();
+
+            $siswas = Siswa::filter(request(['idk', 'idj', 'search']))->select('siswas.*', 'kelas.nama as kelas', 'kompetensis.kompetensi as jurusan')->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->get();
+
+            $datas = [];
+            foreach ($siswas as $key => $siswa) {
+                $absensis[] = Absensi::get_absensi($siswa, $date);
+            }
+
+            foreach ($absensis as $key => $absensi) {
+                $datas = [
+                    'name' => $siswas[$key]->name,
+                ];
+
+                $finalArray = array_merge($datas, $absensi);
+                dd($finalArray);
+            }
+
+
+            return (new FastExcel($finalArray))->download('absensi.xlsx');
+        }else{
+            $users_query = User::filter(request(['search']))->where('sekolah_id', \Auth::user()->sekolah_id)->get();
+            $users = [];
+    
+            foreach ($users_query as $key => $user) {
+                if($user->hasRole($role)){
+                    $users[] = $user;
+                }
+            }
+
+            foreach ($users as $key => $user) {
+                $absensis[] = Absensi::get_absensi_siswa($user, $date);
+            }
+
+            return view('absensi', [
+                'role' => $role,
+                'date' => $date,
+                'absensis' => $absensis
+            ]);
+        }
     }
 }

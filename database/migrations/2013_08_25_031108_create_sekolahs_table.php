@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string('npsn');
             $table->string('alamat');
+            $table->string('logo')->default('/img/tutwuri.pngs');
             $table->enum('tingkat', ['sd', 'smp', 'smk', 'sma']);
             $table->timestamps();
         });
