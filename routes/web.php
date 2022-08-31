@@ -41,6 +41,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('tahun-ajaran', TahunAjaranController::class);
     Route::resource('agenda', AgendaController::class);
     Route::resource('presensi-pelajaran', AbsensiPelajaranController::class);
+    Route::get('/presensi/{id}', [PresensiController::class, 'index']);
+    Route::post('/presensi/{id}', [PresensiController::class, 'update']);
     Route::resource('presensi', PresensiController::class);
     Route::get('/agenda-guru', [AgendaController::class, 'show_guru']);
     Route::get('/absensi/{role}', [AbsensiController::class, 'index']);

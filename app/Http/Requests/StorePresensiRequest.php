@@ -13,7 +13,7 @@ class StorePresensiRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class StorePresensiRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'siswa_id' => 'required',
+            'absensi_pelajaran_id' => 'required',
+            'kehadiran' => 'required'
         ];
     }
 }

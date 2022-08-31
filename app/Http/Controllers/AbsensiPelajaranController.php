@@ -10,6 +10,14 @@ use Illuminate\Http\Request;
 
 class AbsensiPelajaranController extends Controller
 {
+    
+    function __construct()
+    {
+         $this->middleware('permission:view_absensi_pelajaran|add_absensi_pelajaran|edit_absensi_pelajaran|delete_absensi_pelajaran', ['only' => ['index','store']]);
+         $this->middleware('permission:add_absensi_pelajaran', ['only' => ['create','store']]);
+         $this->middleware('permission:edit_absensi_pelajaran', ['only' => ['edit','update']]);
+         $this->middleware('permission:delete_absensi_pelajaran', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *

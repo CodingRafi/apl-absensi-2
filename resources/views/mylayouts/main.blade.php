@@ -97,7 +97,7 @@
     <script src="/template/js/todolist.js"></script>
     <!-- endinject -->
     <!-- Custom js for this page-->
-    <script src="/template/js/dashboard.js"></script>
+    {{-- <script src="/template/js/dashboard.js"></script> --}}
     <script src="/template/js/Chart.roundedBarCharts.js"></script>
     <script src="/template/js/chart.js"></script>
     <!-- End custom js for this page-->
@@ -108,7 +108,7 @@
     @yield('tambahjs')
 
     <script>
-        const li_tahun_ajaran = document.querySelectorAll('.li_tahun_ajaran');
+        // const li_tahun_ajaran = document.querySelectorAll('.li_tahun_ajaran');
         
     </script>
 </body>
