@@ -17,30 +17,65 @@
   <link rel="stylesheet" href="/template/css/vertical-layout-light/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="/template/images/favicon.png" />
+  {{-- bootstrap --}}
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 
 <body>
   <div class="container-scroller">
-    <div class="container-fluid page-body-wrapper full-page-wrapper">
-      <div class="content-wrapper d-flex align-items-center auth px-0">
+    <div class="container-fluid page-body-wrapper full-page-wrapper p-0">
+      <div class="content-wrapper d-flex align-items-center auth px-0" style="background-image: url('/img/bgc.jpg'); background-size: cover; background-repeat: no-repeat">
         <div class="row w-100 mx-0">
           <div class="col-lg-4 mx-auto">
-            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
-              <form class="pt-3" action="/login" method="post">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5" style="border-radius: 1rem">
+              <form action="/login" method="POST" style="width: 90%;">
                 @csrf
-                <div class="form-group">
-                  <input type="email" class="form-control form-control-lg" placeholder="Email" name="login">
+                <div class="container p-0">
+                    <h1 class="mb-3" style="color: #263238;">Masuk</h1>
+                    <div class="mb-3">
+                        <select class="form-select select-pilihan text-dark" aria-label="Default select example" style="width: 23vw; height: 7vh; border: 1px solid rgb(205, 205, 205); border-radius: 5px">
+                            <option value="belum" selected>Masuk Sebagai</option>
+                            <option value="karyawan">Karyawan</option>
+                            <option value="admin_sekolah">Admin Sekolah</option>
+                            <option value="yayasan">Yayasan</option>
+                            <option value="super">Super Admin</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 div-email">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control input-email" id="email" placeholder="name@example.com"
+                            name="login" style="width: 23vw; height: 7vh;" disabled>
+                    </div>
+                    <div class="mb-3 div-nip" style="display: none;">
+                        <label for="nip" class="form-label">NIP</label>
+                        <input type="text" class="form-control input-nip" id="npsn" placeholder="NIP" name="login">
+                    </div>
+                    <div class="mb-3 form-password-toggle">
+                        <label class="form-label" for="password">Password</label>
+                        <input type="password" id="password" class="form-control input-password" name="password" style="width: 23vw; height: 7vh; border: 1px solid rgb(205, 205, 205); border-radius: 5px" placeholder="&nbsp;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <div class="container p-0">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="remember" name="remember">
+                                        <label class="form-check-label m-0" for="remember">Remember Me</label>
+                                    </div>
+                                </div>
+                                <div class="col-6 d-flex justify-content-end align-items-center">
+                                  <a href="" style="font-size: 12.5px; text-decoration: none; font-weight: 600; color:#3bae9c;">Lupa Password?</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-grid gap-2">
+                            <button class="btn text-white tombol-masuk" type="submit" style="background: #3bae9c; width: 23vw;" disabled>Masuk</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                  <input type="text" class="form-control form-control-lg" placeholder="NIP" name="login" disabled>
-                </div>
-                <div class="form-group">
-                  <input type="password" class="form-control form-control-lg" placeholder="Password" name="password">
-                </div>
-                <div class="mt-3">
-                  <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN IN</button>
-                </div>
-              </form>
+            </form>
             </div>
           </div>
         </div>
@@ -62,51 +97,46 @@
   <script src="/template/js/settings.js"></script>
   <script src="/template/js/todolist.js"></script>
   <!-- endinject -->
+
+  {{-- js login --}}
+  <script>
+    const inputEmail = document.querySelector('.input-email');
+      const inputNpsn = document.querySelector('.input-nip');
+      const divEmail = document.querySelector('.div-email');
+      const divNpsn = document.querySelector('.div-nip');
+      const inputPassword = document.querySelector('.input-password');
+      const tombolMasuk = document.querySelector('.tombol-masuk');
+      let sebelum;
+
+      const selectPilihan = document.querySelector('.select-pilihan');
+      selectPilihan.addEventListener('change', function(){
+        if (selectPilihan.value == 'belum') {
+          if(sebelum == 'karyawan'){
+            inputNpsn.setAttribute('disabled', 'disabled');
+            inputPassword.setAttribute('disabled', 'disabled');
+          }else{
+            inputPassword.setAttribute('disabled', 'disabled');
+            inputEmail.setAttribute('disabled', 'disabled');
+          }
+          tombolMasuk.setAttribute('disabled', 'disabled')
+        } else if (selectPilihan.value != 'belum' && selectPilihan.value == 'karyawan') {
+          inputEmail.setAttribute('disabled', 'disabled');
+          divEmail.style.display = 'none';
+          inputNpsn.removeAttribute('disabled');
+          divNpsn.style.display = 'block';
+          inputPassword.removeAttribute('disabled');
+          sebelum = 'karyawan';
+          tombolMasuk.removeAttribute('disabled');
+        }else{
+          inputEmail.removeAttribute('disabled');
+          divEmail.style.display = 'block';
+          inputNpsn.setAttribute('disabled', 'disabled');
+          divNpsn.style.display = 'none';
+          inputPassword.removeAttribute('disabled');
+          sebelum = 'lainnya';
+          tombolMasuk.removeAttribute('disabled');
+        }
+      })
+  </script>
 </body>
-
 </html>
-
-{{-- <form id="formAuthentication" class="mb-3" action="" method="POST">
-  @csrf
-  <div class="mb-3">
-    <label for="email" class="form-label">Email</label>
-    <input
-      type="email"
-      class="form-control"
-      id="email"
-      name="email"
-      placeholder="Enter your email"
-      autofocus
-      required
-    />
-  </div>
-  <div class="mb-3 form-password-toggle">
-    <div class="d-flex justify-content-between">
-      <label class="form-label" for="password">Password</label>
-      <a href="{{ route('password.request') }}">
-        <small>Forgot Password?</small>
-      </a>
-    </div>
-    <div class="input-group input-group-merge">
-      <input
-        type="password"
-        id="password"
-        class="form-control"
-        name="password"
-        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-        aria-describedby="password"
-      />
-      <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-    </div>
-  </div>
-  <div class="mb-3">
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" id="remember_me" name="remember"/>
-      <label class="form-check-label" for="remember-me"> Remember Me </label>
-    </div>
-  </div>
-  <div class="mb-3">
-    <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
-  </div>
-</form> --}}
-
