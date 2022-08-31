@@ -33,9 +33,9 @@ class AbsensiController extends Controller
     public function index(Request $request, $role)
     {
         $now = Carbon::now();
-        $date=[];
         $month = request('idb') ?? $now->month;
         $year = $now->year;
+        $date=[];
         
         for($d=0; $d<=32; $d++)
         {

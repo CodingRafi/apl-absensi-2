@@ -37,7 +37,7 @@
               <form class="pt-3" action="{{ route('password.email') }}" method="post">
                 @csrf
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-lg" placeholder="Email" name="login"
+                  <input type="email" class="form-control form-control-lg" placeholder="Email"
                     name="email">
                 </div>
                 <div class="mt-3">
