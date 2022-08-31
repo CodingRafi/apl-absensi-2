@@ -62,6 +62,10 @@ class User extends Authenticatable
         return $this->hasMany(absensi::class);
     }
 
+    public function absensi_pelajaran(){
+        return $this->hasMany(AbsensiPelajaran::class);
+    }
+
     public static function getUserRole($role, $sekolah){
         $roles = Role::all();
         $users = \App\Models\User::with('roles')->get();

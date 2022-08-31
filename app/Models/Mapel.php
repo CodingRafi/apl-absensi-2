@@ -22,4 +22,8 @@ class Mapel extends Model
     public function agenda(){
         return $this->hasMany(Agenda::class);
     }
+
+    public function absensi_pelajaran(){
+        return $this->hasMany(AbsensiPelajaran::class);
+    }
 }
