@@ -9,6 +9,7 @@
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
             <span class="icon-menu"></span>
         </button>
+        @if ( Auth::user()->hasRole('admin') )  
         <div class="dropdown">
             <button class="btn dropdown-toggle ml-3" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
                 aria-expanded="false" style="border: none">
@@ -28,6 +29,7 @@
                 @endforeach
             </ul>
         </div>
+        @endif
         <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item nav-profile dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">

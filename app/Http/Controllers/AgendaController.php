@@ -166,6 +166,7 @@ class AgendaController extends Controller
     }
 
     public function show_guru(){
-        dd('oke');
+        
+        return view('agenda.guru');
     }
 }

@@ -96,7 +96,8 @@ class UserSeeder extends Seeder
             'name' => 'pak',
             'email' => 'bapak@gmail.com',
             'password' => \Hash::make('12345678'),
-            'sekolah_id' => 1
+            'sekolah_id' => 1,
+            'nip' => 123456789
         ]);
 
         $userGuru->assignRole('guru');

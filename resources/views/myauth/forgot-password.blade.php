@@ -28,13 +28,21 @@
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
               <h3>Forgot Password</h3>
               <p>Enter your email and we'll send you instructions to reset your password</p>
-              <form class="pt-3" action="/login" method="post">
+              <!-- Session Status -->
+              <x-auth-session-status class="mb-4" :status="session('status')" />
+
+              <!-- Validation Errors -->
+              <x-auth-validation-errors class="mb-4" :errors="$errors" />
+
+              <form class="pt-3" action="{{ route('password.email') }}" method="post">
                 @csrf
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-lg" placeholder="Email" name="login">
+                  <input type="email" class="form-control form-control-lg" placeholder="Email" name="login"
+                    name="email">
                 </div>
                 <div class="mt-3">
-                  <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN IN</button>
+                  <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Send
+                    Reset Password</button>
                 </div>
               </form>
             </div>

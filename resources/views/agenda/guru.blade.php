@@ -6,30 +6,51 @@
         <h4 class="card-title float-left">Agenda Guru</h4>
         <ul class="nav float-right mb-4" style="gap: 1rem;">
             <li class="nav-item">
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle ml-3" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false" style="border: none">
+                        Tahun Ajaran
+                    </button>
+                    <ul class="dropdown-menu ml-1" aria-labelledby="dropdownMenuButton1">
+                        @foreach ($tahun_ajarans as $tahun_ajaran)
+                        <li class="
+                        ">
+                            <form action="" method="get">
+                                <input type="hidden" name="tahun_awal" value="{{ $tahun_ajaran->tahun_awal }}">
+                                <input type="hidden" name="tahun_akhir" value="{{ $tahun_ajaran->tahun_akhir }}">
+                                <input type="hidden" name="semester" value="{{ $tahun_ajaran->semester }}">
+                                <button type="submit" class="dropdown-item">{{ $tahun_ajaran->tahun_awal }}/{{
+                                    $tahun_ajaran->tahun_akhir }} Semester {{ $tahun_ajaran->semester }}</button>
+                            </form>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </li>
+            <div class="nav-item">
                 <div class="input-group">
-                    <select class="custom-select" id="inputGroupSelect01" style="height: 30px; padding: 0; padding-left: 10px">
-                        <option selected>Jurusan</option>
-                        <option value="1">Rekayasa Perangkat Lunak</option>
-                    </select>
+                    {{-- @if (count($kelas_filter)>0)
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false"
+                            style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 5rem; padding: 0.1rem">
+                            Kelas
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            @foreach ($kelas_filter as $kelas)
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    <input type="hidden" name="idk" value="{{ $kelas->id }}">
+                                    <button type="submit" class="dropdown-item">{{ $kelas->nama }}</button>
+                                </form>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif --}}
                 </div>
-            </li>
-            <li class="nav-item">
-                <div class="input-group">
-                    <select class="custom-select" id="inputGroupSelect02" style="height: 30px; padding: 0; padding-left: 10px">
-                        <option selected>Kelas</option>
-                        <option value="1">XII RPL 2</option>
-                    </select>
-                </div>
-            </li>
-            <li class="nav-item">
-                <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                        placeholder="Search" style="height: 29px;">
-                </div>
-            </li>
-            <li class="nav-item">
-                <a href="" class="btn btn-sm text-white font-weight-bold px-3" style="background-color: #3bae9c">Tambah Data</a>
-            </li>
+            </div>
         </ul>
         <div class="table-responsive">
             <table class="table">

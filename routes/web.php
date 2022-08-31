@@ -38,7 +38,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('siswa', SiswaController::class);
     Route::resource('tahun-ajaran', TahunAjaranController::class);
     Route::resource('agenda', AgendaController::class);
-    Route::get('/agenda/guru', [AgendaController::class, 'show_guru']);
+    Route::get('/agenda-guru', [AgendaController::class, 'show_guru']);
     Route::get('/absensi/{role}', [AbsensiController::class, 'index']);
     Route::get('get-mapel/{id}', [AgendaController::class, 'get_mapel']);
     Route::get('agenda/kelas/{id}', [AgendaController::class, 'showJadwal']);
@@ -53,9 +53,9 @@ Route::group(['middleware' => ['auth']], function() {
 
 require __DIR__.'/auth.php';
 
-Route::get('/agenda-guru', function() {
-    return view('agenda.guru');
-});
+// Route::get('/agenda-guru', function() {
+//     return view('agenda.guru');
+// });
 
 Route::get('/agenda-siswa', function() {
     return view('agenda.siswa');

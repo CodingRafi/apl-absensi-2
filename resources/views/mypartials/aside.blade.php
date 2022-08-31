@@ -12,7 +12,7 @@
         </li>
         @if (auth()->user()->can('show_agenda_guru')) 
         <li class="nav-item">
-            <form action="/agenda" method="get">
+            <form action="/agenda-guru" method="get">
                 @include('mypartials.tahunajaran')
                 <button class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}"
                     style="background-color: #ffffff; border: none; min-width: 200px"><i
