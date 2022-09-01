@@ -37,10 +37,14 @@
                     <img src="/template/images/faces/defaultProfile.jpg" alt="profile" />
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                    <a class="dropdown-item">
-                        <i class="ti-settings text-primary"></i>
-                        Settings
-                    </a>
+                    <form action="/user-settings" method="get">
+                        @csrf
+                        <button class="dropdown-item" tabindex="-1" type="submit"
+                            style="border: none; background: none; color: grey;">
+                            <i class="bi bi-person-circle"></i>
+                        Profile
+                        </button>
+                    </form>
                     <form action="/logout" method="post">
                         @csrf
                         <button class="dropdown-item text-danger" tabindex="-1" type="submit"
