@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Sekolah;
 use App\Http\Requests\StoreSekolahRequest;
 use App\Http\Requests\UpdateSekolahRequest;
+use Illuminate\Http\Request;
 
 class SekolahController extends Controller
 {
@@ -41,9 +42,9 @@ class SekolahController extends Controller
      * @param  \App\Http\Requests\StoreSekolahRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreSekolahRequest $request)
+    public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**

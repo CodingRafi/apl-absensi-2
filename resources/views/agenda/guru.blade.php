@@ -202,7 +202,6 @@
                         <th>Mapel</th>
                         <th>Jam</th>
                         <th>Kelas</th>  
-                        <th>Action</th>  
                     </tr>
                 </thead>
                 <tbody>
@@ -212,9 +211,6 @@
                         <td>{{ $agenda->mapel->nama }}</td>
                         <td>{{ $agenda->jam_awal }} - {{ $agenda->jam_akhir }}</td>
                         <td>{{ $agenda->kelas->nama }}</td>
-                        <td>
-                            form
-                        </td>
                     </tr>
                     @endforeach
                 </tbody>

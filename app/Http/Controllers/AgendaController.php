@@ -170,8 +170,14 @@ class AgendaController extends Controller
     }
 
     public function showJadwal($id){
+        $haris = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
         $kelas = Kelas::findOrFail($id);
-        $agendas = $kelas->agenda->groupBy('hari');
+        $agendas = [];
+
+        foreach ($haris as $key => $hari) {
+            $agenda = Agenda::get_agenda($id, $hari);
+            $agendas[$hari] = $agenda;
+        }
 
         return view('agenda.sigleJadwal',[
             'kelas' => $kelas,
@@ -198,7 +204,9 @@ class AgendaController extends Controller
 
         $date = Carbon::parse(date("Y-m-d", mktime(0, 0, 0, $month, $day, $year)))->locale('id')->isoFormat('dddd');
 
-        $agendas = Agenda::where('tahun_ajaran_id', $tahun_ajaran->id)->where('hari', strtolower($date))->get();
+        $agendas = Agenda::where('tahun_ajaran_id', $tahun_ajaran->id)->where('hari', strtolower($date))->orderBy('urutan', 'asc')->get();
+
+        // dd($agendas);
 
         return view('agenda.guru', [
             'agendas' => $agendas,

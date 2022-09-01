@@ -62,6 +62,7 @@
                     </form>
                 </div>
             </li>
+            @if (auth()->user()->can('export_siswa'))
             <li class="nav-item">
                 <form action="/export" method="get">
                     @include('mypartials.tahunajaran')
@@ -78,6 +79,8 @@
                     style="background-color: #3bae9c">Export</button>
                 </form>
             </li>
+            @endif
+            @if (auth()->user()->can('import_siswa'))  
             <li class="nav-item">
                 <form action="/import" method="get">
                     @include('mypartials.tahunajaran')
@@ -85,6 +88,8 @@
                         style="background-color: #3bae9c">Import</button>
                 </form>
             </li>
+            @endif
+            @if (auth()->user()->can('add_siswa'))
             <li class="nav-item">
                 <form action="/siswa/create" method="get">
                     @include('mypartials.tahunajaran')
@@ -92,6 +97,7 @@
                         Siswa</button>
                 </form>
             </li>
+            @endif
         </ul>
         <div class="table-responsive">
             <table class="table">
@@ -113,7 +119,9 @@
                         <th scope="col">kecamatan</th>
                         <th scope="col">RFID Number</th>
                         <th scope="col">Status RFID</th>
+                        @if (auth()->user()->can('edit_siswa') || auth()->user()->can('delete_siswa'))
                         <th scope="col">Action</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -133,20 +141,34 @@
                         <td>{{ $student->jalan }}</td>
                         <td>{{ $student->kelurahan }}</td>
                         <td>{{ $student->kecamatan }}</td>
-                        {{-- <td>{{ $student->rfid->rfid_number }}</td>
-                        <td>{{ $student->rfid->status }}</td> --}}
+                        @if ($student->rfid)
+                        <td>{{ $student->rfid->rfid_number }}</td>
+                        @else
+                        <td></td>
+                        @endif
+                        @if ($student->rfid)
+                        <td>{{ $student->rfid->status }}</td>
+                        @else
+                        <td></td>
+                        @endif
+                        @if (auth()->user()->can('edit_siswa') || auth()->user()->can('delete_siswa')) 
                         <td>
+                            @if (auth()->user()->can('edit_siswa'))
                             <form action="/siswa/{{ $student->id }}/edit" method="get">
                                 @include('mypartials.tahunajaran')
                                 <button class="btn btn-sm btn-warning text-white font-weight-bold" style="width: 5rem; margin: 0.1rem;">Edit</button>
                             </form>
+                            @endif
+                            @if (auth()->user()->can('delete_siswa'))
                             <form action="/siswa/{{ $student->id }}" method="post">
                                 @csrf
                                 @method('delete')
                                 @include('mypartials.tahunajaran')
                                 <button type="submit" class="btn btn-sm btn-danger font-weight-bold" style="width: 5rem; margin: 0.1rem;" onclick="return confirm('yakin?')">Hapus</button>
                             </form>
+                            @endif
                         </td>
+                        @endif
                     </tr>
                     @endforeach
                 </tbody>

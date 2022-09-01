@@ -177,8 +177,8 @@
                 <tbody>
                     @foreach ($presensis as $key => $presensi)
                         <tr>
-                            <th scope="row" rowspan="2" style="vertical-align: middle;">{{ $loop->iteration }}</th>
-                            <td rowspan="2" style="vertical-align: middle;">{{ $siswas[$key]->name }}</td>
+                            <th scope="row" style="vertical-align: middle;">{{ $loop->iteration }}</th>
+                            <td style="vertical-align: middle;">{{ $siswas[$key]->name }}</td>
                             @foreach ($presensi as $k => $presen)
                                 @if ($presen)
                                     @if ($presen->kehadiran == 'hadir')

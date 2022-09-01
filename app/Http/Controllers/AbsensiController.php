@@ -20,10 +20,10 @@ class AbsensiController extends Controller
 {
     function __construct()
     {
-         $this->middleware('permission:view_absensi|add_absensi|edit_absensi|delete_absensi', ['only' => ['index','store']]);
-         $this->middleware('permission:add_absensi', ['only' => ['create','store']]);
-         $this->middleware('permission:edit_absensi', ['only' => ['edit','update']]);
-         $this->middleware('permission:delete_absensi', ['only' => ['destroy']]);
+        //  $this->middleware('permission:view_absensi|add_absensi|edit_absensi|delete_absensi', ['only' => ['index','store']]);
+        //  $this->middleware('permission:add_absensi', ['only' => ['create','store']]);
+        //  $this->middleware('permission:edit_absensi', ['only' => ['edit','update']]);
+        //  $this->middleware('permission:delete_absensi', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.
@@ -55,7 +55,7 @@ class AbsensiController extends Controller
             $siswas = Siswa::filter(request(['idk', 'idj', 'search']))->select('siswas.*', 'kelas.nama as kelas', 'kompetensis.kompetensi as jurusan')->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->get();
 
             foreach ($siswas as $key => $siswa) {
-                $absensis[] = Absensi::get_absensi($siswa, $date);
+                $absensis[] = Absensi::get_absensi($siswa, $date, $role);
             }
 
             return view('absensi', [
@@ -77,7 +77,7 @@ class AbsensiController extends Controller
             }
 
             foreach ($users as $key => $user) {
-                $absensis[] = Absensi::get_absensi($user, $date);
+                $absensis[] = Absensi::get_absensi($user, $date, $role);
             }
 
             return view('absensi', [
@@ -105,9 +105,90 @@ class AbsensiController extends Controller
      * @param  \App\Http\Requests\StoreAbsensiRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAbsensiRequest $request)
-    {
-        // 
+    public function store(Request $request){
+        if ($request->presensi == 'masuk') {
+           
+            if ($request->table == 'siswa') {
+                $absensi = Absensi::where('siswa_id', $request->siswa_id)->where('kelas_id', $request->kelas_id)->whereDate('presensi_masuk', $request->date)->first();
+
+                if(!$absensi){
+                    if ($request->kehadiran == 'hadir') {
+                        Absensi::create([
+                            'rfid_id' => $request->rfid_id,
+                            'siswa_id' => $request->siswa_id,
+                            'kelas_id' => $request->kelas_id,
+                            'kehadiran' => $request->kehadiran,
+                            'presensi_masuk' => ($request->waktu) ? $request->date . ' ' . $request->waktu .  ':00' : $request->date . ' ' . explode(' ', Carbon::now())[1] 
+                        ]);
+                    }else{
+                        Absensi::create([
+                            'rfid_id' => $request->rfid_id,
+                            'siswa_id' => $request->siswa_id,
+                            'kelas_id' => $request->kelas_id,
+                            'kehadiran' => $request->kehadiran,
+                            'presensi_masuk' => ($request->waktu) ? $request->date . ' ' . $request->waktu .  ':00' : $request->date . ' ' . explode(' ', Carbon::now())[1],
+                            'presensi_pulang' => ($request->waktu) ? $request->date . ' ' . $request->waktu .  ':00' : $request->date . ' ' . explode(' ', Carbon::now())[1] 
+                        ]);
+                    }
+                }
+
+                return redirect()->back();
+            }else{
+                $absensi = Absensi::where('user_id', $request->user_id)->whereDate('presensi_masuk', $request->date)->first();
+                if(!$absensi){
+                    if ($request->kehadiran == 'hadir') {
+                        Absensi::create([
+                            'rfid_id' => $request->rfid_id,
+                            'user_id' => $request->user_id,
+                            'kehadiran' => $request->kehadiran,
+                            'presensi_masuk' => ($request->waktu) ? $request->date . ' ' . $request->waktu .  ':00' : $request->date . ' ' . explode(' ', Carbon::now())[1] 
+                        ]);
+                    }else{
+                        Absensi::create([
+                            'rfid_id' => $request->rfid_id,
+                            'user_id' => $request->user_id,
+                            'kehadiran' => $request->kehadiran,
+                            'presensi_masuk' => ($request->waktu) ? $request->date . ' ' . $request->waktu .  ':00' : $request->date . ' ' . explode(' ', Carbon::now())[1],
+                            'presensi_pulang' => ($request->waktu) ? $request->date . ' ' . $request->waktu .  ':00' : $request->date . ' ' . explode(' ', Carbon::now())[1] 
+                        ]);
+                    }
+                }   
+
+                return redirect()->back();
+            }
+        }else{
+            if ($request->table == 'siswa') {
+                $absensi = Absensi::where('siswa_id', $request->siswa_id)->where('kelas_id', $request->kelas_id)->whereDate('presensi_masuk', $request->date)->first();
+
+                if($absensi){
+                    if($request->kehadiran == $absensi->kehadiran){
+                        $absensi->update([
+                            'presensi_pulang' => ($request->waktu) ? $request->date . ' ' . $request->waktu .  ':00' : $request->date . ' ' . explode(' ', Carbon::now())[1]
+                        ]);
+                    }else{
+                        return redirect()->back()->with('message', 'kehadiran tidak sesuai dengan presensi masuk');
+                    }
+                }else{
+                    return redirect()->back()->with('message', 'belum presensi masuk');
+                }
+            }else{
+                $absensi = Absensi::where('user_id', $request->user_id)->whereDate('presensi_masuk', $request->date)->first();
+
+                if($absensi){
+                    if($request->kehadiran == $absensi->kehadiran){
+                        $absensi->update([
+                            'presensi_pulang' => ($request->waktu) ? $request->date . ' ' . $request->waktu .  ':00' : $request->date . ' ' . explode(' ', Carbon::now())[1]
+                        ]);
+                    }else{
+                        return redirect()->back()->with('message', 'kehadiran tidak sesuai dengan presensi masuk');
+                    }
+                }else{
+                    return redirect()->back()->with('message', 'belum presensi masuk');
+                }
+            }
+        }
+
+        return redirect()->back();
     }
 
     /**
@@ -129,7 +210,9 @@ class AbsensiController extends Controller
      */
     public function edit(Absensi $absensi)
     {
-        //
+        return view('users.detailabsensisiswa', [
+            'absensi' => $absensi
+        ]);
     }
 
     /**
@@ -139,9 +222,37 @@ class AbsensiController extends Controller
      * @param  \App\Models\Absensi  $absensi
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAbsensiRequest $request, Absensi $absensi)
+    public function update(Request $request, Absensi $absensi, $id)
     {
-        //
+        $absensi = Absensi::findOrFail($id);
+
+        if ($request->presensi == 'masuk') {
+            if ($request->kehadiran == 'hadir') {
+                $absensi->update([
+                    'kehadiran' => $request->kehadiran,
+                    'presensi_masuk' => ($request->waktu) ? $request->date . ' ' . $request->waktu .  ':00' : $request->date . ' ' . explode(' ', Carbon::now())[1],
+                    'presensi_pulang' => null
+                ]);
+            }else{
+                $absensi->update([
+                    'kehadiran' => $request->kehadiran,
+                    'presensi_masuk' => ($request->waktu) ? $request->date . ' ' . $request->waktu .  ':00' : $request->date . ' ' . explode(' ', Carbon::now())[1],
+                    'presensi_pulang' => ($request->waktu) ? $request->date . ' ' . $request->waktu .  ':00' : $request->date . ' ' . explode(' ', Carbon::now())[1]
+                ]);
+            }
+
+            return redirect()->back()->with('message', 'Berhasil Diupdate');
+        }else{
+            if($absensi->kehadiran == $request->kehadiran){
+                $absensi->update([
+                    'presensi_pulang' => ($request->waktu) ? $request->date . ' ' . $request->waktu .  ':00' : $request->date . ' ' . explode(' ', Carbon::now())[1]
+                ]);
+
+                return redirect()->back()->with('message', 'Berhasil Diupdate');
+            }else{
+                return redirect()->back()->with('message', 'tidak sama dengan absensi masuk');
+            }
+        }
     }
 
     /**

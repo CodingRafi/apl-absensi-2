@@ -15,6 +15,7 @@
                     </form>
                 </div>
             </li>
+            @if (auth()->user()->can('export_users')) 
             <li class="nav-item">
                 <form action="/export/users/{{ $role }}" method="get">
                     @include('mypartials.tahunajaran')
@@ -22,6 +23,8 @@
                         style="background-color: #3bae9c">Export</button>
                 </form>
             </li>
+            @endif
+            @if (auth()->user()->can('import_users')) 
             <li class="nav-item">
                 <form action="/import/users/{{ $role }}" method="get">
                     @include('mypartials.tahunajaran')
@@ -29,6 +32,8 @@
                         style="background-color: #3bae9c">Import</button>
                 </form>
             </li>
+            @endif
+            @if (auth()->user()->can('add_users'))
             <li class="nav-item">
                 <form action="/users/create/{{ $role }}" method="get">
                     @include('mypartials.tahunajaran')
@@ -36,6 +41,7 @@
                         $role }}</button>
                 </form>
             </li>
+            @endif
         </ul>
         <div class="table-responsive">
             <table class="table">
@@ -53,7 +59,11 @@
                         <th scope="col">Tempat Lahir</th>
                         <th scope="col">Tanggal Lahir</th>
                         <th scope="col">Agama</th>
+                        <th scope="col">Rfid</th>
+                        <th scope="col">Status Rfid</th>
+                        @if (auth()->user()->can('edit_users') || auth()->user()->can('delete_users'))
                         <th scope="col">Action</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -83,18 +93,34 @@
                         <td>{{ $user->tempat_lahir }}</td>
                         <td>{{ $user->tanggal_lahir }}</td>
                         <td>{{ $user->agama }}</td>
+                        @if ($user->rfid)
+                        <td>{{ $user->rfid->rfid_number }}</td>
+                        @else
+                        <td></td>
+                        @endif
+                        @if ($user->rfid)
+                        <td>{{ $user->rfid->status }}</td>
+                        @else
+                        <td></td>
+                        @endif
+                        @if (auth()->user()->can('edit_users') || auth()->user()->can('delete_users'))      
                         <td>
+                            @if (auth()->user()->can('edit_users'))
                             <form action="/users/{{ $user->id }}/edit" method="get">
                                 @include('mypartials.tahunajaran')
                                 <button class="btn btn-sm btn-warning text-white font-weight-bold" style="width: 5rem; margin: 0.1rem;">Edit</button>
                             </form>
+                            @endif
+                            @if (auth()->user()->can('delete_users'))
                             <form action="/users/{{ $user->id }}" method="post">
                                 @csrf
                                 @method('delete')
                                 @include('mypartials.tahunajaran')
                                 <button type="submit" class="btn btn-sm btn-danger font-weight-bold" style="width: 5rem; margin: 0.1rem;" onclick="return confirm('yang akan terhapus agenda,rfid,absensi user ini')">Hapus</button>
                             </form>
+                            @endif
                         </td>
+                        @endif
                     </tr>
                     @endforeach
                 </tbody>

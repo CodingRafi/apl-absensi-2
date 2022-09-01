@@ -29,6 +29,8 @@ Route::get('/', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::post('/sekolah-create', [App\Http\Controllers\User\SekolahController::class, 'store']);
+
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('kompetensi', KompetensiController::class);
@@ -40,9 +42,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('siswa', SiswaController::class);
     Route::resource('tahun-ajaran', TahunAjaranController::class);
     Route::resource('agenda', AgendaController::class);
+    Route::resource('sekolah', App\Http\Controllers\SekolahController::class);
     Route::resource('presensi-pelajaran', AbsensiPelajaranController::class);
     Route::get('/presensi/{id}', [PresensiController::class, 'index']);
     Route::post('/presensi/{id}', [PresensiController::class, 'update']);
+    Route::post('/absensi/{id}', [AbsensiController::class, 'update']);
     Route::resource('presensi', PresensiController::class);
     Route::get('/agenda-guru', [AgendaController::class, 'show_guru']);
     Route::get('/absensi/{role}', [AbsensiController::class, 'index']);
@@ -55,7 +59,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/import/users/{role}', [UserController::class, 'import']);
     Route::post('/import/users/{role}', [UserController::class, 'saveimport']);
     Route::get('/export/users/{role}', [UserController::class, 'export']);
+    Route::resource('absensi', AbsensiController::class);
 });
+
+
 
 require __DIR__.'/auth.php';
 
