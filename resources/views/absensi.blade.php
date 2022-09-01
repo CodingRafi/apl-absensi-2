@@ -1,5 +1,20 @@
 @extends('mylayouts.main')
 
+@section('tambahcss')
+    <style>
+        @media (max-width: 400px) {
+            .search{
+                width: 26vw;
+            }
+        }
+        @media (max-width: 400px) {
+            .bulan{
+                width: 22vw;
+            }
+        }
+    </style>
+@endsection
+
 @section('container')
 <div class="card">
     <div class="card-body">
@@ -8,9 +23,9 @@
             <li class="nav-item">
                 <div class="input-group">
                     <div class="dropdown">
-                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        <button class="btn dropdown-toggle bulan" type="button" id="dropdownMenuButton1"
                             data-bs-toggle="dropdown" aria-expanded="false"
-                            style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 7rem; padding: 0.1rem">
+                            style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; padding: 0.1rem">
                             Bulan
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
@@ -178,9 +193,9 @@
             @if ($role == 'siswa')
             <li class="nav-item">
                 <div class="input-group input-group-sm">
-                    <form action="" method="get">
+                    <form action="" method="get" style="display: flex; gap:5px;">
                         @include('mypartials.tahunajaran')
-                        <input type="text" class="form-control" placeholder="Search" style="height: 29px;" name="s_siswa">
+                        <input type="text" class="form-control search" placeholder="Search" name="s_siswa" style="height: 1.9rem">
                         <button type="submit" class="btn" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 2.5rem; padding: 0.1rem"><i class="bi bi-search"></i></button>
                     </form>
                 </div>
@@ -238,9 +253,9 @@
             @else
             <li class="nav-item">
                 <div class="input-group input-group-sm">
-                    <form action="" method="get">
+                    <form action="" method="get" style="display: flex; gap: 5px">
                         @include('mypartials.tahunajaran')
-                        <input type="text" class="form-control" placeholder="Search" style="height: 29px;" name="s_user">
+                        <input type="text" class="form-control search" placeholder="Search" style="height: 1.9rem;" name="s_user">
                         <button type="submit" class="btn" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 2.5rem; padding: 0.1rem"><i class="bi bi-search"></i></button>
                     </form>
                 </div>

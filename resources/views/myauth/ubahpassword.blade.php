@@ -29,7 +29,7 @@
                   <h3>Change Password</h3>
                   <form action="/user-settings" method="get">
                     @include('mypartials.tahunajaran')
-                    <button class="btn btn-sm btn-danger font-weight-bold" style="width: 5vw"> Back</button>
+                    <button class="btn btn-sm btn-danger font-weight-bold" style="min-width: 5vw"> Back</button>
                 </form>
               </div>
               <!-- Session Status -->

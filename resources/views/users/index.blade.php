@@ -32,15 +32,14 @@
             <li class="nav-item">
                 <form action="/users/create/{{ $role }}" method="get">
                     @include('mypartials.tahunajaran')
-                    <button class="btn btn-sm text-white font-weight-bold" style="background-color: #3bae9c">Tambah {{
-                        $role }}</button>
+                    <button class="btn btn-sm text-white font-weight-bold" style="background-color: #3bae9c">Tambah</button>
                 </form>
             </li>
         </ul>
         <div class="table-responsive">
             <table class="table">
                 <thead class="thead-light">
-                    <tr>
+                    <tr class="text-center">
                         <th scope="col">No</th>
                         <th scope="col">Profil</th>
                         <th scope="col">Name</th>
@@ -59,7 +58,7 @@
                 <tbody>
                     @foreach ($users as $user)
                     {{-- @dd($user) --}}
-                    <tr>
+                    <tr class="text-center">
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>
                             @if ($user->profil == '/img/profil.png')

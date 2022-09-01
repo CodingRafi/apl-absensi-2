@@ -6,7 +6,7 @@
         <h4 class="card-title">Mata Pelajaran</h4>
         <form action="/mapel/create" method="get">
             @include('mypartials.tahunajaran')
-            <button class="btn btn-sm text-white font-weight-bold position-absolute px-3" style="top: .7rem; right: 1rem; background-color: #3bae9c">Tambah Mata Pelajaran</button>
+            <button class="btn btn-sm text-white font-weight-bold position-absolute px-3" style="top: .7rem; right: 1rem; background-color: #3bae9c">Tambah</button>
         </form>
         <table class="table">
             <thead>

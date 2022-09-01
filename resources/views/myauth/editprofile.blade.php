@@ -7,7 +7,7 @@
             <h4>Edit Profile</h4>
             <form action="/user-settings" method="get">
               @include('mypartials.tahunajaran')
-              <button class="btn btn-sm btn-danger font-weight-bold" style="width: 5vw"> Back</button>
+              <button class="btn btn-sm btn-danger font-weight-bold" style="min-width: 5vw"> Back</button>
           </form>
           </div>
             <form class="pt-3" action="" method="post" style=" width: 100%;">

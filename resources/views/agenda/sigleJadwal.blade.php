@@ -7,7 +7,7 @@
         <form action="/agenda/create" method="get">
             @include('mypartials.tahunajaran')
             <input type="hidden" name="idk" value="{{ $kelas->id }}">
-            <button type="submit" class="btn btn-sm text-white font-weight-bold float-right" style="background-color: #3bae9c">Tambah Jadwal</button>
+            <button type="submit" class="btn btn-sm text-white font-weight-bold float-right" style="background-color: #3bae9c">Tambah</button>
         </form>
         <form action="/agenda" method="get">
             @include('mypartials.tahunajaran')
@@ -20,7 +20,7 @@
             <p>{{ $key }}</p>
             <table class="table">
                 <thead>
-                    <tr>
+                    <tr class="text-center">
                         <th scope="col">Jam Ke</th>
                         <th scope="col">Waktu</th>
                         <th scope="col">Mapel</th>
@@ -30,7 +30,7 @@
                 </thead>
                 <tbody>
                     @foreach ($agenda as $sigleJadwal) 
-                    <tr>
+                    <tr class="text-center">
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>{{ $sigleJadwal->jam_awal }} - {{ $sigleJadwal->jam_akhir }}</td>
                         <td>{{ $sigleJadwal->mapel->nama }}</td>
@@ -38,13 +38,13 @@
                         <td>
                             <form action="/agenda/{{ $sigleJadwal->id }}/edit" method="get">
                                 @include('mypartials.tahunajaran')
-                                <button type="submit" class="btn btn-warning">Edit</button>
+                                <button type="submit" class="btn btn-sm btn-warning text-white font-weight-bold" style="min-width: 5vw; margin:2px;">Edit</button>
                             </form>
                             <form action="/agenda/{{ $sigleJadwal->id }}" method="post">
                                 @csrf
                                 @method('delete')
                                 @include('mypartials.tahunajaran')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('yakin ingin menghapus ini?')">Delete</button>
+                                <button type="submit" class="btn btn-sm btn-danger text-white font-weight-bold" onclick="return confirm('yakin ingin menghapus ini?')" style="min-width: 5vw; margin:2px;">Delete</button>
                             </form>
                         </td>
                     </tr>
