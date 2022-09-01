@@ -160,6 +160,17 @@ class AgendaController extends Controller
     public function destroy(Request $request, $id)
     {
         $agenda = Agenda::findOrFail($id);
+        $agendas = Agenda::where('kelas_id', $agenda->kelas_id)->where('user_id', $agenda->user_id)->where('kelas_id', $agenda->kelas_id)->count();
+
+        if ($agendas-1 < 1) {
+            $absensi_pelajaran = AbsensiPelajaran::where('kelas_id', $agenda->kelas_id)->where('user_id', $agenda->user_id)->where('kelas_id', $agenda->kelas_id)->first();
+            foreach ($absensi_pelajaran->presensi as $key => $presensi) {
+                $presensi->delete();
+            }
+
+            $absensi_pelajaran->delete();
+        }
+        
         $agenda->delete();
         return TahunAjaran::redirectTahunAjaran('/agenda/kelas/' . $agenda->kelas_id, $request, 'Jadwal Berhasil Dihapus');
     }
