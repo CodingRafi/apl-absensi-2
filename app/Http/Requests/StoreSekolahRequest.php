@@ -13,7 +13,7 @@ class StoreSekolahRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,13 @@ class StoreSekolahRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nama_sekolah' => 'required',
+            'npsn' => 'required',
+            'alamat' => 'required',
+            'tingkat' => 'required',
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
         ];
     }
 }

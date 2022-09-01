@@ -26,4 +26,8 @@ class Agenda extends Model
     public function tahun_ajaran(){
         return $this->belongsTo(TahunAjaran::class);
     }
+
+    public static function get_agenda($kelas_id, $hari){
+        return Agenda::where('kelas_id', $kelas_id)->where('hari', $hari)->orderBy('urutan')->get();
+    }
 }

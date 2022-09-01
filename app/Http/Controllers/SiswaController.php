@@ -218,7 +218,7 @@ class SiswaController extends Controller
                         'kelas_id' => $request->kelas_id,
                     ];
 
-                    if (Auth::user()->sekolah->tingkat == 'smk') {
+                    if (\Auth::user()->sekolah->tingkat == 'smk') {
                         $data += ['kompetensi_id' => $request->kompetensi_id];
                     }
 

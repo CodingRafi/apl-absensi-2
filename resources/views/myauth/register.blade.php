@@ -39,12 +39,12 @@
               <!-- Validation Errors -->
               <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-              <form class="pt-3" action="{{ route('password.email') }}" method="post" style=" width: 100%;">
+              <form class="pt-3" action="/sekolah-create" method="post" style=" width: 100%;" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                   <label for="nama" class="form-label">Nama Sekolah</label>
                   <input type="text" class="form-control form-control-lg" placeholder="Nama Sekolah"
-                    name="sekolah" style="border-radius: 5px; width: 100%">
+                    name="nama_sekolah" style="border-radius: 5px; width: 100%">
                 </div>
                 <div class="form-group">
                   <label for="npsn" class="form-label">NPSN</label>
@@ -57,19 +57,57 @@
                     name="alamat" style="border-radius: 5px; width: 100%">
                 </div>
                 <div class="form-group">
-                  <label for="logo" class="form-label">Tingkat</label>
+                  <label for="tingkat" class="form-label">Tingkat</label>
                   <br>
-                  <select name="" id="" class="text-dark form-control form-control-lg" style="border: 1px solid rgb(205, 205, 205); border-radius: 5px; height: 3rem; width: 100%">
-                    <option value="">SD</option>
-                    <option value="">SMP</option>
-                    <option value="">SMA</option>
-                    <option value="">SMK</option>
+                  <select name="tingkat" id="tingkat" class="text-dark form-control form-control-lg" style="border: 1px solid rgb(205, 205, 205); border-radius: 5px; height: 3rem; width: 100%">
+                    <option value="sd">SD</option>
+                    <option value="smp">SMP</option>
+                    <option value="sma">SMA</option>
+                    <option value="smk">SMK</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label for="logo" class="form-label">Logo</label>
-                  <input class="form-control form-control-lg" type="file" id="formFile" name="file" style="border-radius: 5px; height: 2.2rem; width: 100%">
+                  <input class="form-control form-control-lg" type="file" id="formFile" name="logo" style="border-radius: 5px; height: 2.2rem; width: 100%">
                 </div>
+
+                <hr>
+
+                <h3>User</h3>
+                <div class="form-group">
+                  <label for="nama" class="form-label">Nama</label>
+                  <input type="text" class="form-control form-control-lg" placeholder="Nama"
+                    name="name" style="border-radius: 5px; width: 100%">
+                </div>
+                <div class="form-group">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control form-control-lg" placeholder="email"
+                    name="email" style="border-radius: 5px; width: 100%">
+                </div>
+                <div class="form-group">
+                  <label for="password" class="form-label">Password</label>
+                  <input type="password" class="form-control form-control-lg" placeholder="password"
+                    name="password" style="border-radius: 5px; width: 100%">
+                </div>
+
+                <hr>
+                <h3>Yayasan</h3>
+                <div class="form-group">
+                  <label for="nama" class="form-label">Nama</label>
+                  <input type="text" class="form-control form-control-lg name-yayasan" placeholder="Nama"
+                    name="name_yayasan" style="border-radius: 5px; width: 100%" required>
+                </div>
+                <div class="form-group">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control form-control-lg email-yayasan" placeholder="email"
+                    name="email_yayasan" style="border-radius: 5px; width: 100%">
+                </div>
+                <div class="form-group">
+                  <label for="password" class="form-label">Password</label>
+                  <input type="password" class="form-control form-control-lg password-yayasan" placeholder="password"
+                    name="password_yayasan" style="border-radius: 5px; width: 100%">
+                </div>
+
                 <div class="mt-3">
                     <button type="submit" class="btn btn-block btn-lg text-white font-weight-medium auth-form-btn" style="background-color: #3bae9c">Register</button>
                     </div>
@@ -94,8 +132,21 @@
   <script src="/template/js/hoverable-collapse.js"></script>
   <script src="/template/js/template.js"></script>
   <script src="/template/js/settings.js"></script>
-  <script src="/template/js/todolist.js"></script>
+  <scrip src="/template/js/todolist.js"></scrip>
   <!-- endinject -->
+  
+  <script>
+      const nameYayasan = document.querySelector('.name-yayasan');
+      nameYayasan.addEventListener('keyup', function(e){
+          if(e.target.value.length > 0){
+            document.querySelector('.email-yayasan').required = true;
+            document.querySelector('.password-yayasan').required = true;
+          }else{
+            document.querySelector('.email-yayasan').required = false;
+            document.querySelector('.password-yayasan').required = false;
+          }
+      })
+  </script>
 </body>
 
 </html>

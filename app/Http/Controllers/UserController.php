@@ -78,7 +78,9 @@ class UserController extends Controller
             'jalan' => 'required', 
             'kelurahan' => 'required', 
             'kecamatan' => 'required', 
-            'role' => 'required'
+            'role' => 'required',
+            'rfid_number' => 'required|unique:rfids',
+            'status_rfid' => 'required'
         ]);
 
         // if($request->profil){
@@ -105,8 +107,8 @@ class UserController extends Controller
             $user->mapel()->attach($request->mapel);
         }
 
-        if ($request->rfid) {
-            Rfid::createRfid($request->rfid, null, $user->id, $request->status_rfid);
+        if ($request->rfid_number) {
+            Rfid::createRfid($request->rfid_number, null, $user->id, $request->status_rfid);
         }
 
         return TahunAjaran::redirectTahunAjaran('/users/' . $request->role, $request,  'Berhasil menambahkan ' . $request->role);

@@ -4,6 +4,7 @@
 <div class="card">
     <div class="card-body">
         <h4 class="card-title">Kompetensi</h4>
+        @if (auth()->user()->can('add_kompetensi'))
         <form action="/kompetensi/create" method="get">
             @include('mypartials.tahunajaran')
             <button class="btn btn-sm text-white font-weight-bold position-absolute px-3" style="top: .7rem; right: 1rem; background-color: #3bae9c">Tambah</button>
@@ -44,6 +45,7 @@
                 </tbody>
             </table>
         </div>
+        @endif
     </div>
 </div>
 @endsection

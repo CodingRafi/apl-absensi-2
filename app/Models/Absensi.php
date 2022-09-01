@@ -31,18 +31,24 @@ class Absensi extends Model
         return $this->hasOne(Presensi::class);
     }
 
-    public static function get_absensi($user, $dates){
-        $absensi_siswa = [];
+    public static function get_absensi($user, $dates, $role){
+        $absensis = [];
         foreach ($dates as $key => $date) {
-            $query = Absensi::where('user_id', $user->id)->orWhere('siswa_id', $user->id)->whereDate('presensi_masuk', '=', $date)->first();
+            \DB::enableQueryLog();
+            if ($role == 'siswa') {
+                $query = Absensi::where('siswa_id', $user->id)->whereDate('presensi_masuk', '=', $date)->first();
+            } else {
+                $query = Absensi::where('user_id', $user->id)->whereDate('presensi_masuk', '=', $date)->first();
+            }
 
             if($query){
-                $absensi_siswa[] = $query;
+                $absensis[] = $query;
             }else{
-                $absensi_siswa[] = [];
+                $absensis[] = [];
             }
         }
 
-        return $absensi_siswa;
+        // dd($absensis);
+        return $absensis;
     }
 }

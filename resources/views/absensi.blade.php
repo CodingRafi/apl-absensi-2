@@ -17,6 +17,7 @@
 
 @section('container')
 <div class="card">
+    <input type="hidden" name="" value="{{ $role }}" class="role">
     <div class="card-body">
         <h4 class="card-title float-left">Absensi {{ $role }}</h4>
         <ul class="nav float-right mb-4" style="gap: 1rem;">
@@ -261,7 +262,7 @@
                 </div>
             </li>
             @endif
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <form action="/export/absensi" method="get">
                     @include('mypartials.tahunajaran')
                     @if (request('idk'))
@@ -280,7 +281,7 @@
                     <button type="submit" class="btn btn-sm text-white font-weight-bold px-3"
                     style="background-color: #3bae9c">Export</button>
                 </form>
-            </li>
+            </li> --}}
         </ul>
         <ul class="nav mb-4 justify-content-end" style="gap: 1rem; clear: right !important;">
             <li class="nav-item">
@@ -322,7 +323,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($absensis as $key => $absensi)
+                    @foreach ($absensis as $key => $absensi) 
                     <tr>
                         <th scope="row" rowspan="2" style="vertical-align: middle;">{{ $loop->iteration }}</th>
                             @if ($role == 'siswa')
@@ -331,39 +332,81 @@
                             <td rowspan="2" style="vertical-align: middle;">{{ $users[$key]->name }}</td>
                             @endif
                             @foreach ($absensi as $k => $sigleAbsensi)
+                            {{-- @dd($sigleAbsensi) --}}
+                            {{-- @dd($sigleAbsensi['presensi_pulang']) --}} 
                             {{-- @dd(explode('-', $date[0])) --}}
                             {{-- @dd(date("D", mktime(0, 0, 0, explode('-', $date[0])[1], $k, explode('-', $date[0])[0]))) --}}
-                            @if ($sigleAbsensi)
-                                    <td class="bg-success">
-                                        <form action="detail-absensi-siswa" method="get">
-                                            @include('mypartials.tahunajaran')
-                                            <button class="btn text-white">{{ explode(':', explode(' ',$sigleAbsensi->presensi_masuk)[1])[0] }}:{{ explode(':', explode(' ',$sigleAbsensi->presensi_masuk)[1])[1] }}</button>
-                                        </form>
-                                    </td>
+                            {{-- @dd($absensi) --}}
+                                @if ($sigleAbsensi)
+                                    @if ($sigleAbsensi->kehadiran == 'hadir')
+                                        <td class="bg-success text-white cell-table" data-toggle="modal"
+                                        data-target="#ubah-absen" data-kehadiran="hadir" style="cursor: pointer;" data-bool-absen="true" data-presensi="masuk" data-id="{{ $sigleAbsensi->id }}" data-jam="{{ explode(':', explode(' ',$sigleAbsensi->presensi_masuk)[1])[0] }}" data-menit="{{ explode(':', explode(' ',$sigleAbsensi->presensi_masuk)[1])[1] }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}">{{ explode(':', explode(' ',$sigleAbsensi->presensi_masuk)[1])[0] }}:{{ explode(':', explode(' ',$sigleAbsensi->presensi_masuk)[1])[1] }}
+                                        </td>
+                                    @elseif($sigleAbsensi->kehadiran == 'sakit')
+                                        <td class="cell-table" data-toggle="modal"
+                                        data-target="#ubah-absen" data-bool-absen="true" data-kehadiran="sakit" style="cursor: pointer;border: 1px solid grey;background-color: #E28A07;" data-presensi="masuk" data-id="{{ $sigleAbsensi->id }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}">
+                                        </td>
+                                    @elseif($sigleAbsensi->kehadiran == 'izin')
+                                        <td class="cell-table bg-warning" data-toggle="modal" data-kehadiran="izin"
+                                        data-target="#ubah-absen" data-bool-absen="true" style="cursor: pointer;border: 1px solid grey;" data-kehadiran="izin" data-presensi="masuk" data-id="{{ $sigleAbsensi->id }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}">
+                                        </td>
+                                    @else
+                                        <td class="cell-table bg-danger" data-toggle="modal" data-kehadiran="alpha"
+                                        data-target="#ubah-absen" data-bool-absen="true" style="cursor: pointer;border: 1px solid grey;" data-kehadiran="alpha" data-presensi="masuk" data-id="{{ $sigleAbsensi->id }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}">
+                                        </td>
+                                    @endif
                                 @else
                                     @if (strtolower(date("D", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0]))) == 'sun')
                                         <td class="bg-secondary" style="height: 2rem;"></td>
                                     @else
-                                        <td></td>
+                                        @if ($role == 'siswa')
+                                            <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;" data-toggle="modal"
+                                            data-target="#ubah-absen" style="cursor: pointer;" data-bool-absen="false" data-presensi="masuk" data-siswa-id="{{ $siswas[$key]->id }}" data-kelas-id="{{ $siswas[$key]->kelas_id }}" data-rfid="{{ $siswas[$key]->rfid->id }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}"></td>
+                                        @else
+                                            <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;" data-toggle="modal"
+                                            data-target="#ubah-absen" style="cursor: pointer;"data-presensi="masuk" data-user-id="{{ $users[$key]->id }}" data-rfid="{{ $users[$key]->rfid->id }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}"></td>
+                                        @endif
                                     @endif
                                 @endif
                             @endforeach
                         </tr>
                         <tr>
                             @foreach ($absensi as $k => $sigleAbsensi)
-                                @if ($sigleAbsensi)
-                                    <td class="bg-success">
-                                        <form action="detail-absensi-siswa" method="get">
-                                            @include('mypartials.tahunajaran')
-                                            <button class="btn text-white">{{ explode(':', explode(' ',$sigleAbsensi->presensi_pulang)[1])[0] }}:{{ explode(':', explode(' ',$sigleAbsensi->presensi_pulang)[1])[1] }}</button>
-                                        </form>
-                                    </td>
+
+                            {{-- @dd('oke') --}}
+                            {{-- @dd($sigleAbsensi) --}}
+                            {{-- @dd($sigleAbsensi['presensi_pulang'])  --}}
+                            {{-- @dd($sigleAbsensi->presensi_pulang != null) --}}
+                                @if ($sigleAbsensi && $sigleAbsensi->presensi_pulang)
+                                    @if ($sigleAbsensi->kehadiran == 'hadir')
+                                        <td class="bg-success text-white cell-table" data-toggle="modal"
+                                        data-target="#ubah-absen" data-kehadiran="hadir" style="cursor: pointer;" data-bool-absen="true" data-presensi="pulang"  data-id="{{ $sigleAbsensi->id }}" data-jam="{{ explode(':', explode(' ',$sigleAbsensi->presensi_pulang)[1])[0] }}" data-menit="{{ explode(':', explode(' ',$sigleAbsensi->presensi_pulang)[1])[1] }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}">{{ explode(':', explode(' ',$sigleAbsensi->presensi_pulang)[1])[0] }}:{{ explode(':', explode(' ',$sigleAbsensi->presensi_pulang)[1])[1] }}
+                                        </td>
+                                    @elseif($sigleAbsensi->kehadiran == 'sakit')
+                                        <td class="cell-table" data-toggle="modal"
+                                        data-target="#ubah-absen" data-bool-absen="true" style="cursor: pointer;border: 1px solid grey;background-color: #E28A07;" data-kehadiran="sakit" data-presensi="pulang" data-id="{{ $sigleAbsensi->id }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}">
+                                        </td>
+                                    @elseif($sigleAbsensi->kehadiran == 'izin')
+                                        <td class="cell-table bg-warning" data-toggle="modal"
+                                        data-target="#ubah-absen" data-bool-absen="true" style="cursor: pointer;border: 1px solid grey;" data-kehadiran="izin" data-presensi="pulang" data-id="{{ $sigleAbsensi->id }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}">
+                                        </td>
+                                    @else
+                                        <td class="cell-table bg-danger" data-toggle="modal"
+                                        data-target="#ubah-absen" data-bool-absen="true" style="cursor: pointer;border: 1px solid grey;" data-kehadiran="alpha" data-presensi="pulang" data-id="{{ $sigleAbsensi->id }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}">
+                                        </td>
+                                    @endif
                                 @else
-                                @if (strtolower(date("D", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0]))) == 'sun')
-                                <td class="bg-secondary" style="height: 2rem;"></td>
-                            @else
-                                <td></td>
-                            @endif
+                                    @if (strtolower(date("D", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0]))) == 'sun')
+                                        <td class="bg-secondary" style="height: 2rem;"></td>
+                                    @else
+                                        @if ($role == 'siswa')
+                                            <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;" data-toggle="modal"
+                                            data-target="#ubah-absen" style="cursor: pointer;" data-bool-absen="false" data-presensi="keluar" data-siswa-id="{{ $siswas[$key]->id }}" data-kelas-id="{{ $siswas[$key]->kelas_id }}" data-rfid="{{ $siswas[$key]->rfid->id }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}"></td>
+                                        @else
+                                           <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;" data-toggle="modal"
+                                           data-target="#ubah-absen" style="cursor: pointer;" data-presensi="pulang" data-user-id="{{ $users[$key]->id }}" data-rfid="{{ $users[$key]->rfid->id }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}"></td>
+                                        @endif
+                                    @endif
                                 @endif
                             @endforeach
                         </tr>
@@ -373,28 +416,120 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="ubah-absen">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Presensi</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/absensi" method="post" class="form-presensi">
+                    @csrf
+                    <input type="hidden" name="presensi" class="presensi" disabled>
+                    <input type="hidden" name="table" class="table" value="{{ $role }}">
+                    <input type="hidden" name="siswa_id" class="siswa_id" disabled>
+                    <input type="hidden" name="user_id" class="user_id" disabled>
+                    <input type="hidden" name="kelas_id" class="kelas_id" disabled>
+                    <input type="hidden" name="rfid_id" class="rfid_id" disabled>
+                    <input type="hidden" name="date" class="date" disabled>
+                    <input type="hidden" name="id" class="id" disabled>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label for="bidang" class="col-sm-2 col-form-label">Keterangan</label>
+                            <div class="col-sm-10">
+                                <select class="form-control text-dark select-kehadiran" name="kehadiran" required>
+                                    <option value="" selected>Pilih keterangan</option>
+                                    <option value="hadir">Hadir</option>
+                                    <option value="sakit">Sakit</option>
+                                    <option value="izin">Izin</option>
+                                    <option value="alpha">Alpha</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row form-group-time" style="display: none;">
+                            <label for="bidang" class="col-sm-2 col-form-label">Waktu</label>
+                            <div class="col-sm-10">
+                                <input type="time" name="waktu" id="" class="input-time form-control">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn text-white float-right" style="background-color: #3bae9c">Simpan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('tambahjs')
 <script>
-    // var dt = new Date();
-    // console.log(dt)
-    // var month = dt.getMonth();
-    // console.log(month)
-    // var year = dt.getFullYear();
-    // console.log(year)
-    // daysInMonth = new Date(year, month, 0).getDate();
+    const cellTable = document.querySelectorAll('.cell-table');
+    const modalTitle = document.querySelector('.modal-title');
+    const input_presensi = document.querySelector('.presensi');
+    const siswa_id = document.querySelector('.siswa_id');
+    const user_id = document.querySelector('.user_id');
+    const kelas_id = document.querySelector('.kelas_id');
+    const rfid_id = document.querySelector('.rfid_id');
+    const date = document.querySelector('.date');
+    const role = document.querySelector('.role');
+    const id = document.querySelector('.id');
+    const select = document.querySelector('.select-kehadiran');
+    const formGroup = document.querySelector('.form-group-time');
+    const inputTime = document.querySelector('.input-time');
+    const formPresensi = document.querySelector('.form-presensi');
+    
+    cellTable.forEach(e => {
+        e.addEventListener('click', function(e){
+            modalTitle.innerHTML = 'Presensi ' + e.target.getAttribute('data-presensi');
 
-    // function getDayNamesInMonth(month, year) {
-    //     let date = new Date(year, month, 1);
-    //     let days = [];
-    //     while (date.getMonth() === month) {
-    //         days.push(new Date(date).toLocaleDateString('en-ID', { weekday: 'short' }));
-    //         date.setDate(date.getDate() + 1);
-    //     }
-    //     return dayNames;
-    // }
+            if (e.target.getAttribute('data-bool-absen') == 'true') {
+                formPresensi.setAttribute('action', '');
+                formPresensi.setAttribute('action', '/absensi/' + e.target.getAttribute('data-id'));
+                select.value = '';
+                select.value = e.target.getAttribute('data-kehadiran');
+                input_presensi.removeAttribute('disabled');
+                input_presensi.value = e.target.getAttribute('data-presensi');
+                date.removeAttribute('disabled');
+                date.value = e.target.getAttribute('data-date');
+                if (e.target.getAttribute('data-kehadiran') == 'hadir') {
+                    formGroup.style.display = 'block';
+                    inputTime.value = '00:00';
+                    inputTime.value = e.target.getAttribute('data-jam') + ':' + e.target.getAttribute('data-menit')
+                }
+            }else{
+                formPresensi.setAttribute('action', '');
+                formPresensi.setAttribute('action', '/absensi');
+                if (role.value == 'siswa') {
+                    siswa_id.removeAttribute('disabled');
+                    siswa_id.value = e.target.getAttribute('data-siswa-id');
+                    kelas_id.removeAttribute('disabled');
+                    kelas_id.value = e.target.getAttribute('data-kelas-id');
+                }else{
+                    user_id.removeAttribute('disabled');
+                    user_id.value = e.target.getAttribute('data-user-id');
+                }
+                rfid_id.removeAttribute('disabled');
+                rfid_id.value = e.target.getAttribute('data-rfid');
+                input_presensi.removeAttribute('disabled');
+                input_presensi.value = e.target.getAttribute('data-presensi');
+                date.removeAttribute('disabled');
+                date.value = e.target.getAttribute('data-date');
+            }
+        })
+    });
 
-    // console.log(daysInMonth)
+    select.addEventListener('change', function(e){
+        if(e.target.value == 'hadir'){
+            formGroup.style.display = 'block';
+            inputTime.required = true;
+        }else{
+            formGroup.style.display = 'none';
+            inputTime.required = false;
+        }
+    })
 </script>
 @endsection
