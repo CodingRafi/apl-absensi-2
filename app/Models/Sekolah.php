@@ -30,5 +30,9 @@ class Sekolah extends Model
     public function mapel(){
         return $this->hasMany(Mapek::class);
     }
+
+    public function absensi_pelajaran(){
+        return $this->hasMany(AbsensiPelajaran::class);
+    }
 }
 

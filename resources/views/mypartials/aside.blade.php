@@ -145,6 +145,7 @@
             </form>
         </li>
         @endif
+        @if (auth()->user()->can('view_presensi') || auth()->user()->can('add_presensi') || auth()->user()->can('edit_presensi') || auth()->user()->can('delete_presensi'))
         <li class="nav-item">
             <form action="/presensi-pelajaran" method="get">
                 @include('mypartials.tahunajaran')
@@ -153,5 +154,6 @@
                         class="bi bi-calendar-week menu-icon"></i> Presensi Pelajaran</button>
             </form>
         </li>
+        @endif
     </ul>
 </nav>

@@ -22,4 +22,19 @@ class Presensi extends Model
     public function absensi(){
         return $this->belongsTo(Absensi::class);
     }
+
+    public static function get_presensi($siswa, $dates){
+        $presensi_siswa = [];
+        foreach ($dates as $key => $date) {
+            $query = Presensi::where('siswa_id', $siswa->id)->whereDate('created_at', '=', $date)->first();
+
+            if($query){
+                $presensi_siswa[] = $query;
+            }else{
+                $presensi_siswa[] = [];
+            }
+        }
+
+        return $presensi_siswa;
+    }
 }

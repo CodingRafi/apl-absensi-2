@@ -13,7 +13,7 @@ class StoreAbsensiPelajaranRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class StoreAbsensiPelajaranRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'kelas_id' => 'required',
+            'user_id' => 'required',
+            'mapel_id' => 'required',
         ];
     }
 }
