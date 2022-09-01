@@ -111,4 +111,12 @@ Route::get('/input-absensi', function() {
     return view('absensipelajaran.input');
 });
 
+Route::get('/edit-profile', function() {
+    return view('myauth.editprofile');
+});
+
+Route::get('/ubah-password', function() {
+    return view('myauth.ubahpassword');
+});
+
 
