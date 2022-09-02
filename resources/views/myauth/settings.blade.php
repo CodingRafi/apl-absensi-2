@@ -19,10 +19,10 @@
             <div class="tengah" style="width: 25vw; border-left: 2px solid rgb(205, 205, 205)">
                 <div class="wrap m-3">
                     <div style="margin: 10% auto">
-                        <a class="btn" style="width: 20vw; text-align:left; color:white"><i class="bi bi-person-circle"></i> Dwi Nuryanto</a>
+                        <a class="btn" style="width: 20vw; text-align:left; color:white"><i class="bi bi-person-circle"></i> {{ Auth::user()->name }}</a>
                     </div>
                     <div style="margin: 10% auto">
-                        <a class="btn" style="width: 20vw; text-align:left; color:white"><i class="bi bi-envelope-paper-fill"></i> dwinuryanto@gmail.com</a>
+                        <a class="btn" style="width: 20vw; text-align:left; color:white"><i class="bi bi-envelope-paper-fill"></i> {{ Auth::user()->email }}</a>
                     </div>
                 </div>
             </div>

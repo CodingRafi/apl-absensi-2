@@ -38,7 +38,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                     <form action="/user-settings" method="get">
-                        @csrf
+                        @include('mypartials.tahunajaran')
                         <button class="dropdown-item" tabindex="-1" type="submit"
                             style="border: none; background: none; color: grey;">
                             <i class="bi bi-person-circle"></i>

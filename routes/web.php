@@ -12,6 +12,7 @@ use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\KompetensiController;
 use App\Http\Controllers\TahunAjaranController;
 use App\Http\Controllers\RegisteredUserController;
+use App\Http\Controllers\ConfigurasiUserController;
 use App\Http\Controllers\AbsensiPelajaranController;
 
 /*
@@ -60,6 +61,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/import/users/{role}', [UserController::class, 'saveimport']);
     Route::get('/export/users/{role}', [UserController::class, 'export']);
     Route::resource('absensi', AbsensiController::class);
+    Route::get('/user-settings', [ConfigurasiUserController::class, 'index']);
 });
 
 
@@ -104,10 +106,6 @@ Route::get('/create-agenda-siswa', function() {
 
 Route::get('/forgot-password', function() {
     return view('myauth.forgot-password');
-});
-
-Route::get('/user-settings', function() {
-    return view('myauth.settings');
 });
 
 Route::get('/register', function() {

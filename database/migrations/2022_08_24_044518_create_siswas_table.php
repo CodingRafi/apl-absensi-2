@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('siswas', function (Blueprint $table) {
             $table->id();
+            $table->string('profil')->default('/img/profil.png');
             $table->string('name');
             $table->string('nisn');
             $table->string('nipd');

@@ -36,6 +36,7 @@ class UpdateSiswaRequest extends FormRequest
             'jalan' => 'required',
             'kelurahan' => 'required',
             'kecamatan' => 'required',
+            'profil' => 'mimes:png,jpg,jpeg|max:5024'
         ];
     }
 }
