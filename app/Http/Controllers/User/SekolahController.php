@@ -18,6 +18,7 @@ class SekolahController extends Controller
             'alamat' => 'required',
             'tingkat' => 'required',
             'name' => 'required',
+            'kepala_sekolah' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required',
             'logo' => 'mimes:png,jpg,jpeg|file|max:5024'
@@ -28,7 +29,16 @@ class SekolahController extends Controller
             'npsn' => $request->npsn,
             'alamat' => $request->alamat,
             'tingkat' => $request->tingkat,
+            'kepala_sekolah' => $request->kepala_sekolah,
         ];
+
+        if ($request->youtube) {
+            $datasekolah += ['youtube' => $request->youtube];
+        }
+
+        if ($request->instagram) {
+            $datasekolah += ['instagram' => $request->instagram];
+        }
 
         if ($request->logo) {
             $datasekolah += ['logo' => $request->file('logo')->store('logo')];
