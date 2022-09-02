@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Sekolah;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class SekolahController extends Controller
 {
@@ -19,14 +20,21 @@ class SekolahController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required',
+            'logo' => 'mimes:png,jpg,jpeg|file|max:5024'
         ]);
 
-        $sekolah = Sekolah::create([
+        $datasekolah = [
             'nama' => $request->nama_sekolah,
             'npsn' => $request->npsn,
             'alamat' => $request->alamat,
             'tingkat' => $request->tingkat,
-        ]);
+        ];
+
+        if ($request->logo) {
+            $datasekolah += ['logo' => $request->file('logo')->store('logo')];
+        }
+
+        $sekolah = Sekolah::create($datasekolah);
 
         $user = User::create([
             'name' => $request->name,

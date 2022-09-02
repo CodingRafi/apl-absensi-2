@@ -43,6 +43,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('siswa', SiswaController::class);
     Route::resource('tahun-ajaran', TahunAjaranController::class);
     Route::resource('agenda', AgendaController::class);
+    Route::get('edit-sekolah', [App\Http\Controllers\SekolahController::class, 'edit']);
     Route::resource('sekolah', App\Http\Controllers\SekolahController::class);
     Route::resource('presensi-pelajaran', AbsensiPelajaranController::class);
     Route::get('/presensi/{id}', [PresensiController::class, 'index']);
@@ -120,9 +121,5 @@ Route::get('/input-absensi', function() {
     return view('absensipelajaran.input');
 });
 
-
-Route::get('/edit-profile', function() {
-    return view('sekolah.edit');
-});
 
 

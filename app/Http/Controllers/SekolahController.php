@@ -6,6 +6,7 @@ use App\Models\Sekolah;
 use App\Http\Requests\StoreSekolahRequest;
 use App\Http\Requests\UpdateSekolahRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SekolahController extends Controller
 {
@@ -70,7 +71,7 @@ class SekolahController extends Controller
      */
     public function edit(Sekolah $sekolah)
     {
-        //
+        return view('sekolah.edit');
     }
 
     /**
@@ -82,7 +83,31 @@ class SekolahController extends Controller
      */
     public function update(UpdateSekolahRequest $request, Sekolah $sekolah)
     {
-        //
+        $data =[
+            'nama' => $request->nama,
+            'npsn' => $request->npsn,
+            'kepala_sekolah' => $request->kepala_sekolah,
+            'alamat' => $request->alamat,
+        ];
+
+        if ($request->instagram) {
+            $data += ['instagram' => $request->instagram];
+        }
+        
+        if ($request->youtube) {
+            $data += ['youtube' => $request->youtube];
+        }
+
+        if ($request->logo) {
+            if ($sekolah->logo != '/img/tutwuri.png	') {
+                Storage::delete($sekolah->logo);
+            }
+            $data += ['logo' => $request->file('logo')->store('logo')];
+        }
+
+        $sekolah->update($data);
+
+        return redirect('/')->with('message', 'Berhasil di update');
     }
 
     /**
