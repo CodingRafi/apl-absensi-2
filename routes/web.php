@@ -121,4 +121,8 @@ Route::get('/input-absensi', function() {
 });
 
 
+Route::get('/edit-profile', function() {
+    return view('sekolah.edit');
+});
+
 
