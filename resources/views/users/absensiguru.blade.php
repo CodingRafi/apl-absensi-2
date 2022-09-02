@@ -15,8 +15,7 @@
             </li>
             <li class="nav-item">
                 <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                        placeholder="Search" style="height: 29px;">
+                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search" style="height: 29px;">
                 </div>
             </li>
         </ul>

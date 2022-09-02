@@ -12,7 +12,7 @@
         @endif
         <table class="table">
             <thead>
-                <tr>
+                <tr class="text-center">
                     <th scope="col">No</th>
                     <th scope="col">Nama Kelas</th>
                     @if (auth()->user()->can('edit_kelas') || auth()->user()->can('delete_kelas'))   
@@ -22,7 +22,7 @@
             </thead>
             <tbody>
                 @foreach ($classes as $kelas)
-                <tr>
+                <tr class="text-center">
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $kelas->nama }}</td>
                     @if (auth()->user()->can('edit_kelas') || auth()->user()->can('delete_kelas'))      
