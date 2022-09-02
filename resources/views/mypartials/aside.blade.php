@@ -3,71 +3,68 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
 
-        <li class="nav-item">
+        <li class="nav-item" style="border-radius: 10px">
             <form action="/" method="get">
                 @include('mypartials.tahunajaran')
-                <button class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}"
-                    style="background-color: #ffffff; border: none; min-width: 200px"><i class="bi bi-house-fill mr-3"></i> Dasboard</button>
+                <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"
+                    style="background-color: transparent; border: none; min-width: 200px"><i class="bi bi-columns-gap mr-3"></i> Dasboard</button>
             </form>
         </li>
         @if (auth()->user()->can('show_agenda_guru')) 
-        <li class="nav-item">
+        <li class="nav-item" style="border-radius: 10px">
             <form action="/agenda-guru" method="get">
                 @include('mypartials.tahunajaran')
                 <button class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}"
-                    style="background-color: #ffffff; border: none; min-width: 200px"><i
+                    style="background-color: transparent; border: none; min-width: 200px"><i
                         class="bi bi-calendar-week menu-icon"></i> Agenda</button>
             </form>
         </li>
         @endif
         @if (auth()->user()->can('view_roles') || auth()->user()->can('add_roles') || auth()->user()->can('edit_roles')) 
-        <li class="nav-item">
+        <li class="nav-item" style="border-radius: 10px">
             <a href="/roles" class="nav-link"><i class="icon-grid menu-icon"></i> Role</a>
         </li>
         @endif
         @if (auth()->user()->can('view_kompetensi') || auth()->user()->can('add_kompetensi') || auth()->user()->can('edit_kompetensi') || auth()->user()->can('delete_kompetensi')) 
         @if ( Auth::user()->sekolah->tingkat == 'smk' )
-        <li class="nav-item">
+        <li class="nav-item" style="border-radius: 10px">
             <form action="/kompetensi" method="get">
                 @include('mypartials.tahunajaran')
-                <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"
-                    style="background-color: #ffffff; border: none; min-width: 200px"><i
-                        class="icon-grid menu-icon"></i> Kompetensi</button>
+                <button class="nav-link {{ Request::is('kompetensi') ? 'active' : '' }}"
+                    style="background-color: transparent; border: none; min-width: 200px"><i class="bi bi-award mr-3"></i> Kompetensi</button>
             </form>
         </li>
         @endif
         @endif
         @if (auth()->user()->can('view_tahun_ajaran') || auth()->user()->can('add_tahun_ajaran') || auth()->user()->can('edit_tahun_ajaran') || auth()->user()->can('delete_tahun_ajaran'))      
-        <li class="nav-item">
+        <li class="nav-item" style="border-radius: 10px">
             <a href="/tahun-ajaran" class="nav-link"><i class="icon-grid menu-icon"></i> Tahun Ajaran</a>
         </li>
         @endif
         @if (auth()->user()->can('view_kelas') || auth()->user()->can('add_kelas') || auth()->user()->can('edit_kelas') || auth()->user()->can('delete_kelas'))
-        <li class="nav-item">
+        <li class="nav-item" style="border-radius: 10px">
             <form action="/kelas" method="get">
                 @include('mypartials.tahunajaran')
-                <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"
-                    style="background-color: #ffffff; border: none; min-width: 200px"><i
-                        class="icon-grid menu-icon"></i> Kelas</button>
+                <button class="nav-link {{ Request::is('kelas') ? 'active' : '' }}"
+                    style="background-color: transparent; border: none; min-width: 200px"><i class="bi bi-door-open mr-3"></i> Kelas</button>
             </form>
         </li>
         @endif
         @if (auth()->user()->can('view_mapel') || auth()->user()->can('add_mapel') || auth()->user()->can('edit_mapel') || auth()->user()->can('delete_mapel'))
-        <li class="nav-item">
+        <li class="nav-item" style="border-radius: 10px">
             <form action="/mapel" method="get">
                 @include('mypartials.tahunajaran')
                 <button class="nav-link {{ Request::is('mapel') ? 'active' : '' }}"
-                    style="background-color: #ffffff; border: none; min-width: 200px"><i
-                        class="icon-grid menu-icon"></i> Mapel</button>
+                    style="background-color: transparent; border: none; min-width: 200px"><i class="bi bi-book-half mr-3"></i> Mapel</button>
             </form>
         </li>
         @endif
 
         @if (auth()->user()->can('view_users') || auth()->user()->can('add_users') || auth()->user()->can('edit_users') || auth()->user()->can('delete_users') || auth()->user()->can('import_users') || auth()->user()->can('export_users') || auth()->user()->can('view_siswa') || auth()->user()->can('add_siswa') || auth()->user()->can('edit_siswa') || auth()->user()->can('delete_siswa') || auth()->user()->can('import_siswa') || auth()->user()->can('export_siswa'))
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#data-user" aria-expanded="false"
+        <li class="nav-item" style="border-radius: 10px">
+            <a class="nav-link {{ Request::is('users*') ? 'active' : '' }}" data-toggle="collapse" href="#data-user" aria-expanded="false"
                 aria-controls="data-user">
-                <i class="bi bi-journal-text menu-icon"></i>
+                <i class="bi bi-person-lines-fill mr-3"></i>
                 <span class="menu-title">Data User</span>
                 <i class="menu-arrow"></i>
             </a>
@@ -76,10 +73,10 @@
                     @if (auth()->user()->can('view_users') || auth()->user()->can('add_users') || auth()->user()->can('edit_users') || auth()->user()->can('delete_users') || auth()->user()->can('import_users') || auth()->user()->can('export_users'))
                     @foreach ($roles as $role)
                     @if ($role->name != 'yayasan' && $role->name != 'admin' && $role->name != 'super_admin')
-                    <li class="nav-item">
+                    <li class="nav-item" style="border-radius: 10px">
                         <form action="/users/{{ $role->name }}" method="get">
                             @include('mypartials.tahunajaran')
-                            <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"
+                            <button class="nav-link"
                                 style="background-color: #3bae9c; border: none; min-width: 150px">Data {{
                                 str_replace("_", " ", $role->name) }}
                             </button>
@@ -90,10 +87,10 @@
                     @endif
 
                     @if (auth()->user()->can('view_siswa') || auth()->user()->can('add_siswa') || auth()->user()->can('edit_siswa') || auth()->user()->can('delete_siswa') || auth()->user()->can('import_siswa') || auth()->user()->can('export_siswa'))
-                    <li class="nav-item">
+                    <li class="nav-item" style="border-radius: 10px">
                         <form action="/siswa" method="get">
                             @include('mypartials.tahunajaran')
-                            <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"
+                            <button class="nav-link {{ Request::is('siswa') ? 'active' : '' }}"
                                 style="background-color: #3bae9c; border: none; min-width: 150px">Data Siswa</button>
                         </form>
                     </li>
@@ -103,9 +100,9 @@
         </li>
         @endif
         @if (auth()->user()->can('view_absensi') || auth()->user()->can('add_absensi') || auth()->user()->can('edit_absensi') || auth()->user()->can('delete_absensi'))    
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                <i class="bi bi-journal-text menu-icon"></i>
+        <li class="nav-item" style="border-radius: 10px">
+            <a class="nav-link {{ Request::is('absensi*') ? 'active' : '' }}" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                <i class="bi bi-journal-check mr-3"></i>
                 <span class="menu-title">Absensi</span>
                 <i class="menu-arrow"></i>
             </a>
@@ -113,7 +110,7 @@
                 <ul class="nav flex-column sub-menu">
                     @foreach ($roles as $role)
                     @if ($role->name != 'yayasan' && $role->name != 'admin' && $role->name != 'super_admin')
-                    <li class="nav-item">
+                    <li class="nav-item" style="border-radius: 10px">
                         <form action="/absensi/{{ $role->name }}" method="get">
                             @include('mypartials.tahunajaran')
                             <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"
@@ -124,7 +121,7 @@
                     </li>
                     @endif
                     @endforeach
-                    <li class="nav-item">
+                    <li class="nav-item" style="border-radius: 10px">
                         <form action="/absensi/siswa" method="get">
                             @include('mypartials.tahunajaran')
                             <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"
@@ -136,21 +133,20 @@
         </li>
         @endif
         @if (auth()->user()->can('view_agenda') || auth()->user()->can('add_agenda') || auth()->user()->can('edit_agenda') || auth()->user()->can('delete_agenda')) 
-        <li class="nav-item">
+        <li class="nav-item" style="border-radius: 10px">
             <form action="/agenda" method="get">
                 @include('mypartials.tahunajaran')
-                <button class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}"
-                    style="background-color: #ffffff; border: none; min-width: 200px"><i
-                        class="bi bi-calendar-week menu-icon"></i> Agenda</button>
+                <button class="nav-link {{ Request::is('agenda') ? 'active' : '' }}"
+                    style="background-color: transparent; border: none; min-width: 200px"><i class="bi bi-calendar-week mr-3"></i> Agenda</button>
             </form>
         </li>
         @endif
         @if (auth()->user()->can('view_presensi') || auth()->user()->can('add_presensi') || auth()->user()->can('edit_presensi') || auth()->user()->can('delete_presensi'))
-        <li class="nav-item">
+        <li class="nav-item" style="border-radius: 10px">
             <form action="/presensi-pelajaran" method="get">
                 @include('mypartials.tahunajaran')
                 <button class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}"
-                    style="background-color: #ffffff; border: none; min-width: 200px"><i
+                    style="background-color: transparent; border: none; min-width: 200px"><i
                         class="bi bi-calendar-week menu-icon"></i> Presensi Pelajaran</button>
             </form>
         </li>
