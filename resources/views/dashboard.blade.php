@@ -1,6 +1,63 @@
 @extends('mylayouts.main')
 
 @section('container')
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="title" style="display: flex; justify-content: space-between">
+            <h4 class="card-title" style="color: #369488; font-weight:600;">Profile Sekolah</h4>
+            <button class="btn btn-sm btn-warning text-white font-weight-bold" style="min-width: 5vw;">Edit</button>
+        </div>
+        <div class="cover" style="display: flex; gap:50px;">
+            <div class="logo">
+                <img src="/img/profile.png" alt="" scale="1/1" style="width: 10rem; height: 10rem; object-fit: cover; border-radius: 5px;">
+                <div class="mt-1" style="display: flex; justify-content: center; gap:20px;">
+                    <i class="bi bi-instagram"></i>
+                    <i class="bi bi-youtube"></i>
+                </div>
+            </div>
+            <div class="table-responsive mt-3">
+                <table>
+                    <tr>
+                        <th>Nama Sekolah</th>
+                        <td>&nbsp;</td>
+                        <td>:</td>
+                        <td>&nbsp;</td>
+                        <td>SMKS TARUNA BHAKTI DEPOK</td>
+                    </tr>
+                    <tr>
+                        <th>NPSN</th>
+                        <td>&nbsp;</td>
+                        <td>:</td>
+                        <td>&nbsp;</td>
+                        <td>20229232</td>
+                    </tr>
+                    <tr>
+                        <th>Nama Kepala Sekolah</th>
+                        <td>&nbsp;</td>
+                        <td>:</td>
+                        <td>&nbsp;</td>
+                        <td>Nursidik, ST</td>
+                    </tr>
+                    <tr>
+                        <th>Alamat</th>
+                        <td>&nbsp;</td>
+                        <td>:</td>
+                        <td>&nbsp;</td>
+                        <td>Jl, Pekapuran</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- 
+    -nama
+    -npsn
+    -social media
+    -alamat
+    -nama kelapa sekolah
+--}}
 <div class="row">
     <div class="col-lg-8 grid-margin stretch-card">
         <div class="card">

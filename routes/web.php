@@ -126,4 +126,8 @@ Route::get('/ubah-password', function() {
     return view('myauth.ubahpassword');
 });
 
+Route::get('/edit-profile', function() {
+    return view('sekolah.edit');
+});
+
 
