@@ -43,13 +43,16 @@ class AbsensiController extends Controller
                         'presensi_masuk' => $now
                     ]);
 
-                    $agendas = Agenda::where('kelas_id', $rfid->siswa->kelas->id)->where('hari', strtolower($now->isoFormat('dddd')))->get();
+                    $agendas = Agenda::select('users.name as guru', 'mapels.nama as mapel', 'agendas.*', 'kelas.nama as nama_kelas')->leftJoin('kelas', 'kelas.id', 'agendas.kelas_id')->leftJoin('mapels', 'mapels.id', 'agendas.mapel_id')->leftJoin('users', 'users.id', 'agendas.user_id')->where('kelas_id', $rfid->siswa->kelas->id)->where('hari', strtolower($now->isoFormat('dddd')))->get();
+
+                    // dd($agendas);
 
                     return response()->json([
                         'message' => 'Berhasil absen masuk',
                         'agendas' => $agendas,
                         'hari' => strtolower($now->isoFormat('dddd')),
-                        'kode_respon' => '1'
+                        'kode_respon' => '1',
+                        'siswa' => $rfid->siswa
                     ], 200);
                 }else{
                     Absensi::create([
@@ -57,6 +60,8 @@ class AbsensiController extends Controller
                         'user_id' => $rfid->user->id,
                         'presensi_masuk' => $now
                     ]);
+
+                    // dd('oke');
                     
                     if ($rfid->user->hasRole('guru')) {
                         return response()->json([
