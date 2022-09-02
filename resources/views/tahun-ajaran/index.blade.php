@@ -14,7 +14,7 @@
                     <th scope="col">Tahun Akhir</th>
                     <th scope="col">Semester</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Action</th>
+                    {{-- <th scope="col">Action</th> --}}
                 </tr>
             </thead>
             <tbody>
@@ -25,14 +25,14 @@
                     <td>{{ $tahun_ajaran->tahun_akhir }}</td>
                     <td>{{ $tahun_ajaran->semester }}</td>
                     <td>{{ $tahun_ajaran->status }}</td>
-                    <td>
+                    {{-- <td>
                         <a href="/tahun_ajaran/{{ $tahun_ajaran->id }}/edit" class="btn btn-sm btn-warning text-white font-weight-bold px-3">Edit</a>
                         <form action="/tahun_ajaran/{{ $tahun_ajaran->id }}" method="post" class="mt-2">
                             @csrf
                             @method('delete')
                             <button type="submit" class="btn btn-sm btn-danger text-white font-weight-bold" onclick="return confirm('Yakin?')">Hapus</button>
                         </form>
-                    </td>
+                    </td> --}}
                 </tr>
                 @endforeach
             </tbody>

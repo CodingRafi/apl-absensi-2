@@ -5,14 +5,25 @@
     <div class="card-body">
         <div class="title" style="display: flex; justify-content: space-between">
             <h4 class="card-title" style="color: #369488; font-weight:600;">Profile Sekolah</h4>
-            <button class="btn btn-sm btn-warning text-white font-weight-bold" style="min-width: 5vw;">Edit</button>
+            <form action="/edit-sekolah" method="get">
+        `       @include('mypartials.tahunajaran')
+                <button class="btn btn-sm btn-warning text-white font-weight-bold" style="min-width: 5vw;">Edit</button>
+            </form>
         </div>
         <div class="cover" style="display: flex; gap:50px;">
             <div class="logo">
-                <img src="/img/profile.png" alt="" scale="1/1" style="width: 10rem; height: 10rem; object-fit: cover; border-radius: 5px;">
+                @if ( Auth::user()->sekolah->logo != '/img/tutwuri.png' )
+                <img src="{{ asset('storage/' . Auth::user()->sekolah->logo) }}" alt="" scale="1/1" style="width: 10rem; height: 10rem; object-fit: cover; border-radius: 5px;">
+                @else
+                <img src="{{ Auth::user()->sekolah->logo }}" alt="" scale="1/1" style="width: 10rem; height: 10rem; object-fit: cover; border-radius: 5px;">
+                @endif
                 <div class="mt-1" style="display: flex; justify-content: center; gap:20px;">
-                    <i class="bi bi-instagram"></i>
-                    <i class="bi bi-youtube"></i>
+                    @if ( Auth::user()->sekolah->instagram )
+                    <a href="{{ Auth::user()->sekolah->instagram }}"><i class="bi bi-instagram"></i></a>
+                    @endif
+                    @if ( Auth::user()->sekolah->youtube )
+                    <a href="{{ Auth::user()->sekolah->youtube }}"><i class="bi bi-youtube"></i></a>
+                    @endif
                 </div>
             </div>
             <div class="table-responsive mt-3">
@@ -22,28 +33,28 @@
                         <td>&nbsp;</td>
                         <td>:</td>
                         <td>&nbsp;</td>
-                        <td>SMKS TARUNA BHAKTI DEPOK</td>
+                        <td>{{ Auth::user()->sekolah->nama }}</td>
                     </tr>
                     <tr>
                         <th>NPSN</th>
                         <td>&nbsp;</td>
                         <td>:</td>
                         <td>&nbsp;</td>
-                        <td>20229232</td>
+                        <td>{{ Auth::user()->sekolah->npsn }}</td>
                     </tr>
                     <tr>
                         <th>Nama Kepala Sekolah</th>
                         <td>&nbsp;</td>
                         <td>:</td>
                         <td>&nbsp;</td>
-                        <td>Nursidik, ST</td>
+                        <td>{{ Auth::user()->sekolah->kepala_sekolah }}</td>
                     </tr>
                     <tr>
                         <th>Alamat</th>
                         <td>&nbsp;</td>
                         <td>:</td>
                         <td>&nbsp;</td>
-                        <td>Jl, Pekapuran</td>
+                        <td>{{ Auth::user()->sekolah->alamat }}</td>
                     </tr>
                 </table>
             </div>

@@ -120,7 +120,6 @@
             </div>
           @enderror
         </div>
-        @if ($role == 'guru')
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Mapel</label>
           <select class="fstdropdown-select @error('mapel[]') is-invalid @enderror" name="mapel[]" value="{{ old('mapel[]') }}" style="height: 5rem" required multiple>
@@ -134,7 +133,6 @@
             </div>
           @enderror
         </div>
-        @endif
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Jalan</label>
           <input type="text" class="form-control @error('jalan') is-invalid @enderror" placeholder="Masukan Jalan" name="jalan" value="{{ old('jalan') }}" required>
@@ -195,10 +193,10 @@
             Tidak
           </label>
         </div>
-        {{-- <div class="mb-3">
+        <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Profil</label>
           <input type="file" class="form-control" name="profil">
-        </div> --}}
+        </div>
         <button type="submit" class="btn text-white mt-3" style="background-color: #3bae9c">Simpan</button>
       </form>
       @else
@@ -210,7 +208,7 @@
         <div>Data mapel belum tersedia, silahkan input data mapel pada laman "Mapel".</div>
     </div>
       @endif
-      @else
+    @else
       <form class="mt-5" action="/users" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="role" value="{{ $role }}">
@@ -355,10 +353,10 @@
             Tidak
           </label>
         </div>
-        {{-- <div class="mb-3">
+        <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Profil</label>
           <input type="file" class="form-control" name="profil">
-        </div> --}}
+        </div>
         <button type="submit" class="btn text-white mt-3" style="background-color: #3bae9c">Simpan</button>
       </form>
     @endif

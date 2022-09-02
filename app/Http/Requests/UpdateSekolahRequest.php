@@ -13,7 +13,7 @@ class UpdateSekolahRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class UpdateSekolahRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nama' => 'required',
+            'npsn' => 'required',
+            'kepala_sekolah' => 'required',
+            'alamat' => 'required',
+            'logo' => 'mimes:jpg,jpeg,png|file|max:5024'
         ];
     }
 }

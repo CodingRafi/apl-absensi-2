@@ -25,6 +25,11 @@
             <a href="/roles" class="nav-link"><i class="icon-grid menu-icon"></i> Role</a>
         </li>
         @endif
+        @if (auth()->user()->can('view_sekolah') || auth()->user()->can('delete_sekolah')) 
+        <li class="nav-item" style="border-radius: 10px">
+            <a href="/sekolah" class="nav-link"><i class="icon-grid menu-icon"></i> Sekolah</a>
+        </li>
+        @endif
         @if (auth()->user()->can('view_kompetensi') || auth()->user()->can('add_kompetensi') || auth()->user()->can('edit_kompetensi') || auth()->user()->can('delete_kompetensi')) 
         @if ( Auth::user()->sekolah->tingkat == 'smk' )
         <li class="nav-item" style="border-radius: 10px">
