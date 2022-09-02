@@ -104,6 +104,7 @@
                 <thead class="thead-light">
                     <tr class="text-center">
                         <th scope="col">No</th>
+                        <th scope="col">Profil</th>
                         <th scope="col">NISN</th>
                         <th scope="col">NIPD</th>
                         <th scope="col">Name</th>
@@ -128,6 +129,9 @@
                     @foreach ($siswas as $student)
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
+                        <td>
+                            <img src="{{ asset('storage/' . $student->profil) }}" alt="" style="width: 50px;height:50px;object-fit: cover">
+                        </td>
                         <td>{{ $student->nisn }}</td>
                         <td>{{ $student->nipd }}</td>
                         <td>{{ $student->name }}</td>

@@ -12,6 +12,7 @@ use App\Http\Requests\StoreSiswaRequest;
 use App\Http\Requests\UpdateSiswaRequest;
 use Rap2hpoutre\FastExcel\FastExcel;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class SiswaController extends Controller
 {
@@ -89,6 +90,12 @@ class SiswaController extends Controller
             $data += ['kompetensi_id' => $request->kompetensi_id];
         }
 
+        if($request->file('profil')){
+            $data += [
+                'profil' => $request->file('profil')->store('profil_siswa')
+            ];
+        }
+
         $siswa = Siswa::create($data);
         
         if ($request->rfid) {
@@ -159,6 +166,15 @@ class SiswaController extends Controller
             ];
             if (\Auth::user()->sekolah->tingkat == 'smk') {
                 $data += ['kompetensi_id' => $request->kompetensi_id];
+            }
+
+            if ($request->file('profil')) {
+                if($siswa->profil){
+                    Storage::delete($siswa->profil);
+                }
+                $data += [
+                    'profil' => $request->file('profil')->store('profil_siswa')
+                ];
             }
 
             $siswa->update($data);

@@ -12,6 +12,7 @@ use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\KompetensiController;
 use App\Http\Controllers\TahunAjaranController;
 use App\Http\Controllers\RegisteredUserController;
+use App\Http\Controllers\ConfigurasiUserController;
 use App\Http\Controllers\AbsensiPelajaranController;
 
 /*
@@ -60,6 +61,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/import/users/{role}', [UserController::class, 'saveimport']);
     Route::get('/export/users/{role}', [UserController::class, 'export']);
     Route::resource('absensi', AbsensiController::class);
+    Route::get('/user-settings', [ConfigurasiUserController::class, 'index']);
+    Route::get('/edit-profile', [ConfigurasiUserController::class, 'editProfil']);
+    Route::post('/simpan', [ConfigurasiUserController::class, 'saveProfil']);
+    Route::get('/ubah-password', [ConfigurasiUserController::class, 'ubahPassword']);
+    Route::get('/reset', [ConfigurasiUserController::class, 'reset_password']);
 });
 
 
@@ -106,10 +112,6 @@ Route::get('/forgot-password', function() {
     return view('myauth.forgot-password');
 });
 
-Route::get('/user-settings', function() {
-    return view('myauth.settings');
-});
-
 Route::get('/register', function() {
     return view('myauth.register');
 });
@@ -118,13 +120,6 @@ Route::get('/input-absensi', function() {
     return view('absensipelajaran.input');
 });
 
-Route::get('/edit-profile', function() {
-    return view('myauth.editprofile');
-});
-
-Route::get('/ubah-password', function() {
-    return view('myauth.ubahpassword');
-});
 
 Route::get('/edit-profile', function() {
     return view('sekolah.edit');

@@ -8,10 +8,19 @@
       @include('mypartials.tahunajaran')
       <button class="btn btn-sm btn-danger font-weight-bold float-right text-white" type="submit">Kembali</button>
     </form>
-    <form class="mt-5" action="/siswa/{{ $siswa->id }}" method="POST">
+    <form class="mt-5" action="/siswa/{{ $siswa->id }}" method="POST" enctype="multipart/form-data">
       @csrf
       @method('patch')
       @include('mypartials.tahunajaran')
+      <div class="mb-3">
+        <label for="profil" class="form-label">Profil</label>
+        <input type="file" class="form-control @error('profil') is-invalid @enderror" name="profil">
+        @error('profil')
+          <div class="invalid-feedback">
+            {{ $message }}
+          </div>
+        @enderror
+      </div>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Nama Lengkap</label>
         <input type="text" class="form-control" placeholder="Masukan Nama" name="name" value="{{ $siswa->name }}">

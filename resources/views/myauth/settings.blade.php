@@ -33,15 +33,19 @@
     <div class="card" style=" background-color:#3bae9c; border-radius: 10px; padding: 3vw">
         <div class="card-body p-0">
             <div class="kiri" style="min-width: 20vw; display: flex; justify-content:center">
-                <img src="/img/80010067.jpg" alt="image" style="width: 10rem; height: 10rem; border: 3px solid grey">
+                @if (Auth::user()->profil != '/img/profil.png')
+                <img src="{{ asset('storage/' . Auth::user()->profil) }}" alt="image" style="width: 10rem; height: 10rem; border: 3px solid grey">
+                @else 
+                <img src="{{ Auth::user()->profil }}" alt="image" style="width: 10rem; height: 10rem; border: 3px solid grey;border-radius: 50%;">   
+                @endif
             </div>
             <div class="tengah" style="min-width: 25vw;">
                 <div class="wrap m-3">
-                    <div style="">
-                        <p style="min-width: 20vw; text-align:left; color:white"><i class="bi bi-person-circle"></i> Dwi Nuryanto</p>
+                    <div style="margin: 10% auto">
+                        <a class="btn" style="width: 20vw; text-align:left; color:white"><i class="bi bi-person-circle"></i> {{ Auth::user()->name }}</a>
                     </div>
-                    <div style="">
-                        <p style="min-width: 20vw; text-align:left; color:white"><i class="bi bi-envelope-paper-fill"></i> dwinuryanto@gmail.com</p>
+                    <div style="margin: 10% auto">
+                        <a class="btn" style="width: 20vw; text-align:left; color:white"><i class="bi bi-envelope-paper-fill"></i> {{ Auth::user()->email }}</a>
                     </div>
                 </div>
             </div>
