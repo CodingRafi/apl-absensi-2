@@ -80,14 +80,11 @@ class UserController extends Controller
             'kecamatan' => 'required', 
             'role' => 'required',
             'rfid_number' => 'required|unique:rfids',
-            'status_rfid' => 'required'
+            'status_rfid' => 'required',
+            'profil' => 'mimes:png,jpg,jpeg|file|max:5024'
         ]);
 
-        // if($request->profil){
-        //     $validatedData['profil'] = $request->file('profil')->store('profil');
-        // }
-
-        $user = User::create([
+        $data = [
             'name' => $request->name,
             'email' => $request->email,
             'password' => \Hash::make($request->password), 
@@ -100,7 +97,13 @@ class UserController extends Controller
             'kelurahan' => $request->kelurahan, 
             'kecamatan' => $request->kecamatan,
             'sekolah_id' => \Auth::user()->sekolah_id
-        ]);
+        ];
+
+        if($request->profil){
+            $data += ['profil' => $request->file('profil')->store('profil')];
+        }
+
+        $user = User::create($data);
 
         $user->assignRole($request->role);
         if($request->role == 'guru'){
@@ -161,8 +164,16 @@ class UserController extends Controller
             'jalan' => 'required', 
             'kelurahan' => 'required', 
             'kecamatan' => 'required', 
-            'role' => 'required'
+            'role' => 'required',
+            'profil' => 'mimes:png,jpg,jpeg|file|max:5024'
         ]);
+
+        if ($request->file('profil')) {
+            if($user->profil != '/img/profil'){
+                Storage::delete($user->profil);
+            }
+            $validatedData['profil'] = $request->file('profil')->store('profil');
+        }
 
         $user->update($validatedData);
         if($request->role == 'guru'){

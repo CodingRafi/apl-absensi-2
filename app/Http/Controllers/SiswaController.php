@@ -169,7 +169,7 @@ class SiswaController extends Controller
             }
 
             if ($request->file('profil')) {
-                if($siswa->profil){
+                if($siswa->profil != '/img/profil'){
                     Storage::delete($siswa->profil);
                 }
                 $data += [

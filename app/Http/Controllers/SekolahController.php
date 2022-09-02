@@ -23,7 +23,11 @@ class SekolahController extends Controller
      */
     public function index()
     {
-        //
+        $schools = Sekolah::all();
+
+        return view('sekolah.index', [
+            'schools' => $schools
+        ]);
     }
 
     /**
@@ -89,6 +93,6 @@ class SekolahController extends Controller
      */
     public function destroy(Sekolah $sekolah)
     {
-        //
+        dd($sekolah);
     }
 }
