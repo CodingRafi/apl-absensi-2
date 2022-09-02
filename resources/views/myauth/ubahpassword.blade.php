@@ -38,10 +38,10 @@
               <!-- Validation Errors -->
               <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-              <form action="" style="width: 100%; margin-top: 5vh">
+              <form action="/reset" style="width: 100%; margin-top: 5vh">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control input-email" id="email" placeholder="name@example.com" name="login" style="width: 100%; height: 7vh;">
+                    <input type="email" class="form-control input-email" id="email" placeholder="name@example.com" name="email" style="width: 100%; height: 7vh;" value="{{ Auth::user()->email }}">
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
@@ -49,7 +49,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="confirm-password" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control input-confirm-password" id="confirm-password" name="confirm-password" style="width: 100%; height: 7vh;">
+                    <input type="password" class="form-control input-confirm-password" id="confirm-password" name="password_confirmation" style="width: 100%; height: 7vh;">
                 </div>
                 <div class="mt-3">
                     <button type="submit" class="btn btn-block btn-lg text-white auth-form-btn" style="background-color: #3bae9c; width:100%;">Send Reset Password</button>

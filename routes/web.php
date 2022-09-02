@@ -62,6 +62,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/export/users/{role}', [UserController::class, 'export']);
     Route::resource('absensi', AbsensiController::class);
     Route::get('/user-settings', [ConfigurasiUserController::class, 'index']);
+    Route::get('/edit-profile', [ConfigurasiUserController::class, 'editProfil']);
+    Route::post('/simpan', [ConfigurasiUserController::class, 'saveProfil']);
+    Route::get('/ubah-password', [ConfigurasiUserController::class, 'ubahPassword']);
+    Route::get('/reset', [ConfigurasiUserController::class, 'reset_password']);
 });
 
 
@@ -116,12 +120,5 @@ Route::get('/input-absensi', function() {
     return view('absensipelajaran.input');
 });
 
-Route::get('/edit-profile', function() {
-    return view('myauth.editprofile');
-});
-
-Route::get('/ubah-password', function() {
-    return view('myauth.ubahpassword');
-});
 
 
