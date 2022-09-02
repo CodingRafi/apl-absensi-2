@@ -6,7 +6,7 @@
         <div class="title" style="display: flex; justify-content: space-between">
             <h4 class="card-title" style="color: #369488; font-weight:600;">Profile Sekolah</h4>
             <form action="/edit-sekolah" method="get">
-        `       @include('mypartials.tahunajaran')
+                @include('mypartials.tahunajaran')
                 <button class="btn btn-sm btn-warning text-white font-weight-bold" style="min-width: 5vw;">Edit</button>
             </form>
         </div>
