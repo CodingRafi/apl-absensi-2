@@ -27,6 +27,8 @@ class KelasController extends Controller
     {
         $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
 
+        dd($tahun_ajaran);
+
         $classes = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)->where('tahun_ajaran_id', $tahun_ajaran->id)->get();
 
         return view('kelas.index', [

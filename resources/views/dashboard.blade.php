@@ -1,7 +1,33 @@
 @extends('mylayouts.main')
 
+@section('tambahcss')
+    <style>
+        @media (min-width:590px) {
+            .cover {
+                display: flex; 
+                gap:20px;
+            }
+        }
+
+        @media (max-width:590px) {
+            .logo{
+                display: flex;
+                justify-content: center
+
+            }
+        }
+
+        @media (min-width:590px) {
+            .content2{
+                width: 50%;
+
+            }
+        }
+    </style>
+@endsection
+
 @section('container')
-<div class="card mb-3">
+<div class="card mb-3 content1">
     <div class="card-body">
         <div class="title" style="display: flex; justify-content: space-between">
             <h4 class="card-title" style="color: #369488; font-weight:600;">Profile Sekolah</h4>
@@ -10,7 +36,7 @@
                 <button class="btn btn-sm btn-warning text-white font-weight-bold" style="min-width: 5vw;">Edit</button>
             </form>
         </div>
-        <div class="cover" style="display: flex; gap:50px;">
+        <div class="cover">
             <div class="logo">
                 @if ( Auth::user()->sekolah->logo != '/img/tutwuri.png' )
                 <img src="{{ asset('storage/' . Auth::user()->sekolah->logo) }}" alt="" scale="1/1" style="width: 10rem; height: 10rem; object-fit: cover; border-radius: 5px;">
@@ -62,75 +88,49 @@
     </div>
 </div>
 
-{{-- 
-    -nama
-    -npsn
-    -social media
-    -alamat
-    -nama kelapa sekolah
---}}
-<div class="row">
-    <div class="col-lg-8 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Absensi Guru</h4>
-                <canvas id="lineChartGuru"></canvas>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Absensi Guru Hari Ini</h4>
-                <p class="card-description">Izin</p>
-                <ol>
-                    <li>Hermawan</li>
-                    <li>Suprianto Diningrat</li>
-                </ol>
-                <p class="card-description">Alpha</p>
-                <ol>
-                    <li>Hermawan</li>
-                    <li>Suprianto Diningrat</li>
-                </ol>
-                <p class="card-description">Sakit</p>
-                <ol>
-                    <li>Hermawan</li>
-                    <li>Suprianto Diningrat</li>
-                </ol>
-            </div>
+<div class="card mb-3 content3">
+    <div class="card-body">
+        <h4 class="card-title" style="color: #369488; font-weight:600;">Kompetensi</h4>
+        <div class="table table-responsive table-bordered">
+            <table>
+                <tr class="text-center">
+                    <th>No</th>
+                    <th>Kompetensi</th>
+                    <th>Program Keahlian</th>
+                    <th>Bidang Keahlian</th>
+                </tr>
+                <tr class="text-center">
+                    <td>1</td>
+                    <td>RPL</td>
+                    <td>Teknologi komputer & informatika</td>
+                    <td>Pemrogaman komputer</td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-lg-8 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Absensi Siswa</h4>
-                <canvas id="lineChartSiswa"></canvas>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Absensi Siswa Hari Ini</h4>
-                <p class="card-description">Izin</p>
-                <ol>
-                    <li>Hermawan</li>
-                    <li>Suprianto Diningrat</li>
-                </ol>
-                <p class="card-description">Alpha</p>
-                <ol>
-                    <li>Hermawan</li>
-                    <li>Suprianto Diningrat</li>
-                </ol>
-                <p class="card-description">Sakit</p>
-                <ol>
-                    <li>Hermawan</li>
-                    <li>Suprianto Diningrat</li>
-                </ol>
-            </div>
+
+<div class="card mb-3 content2">
+    <div class="card-body">
+        <h4 class="card-title" style="color: #369488; font-weight:600;">Kompetensi</h4>
+        <div class="table table-responsive table-bordered">
+            <table>
+                <tr class="text-center">
+                    <th>No</th>
+                    <th>Kompetensi</th>
+                    <th>Program Keahlian</th>
+                    <th>Bidang Keahlian</th>
+                </tr>
+                <tr class="text-center">
+                    <td>1</td>
+                    <td>RPL</td>
+                    <td>Teknologi komputer & informatika</td>
+                    <td>Pemrogaman komputer</td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>
+
+
 @endsection
