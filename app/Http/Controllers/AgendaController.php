@@ -36,7 +36,6 @@ class AgendaController extends Controller
         }else{
             $classes = [];    
         }
-
         return view('agenda.index', [
             'classes' => $classes
         ]);

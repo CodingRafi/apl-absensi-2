@@ -37,29 +37,33 @@
               <x-auth-session-status class="mb-4" :status="session('status')" />
 
               <!-- Validation Errors -->
-              <x-auth-validation-errors class="mb-4" :errors="$errors" />
+              <x-auth-validation-errors class="mb-4 text-danger" :errors="$errors" />
 
               <form class="pt-3" action="/sekolah-create" method="post" style=" width: 100%;" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                   <label for="nama" class="form-label">Nama Sekolah</label>
-                  <input type="text" class="form-control form-control-lg" placeholder="Nama Sekolah"
-                    name="nama_sekolah" style="border-radius: 5px; width: 100%">
+                  <input type="text" class="form-control form-control-lg" placeholder="Nama Sekolah" name="nama_sekolah" style="border-radius: 5px; width: 100%" value="{{ old('nama_sekolah') }}" required>
                 </div>
                 <div class="form-group">
                   <label for="npsn" class="form-label">NPSN</label>
                   <input type="text" class="form-control form-control-lg" placeholder="NPSN"
-                    name="npsn" style="border-radius: 5px; width: 100%">
+                    name="npsn" style="border-radius: 5px; width: 100%" value="{{ old('npsn') }}" required>
+                </div>
+                <div class="form-group">
+                  <label for="kepala_sekolah" class="form-label">Nama Kepala Sekolah</label>
+                  <input type="text" class="form-control form-control-lg" placeholder="Kepala Sekolah"
+                    name="kepala_sekolah" style="border-radius: 5px; width: 100%" value="{{ old('kepala_sekolah') }}" required>
                 </div>
                 <div class="form-group">
                   <label for="alamat" class="form-label">Alamat</label>
                   <input type="text" class="form-control form-control-lg" placeholder="alamat"
-                    name="alamat" style="border-radius: 5px; width: 100%">
+                    name="alamat" style="border-radius: 5px; width: 100%" value="{{ old('alamat') }}" required>
                 </div>
                 <div class="form-group">
                   <label for="tingkat" class="form-label">Tingkat</label>
                   <br>
-                  <select name="tingkat" id="tingkat" class="text-dark form-control form-control-lg" style="border: 1px solid rgb(205, 205, 205); border-radius: 5px; height: 3rem; width: 100%">
+                  <select name="tingkat" id="tingkat" class="text-dark form-control form-control-lg" style="border: 1px solid rgb(205, 205, 205); border-radius: 5px; height: 3rem; width: 100%" required>
                     <option value="sd">SD</option>
                     <option value="smp">SMP</option>
                     <option value="sma">SMA</option>
@@ -67,8 +71,17 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="logo" class="form-label">Logo</label>
+                  <label for="logo" class="form-label">Logo (opsional)</label>
                   <input class="form-control form-control-lg" type="file" id="formFile" name="logo" style="border-radius: 5px; height: 2.2rem; width: 100%">
+                </div>
+                <div class="form-group">
+                  <label for="instagram" class="form-label">Instagram (opsional)</label>
+                  <input type="text" class="form-control form-control-lg" placeholder="instagram"
+                    name="instagram" style="border-radius: 5px; width: 100%">
+                </div><div class="form-group">
+                  <label for="youtube" class="form-label">Youtube (opsional)</label>
+                  <input type="text" class="form-control form-control-lg" placeholder="youtube"
+                    name="youtube" style="border-radius: 5px; width: 100%">
                 </div>
 
                 <hr>
@@ -77,17 +90,17 @@
                 <div class="form-group">
                   <label for="nama" class="form-label">Nama</label>
                   <input type="text" class="form-control form-control-lg" placeholder="Nama"
-                    name="name" style="border-radius: 5px; width: 100%">
+                    name="name" style="border-radius: 5px; width: 100%" value="{{ old('name') }}" required>
                 </div>
                 <div class="form-group">
                   <label for="email" class="form-label">Email</label>
                   <input type="email" class="form-control form-control-lg" placeholder="email"
-                    name="email" style="border-radius: 5px; width: 100%">
+                    name="email" style="border-radius: 5px; width: 100%" value="{{ old('email') }}" required>
                 </div>
                 <div class="form-group">
                   <label for="password" class="form-label">Password</label>
                   <input type="password" class="form-control form-control-lg" placeholder="password"
-                    name="password" style="border-radius: 5px; width: 100%">
+                    name="password" style="border-radius: 5px; width: 100%" required>
                 </div>
 
                 <hr>
@@ -95,17 +108,16 @@
                 <div class="form-group">
                   <label for="nama" class="form-label">Nama</label>
                   <input type="text" class="form-control form-control-lg name-yayasan" placeholder="Nama"
-                    name="name_yayasan" style="border-radius: 5px; width: 100%" required>
+                    name="name_yayasan" style="border-radius: 5px; width: 100%" value="{{ old('name_yayasan') }}" required>
                 </div>
                 <div class="form-group">
                   <label for="email" class="form-label">Email</label>
                   <input type="email" class="form-control form-control-lg email-yayasan" placeholder="email"
-                    name="email_yayasan" style="border-radius: 5px; width: 100%">
+                    name="email_yayasan" style="border-radius: 5px; width: 100%" value="{{ old('email_yayasan') }}" required>
                 </div>
                 <div class="form-group">
                   <label for="password" class="form-label">Password</label>
-                  <input type="password" class="form-control form-control-lg password-yayasan" placeholder="password"
-                    name="password_yayasan" style="border-radius: 5px; width: 100%">
+                  <input type="password" class="form-control form-control-lg password-yayasan" placeholder="password" name="password_yayasan" style="border-radius: 5px; width: 100%" required>
                 </div>
 
                 <div class="mt-3">
