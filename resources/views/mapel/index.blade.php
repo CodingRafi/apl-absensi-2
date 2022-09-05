@@ -32,7 +32,7 @@
                         @if (auth()->user()->can('edit_mapel'))
                         <form action="/mapel/{{ $mapel->id }}/edit" method="get">
                             @include('mypartials.tahunajaran')
-                            <button type="submit" class="btn btn-sm btn-warning text-white" style="width: 5rem; margin: 0.1rem">Edit</button>
+                            <button type="submit" class="btn btn-sm btn-warning text-white font-weight-bold" style="width: 5rem; margin: 0.1rem">Edit</button>
                         </form>
                         @endif
                         @if (auth()->user()->can('delete_mapel'))
@@ -40,7 +40,7 @@
                             @csrf
                             @method('delete')
                             @include('mypartials.tahunajaran')
-                            <button type="submit" class="btn btn-sm btn-danger"
+                            <button type="submit" class="btn btn-sm btn-danger font-weight-bold"
                                 onclick="return confirm('semua agenda dan guru yang menggunakan mapel ini akan berubah')" style="width: 5rem; margin: 0.1rem">Hapus</button>
                         </form>
                         @endif

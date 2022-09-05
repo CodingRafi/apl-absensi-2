@@ -23,11 +23,11 @@
                     <option value="genap">Genap</option>
                 </select>
             </div>
-            <div class="mb-3">
+            <div class="mb-3 ml-4">
                 <input class="form-check-input" type="checkbox" name="status" checked>
                 <label class="form-label">Status</label>
             </div>
-            <button type="submit" class="btn btn-success">Simpan</button>
+            <button type="submit" class="btn text-white" style="background-color: #3bae9c">Simpan</button>
         </form>
     </div>
 </div>

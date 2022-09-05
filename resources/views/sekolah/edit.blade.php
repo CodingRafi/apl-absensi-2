@@ -8,7 +8,7 @@
                 @csrf
                 @method('patch')
                 <div class="mb-3">
-                    <label for="">Logo</label>
+                    <label for="">Logo (opsional)</label>
                     <input class="form-control form-control-lg" type="file" id="formFile" name="logo" style="border-radius: 5px; height: 3vh">
                 </div>
                 <div class="mb-3">
@@ -28,11 +28,11 @@
                     <input class="form-control form-control-lg" type="text" placeholder="Masukan Alamat" value="{{ Auth::user()->sekolah->alamat }}" name="alamat">
                 </div>
                 <div class="mb-3">
-                    <label for="">Instagram</label>
+                    <label for="">Instagram (opsional)</label>
                     <input class="form-control form-control-lg" type="text" placeholder="Masukan Instagram" value="{{ Auth::user()->sekolah->instagram }}" name="instagram">
                 </div>
                 <div class="mb-3">
-                    <label for="">Youtube</label>
+                    <label for="">Youtube (opsional)</label>
                     <input class="form-control form-control-lg" type="text" placeholder="Masukan Youtube" value="{{ Auth::user()->sekolah->youtube }}" name="youtube">
                 </div>
                 <button class="btn text-white" type="submit" style="background-color: #3bae9c">Update</button>

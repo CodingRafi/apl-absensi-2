@@ -45,11 +45,11 @@
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control input-password" id="password" name="password" style="width: 100%; height: 7vh;">
+                    <input type="password" class="form-control input-password" id="password" name="password" placeholder="Masukan password baru" style="width: 100%; height: 7vh;">
                 </div>
                 <div class="mb-3">
                     <label for="confirm-password" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control input-confirm-password" id="confirm-password" name="password_confirmation" style="width: 100%; height: 7vh;">
+                    <input type="password" class="form-control input-confirm-password" id="confirm-password" name="password_confirmation" placeholder="Konfirmasi password baru" style="width: 100%; height: 7vh;">
                 </div>
                 <div class="mt-3">
                     <button type="submit" class="btn btn-block btn-lg text-white auth-form-btn" style="background-color: #3bae9c; width:100%;">Send Reset Password</button>
