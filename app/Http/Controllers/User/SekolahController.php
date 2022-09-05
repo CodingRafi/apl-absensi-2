@@ -63,7 +63,7 @@ class SekolahController extends Controller
                 'sekolah_id' => $sekolah->id
             ]);
 
-            $user->assignRole('yayasan');
+            $yayasan->assignRole('yayasan');
         }
 
         return redirect('/login')->with('message', 'Berhasil registrasi');

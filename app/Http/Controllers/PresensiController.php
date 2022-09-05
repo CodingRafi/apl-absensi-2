@@ -83,11 +83,13 @@ class PresensiController extends Controller
         $query = Absensi::where('siswa_id', $siswa->id)->whereDate('presensi_masuk', '=', $request->date)->first();
 
         if($query){
+            // dd($query);
             Presensi::create([
                 'absensi_pelajaran_id' => $request->absensi_pelajaran_id,
                 'siswa_id' => $request->siswa_id,
                 'absensi_id' => $query->id,
-                'kehadiran' => $request->kehadiran
+                'kehadiran' => $request->kehadiran,
+                'tgl_kehadiran' => $request->date
             ]);
 
             return redirect('/presensi/'. $request->absensi_pelajaran_id . '/' .'?idk=' . $request->idk)->with('message', 'berhasil tersimpan');

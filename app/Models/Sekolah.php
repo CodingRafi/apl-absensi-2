@@ -16,7 +16,7 @@ class Sekolah extends Model
     }
 
     public function kompetensi(){
-        return $this->belongsTo(Kompetensi::class);
+        return $this->hasMany(Kompetensi::class);
     }
 
     public function kelas(){
@@ -28,7 +28,7 @@ class Sekolah extends Model
     }
 
     public function mapel(){
-        return $this->hasMany(Mapek::class);
+        return $this->hasMany(Mapel::class);
     }
 
     public function absensi_pelajaran(){
