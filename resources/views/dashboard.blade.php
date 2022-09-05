@@ -9,6 +9,20 @@
             }
         }
 
+        @media (min-width:590px) {
+            .cover1 {
+                display: flex; 
+                gap:20px;
+            }
+        }
+
+        @media (min-width:590px) {
+            .cover2 {
+                display: flex; 
+                gap:20px;
+            }
+        }
+
         @media (max-width:590px) {
             .logo{
                 display: flex;
@@ -18,40 +32,26 @@
         }
 
         @media (min-width:590px) {
-            .content2{
-                width: 58%;
-
-            }
-        }
-
-        @media (min-width:590px) {
-            .content3{
+            .yayasan{
                 width: 40%;
 
             }
         }
 
         @media (min-width:590px) {
-            .content4{
+            .kompetensi{
                 width: 58%;
 
             }
         }
 
         @media (min-width:590px) {
-            .content5{
-                width: 40%;
+            .data-user, .mapel, .kelas{
+                width: 32%;
 
             }
         }
 
-        @media (min-width:590px) {
-            .cover1, .cover2{
-                display: flex; 
-                justify-content: space-between;
-
-            }
-        }
     </style>
 @endsection
 
@@ -119,12 +119,36 @@
 </div>
 {{-- @dd( Auth::user()->sekolah->kompetensi ) --}}
 <div class="cover1">
-    <div class="card mb-3 content2">
+    <div class="card mb-3 yayasan">
+        <div class="card-body">
+            <div class="title-yayasan" style="display: flex; justify-content: space-between">
+                <h4 class="card-title" style="color: #369488; font-weight:600;">Yayasan</h4>
+                <a href="" class="btn btn-sm text-white font-weight-bold p-0" style="background-color: #369488; min-width: 5rem; height: 1.4rem;">Tambah</a>
+            </div>
+            <div class="table table-responsive table-borderless">
+                <table style="margin-left: -20px">
+                    <tr>
+                        <th>Nama</th>
+                        <th>:</th>
+                        <td>Setya Bhakti</td>
+                    </tr>
+                    @foreach (Auth::user()->sekolah->mapel as $mapel)                        
+                    <tr>
+                        <th>Email</th>
+                        <th>:</th>
+                        <td>setyabhakti@gmail.com</td>
+                    </tr>
+                    @endforeach
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-3 kompetensi">
         <div class="card-body">
             <h4 class="card-title" style="color: #369488; font-weight:600;">Kompetensi</h4>
             @if (count(Auth::user()->sekolah->kompetensi) > 0)  
             <div class="table table-responsive table-borderless d-flex justify-content-center p-0">
-                <table class="table-bordered">
+                <table  style="margin-left: -20px">
                     <tr class="text-center">
                         <th>No</th>
                         <th>Kompetensi</th>
@@ -149,7 +173,48 @@
             @endif
         </div>
     </div>
-    <div class="card mb-3 content3">
+</div>
+
+<div class="cover2">
+    <div class="card mb-3 data-user">
+        <div class="card-body">
+            <h4 class="card-title" style="color: #369488; font-weight:600;">Data User</h4>
+            <div class="table table-responsive table-borderless d-flex justify-content-center">
+                <table>
+                    <tr class="text-center">
+                        @foreach ($users as $key => $user)
+                        <th>{{ $key }}</th>
+                        @endforeach
+                    </tr>
+                    <tr class="text-center">
+                        @foreach ($users as $i => $userRole)
+                        <td>{{ count($userRole) }}</td>
+                        @endforeach
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-3 mapel">
+        <div class="card-body">
+            <h4 class="card-title" style="color: #369488; font-weight:600;">Mapel</h4>
+            <div class="table table-responsive table-borderless">
+                <table>
+                    <tr class="text-center">
+                        <th>No</th>
+                        <th>Nama Mata Pelajaran</th>
+                    </tr>
+                    @foreach (Auth::user()->sekolah->mapel as $mapel)                        
+                    <tr class="text-center">
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $mapel->nama }}</td>
+                    </tr>
+                    @endforeach
+                </table>
+            </div>
+        </div>
+    </div>  
+    <div class="card mb-3 kelas">
         <div class="card-body">
             <h4 class="card-title" style="color: #369488; font-weight:600;">Kelas</h4>
             <div class="table table-responsive table-borderless d-flex justify-content-center">
@@ -169,48 +234,6 @@
         </div>
     </div>
 </div>
-
-<div class="cover2">
-    <div class="card mb-3 content4">
-        <div class="card-body">
-            <h4 class="card-title" style="color: #369488; font-weight:600;">Data User</h4>
-            <div class="table table-responsive table-borderless d-flex justify-content-center">
-                <table>
-                    <tr class="text-center">
-                        @foreach ($users as $key => $user)
-                        <th>{{ $key }}</th>
-                        @endforeach
-                    </tr>
-                    <tr class="text-center">
-                        @foreach ($users as $i => $userRole)
-                        <td>{{ count($userRole) }}</td>
-                        @endforeach
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="card mb-3 content5">
-        <div class="card-body">
-            <h4 class="card-title" style="color: #369488; font-weight:600;">Mapel</h4>
-            <div class="table table-responsive table-borderless d-flex justify-content-center">
-                <table>
-                    <tr class="text-center">
-                        <th>No</th>
-                        <th>Nama Mata Pelajaran</th>
-                    </tr>
-                    @foreach (Auth::user()->sekolah->mapel as $mapel)                        
-                    <tr class="text-center">
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $mapel->nama }}</td>
-                    </tr>
-                    @endforeach
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
 @endif
-
 
 @endsection

@@ -2,14 +2,21 @@
 
 @section('tambahcss')
     <style>
-        @media (max-width: 400px) {
-            .search{
-                width: 26vw;
+        @media (max-width: 647px) {
+            .kelas, .jurusan{
+                width: 33vw;
             }
         }
-        @media (max-width: 400px) {
+
+        @media (max-width: 647px) {
             .bulan{
                 width: 22vw;
+            }
+        }
+
+        @media (max-width: 647px) {
+            .search{
+                width: 32vw;
             }
         }
     </style>
@@ -26,7 +33,7 @@
                     <div class="dropdown">
                         <button class="btn dropdown-toggle bulan" type="button" id="dropdownMenuButton1"
                             data-bs-toggle="dropdown" aria-expanded="false"
-                            style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; padding: 0.1rem">
+                            style="border: 1px solid rgb(205, 205, 205); min-width: 5rem; height: 1.9rem; padding: 0.1rem">
                             Bulan
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
@@ -205,8 +212,8 @@
             <li class="nav-item">
                 <div class="input-group">
                     <div class="dropdown">
-                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 5rem; padding: 0.1rem">
+                        <button class="btn dropdown-toggle kelas" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; min-width: 5rem; padding: 0.1rem">
                             Kelas
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -231,8 +238,8 @@
             <li class="nav-item">
                 <div class="input-group">
                     <div class="dropdown">
-                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 7rem; padding: 0.1rem">
+                        <button class="btn dropdown-toggle jurusan" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; min-width: 6rem; padding: 0.1rem">
                             Jurusan
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -309,6 +316,11 @@
                 Libur
             </li>
         </ul>
+        @if(session()->has('message'))
+        <div class="alert alert-success" role="alert"></div>
+        {{ session('message') }}
+        @endif
+
         <div class="table-responsive">
             <div id='calendar'></div>
             <table class="table text-center">

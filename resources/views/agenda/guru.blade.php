@@ -10,7 +10,7 @@
                     <div class="dropdown">
                         <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
                             data-bs-toggle="dropdown" aria-expanded="false"
-                            style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 7rem; padding: 0.1rem">
+                            style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; min-width: 6rem; padding: 0.1rem">
                             Tanggal
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
@@ -36,7 +36,7 @@
                     <div class="dropdown">
                         <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
                             data-bs-toggle="dropdown" aria-expanded="false"
-                            style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 7rem; padding: 0.1rem">
+                            style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; min-width: 5rem; padding: 0.1rem">
                             Bulan
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
@@ -167,8 +167,8 @@
             </div>
             <li class="nav-item">
                 <div class="dropdown">
-                    <button class="btn dropdown-toggle ml-3" type="button" id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid rgb(205, 205, 205)">
+                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; min-width: 8rem; padding: 0.1rem">
                         Tahun Ajaran
                     </button>
                     <ul class="dropdown-menu ml-1" aria-labelledby="dropdownMenuButton1">
