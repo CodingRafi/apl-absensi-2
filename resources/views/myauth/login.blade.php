@@ -48,7 +48,7 @@
                     </div>
                     <div class="mb-3 div-nip" style="display: none;">
                         <label for="nip" class="form-label">NIP</label>
-                        <input type="text" class="form-control input-nip" id="npsn" placeholder="NIP" name="login">
+                        <input type="number" class="form-control input-nip" id="npsn" placeholder="NIP" name="login">
                     </div>
                     <div class="mb-3 form-password-toggle">
                         <label class="form-label" for="password">Password</label>

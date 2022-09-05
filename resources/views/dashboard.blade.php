@@ -56,6 +56,7 @@
 @endsection
 
 @section('container')
+@if ( !Auth::user()->hasRole('super_admin') )
 <div class="card mb-3 content1">
     <div class="card-body">
         <div class="title" style="display: flex; justify-content: space-between">
@@ -196,6 +197,6 @@
         </div>
     </div>
 </div>
-
+@endif
 
 @endsection

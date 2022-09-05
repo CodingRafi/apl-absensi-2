@@ -46,17 +46,24 @@ class AbsensiController extends Controller
         }
 
         $absensis = [];
-
+        
         if($role == 'siswa'){
             $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+            if($tahun_ajaran){
             $kelas_filter = Kelas::where('tahun_ajaran_id', $tahun_ajaran->id)->get();
             $kompetensis = Kompetensi::where('sekolah_id', \Auth::user()->sekolah_id)->get();
-
             $siswas = Siswa::filter(request(['idk', 'idj', 'search']))->select('siswas.*', 'kelas.nama as kelas', 'kompetensis.kompetensi as jurusan')->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->get();
-
             foreach ($siswas as $key => $siswa) {
                 $absensis[] = Absensi::get_absensi($siswa, $date, $role);
             }
+            }else{
+                $kelas_filter = [];
+                $kompetensis = [];
+                $absensis = [];
+                $siswas = [];
+            }
+
+
 
             return view('absensi', [
                 'role' => $role,

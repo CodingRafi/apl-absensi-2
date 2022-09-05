@@ -4,12 +4,18 @@
     <style>
         @media (max-width: 400px) {
             .search{
-                width: 26vw;
+                width: 36vw;
             }
         }
         @media (max-width: 400px) {
             .bulan{
                 width: 22vw;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .jurusan{
+                width: 18rem;
             }
         }
     </style>
@@ -26,7 +32,7 @@
                     <div class="dropdown">
                         <button class="btn dropdown-toggle bulan" type="button" id="dropdownMenuButton1"
                             data-bs-toggle="dropdown" aria-expanded="false"
-                            style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; padding: 0.1rem">
+                            style="border: 1px solid rgb(205, 205, 205); min-width: 5rem; height: 1.9rem; padding: 0.1rem">
                             Bulan
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
@@ -201,11 +207,12 @@
                     </form>
                 </div>
             </li>
+            @if(count($kelas_filter) > 0)
             <li class="nav-item">
                 <div class="input-group">
                     <div class="dropdown">
                         <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 5rem; padding: 0.1rem">
+                            data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; padding: 0.1rem">
                             Kelas
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -225,12 +232,13 @@
                     </div>
                 </div>
             </li>
+            @endif
             @if ( Auth::user()->sekolah->tingkat == 'smk' )
             <li class="nav-item">
                 <div class="input-group">
                     <div class="dropdown">
-                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 7rem; padding: 0.1rem">
+                        <button class="btn dropdown-toggle jurusan" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; padding: 0.1rem">
                             Jurusan
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
