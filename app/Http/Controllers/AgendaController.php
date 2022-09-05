@@ -30,13 +30,12 @@ class AgendaController extends Controller
     public function index(Request $request)
     {
         $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
-
+        
         if ($tahun_ajaran) {
             $classes = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)->where('tahun_ajaran_id', $tahun_ajaran->id)->get();
-        }else {
-            $classes = [];
+        }else{
+            $classes = [];    
         }
-        
         return view('agenda.index', [
             'classes' => $classes
         ]);

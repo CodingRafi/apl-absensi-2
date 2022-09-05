@@ -9,6 +9,7 @@ use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\PresensiController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KompetensiController;
 use App\Http\Controllers\TahunAjaranController;
 use App\Http\Controllers\RegisteredUserController;
@@ -26,13 +27,11 @@ use App\Http\Controllers\AbsensiPelajaranController;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::post('/sekolah-create', [App\Http\Controllers\User\SekolahController::class, 'store']);
 
 Route::group(['middleware' => ['auth']], function() {
+    Route::get('/', [DashboardController::class, 'index']);
     Route::resource('roles', RoleController::class);
     Route::resource('kompetensi', KompetensiController::class);
     Route::resource('kelas', KelasController::class);

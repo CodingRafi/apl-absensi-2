@@ -45,14 +45,12 @@ class AbsensiController extends Controller
 
                     $agendas = Agenda::select('users.name as guru', 'mapels.nama as mapel', 'agendas.*', 'kelas.nama as nama_kelas')->leftJoin('kelas', 'kelas.id', 'agendas.kelas_id')->leftJoin('mapels', 'mapels.id', 'agendas.mapel_id')->leftJoin('users', 'users.id', 'agendas.user_id')->where('kelas_id', $rfid->siswa->kelas->id)->where('hari', strtolower($now->isoFormat('dddd')))->get();
 
-                    // dd($agendas);
-
                     return response()->json([
                         'message' => 'Berhasil absen masuk',
                         'agendas' => $agendas,
                         'hari' => strtolower($now->isoFormat('dddd')),
                         'kode_respon' => '1',
-                        'siswa' => $rfid->siswa
+                        'siswa' => $rfid->siswa,
                     ], 200);
                 }else{
                     Absensi::create([

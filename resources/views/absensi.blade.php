@@ -207,7 +207,7 @@
                     </form>
                 </div>
             </li>
-            @if(count($kelas_filter) > 0)
+            @if (count($kelas_filter) > 0)       
             <li class="nav-item">
                 <div class="input-group">
                     <div class="dropdown">
@@ -367,9 +367,10 @@
                                     @if (strtolower(date("D", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0]))) == 'sun')
                                         <td class="bg-secondary" style="height: 2rem;"></td>
                                     @else
+                                    {{-- @dd($siswas[2]->rfid) --}}
                                         @if ($role == 'siswa')
                                             <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;" data-toggle="modal"
-                                            data-target="#ubah-absen" style="cursor: pointer;" data-bool-absen="false" data-presensi="masuk" data-siswa-id="{{ $siswas[$key]->id }}" data-kelas-id="{{ $siswas[$key]->kelas_id }}" data-rfid="{{ $siswas[$key]->rfid->id }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}"></td>
+                                            data-target="#ubah-absen" style="cursor: pointer;" data-bool-absen="false" data-presensi="masuk" data-siswa-id="{{ $siswas[$key]->id }}" data-kelas-id="{{ $siswas[$key]->kelas_id }}" data-rfid="{{ ($siswas[$key]->rfid) ? $siswas[$key]->rfid->id : '' }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}"></td>
                                         @else
                                             <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;" data-toggle="modal"
                                             data-target="#ubah-absen" style="cursor: pointer;"data-presensi="masuk" data-user-id="{{ $users[$key]->id }}" data-rfid="{{ $users[$key]->rfid->id }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}"></td>
@@ -409,7 +410,7 @@
                                     @else
                                         @if ($role == 'siswa')
                                             <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;" data-toggle="modal"
-                                            data-target="#ubah-absen" style="cursor: pointer;" data-bool-absen="false" data-presensi="keluar" data-siswa-id="{{ $siswas[$key]->id }}" data-kelas-id="{{ $siswas[$key]->kelas_id }}" data-rfid="{{ $siswas[$key]->rfid->id }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}"></td>
+                                            data-target="#ubah-absen" style="cursor: pointer;" data-bool-absen="false" data-presensi="keluar" data-siswa-id="{{ $siswas[$key]->id }}" data-kelas-id="{{ $siswas[$key]->kelas_id }}" data-rfid="{{ ($siswas[$key]->rfid) ? $siswas[$key]->rfid->id : '' }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}"></td>
                                         @else
                                            <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;" data-toggle="modal"
                                            data-target="#ubah-absen" style="cursor: pointer;" data-presensi="pulang" data-user-id="{{ $users[$key]->id }}" data-rfid="{{ $users[$key]->rfid->id }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}"></td>

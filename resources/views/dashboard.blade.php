@@ -117,26 +117,36 @@
         </div>
     </div>
 </div>
+{{-- @dd( Auth::user()->sekolah->kompetensi ) --}}
 <div class="cover1">
     <div class="card mb-3 content2">
         <div class="card-body">
             <h4 class="card-title" style="color: #369488; font-weight:600;">Kompetensi</h4>
+            @if (count(Auth::user()->sekolah->kompetensi) > 0)  
             <div class="table table-responsive table-borderless d-flex justify-content-center p-0">
-                <table>
+                <table class="table-bordered">
                     <tr class="text-center">
                         <th>No</th>
                         <th>Kompetensi</th>
                         <th>Program Keahlian</th>
                         <th>Bidang Keahlian</th>
                     </tr>
+
+                    @foreach (Auth::user()->sekolah->kompetensi as $kompetensi) 
                     <tr class="text-center">
-                        <td>1</td>
-                        <td>RPL</td>
-                        <td>Teknologi komputer & informatika</td>
-                        <td>Pemrogaman komputer</td>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $kompetensi->kompetensi }}</td>
+                        <td>{{ $kompetensi->program }}</td>
+                        <td>{{ $kompetensi->bidang }}</td>
                     </tr>
+                    @endforeach
                 </table>
             </div>
+            @else
+            <div class="alert alert-primary" role="alert">
+                Maaf tidak ada data Kompetensi ditemukan
+            </div>  
+            @endif
         </div>
     </div>
     <div class="card mb-3 content3">
@@ -148,15 +158,18 @@
                         <th>No</th>
                         <th>Nama Kelas</th>
                     </tr>
+                    @foreach (Auth::user()->sekolah->kelas as $kelas)
                     <tr class="text-center">
-                        <td>1</td>
-                        <td>XII Teknik Elektronika Industri 1</td>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $kelas->nama }}</td>
                     </tr>
+                    @endforeach
                 </table>
             </div>
         </div>
     </div>
 </div>
+
 <div class="cover2">
     <div class="card mb-3 content4">
         <div class="card-body">
@@ -164,16 +177,14 @@
             <div class="table table-responsive table-borderless d-flex justify-content-center">
                 <table>
                     <tr class="text-center">
-                        <th>No</th>
-                        <th>Guru</th>
-                        <th>Karyawan</th>
-                        <th>Siswa</th>
+                        @foreach ($users as $key => $user)
+                        <th>{{ $key }}</th>
+                        @endforeach
                     </tr>
                     <tr class="text-center">
-                        <td>1</td>
-                        <td>1000</td>
-                        <td>1000</td>
-                        <td>1000</td>
+                        @foreach ($users as $i => $userRole)
+                        <td>{{ count($userRole) }}</td>
+                        @endforeach
                     </tr>
                 </table>
             </div>
@@ -188,10 +199,12 @@
                         <th>No</th>
                         <th>Nama Mata Pelajaran</th>
                     </tr>
+                    @foreach (Auth::user()->sekolah->mapel as $mapel)                        
                     <tr class="text-center">
-                        <td>1</td>
-                        <td>Pemrogaman Web dan Perangkat Bergerak</td>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $mapel->nama }}</td>
                     </tr>
+                    @endforeach
                 </table>
             </div>
         </div>

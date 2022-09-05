@@ -30,23 +30,23 @@ class UserSeeder extends Seeder
 
         $role->syncPermissions($resultYayasan);
 
-        // $yayasanSmk = User::create([
-        //     'name' => 'yayasan SMK',
-        //     'email' => 'yayasansmk@gmail.com',
-        //     'password' => bcrypt('12345678'),
-        //     'sekolah_id' => 1
-        // ]);
+        $yayasanSmk = User::create([
+            'name' => 'yayasan SMK',
+            'email' => 'yayasansmk@gmail.com',
+            'password' => bcrypt('12345678'),
+            'sekolah_id' => 1
+        ]);
 
-        // $yayasanSmk->assignRole('yayasan');
+        $yayasanSmk->assignRole('yayasan');
 
-        // $yayasanSmp = User::create([
-        //     'name' => 'yayasan SMP',
-        //     'email' => 'yayasansmp@gmail.com',
-        //     'password' => bcrypt('12345678'),
-        //     'sekolah_id' => 2
-        // ]);
+        $yayasanSmp = User::create([
+            'name' => 'yayasan SMP',
+            'email' => 'yayasansmp@gmail.com',
+            'password' => bcrypt('12345678'),
+            'sekolah_id' => 2
+        ]);
 
-        // $yayasanSmp->assignRole('yayasan');
+        $yayasanSmp->assignRole('yayasan');
 
 
         //? Membuat role admin 
@@ -62,23 +62,23 @@ class UserSeeder extends Seeder
 
         $roleAdminSmk->syncPermissions($resultAdminSmk);
 
-        // $adminSmk = User::create([
-        //     'name' => 'Admin SMK',
-        //     'email' => 'adminsmk@gmail.com',
-        //     'password' => bcrypt('12345678'),
-        //     'sekolah_id' => 1
-        // ]);
+        $adminSmk = User::create([
+            'name' => 'Admin SMK',
+            'email' => 'adminsmk@gmail.com',
+            'password' => bcrypt('12345678'),
+            'sekolah_id' => 1
+        ]);
 
-        // $adminSmk->assignRole('admin');
+        $adminSmk->assignRole('admin');
 
-        // $adminSmp = User::create([
-        //     'name' => 'Admin SMP',
-        //     'email' => 'adminsmp@gmail.com',
-        //     'password' => bcrypt('12345678'),
-        //     'sekolah_id' => 2
-        // ]);
+        $adminSmp = User::create([
+            'name' => 'Admin SMP',
+            'email' => 'adminsmp@gmail.com',
+            'password' => bcrypt('12345678'),
+            'sekolah_id' => 2
+        ]);
 
-        // $adminSmp->assignRole('admin');
+        $adminSmp->assignRole('admin');
 
         //? role guru
         $roleGuru = Role::create([
@@ -92,15 +92,15 @@ class UserSeeder extends Seeder
         }, $izinGuru);
         $roleGuru->syncPermissions($resultGuru);
 
-        // $userGuru = User::create([
-        //     'name' => 'pak',
-        //     'email' => 'bapak@gmail.com',
-        //     'password' => \Hash::make('12345678'),
-        //     'sekolah_id' => 1,
-        //     'nip' => 123456789
-        // ]);
+        $userGuru = User::create([
+            'name' => 'pak',
+            'email' => 'bapak@gmail.com',
+            'password' => \Hash::make('12345678'),
+            'sekolah_id' => 1,
+            'nip' => 123456789
+        ]);
 
-        // $userGuru->assignRole('guru');
+        $userGuru->assignRole('guru');
 
         //? role super admin
         $roleSuperAdmin = Role::create([

@@ -16,6 +16,6 @@ class Kompetensi extends Model
     }
 
     public function sekolah(){
-        return $this->hasMany(Sekolah::class);
+        return $this->belonsTo(Sekolah::class);
     }
 }
