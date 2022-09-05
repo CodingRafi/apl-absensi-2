@@ -24,13 +24,22 @@ class AbsensiController extends Controller
         $absensi = Absensi::where('rfid_id', $rfid->id)->whereDate('presensi_masuk', Carbon::today())->first();
 
         if($absensi && $absensi->presensi_pulang === null){
+            $user;
+            
             $absensi->update([
                 'presensi_pulang' => Carbon::now()
             ]);
 
+            if($absensi->siswa){
+                $user = $absensi->siswa;
+            }else{  
+                $user = $absensi->user;
+            }
+
             return response()->json([
                 'message' => 'Hati hati dijalan',
-                'kode_respon' => '2'
+                'kode_respon' => '2',
+                'user' => $user
             ], 200);
         }else{
             if(!$absensi){
@@ -51,6 +60,8 @@ class AbsensiController extends Controller
                         'hari' => strtolower($now->isoFormat('dddd')),
                         'kode_respon' => '1',
                         'siswa' => $rfid->siswa,
+                        'kelas' => $rfid->siswa->kelas,
+                        'kompetensi' => $rfid->siswa->kompetensi,
                     ], 200);
                 }else{
                     Absensi::create([
@@ -58,8 +69,6 @@ class AbsensiController extends Controller
                         'user_id' => $rfid->user->id,
                         'presensi_masuk' => $now
                     ]);
-
-                    // dd('oke');
                     
                     if ($rfid->user->hasRole('guru')) {
                         return response()->json([
