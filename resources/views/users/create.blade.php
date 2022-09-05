@@ -195,7 +195,7 @@
         </div>
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Profil</label>
-          <input type="file" class="form-control" name="profil">
+          <input type="file" class="form-control" name="profil" style="height: 5.5vh">
         </div>
         <button type="submit" class="btn text-white mt-3" style="background-color: #3bae9c">Simpan</button>
       </form>
@@ -347,7 +347,7 @@
             Aktif
           </label>
         </div>
-        <div class="form-check">
+        <div class="form-check mb-3">
           <input class="form-check-input" type="radio" name="status_rfid" id="tidak" value="tidak">
           <label class="form-check-label" for="tidak" style="margin-left: -0.1rem">
             Tidak
@@ -355,7 +355,7 @@
         </div>
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Profil</label>
-          <input type="file" class="form-control" name="profil">
+          <input type="file" class="form-control" name="profil" style="height: 5.5vh;">
         </div>
         <button type="submit" class="btn text-white mt-3" style="background-color: #3bae9c">Simpan</button>
       </form>

@@ -12,7 +12,7 @@
                 <label for="nama" class="form-label">Nama Kelas</label>
                 <input type="text" class="form-control" id="nama" name="nama" value="{{ $kelas->nama }}">
             </div>
-            <button type="submit" class="btn btn-success">Simpan</button>
+            <button type="submit" class="btn text-white" style="background-color: #3bae9c">Simpan</button>
         </form>
     </div>
 </div>

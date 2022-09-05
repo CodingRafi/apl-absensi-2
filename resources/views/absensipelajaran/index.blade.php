@@ -23,7 +23,7 @@
                                 <form action="/presensi/{{ $absensi_pelajaran->id }}" method="get"> 
                                     @include('mypartials.tahunajaran') 
                                     <input type="hidden" name="idk" value="{{ $absensi_pelajaran->kelas->id }}">
-                                    <button type="submit" class="btn btn-sm btn-success text-white font-weight-bold" style="margin: 0.1rem">Tambah Presensi</button> 
+                                    <button type="submit" class="btn btn-sm text-white font-weight-bold" style="margin: 0.1rem; background-color: #3bae9c">Tambah Presensi</button> 
                                 </form>
                             </td> 
                         </tr> 
