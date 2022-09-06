@@ -46,9 +46,36 @@
         }
 
         @media (min-width:590px) {
-            .data-user, .mapel, .kelas{
-                width: 32%;
+            .mapel, .kelas{
+                width: 49%;
 
+            }
+        }
+
+        @media (min-width:590px) {
+            .super{
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+
+        @media (max-width:590px) {
+            .jumlah_sekolahs, .roles, .tahun_ajarans{
+                width: 50%;
+            }
+        }
+
+        @media (max-width:590px) {
+            .jumlah_sekolah, .role, .tahun_ajaran{
+                padding: 10px;
+                border-bottom: 2px solid #3bae9c;
+            }
+        }
+
+        @media (min-width:590px) {
+            .role, .tahun_ajaran{
+                padding-left: 50px;
+                border-left: 2px solid #3bae9c;
             }
         }
 
@@ -179,7 +206,6 @@
     </div>
 </div>
 
-<div class="cover2">
     <div class="card mb-3 data-user">
         <div class="card-body">
             <h4 class="card-title" style="color: #369488; font-weight:600;">Data User</h4>
@@ -201,6 +227,7 @@
             </div>
         </div>
     </div>
+<div class="cover2">
     <div class="card mb-3 mapel">
         <div class="card-body">
             <h4 class="card-title" style="color: #369488; font-weight:600;">Mapel</h4>
@@ -254,4 +281,48 @@
 </div>
 @endif
 
+<div class="containerSuper">
+    <div class="card">
+        <div class="card-body super">
+            <div class="d-flex mt-3 jumlah_sekolah">
+                <span class="jumlah_sekolahs" style="min-width: 10vw; font-weight: bold">Jumlah Sekolah :</span>
+                <div class="table-responsive table-borderless">
+                    <table>
+                        <tr><td>18</td></tr>
+                    </table>
+                </div>
+            </div>
+            <div class="mt-3 role">
+                <span class="roles" style="min-width: 10vw; font-weight: bold">Role tersedia :</span>
+                <div class="table-responsive table-borderless">
+                    <table>
+                        <tr><td>- Guru</td></tr>
+                        <tr><td>- Guru</td></tr>
+                        <tr><td>- Guru</td></tr>
+                        <tr><td>- Guru</td></tr>
+                        <tr><td>- Guru</td></tr>    
+                    </table>
+                </div>
+            </div>
+            <div class="mt-3 tahun_ajaran">
+                <span class="tahun_ajarans" style="min-width: 10vw; font-weight: bold">Role tersedia :</span>
+                <div class="table-responsive table-borderless">
+                    <table>
+                        <tr><td>- 2022/ 2023 semester genap</td></tr>
+                        <tr><td>- 2022/ 2023 semester genap</td></tr>
+                        <tr><td>- 2022/ 2023 semester genap</td></tr>
+                        <tr><td>- 2022/ 2023 semester genap</td></tr>
+                        <tr><td>- 2022/ 2023 semester genap</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
+
+
+
+- jumlah Sekolah
+- role tersedia
+- tahun ajaran
