@@ -2,12 +2,26 @@
     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
         <form action="/" method="get">
             @include('mypartials.tahunajaran')
-            <button class="navbar-brand brand-logo mr-3" href="/" style="width: 3rem; height: 3rem; border: none; border-radius: 50px; background: none">
+            <button class="navbar-brand brand-logo" href="/" style="width: 3rem; height: 3rem; border: none; border-radius: 50px; background: none">
                 @if (Auth::user()->sekolah)
                     @if ( Auth::user()->sekolah->logo != '/img/tutwuri.png' )    
                         <img src="{{ asset('storage/' . Auth::user()->sekolah->logo) }}" alt="logo" />
                     @else
                         <img src="{{ Auth::user()->sekolah->logo }}" alt="logo" />
+                    @endif
+                @else 
+                    <img src="/img/tutwuri.png" alt="logo" />
+                @endif
+            </button>
+        </form>
+        <form action="/" method="get">
+            @include('mypartials.tahunajaran')
+            <button class="navbar-brand brand-logo-mini" href="/" style="border: none; border-radius: 50px; background: none; ">
+                @if (Auth::user()->sekolah)
+                    @if ( Auth::user()->sekolah->logo != '/img/tutwuri.png' )    
+                        <img src="{{ asset('storage/' . Auth::user()->sekolah->logo) }}" alt="logo" style="object-fit: contain;width: 2rem;"/>
+                    @else
+                        <img src="{{ Auth::user()->sekolah->logo }}" alt="logo" style="object-fit: contain;width: 2rem;"/>
                     @endif
                 @else 
                     <img src="/img/tutwuri.png" alt="logo" />
