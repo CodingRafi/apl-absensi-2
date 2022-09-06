@@ -141,7 +141,9 @@
                 </table>
             </div>
             @else
-
+            <div class="alert alert-danger" role="alert">
+                Maaf tidak ada data yayasan ditemukan
+            </div> 
             @endif
         </div>
     </div>
@@ -169,7 +171,7 @@
                 </table>
             </div>
             @else
-            <div class="alert alert-primary" role="alert">
+            <div class="alert alert-danger" role="alert">
                 Maaf tidak ada data Kompetensi ditemukan
             </div>  
             @endif
@@ -203,6 +205,7 @@
         <div class="card-body">
             <h4 class="card-title" style="color: #369488; font-weight:600;">Mapel</h4>
             <div class="table-responsive table-bordered" style="border-color: white">
+                @if (count(Auth::user()->sekolah->mapel) > 0)
                 <table>
                     <tr class="text-center">
                         <th style="width: 5%">No</th>
@@ -215,6 +218,11 @@
                     </tr>
                     @endforeach
                 </table>
+                @else
+                <div class="alert alert-danger" role="alert">
+                    Maaf tidak ada data mapel ditemukan
+                </div>  
+                @endif
             </div>
         </div>
     </div>  
@@ -222,6 +230,7 @@
         <div class="card-body">
             <h4 class="card-title" style="color: #369488; font-weight:600;">Kelas</h4>
             <div class="table-responsive table-bordered" style="border-color: white">
+                @if (count(Auth::user()->sekolah->kelas) > 0)
                 <table>
                     <tr class="text-center">
                         <th style="width: 5%">No</th>
@@ -234,6 +243,11 @@
                     </tr>
                     @endforeach
                 </table>
+                @else
+                <div class="alert alert-danger" role="alert">
+                    Maaf tidak ada data kelas ditemukan
+                </div> 
+                @endif
             </div>
         </div>
     </div>

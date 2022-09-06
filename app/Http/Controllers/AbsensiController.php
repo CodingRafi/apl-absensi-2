@@ -62,9 +62,7 @@ class AbsensiController extends Controller
                 $absensis = [];
                 $siswas = [];
             }
-
-
-
+            
             return view('absensi', [
                 'role' => $role,
                 'date' => $date,

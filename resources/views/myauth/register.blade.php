@@ -108,16 +108,16 @@
                 <div class="form-group">
                   <label for="nama" class="form-label">Nama</label>
                   <input type="text" class="form-control form-control-lg name-yayasan" placeholder="Nama"
-                    name="name_yayasan" style="border-radius: 5px; width: 100%" value="{{ old('name_yayasan') }}" required>
+                    name="name_yayasan" style="border-radius: 5px; width: 100%" value="{{ old('name_yayasan') }}">
                 </div>
                 <div class="form-group">
                   <label for="email" class="form-label">Email</label>
                   <input type="email" class="form-control form-control-lg email-yayasan" placeholder="email"
-                    name="email_yayasan" style="border-radius: 5px; width: 100%" value="{{ old('email_yayasan') }}" required>
+                    name="email_yayasan" style="border-radius: 5px; width: 100%" value="{{ old('email_yayasan') }}">
                 </div>
                 <div class="form-group">
                   <label for="password" class="form-label">Password</label>
-                  <input type="password" class="form-control form-control-lg password-yayasan" placeholder="password" name="password_yayasan" style="border-radius: 5px; width: 100%" required>
+                  <input type="password" class="form-control form-control-lg password-yayasan" placeholder="password" name="password_yayasan" style="border-radius: 5px; width: 100%">
                 </div>
 
                 <div class="mt-3">
