@@ -320,9 +320,3 @@
     </div>
 </div>
 @endsection
-
-
-
-- jumlah Sekolah
-- role tersedia
-- tahun ajaran

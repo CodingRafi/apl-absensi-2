@@ -43,7 +43,7 @@
         @endif
         @if (auth()->user()->can('view_tahun_ajaran') || auth()->user()->can('add_tahun_ajaran') || auth()->user()->can('edit_tahun_ajaran') || auth()->user()->can('delete_tahun_ajaran'))      
         <li class="nav-item" style="border-radius: 10px">
-            <a href="/tahun-ajaran" class="nav-link {{ Request::is('tahun-ajaran') ? 'active' : '' }}"><i class="bi bi-calendar-date mr-3"></i> Tahun Ajaran</a>
+            <a href="/tahun-ajaran" class="nav-link {{ Request::is('tahun-ajaran') ? 'active' : '' }}"><i class="bi bi-calendar-date mr-3"></i> <span>Tahun Ajaran</span></a>
         </li>
         @endif
         @if (auth()->user()->can('view_kelas') || auth()->user()->can('add_kelas') || auth()->user()->can('edit_kelas') || auth()->user()->can('delete_kelas'))
@@ -51,7 +51,7 @@
             <form action="/kelas" method="get">
                 @include('mypartials.tahunajaran')
                 <button class="nav-link {{ Request::is('kelas') ? 'active' : '' }}"
-                    style="background-color: transparent; border: none; min-width: 200px"><i class="bi bi-door-open mr-3"></i> Kelas</button>
+                    style="background-color: transparent; border: none; min-width: 200px"><i class="bi bi-door-open mr-3"></i> <span>Kelas</span></button>
             </form>
         </li>
         @endif
@@ -60,7 +60,7 @@
             <form action="/mapel" method="get">
                 @include('mypartials.tahunajaran')
                 <button class="nav-link {{ Request::is('mapel') ? 'active' : '' }}"
-                    style="background-color: transparent; border: none; min-width: 200px"><i class="bi bi-book-half mr-3"></i> Mapel</button>
+                    style="background-color: transparent; border: none; min-width: 200px"><i class="bi bi-book-half mr-3"></i> <span>Mapel</span></button>
             </form>
         </li>
         @endif
@@ -142,7 +142,7 @@
             <form action="/agenda" method="get">
                 @include('mypartials.tahunajaran')
                 <button class="nav-link {{ Request::is('agenda') ? 'active' : '' }}"
-                    style="background-color: transparent; border: none; min-width: 200px"><i class="bi bi-calendar-week mr-3"></i> Agenda</button>
+                    style="background-color: transparent; border: none; min-width: 200px"><i class="bi bi-calendar-week mr-3"></i> <span>Agenda</span></button>
             </form>
         </li>
         @endif
