@@ -13464,6 +13464,7 @@ input[type="button"].btn-block {
 
 .navbar-toggler:hover, .navbar-toggler:focus {
   text-decoration: none;
+  box-shadow: none !important;
 }
 
 .navbar-toggler-icon {
@@ -28619,6 +28620,7 @@ div.tagsinput span.tag a {
 .sidebar .nav-item .nav-link.active{
   background-color: #3bae9c !important;
   color: white;
+  border-radius: 10px;
 }
 
 .sidebar .nav-item .nav-link:hover{
@@ -30009,7 +30011,7 @@ div.tagsinput span.tag a {
   }
   .sidebar-icon-only .sidebar .nav .nav-item .nav-link .menu-title {
     border-radius: 0 5px 5px 0px;
-    background: #4B49AC;
+    background: #3bae9c !important;
   }
   .rtl.sidebar-icon-only .sidebar .nav .nav-item .nav-link .menu-title {
     border-radius: 5px 0 0 5px;
