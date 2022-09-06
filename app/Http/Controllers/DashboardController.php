@@ -10,8 +10,9 @@ use Spatie\Permission\Models\Role;
 
 class DashboardController extends Controller
 {
-    public function index(){ 
+    public function index(Request $request){ 
         $sekolah = \Auth::user()->sekolah;
+        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
 
         if ($sekolah) {
             $roles = Role::all();
@@ -25,10 +26,12 @@ class DashboardController extends Controller
                     }
                 }
             }
+            $siswas = Siswa::filter(request(['idk', 'idj', 'search']))->select('siswas.*', 'kelas.nama as kelas', 'kompetensis.kompetensi as jurusan')->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->where('kelas.sekolah_id', \Auth::user()->sekolah_id)->count();
 
             return view('dashboard', [
                 'users' => $users,
-                'yayasan' => User::whereHas("roles", function($q) use ($role) { $q->where("name", 'yayasan'); })->where('sekolah_id', $sekolah->id)->first()
+                'yayasan' => User::whereHas("roles", function($q) use ($role) { $q->where("name", 'yayasan'); })->where('sekolah_id', $sekolah->id)->first(),
+                'siswas' => $siswas
             ]);
         }else{
             return view('dashboard');

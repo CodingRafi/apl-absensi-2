@@ -187,11 +187,13 @@
                         @foreach ($users as $key => $user)
                         <th style="width: 5%;text-transform: capitalize;">{{ $key }}</th>
                         @endforeach
+                        <th style="width: 5%;text-transform: capitalize;">Siswa</th>
                     </tr>
                     <tr class="text-center">
                         @foreach ($users as $i => $userRole)
                         <td style="width: 5%">{{ count($userRole) }}</td>
                         @endforeach
+                        <td style="width: 5%">{{ $siswas }}</td>
                     </tr>
                 </table>
             </div>
@@ -204,7 +206,7 @@
                 <table>
                     <tr class="text-center">
                         <th style="width: 5%">No</th>
-                        <th style="width: 5%">Nama Mata Pelajaran</th>
+                        <th style="width: 5%">Mapel</th>
                     </tr>
                     @foreach (Auth::user()->sekolah->mapel as $mapel)                        
                     <tr class="text-center">
