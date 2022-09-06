@@ -35,7 +35,7 @@ class DashboardController extends Controller
 
             return view('dashboard', [
                 'users' => $users,
-                'yayasan' => User::whereHas("roles", function($q) use ($role) { $q->where("name", 'yayasan'); })->where('sekolah_id', $sekolah->id)->first(),
+                'yayasan' => User::whereHas("roles", function($q) { $q->where("name", 'yayasan'); })->where('sekolah_id', $sekolah->id)->first(),
                 'siswas' => $siswas
             ]);
         }else{

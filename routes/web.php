@@ -66,6 +66,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/simpan', [ConfigurasiUserController::class, 'saveProfil']);
     Route::get('/ubah-password', [ConfigurasiUserController::class, 'ubahPassword']);
     Route::get('/reset', [ConfigurasiUserController::class, 'reset_password']);
+    Route::get('/create-yayasan', [UserController::class, 'createYayasan']);
+    Route::post('/create-yayasan', [UserController::class, 'storeYayasan']);
 });
 
 
@@ -120,9 +122,9 @@ Route::get('/input-absensi', function() {
     return view('absensipelajaran.input');
 });
 
-Route::get('/create-yayasan', function() {
-    return view('createYayasan');
-});
+// Route::get('/create-yayasan', function() {
+//     return view('createYayasan');
+// });
 
 
 

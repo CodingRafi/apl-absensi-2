@@ -124,7 +124,10 @@
             <div class="title-yayasan" style="display: flex; justify-content: space-between">
                 <h4 class="card-title" style="color: #369488; font-weight:600;">Yayasan</h4>
                 @if (!$yayasan)
-                <a href="" class="btn btn-sm text-white font-weight-bold p-0" style="background-color: #369488; min-width: 5rem; height: 1.4rem;">Tambah</a>
+                <form action="/create-yayasan" method="get">
+                    @include('mypartials.tahunajaran')
+                    <button type="submit" class="btn btn-sm text-white font-weight-bold p-0" style="background-color: #369488; min-width: 5rem; height: 1.4rem;">Tambah</button>
+                </form>
                 @endif
             </div>
             @if ($yayasan)
