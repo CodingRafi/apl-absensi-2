@@ -14,7 +14,7 @@
                 @csrf
                 <div class="form-group">
                   <label for="avatar" class="form-label">Avatar</label>
-                  <input class="form-control form-control-lg" type="file" id="formFile" name="profil" style="border-radius: 5px; height: 3vh">
+                  <input class="form-control form-control-lg" type="file" id="formFile" name="profil" style="border-radius: 5px; height: 3vh;">
                 </div>
                 <div class="form-group">
                   <label for="username" class="form-label">Username</label>
