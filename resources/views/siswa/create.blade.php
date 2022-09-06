@@ -16,7 +16,7 @@
             @include('mypartials.tahunajaran')
             <div class="mb-3">
               <label for="profil" class="form-label">Profil</label>
-              <input type="file" class="form-control @error('profil') is-invalid @enderror" name="profil">
+              <input type="file" class="form-control @error('profil') is-invalid @enderror" name="profil" style="max-height: 5.5vh">
               @error('profil')
                 <div class="invalid-feedback">
                   {{ $message }}
