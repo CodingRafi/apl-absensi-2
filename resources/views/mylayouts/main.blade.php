@@ -50,6 +50,27 @@
     <link href='/fullcalendar/lib/main.css' rel='stylesheet' />
     <script src='/fullcalendar/lib/main.js'></script>
     
+    <style>
+      body.sidebar-icon-only .nav-item span{
+        display: none;
+      }
+
+      body.sidebar-icon-only .nav-link{
+        display: flex;
+        justify-content: center;
+        align-content: center
+      }
+
+      body.sidebar-icon-only .nav-link i{
+        margin: 0 !important;
+      }
+
+      body.sidebar-icon-only .nav-item.hover-open,
+      .sidebar .nav-item:hover{
+        border-radius: 10px !important;
+      }
+    </style>
+
     @yield('tambahcss')
 </head>
 

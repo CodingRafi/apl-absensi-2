@@ -50,7 +50,7 @@
                                                 </div>
                                                 <div class="col-md-2">
                                                     @can('edit_roles')
-                                                        @if ($role->name == 'admin')
+                                                        @if ($role->name == 'super_admin')
                                                             <a href="{{ route('roles.edit', $role->id) }}"
                                                                 class="btn btn-warning disabled">Update</a>
                                                         @else

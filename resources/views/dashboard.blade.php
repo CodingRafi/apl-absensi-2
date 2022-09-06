@@ -151,7 +151,10 @@
             <div class="title-yayasan" style="display: flex; justify-content: space-between">
                 <h4 class="card-title" style="color: #369488; font-weight:600;">Yayasan</h4>
                 @if (!$yayasan)
-                <a href="" class="btn btn-sm text-white font-weight-bold p-0" style="background-color: #369488; min-width: 5rem; height: 1.4rem;">Tambah</a>
+                <form action="/create-yayasan" method="get">
+                    @include('mypartials.tahunajaran')
+                    <button type="submit" class="btn btn-sm text-white font-weight-bold p-0" style="background-color: #369488; min-width: 5rem; height: 1.4rem;">Tambah</button>
+                </form>
                 @endif
             </div>
             @if ($yayasan)
@@ -279,7 +282,7 @@
         </div>
     </div>
 </div>
-@endif
+@else
 
 <div class="containerSuper">
     <div class="card">
@@ -288,7 +291,7 @@
                 <span class="jumlah_sekolahs" style="min-width: 10vw; font-weight: bold">Jumlah Sekolah :</span>
                 <div class="table-responsive table-borderless">
                     <table>
-                        <tr><td>18</td></tr>
+                        <tr><td>{{ $sekolah }}</td></tr>
                     </table>
                 </div>
             </div>
@@ -296,27 +299,28 @@
                 <span class="roles" style="min-width: 10vw; font-weight: bold">Role tersedia :</span>
                 <div class="table-responsive table-borderless">
                     <table>
-                        <tr><td>- Guru</td></tr>
-                        <tr><td>- Guru</td></tr>
-                        <tr><td>- Guru</td></tr>
-                        <tr><td>- Guru</td></tr>
-                        <tr><td>- Guru</td></tr>    
+                        @foreach ($roles as $role)
+                            @if ($role->name != 'super_admin')
+                                <tr><td>- {{ $role->name }}</td></tr>    
+                            @endif
+                        @endforeach
                     </table>
                 </div>
             </div>
             <div class="mt-3 tahun_ajaran">
-                <span class="tahun_ajarans" style="min-width: 10vw; font-weight: bold">Role tersedia :</span>
+                <span class="tahun_ajarans" style="min-width: 10vw; font-weight: bold">Tahun ajaran tersedia :</span>
                 <div class="table-responsive table-borderless">
                     <table>
-                        <tr><td>- 2022/ 2023 semester genap</td></tr>
-                        <tr><td>- 2022/ 2023 semester genap</td></tr>
-                        <tr><td>- 2022/ 2023 semester genap</td></tr>
-                        <tr><td>- 2022/ 2023 semester genap</td></tr>
-                        <tr><td>- 2022/ 2023 semester genap</td></tr>
+                        @foreach ($tahun_ajarans as $tahun_ajaran)
+                            @dd($tahun_ajaran)
+                            <tr><td>- {{ $tahun_ajaran->tahun_awal }}/{{ $tahun_ajaran->tahun_akhir }} Semester {{ $tahun_ajaran->semester }}</td></tr>
+                        @endforeach
                     </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endif
+
 @endsection

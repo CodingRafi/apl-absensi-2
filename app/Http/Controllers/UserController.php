@@ -288,4 +288,32 @@ class UserController extends Controller
 
         return (new FastExcel(collect($users)))->download('file.xlsx');
     }
+
+    public function createYayasan(){
+        $yayasan = User::whereHas("roles", function($q) { $q->where("name", 'yayasan'); })->where('sekolah_id', \Auth::user()->sekolah_id)->first();
+
+        if (!$yayasan) {
+            return view('createYayasan');
+        }else{
+            abort(403);
+        }
+    }
+
+    public function storeYayasan(Request $request){
+    // dd($yayasan);
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|confirmed'
+        ]);
+
+        $validatedData['password'] = \Hash::make($request->password);
+        $validatedData['sekolah_id'] = \Auth::user()->sekolah_id;
+
+        $user = User::create($validatedData);
+        $user->assignRole('yayasan');
+
+
+        return TahunAjaran::redirectTahunAjaran('/', $request, 'Berhasil menambahkan yayasan');
+    }
 }
