@@ -34,7 +34,7 @@
         <div class="card-body p-0">
             <div class="kiri" style="min-width: 20vw; display: flex; justify-content:center">
                 @if (Auth::user()->profil != '/img/profil.png')
-                <img src="{{ asset('storage/' . Auth::user()->profil) }}" alt="image" style="width: 10rem; height: 10rem; border: 3px solid grey">
+                <img src="{{ asset('storage/' . Auth::user()->profil) }}" alt="image" style="width: 10rem; height: 10rem; border: 3px solid white; border-radius: 50%; object-fit: cover">
                 @else 
                 <img src="{{ Auth::user()->profil }}" alt="image" style="width: 10rem; height: 10rem; border: 3px solid grey;border-radius: 50%;">   
                 @endif

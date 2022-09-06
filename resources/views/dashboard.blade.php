@@ -128,20 +128,16 @@
                 @endif
             </div>
             @if ($yayasan)
-            <div class="table table-responsive table-borderless">
-                <table style="margin-left: -20px">
-                    <tr>
-                        <th>Nama</th>
-                        <th>:</th>
-                        <td>{{ $yayasan->name }}</td>
+            <div class="table-responsive table-bordered" style="border-color: white">
+                <table>
+                    <tr class="text-center">
+                        <th style="width: 5%; height: 8vh">Nama</th>
+                        <td style="width: 15%; height: 8vh">{{ $yayasan->name }}</td>
                     </tr>
-                    @foreach (Auth::user()->sekolah->mapel as $mapel)                        
-                    <tr>
-                        <th>Email</th>
-                        <th>:</th>
-                        <td>{{ $yayasan->email }}</td>
+                    <tr class="text-center">
+                        <th style="width: 5%; height: 8vh">Email</th>
+                        <td style="width: 15%; height: 8vh">{{ $yayasan->email }}</td>
                     </tr>
-                    @endforeach
                 </table>
             </div>
             @else
@@ -153,21 +149,21 @@
         <div class="card-body">
             <h4 class="card-title" style="color: #369488; font-weight:600;">Kompetensi</h4>
             @if (count(Auth::user()->sekolah->kompetensi) > 0)  
-            <div class="table table-responsive table-borderless d-flex justify-content-center p-0">
-                <table  style="margin-left: -20px">
+            <div class="table-responsive table-bordered" style="border-color: white">
+                <table>
                     <tr class="text-center">
-                        <th>No</th>
-                        <th>Kompetensi</th>
-                        <th>Program Keahlian</th>
-                        <th>Bidang Keahlian</th>
+                        <th style="width: 5%">No</th>
+                        <th style="width: 5%">Kompetensi</th>
+                        <th style="width: 5%">Program Keahlian</th>
+                        <th style="width: 5%">Bidang Keahlian</th>
                     </tr>
 
                     @foreach (Auth::user()->sekolah->kompetensi as $kompetensi) 
                     <tr class="text-center">
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $kompetensi->kompetensi }}</td>
-                        <td>{{ $kompetensi->program }}</td>
-                        <td>{{ $kompetensi->bidang }}</td>
+                        <td style="width: 5%">{{ $loop->iteration }}</td>
+                        <td style="width: 5%">{{ $kompetensi->kompetensi }}</td>
+                        <td style="width: 5%">{{ $kompetensi->program }}</td>
+                        <td style="width: 5%">{{ $kompetensi->bidang }}</td>
                     </tr>
                     @endforeach
                 </table>
@@ -185,16 +181,16 @@
     <div class="card mb-3 data-user">
         <div class="card-body">
             <h4 class="card-title" style="color: #369488; font-weight:600;">Data User</h4>
-            <div class="table table-responsive table-borderless d-flex justify-content-center">
+            <div class="table-responsive table-bordered" style="border-color: white">
                 <table>
                     <tr class="text-center">
                         @foreach ($users as $key => $user)
-                        <th style="text-transform: capitalize;">{{ $key }}</th>
+                        <th style="width: 5%;text-transform: capitalize;">{{ $key }}</th>
                         @endforeach
                     </tr>
                     <tr class="text-center">
                         @foreach ($users as $i => $userRole)
-                        <td>{{ count($userRole) }}</td>
+                        <td style="width: 5%">{{ count($userRole) }}</td>
                         @endforeach
                     </tr>
                 </table>
@@ -204,16 +200,16 @@
     <div class="card mb-3 mapel">
         <div class="card-body">
             <h4 class="card-title" style="color: #369488; font-weight:600;">Mapel</h4>
-            <div class="table table-responsive table-borderless">
+            <div class="table-responsive table-bordered" style="border-color: white">
                 <table>
                     <tr class="text-center">
-                        <th>No</th>
-                        <th>Nama Mata Pelajaran</th>
+                        <th style="width: 5%">No</th>
+                        <th style="width: 5%">Nama Mata Pelajaran</th>
                     </tr>
                     @foreach (Auth::user()->sekolah->mapel as $mapel)                        
                     <tr class="text-center">
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $mapel->nama }}</td>
+                        <td style="width: 5%">{{ $loop->iteration }}</td>
+                        <td style="width: 5%">{{ $mapel->nama }}</td>
                     </tr>
                     @endforeach
                 </table>
@@ -223,16 +219,16 @@
     <div class="card mb-3 kelas">
         <div class="card-body">
             <h4 class="card-title" style="color: #369488; font-weight:600;">Kelas</h4>
-            <div class="table table-responsive table-borderless d-flex justify-content-center">
+            <div class="table-responsive table-bordered" style="border-color: white">
                 <table>
                     <tr class="text-center">
-                        <th>No</th>
-                        <th>Nama Kelas</th>
+                        <th style="width: 5%">No</th>
+                        <th style="width: 5%">Nama Kelas</th>
                     </tr>
                     @foreach (Auth::user()->sekolah->kelas as $kelas)
                     <tr class="text-center">
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $kelas->nama }}</td>
+                        <td style="width: 5%">{{ $loop->iteration }}</td>
+                        <td style="width: 5%">{{ $kelas->nama }}</td>
                     </tr>
                     @endforeach
                 </table>

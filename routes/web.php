@@ -120,5 +120,9 @@ Route::get('/input-absensi', function() {
     return view('absensipelajaran.input');
 });
 
+Route::get('/create-yayasan', function() {
+    return view('createYayasan');
+});
+
 
 
