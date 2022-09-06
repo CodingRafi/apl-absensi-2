@@ -282,7 +282,7 @@
         </div>
     </div>
 </div>
-@endif
+@else
 
 <div class="containerSuper">
     <div class="card">
@@ -291,7 +291,7 @@
                 <span class="jumlah_sekolahs" style="min-width: 10vw; font-weight: bold">Jumlah Sekolah :</span>
                 <div class="table-responsive table-borderless">
                     <table>
-                        <tr><td>18</td></tr>
+                        <tr><td>{{ $sekolah }}</td></tr>
                     </table>
                 </div>
             </div>
@@ -299,33 +299,28 @@
                 <span class="roles" style="min-width: 10vw; font-weight: bold">Role tersedia :</span>
                 <div class="table-responsive table-borderless">
                     <table>
-                        <tr><td>- Guru</td></tr>
-                        <tr><td>- Guru</td></tr>
-                        <tr><td>- Guru</td></tr>
-                        <tr><td>- Guru</td></tr>
-                        <tr><td>- Guru</td></tr>    
+                        @foreach ($roles as $role)
+                            @if ($role->name != 'super_admin')
+                                <tr><td>- {{ $role->name }}</td></tr>    
+                            @endif
+                        @endforeach
                     </table>
                 </div>
             </div>
             <div class="mt-3 tahun_ajaran">
-                <span class="tahun_ajarans" style="min-width: 10vw; font-weight: bold">Role tersedia :</span>
+                <span class="tahun_ajarans" style="min-width: 10vw; font-weight: bold">Tahun ajaran tersedia :</span>
                 <div class="table-responsive table-borderless">
                     <table>
-                        <tr><td>- 2022/ 2023 semester genap</td></tr>
-                        <tr><td>- 2022/ 2023 semester genap</td></tr>
-                        <tr><td>- 2022/ 2023 semester genap</td></tr>
-                        <tr><td>- 2022/ 2023 semester genap</td></tr>
-                        <tr><td>- 2022/ 2023 semester genap</td></tr>
+                        @foreach ($tahun_ajarans as $tahun_ajaran)
+                            @dd($tahun_ajaran)
+                            <tr><td>- {{ $tahun_ajaran->tahun_awal }}/{{ $tahun_ajaran->tahun_akhir }} Semester {{ $tahun_ajaran->semester }}</td></tr>
+                        @endforeach
                     </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endif
+
 @endsection
-
-
-
-- jumlah Sekolah
-- role tersedia
-- tahun ajaran

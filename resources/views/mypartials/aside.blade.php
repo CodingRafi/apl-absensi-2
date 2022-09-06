@@ -1,13 +1,13 @@
 {{-- @dd(auth()->user()->getAllPermissions()) --}}
 
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
-    <ul class="nav">
+    <ul class="nav" style="width: 85%;">
 
         <li class="nav-item" style="border-radius: 10px">
             <form action="/" method="get">
                 @include('mypartials.tahunajaran')
                 <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"
-                    style="background-color: transparent; border: none; min-width: 200px"><i class="bi bi-columns-gap mr-3"></i> Dasboard</button>
+                    style="background-color: transparent; border: none; width: 100%;"><i class="bi bi-columns-gap mr-3"></i> <span>Dasboard</span></button>
             </form>
         </li>
         @if (auth()->user()->can('show_agenda_guru')) 
@@ -15,19 +15,19 @@
             <form action="/agenda-guru" method="get">
                 @include('mypartials.tahunajaran')
                 <button class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}"
-                    style="background-color: transparent; border: none; min-width: 200px"><i
+                    style="background-color: transparent; border: none; width: 100%;"><i
                         class="bi bi-calendar-week menu-icon"></i> Agenda</button>
             </form>
         </li>
         @endif
         @if (auth()->user()->can('view_roles') || auth()->user()->can('add_roles') || auth()->user()->can('edit_roles')) 
         <li class="nav-item" style="border-radius: 10px">
-            <a href="/roles" class="nav-link {{ Request::is('roles') ? 'active' : '' }}"><i class="bi bi-person-rolodex mr-3"></i> Role</a>
+            <a href="/roles" class="nav-link {{ Request::is('roles') ? 'active' : '' }}"><i class="bi bi-person-rolodex mr-3"></i> <span>Role</span></a>
         </li>
         @endif
         @if (auth()->user()->can('view_sekolah') || auth()->user()->can('delete_sekolah')) 
         <li class="nav-item" style="border-radius: 10px">
-            <a href="/sekolah" class="nav-link {{ Request::is('sekolah') ? 'active' : '' }}"><i class="bi bi-building mr-3"></i> Sekolah</a>
+            <a href="/sekolah" class="nav-link {{ Request::is('sekolah') ? 'active' : '' }}"><i class="bi bi-building mr-3"></i> <span>Sekolah</span></a>
         </li>
         @endif
         @if (auth()->user()->can('view_kompetensi') || auth()->user()->can('add_kompetensi') || auth()->user()->can('edit_kompetensi') || auth()->user()->can('delete_kompetensi')) 
@@ -36,7 +36,7 @@
             <form action="/kompetensi" method="get">
                 @include('mypartials.tahunajaran')
                 <button class="nav-link {{ Request::is('kompetensi') ? 'active' : '' }}"
-                    style="background-color: transparent; border: none; min-width: 200px"><i class="bi bi-award mr-3"></i> Kompetensi</button>
+                    style="background-color: transparent; border: none; width: 100%;"><i class="bi bi-award mr-3"></i> <span>Kompetensi</span></button>
             </form>
         </li>
         @endif
@@ -51,7 +51,7 @@
             <form action="/kelas" method="get">
                 @include('mypartials.tahunajaran')
                 <button class="nav-link {{ Request::is('kelas') ? 'active' : '' }}"
-                    style="background-color: transparent; border: none; min-width: 200px"><i class="bi bi-door-open mr-3"></i> Kelas</button>
+                    style="background-color: transparent; border: none; width: 100%;"><i class="bi bi-door-open mr-3"></i> Kelas</button>
             </form>
         </li>
         @endif
@@ -60,7 +60,7 @@
             <form action="/mapel" method="get">
                 @include('mypartials.tahunajaran')
                 <button class="nav-link {{ Request::is('mapel') ? 'active' : '' }}"
-                    style="background-color: transparent; border: none; min-width: 200px"><i class="bi bi-book-half mr-3"></i> Mapel</button>
+                    style="background-color: transparent; border: none; width: 100%;"><i class="bi bi-book-half mr-3"></i> Mapel</button>
             </form>
         </li>
         @endif
@@ -142,7 +142,7 @@
             <form action="/agenda" method="get">
                 @include('mypartials.tahunajaran')
                 <button class="nav-link {{ Request::is('agenda') ? 'active' : '' }}"
-                    style="background-color: transparent; border: none; min-width: 200px"><i class="bi bi-calendar-week mr-3"></i> Agenda</button>
+                    style="background-color: transparent; border: none; width: 100%;"><i class="bi bi-calendar-week mr-3"></i> Agenda</button>
             </form>
         </li>
         @endif
@@ -151,7 +151,7 @@
             <form action="/presensi-pelajaran" method="get">
                 @include('mypartials.tahunajaran')
                 <button class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}"
-                    style="background-color: transparent; border: none; min-width: 200px"><i
+                    style="background-color: transparent; border: none; width: 100%;"><i
                         class="bi bi-calendar-week menu-icon"></i> Presensi Pelajaran</button>
             </form>
         </li>

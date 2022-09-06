@@ -3,10 +3,14 @@
         <form action="/" method="get">
             @include('mypartials.tahunajaran')
             <button class="navbar-brand brand-logo mr-3" href="/" style="width: 3rem; height: 3rem; border: none; border-radius: 50px; background: none">
-                @if ( Auth::user()->sekolah->logo != '/img/tutwuri.png' )    
-                    <img src="{{ asset('storage/' . Auth::user()->sekolah->logo) }}" alt="logo" />
-                @else
-                    <img src="{{ Auth::user()->sekolah->logo }}" alt="logo" />
+                @if (Auth::user()->sekolah)
+                    @if ( Auth::user()->sekolah->logo != '/img/tutwuri.png' )    
+                        <img src="{{ asset('storage/' . Auth::user()->sekolah->logo) }}" alt="logo" />
+                    @else
+                        <img src="{{ Auth::user()->sekolah->logo }}" alt="logo" />
+                    @endif
+                @else 
+                    <img src="/img/tutwuri.png" alt="logo" />
                 @endif
             </button>
         </form>
