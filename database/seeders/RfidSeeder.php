@@ -17,13 +17,13 @@ class RfidSeeder extends Seeder
     {
         Rfid::create([
             'rfid_number' => "0009251346",
-            'siswa_id' => '1',
+            'user_id' => '5',
             'status' => 'aktif'
         ]); 
 
         Rfid::create([
             'rfid_number' => "298818123",
-            'user_id' => '5',
+            'siswa_id' => '5',
             'status' => 'aktif'
         ]); 
     }

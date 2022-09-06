@@ -21,13 +21,14 @@ class DashboardController extends Controller
             foreach ($roles as $key => $role) {
                 if ($role->name != 'super_admin' && $role->name != 'admin' && $role->name != 'yayasan') {
                     foreach ($users_query as $key => $user) {
-                        $users[$role->name] = User::whereHas("roles", function($q) use ($role) { $q->where("name", $role->name); })->get();
+                        $users[$role->name] = User::whereHas("roles", function($q) use ($role) { $q->where("name", $role->name); })->where('sekolah_id', $sekolah->id)->get();
                     }
                 }
             }
-        
+
             return view('dashboard', [
-                'users' => $users
+                'users' => $users,
+                'yayasan' => User::whereHas("roles", function($q) use ($role) { $q->where("name", 'yayasan'); })->where('sekolah_id', $sekolah->id)->first()
             ]);
         }else{
             return view('dashboard');

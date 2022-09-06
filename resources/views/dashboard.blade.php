@@ -123,24 +123,30 @@
         <div class="card-body">
             <div class="title-yayasan" style="display: flex; justify-content: space-between">
                 <h4 class="card-title" style="color: #369488; font-weight:600;">Yayasan</h4>
+                @if (!$yayasan)
                 <a href="" class="btn btn-sm text-white font-weight-bold p-0" style="background-color: #369488; min-width: 5rem; height: 1.4rem;">Tambah</a>
+                @endif
             </div>
+            @if ($yayasan)
             <div class="table table-responsive table-borderless">
                 <table style="margin-left: -20px">
                     <tr>
                         <th>Nama</th>
                         <th>:</th>
-                        <td>Setya Bhakti</td>
+                        <td>{{ $yayasan->name }}</td>
                     </tr>
                     @foreach (Auth::user()->sekolah->mapel as $mapel)                        
                     <tr>
                         <th>Email</th>
                         <th>:</th>
-                        <td>setyabhakti@gmail.com</td>
+                        <td>{{ $yayasan->email }}</td>
                     </tr>
                     @endforeach
                 </table>
             </div>
+            @else
+
+            @endif
         </div>
     </div>
     <div class="card mb-3 kompetensi">
@@ -183,7 +189,7 @@
                 <table>
                     <tr class="text-center">
                         @foreach ($users as $key => $user)
-                        <th>{{ $key }}</th>
+                        <th style="text-transform: capitalize;">{{ $key }}</th>
                         @endforeach
                     </tr>
                     <tr class="text-center">
