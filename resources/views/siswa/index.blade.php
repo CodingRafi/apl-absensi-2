@@ -1,5 +1,27 @@
 @extends('mylayouts.main')
 
+@section('tambahcss')
+  <style>
+      @media (max-width:400px){
+        .jurusan, .kelas{
+            width: 33vw;
+        }
+      }
+      
+      @media (max-width:890px){
+        .search{
+            width: 10vw;
+        }
+      }
+      
+      @media (max-width:400px){
+        .search{
+            width: 59vw;
+        }
+      }
+  </style>
+@endsection
+
 @section('container')
 <div class="card">
     <div class="card-body">
@@ -10,8 +32,8 @@
                 <div class="input-group">
                     @if (count($kompetensis)>0)
                     <div class="dropdown">
-                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 7rem; padding: 0.1rem">
+                        <button class="btn dropdown-toggle jurusan" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; min-width: 6rem; padding: 0.1rem">
                             Jurusan
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -34,8 +56,8 @@
                 <div class="input-group">
                     @if (count($kelas_filter)>0)
                     <div class="dropdown">
-                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 5rem; padding: 0.1rem">
+                        <button class="btn dropdown-toggle kelas" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; min-width: 5rem; padding: 0.1rem">
                             Kelas
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -57,8 +79,8 @@
                 <div class="input-group input-group-sm">
                     <form action="" method="get" style="display: flex; gap: 0.3rem">
                         @include('mypartials.tahunajaran')
-                        <input type="text" class="form-control" placeholder="Search" style="height: 1.9rem;" name="search" value="{{ request('search') }}">
-                        <button type="submit" class="btn" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 2.5rem; padding: 0.1rem"><i class="bi bi-search"></i></button>
+                        <input type="text" class="form-control search" placeholder="Search" style="height: 1.9rem; min-width: 3rem;" name="search" value="{{ request('search') }}">
+                        <button type="submit" class="btn" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; min-width: 2.5rem; padding: 0.1rem"><i class="bi bi-search"></i></button>
                     </form>
                 </div>
             </li>
@@ -93,8 +115,7 @@
             <li class="nav-item">
                 <form action="/siswa/create" method="get">
                     @include('mypartials.tahunajaran')
-                    <button class="btn btn-sm text-white font-weight-bold" style="background-color: #3bae9c">Tambah
-                        Siswa</button>
+                    <button class="btn btn-sm text-white font-weight-bold" style="background-color: #3bae9c">Tambah</button>
                 </form>
             </li>
             @endif

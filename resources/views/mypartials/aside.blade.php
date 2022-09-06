@@ -22,12 +22,12 @@
         @endif
         @if (auth()->user()->can('view_roles') || auth()->user()->can('add_roles') || auth()->user()->can('edit_roles')) 
         <li class="nav-item" style="border-radius: 10px">
-            <a href="/roles" class="nav-link"><i class="icon-grid menu-icon"></i> Role</a>
+            <a href="/roles" class="nav-link"><i class="bi bi-person-rolodex mr-3"></i> Role</a>
         </li>
         @endif
         @if (auth()->user()->can('view_sekolah') || auth()->user()->can('delete_sekolah')) 
         <li class="nav-item" style="border-radius: 10px">
-            <a href="/sekolah" class="nav-link"><i class="icon-grid menu-icon"></i> Sekolah</a>
+            <a href="/sekolah" class="nav-link"><i class="bi bi-building mr-3"></i> Sekolah</a>
         </li>
         @endif
         @if (auth()->user()->can('view_kompetensi') || auth()->user()->can('add_kompetensi') || auth()->user()->can('edit_kompetensi') || auth()->user()->can('delete_kompetensi')) 
@@ -43,7 +43,7 @@
         @endif
         @if (auth()->user()->can('view_tahun_ajaran') || auth()->user()->can('add_tahun_ajaran') || auth()->user()->can('edit_tahun_ajaran') || auth()->user()->can('delete_tahun_ajaran'))      
         <li class="nav-item" style="border-radius: 10px">
-            <a href="/tahun-ajaran" class="nav-link"><i class="icon-grid menu-icon"></i> Tahun Ajaran</a>
+            <a href="/tahun-ajaran" class="nav-link"><i class="bi bi-calendar-date mr-3"></i> Tahun Ajaran</a>
         </li>
         @endif
         @if (auth()->user()->can('view_kelas') || auth()->user()->can('add_kelas') || auth()->user()->can('edit_kelas') || auth()->user()->can('delete_kelas'))
