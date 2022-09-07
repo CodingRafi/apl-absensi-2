@@ -118,7 +118,7 @@ class TahunAjaranController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\TahunAjaran  $tahunAjaran
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response    
      */
     public function destroy(TahunAjaran $tahunAjaran)
     {
