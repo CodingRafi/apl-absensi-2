@@ -17,9 +17,9 @@
             <button type="submit" class="btn btn-sm text-white font-weight-bold float-right mr-2" style="background-color: red">Kembali</button>
         </form>
 
-        <div class="container-fluid p-0">
+        <div class="container-fluid p-0 mt-5">
             @foreach ($agendas as $key => $agenda)
-            <p>{{ $key }}</p>
+            <p style="color: #3bae9c; font-weight: 500;">{{ $key }}</p>
             <table class="table">
                 <thead>
                     <tr class="text-center mt-3">
