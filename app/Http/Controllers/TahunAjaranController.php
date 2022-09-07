@@ -62,7 +62,7 @@ class TahunAjaranController extends Controller
             'sekolah' => \Auth::user()->sekolah,
         ]);
 
-        return redirect('/tahun-ajaran')->with('Berhasil Menambahkan Tahun Ajaran Baru');
+        return redirect('/tahun-ajaran')->with('message', 'Berhasil Menambahkan Tahun Ajaran Baru');
     }
 
     /**
@@ -111,14 +111,14 @@ class TahunAjaranController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect('/tahun-ajaran')->with('Berhasil Di Update');
+        return redirect('/tahun-ajaran')->with('message', 'Berhasil Di Update');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\TahunAjaran  $tahunAjaran
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response    
      */
     public function destroy(TahunAjaran $tahunAjaran)
     {

@@ -312,7 +312,6 @@
                 <div class="table-responsive table-borderless">
                     <table>
                         @foreach ($tahun_ajarans as $tahun_ajaran)
-                            @dd($tahun_ajaran)
                             <tr><td>- {{ $tahun_ajaran->tahun_awal }}/{{ $tahun_ajaran->tahun_akhir }} Semester {{ $tahun_ajaran->semester }}</td></tr>
                         @endforeach
                     </table>

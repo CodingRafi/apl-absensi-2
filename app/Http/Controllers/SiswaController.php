@@ -184,8 +184,16 @@ class SiswaController extends Controller
 
             $siswa->update($data);
 
-            if($request->id_rfid){
-                Rfid::updateRfid($request);
+            if ($siswa->rfid) {
+                if($request->id_rfid){
+                    Rfid::updateRfid($request);
+                }
+            }else{
+                Rfid::create([
+                    'rfid_number' => $request->rfid,
+                    'siswa_id' => $siswa->id,
+                    'status' => ($request->status_rfid == 'on') ? 'aktif' : 'tidak'
+                ]);
             }
     
             return TahunAjaran::redirectTahunAjaran('/siswa', $request, 'Berhasil Mengupdate Siswa');
