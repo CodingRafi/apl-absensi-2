@@ -69,12 +69,22 @@
       .sidebar .nav-item:hover{
         border-radius: 10px !important;
       }
+
+      .navbar .navbar-brand-wrapper .brand-logo-mini img{
+        width: 100% !important;
+      }
     </style>
 
     @yield('tambahcss')
 </head>
 
 <body>
+  @if ($message = Session::get('message'))
+  <div class="alert alert-warning alert-dismissible fade show position-absolute" role="alert" style="z-index: 999;top: 5rem;right: 1rem;">
+    <strong>{{ $message }}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  @endif
     <div class="container-scroller">
 
         <!-- partial:partials/_navbar.html -->

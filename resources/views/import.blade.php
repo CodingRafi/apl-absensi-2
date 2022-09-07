@@ -18,6 +18,7 @@
                 class="nav-link {{ Request::is('dashboard') ? 'active' : '' }} btn btn-sm btn-danger float-right text-white font-weight-bold"
                 style="display: inline">Kembali</button>
         </form>
+        @if (count($classes) > 0 && count($kompetensis) > 0)
         <form action="/import" method="post" enctype="multipart/form-data">
             @csrf
             @include('mypartials.tahunajaran')
@@ -45,6 +46,14 @@
             @endif
             <button class="btn btn-sm text-white font-weight-bold px-3" style="background-color: #3bae9c" type="submit">Import</button>
         </form>
+        @else
+        <div class="alert alert-warning d-flex align-items-center mt-4" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+            <div>
+              Maaf jurusan / kelas belum di buat.
+            </div>
+          </div>
+        @endif
     </div>
 </div>
 @endsection

@@ -26,6 +26,7 @@
 <div class="card">
     <div class="card-body">
         <h4 class="card-title float-left">Data Siswa</h4>
+        @if (count($tahun_ajarans) > 0) 
         <ul class="nav float-right mb-4" style="gap: 1rem;">
             @if ( Auth::user()->sekolah->tingkat == 'smk' )
             <li class="nav-item">
@@ -120,6 +121,7 @@
             </li>
             @endif
         </ul>
+        @endif
         <div class="table-responsive">
             <table class="table">
                 <thead class="thead-light">
