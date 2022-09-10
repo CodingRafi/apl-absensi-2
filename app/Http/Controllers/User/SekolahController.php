@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Sekolah;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use App\Mail\RegisterMail;
+use Illuminate\Support\Facades\Mail;
 
 class SekolahController extends Controller
 {
@@ -53,8 +55,12 @@ class SekolahController extends Controller
             'sekolah_id' => $sekolah->id
         ]);
 
+        $password = $request->password;
+        
         $user->assignRole('admin');
 
+        $yayasan = '';
+        $password_yayasan = '';
         if($request->name_yayasan && $request->email_yayasan){
             $yayasan = User::create([
                 'name' => $request->name_yayasan,
@@ -64,7 +70,12 @@ class SekolahController extends Controller
             ]);
 
             $yayasan->assignRole('yayasan');
+
+            $password_yayasan = $request->password_yayasan;
         }
+
+        
+        Mail::to($user['email'])->send(new RegisterMail($sekolah, $user, $yayasan, $password, $password_yayasan));
 
         // $sekolah->notify(new RegisterEmailNotification($sekolah, $request->password));
 

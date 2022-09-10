@@ -26,12 +26,12 @@
                 <tr>
                   <th class="col-4">Nama Sekolah</th>
                   <td class="col-1">:</td>
-                  <td class="col-7">SMKS TARUNA BHAKTI DEPOK</td>
+                  <td class="col-7">{{ $sekolah->nama }}</td>
                 </tr>
                 <tr>
                   <th class="col-4">NPSN</th>
                   <td class="col-1">:</td>
-                  <td class="col-7">20229232</td>
+                  <td class="col-7">{{ $sekolah->npsn }}</td>
                 </tr>
               </table>
            </div>
@@ -44,21 +44,22 @@
                 <tr>
                   <th class="col-4">Nama Sekolah</th>
                   <td class="col-1">:</td>
-                  <td class="col-7">SMKS TARUNA BHAKTI DEPOK</td>
+                  <td class="col-7">{{ $sekolah->nama }}</td>
                 </tr>
                 <tr>
                   <th class="col-4">Email</th>
                   <td class="col-1">:</td>
-                  <td class="col-7">dwi@gmail.com</td>
+                  <td class="col-7">{{ $user->email }}</td>
                 </tr>
                 <tr>
                   <th class="col-4">Password</th>
                   <td class="col-1">:</td>
-                  <td class="col-7">12345678</td>
+                  <td class="col-7">{{ $password }}</td>
                 </tr>
               </table>
            </div>
           </div>
+          @if ($yayasan)    
           <div class="3 mb-4">
             <div class="title"><h5>User yayasan</h5></div>
             <div class="table-responsive table-borderless">
@@ -66,22 +67,23 @@
                 <tr>
                   <th class="col-4">Nama Sekolah</th>
                   <td class="col-1">:</td>
-                  <td class="col-7">SMKS TARUNA BHAKTI DEPOK</td>
+                  <td class="col-7">{{ $sekolah->nama }}</td>
                 </tr>
                 <tr>
                   <th class="col-4">Email</th>
                   <td class="col-1">:</td>
-                  <td class="col-7">dwi@gmail.com</td>
+                  <td class="col-7">{{ $yayasan->email }}</td>
                 </tr>
                 <tr>
                   <th class="col-4">Password</th>
                   <td class="col-1">:</td>
-                  <td class="col-7">12345678</td>
+                  <td class="col-7">{{ $password_yayasan }}</td>
                 </tr>
               </table>
            </div>
           </div>
-          <span class=""><i><a href="">Clink here to login!</a></i></span>
+          @endif
+          <span class=""><i><a href="/">Clink here to login!</a></i></span>
         </div>
       </div>
     </div>
