@@ -101,8 +101,8 @@
 
   {{-- js login --}}
   <script>
-    const inputEmail = document.querySelector('.input-email');
-      const inputNpsn = document.querySelector('.input-nip');
+      const inputEmail = document.querySelector('.input-email');
+      const inputNpsn = document.querySelector('.input-nip'); 
       const divEmail = document.querySelector('.div-email');
       const divNpsn = document.querySelector('.div-nip');
       const inputPassword = document.querySelector('.input-password');
