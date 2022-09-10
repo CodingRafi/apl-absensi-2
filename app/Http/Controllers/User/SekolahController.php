@@ -66,6 +66,8 @@ class SekolahController extends Controller
             $yayasan->assignRole('yayasan');
         }
 
+        // $sekolah->notify(new RegisterEmailNotification($sekolah, $request->password));
+
         return redirect('/login')->with('message', 'Berhasil registrasi');
     }
 }
