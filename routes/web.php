@@ -122,6 +122,10 @@ Route::get('/input-absensi', function() {
     return view('absensipelajaran.input');
 });
 
+Route::get('/email', function() {
+    return view('email.index');
+});
+
 // Route::get('/create-yayasan', function() {
 //     return view('createYayasan');
 // });
