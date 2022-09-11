@@ -34,5 +34,9 @@ class Sekolah extends Model
     public function absensi_pelajaran(){
         return $this->hasMany(AbsensiPelajaran::class);
     }
+
+    public function jeda_presensi(){
+        return $this->hasMany(JedaPresensi::class);
+    }
 }
 

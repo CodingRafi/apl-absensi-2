@@ -156,5 +156,13 @@
             </form>
         </li>
         @endif
+        <li class="nav-item" style="border-radius: 10px">
+            <form action="/tenggat" method="get">
+                @include('mypartials.tahunajaran')
+                <button class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}"
+                    style="background-color: transparent; border: none; width: 100%;"><i
+                        class="bi bi-calendar-week menu-icon"></i> Jeda Presensi</button>
+            </form>
+        </li>
     </ul>
 </nav>
