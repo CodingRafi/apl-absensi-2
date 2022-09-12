@@ -79,58 +79,57 @@ Route::group(['middleware' => ['auth']], function() {
 
 require __DIR__.'/auth.php';
 
-// Route::get('/agenda-guru', function() {
-//     return view('agenda.guru');
-// });
+Route::get('/agenda-guru', function() {
+    return view('agenda.guru');
+});
 
-// Route::get('/agenda-siswa', function() {
-//     return view('agenda.siswa');
-// });
+Route::get('/agenda-siswa', function() {
+    return view('agenda.siswa');
+});
 
-// Route::get('/agenda-siswa', function() {
-//     return view('agenda.siswa');
-// }); 
+Route::get('/agenda-siswa', function() {
+    return view('agenda.siswa');
+}); 
 
-// Route::get('/absensi-guru', function() {
-//     return view('users.absensiguru');
-// });
+Route::get('/absensi-guru', function() {
+    return view('users.absensiguru');
+});
 
-// Route::get('/detail-absensi-guru', function() {
-//     return view('users.detailabsensiguru');
-// });
+Route::get('/detail-absensi-guru', function() {
+    return view('users.detailabsensiguru');
+});
 
-// Route::get('/absensi-siswa', function() {
-//     return view('users.absensisiswa');
-// });
+Route::get('/absensi-siswa', function() {
+    return view('users.absensisiswa');
+});
 
-// Route::get('/detail-absensi-siswa', function() {
-//     return view('users.detailabsensisiswa');
-// });
+Route::get('/detail-absensi-siswa', function() {
+    return view('users.detailabsensisiswa');
+});
 
-// Route::get('/create-agenda-guru', function() {
-//     return view('agenda.createagendaguru');
-// });
+Route::get('/create-agenda-guru', function() {
+    return view('agenda.createagendaguru');
+});
 
-// Route::get('/create-agenda-siswa', function() {
-//     return view('agenda.createagendasiswa');
-// });
+Route::get('/create-agenda-siswa', function() {
+    return view('agenda.createagendasiswa');
+});
 
-// Route::get('/forgot-password', function() {
-//     return view('myauth.forgot-password');
-// });
+Route::get('/forgot-password', function() {
+    return view('myauth.forgot-password');
+});
 
+Route::get('/input-absensi', function() {
+    return view('absensipelajaran.input');
+});
 
-// Route::get('/input-absensi', function() {
-//     return view('absensipelajaran.input');
-// });
+Route::get('/email', function() {
+    return view('email.index');
+});
 
-// Route::get('/email', function() {
-//     return view('email.index');
-// });
-
-// Route::get('/create-yayasan', function() {
-//     return view('createYayasan');
-// });
+Route::get('/create-yayasan', function() {
+    return view('createYayasan');
+});
 
 
 

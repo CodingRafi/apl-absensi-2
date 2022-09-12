@@ -17,12 +17,12 @@
               @include('mypartials.tahunajaran')
               <div class="mb-3">
                 <label for="profil" class="form-label">Profil</label>
-                <input type="file" class="form-control @error('profil') is-invalid @enderror" name="profil" style="max-height: 5.5vh">
-                @error('profil')
-                  <div class="invalid-feedback">
-                    {{ $message }}
-                  </div>
-                @enderror
+                <input class="form-control form-control-lg @error('profil') is-invalid @enderror" id="formFileLg" type="file" name="profile" style="max-height: 6vh">
+                  @error('profil')
+                    <div class="invalid-feedback">
+                      {{ $message }}
+                    </div>
+                  @enderror
               </div>
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Nama Lengkap</label>
