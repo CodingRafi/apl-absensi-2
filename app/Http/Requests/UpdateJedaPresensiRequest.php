@@ -13,7 +13,7 @@ class UpdateJedaPresensiRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class UpdateJedaPresensiRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'jam_masuk' => 'required',
+            'jam_pulang' => 'required',
         ];
     }
 }

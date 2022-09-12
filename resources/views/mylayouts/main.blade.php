@@ -49,6 +49,9 @@
 
     <link href='/fullcalendar/lib/main.css' rel='stylesheet' />
     <script src='/fullcalendar/lib/main.js'></script>
+
+    <link href="{{ asset('css/iziToast.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/iziToast.js') }}"></script>
     
     <style>
       body.sidebar-icon-only .nav-item span{
@@ -73,6 +76,10 @@
       .navbar .navbar-brand-wrapper .brand-logo-mini img{
         width: 100% !important;
       }
+
+      .alert-nontifikasi{
+        transition: 1s;
+      }
     </style>
 
     @yield('tambahcss')
@@ -80,29 +87,38 @@
 
 <body>
   @if ($message = Session::get('message'))
-  <div class="alert alert-warning alert-dismissible fade show position-absolute" role="alert" style="z-index: 999;top: 5rem;right: 1rem;">
+  <div class="alert alert-info alert-dismissible fade show position-fixed alert-nontifikasi" role="alert" style="z-index: 999;bottom: 1rem;right: 1rem;">
     <strong>{{ $message }}</strong>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
+
+  <script>
+    setTimeout(() => {
+      document.querySelector('.alert-nontifikasi').style.opacity = 0;
+    }, 5000);
+  </script>
   @endif
-    <div class="container-scroller">
+  <div class="container-scroller">
 
         <!-- partial:partials/_navbar.html -->
         @include('mypartials.navbar')
         <!-- partial -->
-
+        
         <div class="container-fluid page-body-wrapper">
-
-            <!-- partial:partials/_settings-panel.html -->
-            @include('mypartials.settings-panel')
-            <!-- partial -->
-
-            <!-- partial:partials/_sidebar.html -->
-            @include('mypartials.aside')
-            <!-- partial -->
-
-            <div class="main-panel">
-                <div class="content-wrapper">
+          
+          <!-- partial:partials/_settings-panel.html -->
+          @include('mypartials.settings-panel')
+          <!-- partial -->
+          
+          <!-- partial:partials/_sidebar.html -->
+          @include('mypartials.aside')
+          <!-- partial -->
+          
+          <div class="main-panel">
+            <div class="content-wrapper">
+                  <div class="container" style="width: 15rem">
+                    {{-- @include('vendor.lara-izitoast.toast') --}}
+                  </div>
                     @yield('container')
                 </div>
                 <!-- content-wrapper ends -->
@@ -111,6 +127,8 @@
         </div>
         <!-- page-body-wrapper ends -->
     </div>
+
+
     <!-- container-scroller -->
 
     <!-- plugins:js -->
@@ -139,6 +157,7 @@
     @yield('tambahjs')
 
     <script>
+        
         // const li_tahun_ajaran = document.querySelectorAll('.li_tahun_ajaran');
         
     </script>

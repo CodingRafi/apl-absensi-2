@@ -17,7 +17,10 @@ class JedaPresensiController extends Controller
      */
     public function index()
     {
-        return view('jeda_waktu.index');
+        $jedas = JedaPresensi::where('sekolah_id', \Auth::user()->sekolah->id)->get();
+        return view('jeda_waktu.index', [
+            'jedas' => $jedas
+        ]);
     }
 
     /**
@@ -76,9 +79,12 @@ class JedaPresensiController extends Controller
      * @param  \App\Models\JedaPresensi  $jedaPresensi
      * @return \Illuminate\Http\Response
      */
-    public function edit(JedaPresensi $jedaPresensi)
+    public function edit(JedaPresensi $jedaPresensi, $id)
     {
-        //
+        $jedaPresensi = JedaPresensi::findOrFail($id);
+        return view('jeda_waktu.update', [
+            'jeda' => $jedaPresensi
+        ]);
     }
 
     /**
@@ -88,9 +94,16 @@ class JedaPresensiController extends Controller
      * @param  \App\Models\JedaPresensi  $jedaPresensi
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateJedaPresensiRequest $request, JedaPresensi $jedaPresensi)
+    public function update(UpdateJedaPresensiRequest $request, JedaPresensi $jedaPresensi, $id)
     {
-        //
+        $jedaPresensi = JedaPresensi::findOrFail($id);
+
+        $jedaPresensi->update([
+            'jam_masuk' => $request->jam_masuk,
+            'jam_pulang' => $request->jam_pulang,
+        ]);
+
+        return TahunAjaran::redirectTahunAjaran('/tenggat', $request, 'Tenggat Waktu Berhasil Diubah');
     }
 
     /**

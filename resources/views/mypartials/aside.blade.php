@@ -82,7 +82,7 @@
                         <form action="/users/{{ $role->name }}" method="get">
                             @include('mypartials.tahunajaran')
                             <button class="nav-link"
-                                style="background-color: #3bae9c; border: none; min-width: 150px">Data {{
+                                style="background-color: #3bae9c; border: none; min-width: 150px;text-transform: capitalize;">Data {{
                                 str_replace("_", " ", $role->name) }}
                             </button>
                         </form>

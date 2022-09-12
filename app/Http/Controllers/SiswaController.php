@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Siswa;
 use App\Models\Rfid;
 use App\Models\Kelas;
-use App\Models\TahunAjaran;
 use App\Models\Kompetensi;
+use App\Models\TahunAjaran;
+use App\Models\JedaPresensi;
 use Illuminate\Http\Request;
+use Rap2hpoutre\FastExcel\FastExcel;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreSiswaRequest;
 use App\Http\Requests\UpdateSiswaRequest;
-use Rap2hpoutre\FastExcel\FastExcel;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Storage;
 
 class SiswaController extends Controller
 {
@@ -58,11 +59,13 @@ class SiswaController extends Controller
     public function create(Request $request)
     {
         $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+        $jedas = JedaPresensi::where('sekolah_id', \Auth::user()->sekolah->id)->where('siswa', 1)->get();
         $classes = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)->where('tahun_ajaran_id', $tahun_ajaran->id)->get();
         $kompetensis = Kompetensi::where('sekolah_id', \Auth::user()->sekolah_id)->get();
         return view('siswa.create',[
             'classes' => $classes,
-            'kompetensis' => $kompetensis
+            'kompetensis' => $kompetensis,
+            'jedas' => $jedas
         ]);
     }
 
@@ -88,7 +91,8 @@ class SiswaController extends Controller
             'jalan' => $request->jalan,
             'kelurahan' => $request->kelurahan,
             'kecamatan' => $request->kecamatan,
-            'sekolah_id' => \Auth::user()->sekolah_id
+            'sekolah_id' => \Auth::user()->sekolah_id,
+            'jeda_presensi_id' => $request->jeda_presensi_id
         ];
 
         if (\Auth::user()->sekolah->tingkat == 'smk') {
@@ -132,13 +136,15 @@ class SiswaController extends Controller
         $siswa = Siswa::findOrFail($id);
         if ($siswa->sekolah_id == \Auth::user()->sekolah->id) {
             $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+            $jedas = JedaPresensi::where('sekolah_id', \Auth::user()->sekolah->id)->where('siswa', 1)->get();
             $classes = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)->where('tahun_ajaran_id', $tahun_ajaran->id)->get();
             $kompetensis = Kompetensi::where('sekolah_id', \Auth::user()->sekolah_id)->get();
     
             return view('siswa.update', [
                 'classes' => $classes,
                 'kompetensis' => $kompetensis,
-                'siswa' => $siswa
+                'siswa' => $siswa,
+                'jedas' => $jedas
             ]);
         }else{
             abort(403);
@@ -168,6 +174,7 @@ class SiswaController extends Controller
                 'jalan' => $request->jalan,
                 'kelurahan' => $request->kelurahan,
                 'kecamatan' => $request->kecamatan,
+                'jeda_presensi_id' => $request->jeda_presensi_id
             ];
             if (\Auth::user()->sekolah->tingkat == 'smk') {
                 $data += ['kompetensi_id' => $request->kompetensi_id];
@@ -218,10 +225,12 @@ class SiswaController extends Controller
         $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
         $classes = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)->where('tahun_ajaran_id', $tahun_ajaran->id)->get();
         $kompetensis = Kompetensi::where('sekolah_id', \Auth::user()->sekolah_id)->get();
+        $jedas = JedaPresensi::where('sekolah_id', \Auth::user()->sekolah->id)->where('siswa', 1)->get();
 
         return view('import', [
             'classes' => $classes,
-            'kompetensis' => $kompetensis
+            'kompetensis' => $kompetensis,
+            'jedas' => $jedas
         ]);
     }
 
@@ -243,6 +252,7 @@ class SiswaController extends Controller
                         'jalan' => $siswa['jalan'],
                         'kelurahan' => $siswa['kelurahan'],
                         'kecamatan' => $siswa['kecamatan'],
+                        'jeda_presensi_id' => $request->jeda_presensi_id,
                         'sekolah_id' => \Auth::user()->sekolah_id,
                         'kelas_id' => $request->kelas_id,
                     ];
@@ -254,7 +264,7 @@ class SiswaController extends Controller
                     $siswa = Siswa::create($data);
 
                     if($siswa['rfid']){
-                        Rfid::createRfid($request['rfid'], $siswa->id, ($siswa['status_rfid']) ? $siswa['status_rfid'] : '');
+                        Rfid::createRfid($siswa['rfid'], $siswa->id, null, ($siswa['status_rfid']) ? $siswa['status_rfid'] : '');
                     }
                 }
             }else{
@@ -269,9 +279,9 @@ class SiswaController extends Controller
         $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
 
         if (\Auth::user()->sekolah->tingkat == 'smk') {
-            $siswas = Siswa::filter(request(['idk', 'idj', 'search']))->select('siswas.name', 'siswas.nisn', 'siswas.nipd', 'kelas.nama as Kelas', 'kompetensis.kompetensi as Jurusan', 'siswas.jk', 'siswas.tempat_lahir', 'siswas.tanggal_lahir', 'siswas.nik', 'siswas.agama', 'siswas.jalan', 'siswas.kelurahan', 'siswas.kecamatan', 'rfids.rfid_number', 'rfids.status as status_rfid')->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')->leftJoin('rfids', 'rfids.siswa_id', 'siswas.id')->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->get();
+            $siswas = Siswa::filter(request(['idk', 'idj', 'search']))->select('siswas.name', 'siswas.nisn', 'siswas.nipd', 'kelas.nama as Kelas', 'kompetensis.kompetensi as Jurusan', 'siswas.jk', 'siswas.tempat_lahir', 'siswas.tanggal_lahir', 'siswas.nik', 'siswas.agama', 'siswas.jalan', 'siswas.kelurahan', 'siswas.kecamatan', 'rfids.rfid_number', 'rfids.status as status_rfid', 'jeda_presensis.nama as sesi')->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')->leftJoin('rfids', 'rfids.siswa_id', 'siswas.id')->leftJoin('jeda_presensis', 'jeda_presensis.id', 'siswas.jeda_presensi_id')->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->get();
         }else{
-            $siswas = Siswa::filter(request(['idk', 'idj', 'search']))->select('siswas.name', 'siswas.nisn', 'siswas.nipd', 'kelas.nama as Kelas', 'siswas.jk', 'siswas.tempat_lahir', 'siswas.tanggal_lahir', 'siswas.nik', 'siswas.agama', 'siswas.jalan', 'siswas.kelurahan', 'siswas.kecamatan', 'rfids.rfid_number', 'rfids.status as status_rfid')->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')->leftJoin('rfids', 'rfids.siswa_id', 'siswas.id')->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->get();
+            $siswas = Siswa::filter(request(['idk', 'idj', 'search']))->select('siswas.name', 'siswas.nisn', 'siswas.nipd', 'kelas.nama as Kelas', 'siswas.jk', 'siswas.tempat_lahir', 'siswas.tanggal_lahir', 'siswas.nik', 'siswas.agama', 'siswas.jalan', 'siswas.kelurahan', 'siswas.kecamatan', 'rfids.rfid_number', 'rfids.status as status_rfid','jeda_presensis.nama as sesi')->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')->leftJoin('rfids', 'rfids.siswa_id', 'siswas.id')->leftJoin('jeda_presensis', 'jeda_presensis.id', 'siswas.jeda_presensi_id')->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->get();
         }
 
         return (new FastExcel($siswas))->download('file.xlsx');

@@ -14,4 +14,16 @@ class JedaPresensi extends Model
     public function sekolah(){
         return $this->belongsTo(Sekolah::class);
     }
+
+    public function role(){
+        return $this->belongsTo(\Spatie\Permission\Models\Role::class);
+    }
+
+    public function siswa(){
+        return $this->hasMany(Siswa::class);
+    }
+
+    public function user(){
+        return $this->hasMany(User::class);
+    }
 }

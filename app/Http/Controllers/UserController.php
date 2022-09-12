@@ -7,9 +7,11 @@ use App\Models\Siswa;
 use App\Models\Mapel;
 use App\Models\Rfid;
 use App\Models\TahunAjaran;
+use App\Models\JedaPresensi;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Spatie\Permission\Models\Role;
 use Rap2hpoutre\FastExcel\FastExcel;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -51,10 +53,13 @@ class UserController extends Controller
      */
     public function create(Request $request, $role)
     {   
+        $roleQuery = Role::where('name', $role)->first();
+        $jedas = JedaPresensi::where('role_id', $roleQuery->id)->get();
         $mapels = Mapel::where('sekolah_id', \Auth::user()->sekolah_id)->get();
         return view('users.create', [
             'role' => $role,
-            'mapels' => $mapels
+            'mapels' => $mapels,
+            'jedas' => $jedas
         ]);
     }
 
@@ -96,7 +101,8 @@ class UserController extends Controller
             'jalan' => $request->jalan, 
             'kelurahan' => $request->kelurahan, 
             'kecamatan' => $request->kecamatan,
-            'sekolah_id' => \Auth::user()->sekolah_id
+            'sekolah_id' => \Auth::user()->sekolah_id,
+            'jeda_presensi_id' => $request->jeda_presensi_id
         ];
 
         if($request->profil){
@@ -137,11 +143,14 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $role = $user->getRoleNames()[0];
+        $roleQuery = Role::where('name', $role)->first();
+        $jedas = JedaPresensi::where('role_id', $roleQuery->id)->get();
         $mapels = Mapel::where('sekolah_id', \Auth::user()->sekolah_id)->get();
         return view('users.update', [
             'user' => $user,
             'role' => $role,
-            'mapels' => $mapels
+            'mapels' => $mapels,
+            'jedas' => $jedas
         ]);
     }
 
@@ -165,7 +174,8 @@ class UserController extends Controller
             'kelurahan' => 'required', 
             'kecamatan' => 'required', 
             'role' => 'required',
-            'profil' => 'mimes:png,jpg,jpeg|file|max:5024'
+            'profil' => 'mimes:png,jpg,jpeg|file|max:5024',
+            'jeda_presensi_id' => 'required'
         ]);
 
         if ($request->file('profil')) {
@@ -230,8 +240,11 @@ class UserController extends Controller
     }
 
     public function import($role){
+        $roleQuery = Role::where('name', $role)->first();
+        $jedas = JedaPresensi::where('role_id', $roleQuery->id)->get();
         return view('users.import',[
-            'role' => $role
+            'role' => $role,
+            'jedas' => $jedas
         ]);
     }
 
@@ -252,7 +265,8 @@ class UserController extends Controller
                         'kelurahan' => $user['kelurahan'],
                         'kecamatan' => $user['kecamatan'],
                         'password' => \Hash::make('12345678'),
-                        'sekolah_id' => \Auth::user()->sekolah_id
+                        'sekolah_id' => \Auth::user()->sekolah_id,
+                        'jeda_presensi_id' => $request->jeda_presensi_id
                     ]);
     
                     $user->assignRole($role);
@@ -268,7 +282,7 @@ class UserController extends Controller
     public function export(Request $request, $role){
         $users_query = User::filter(request(['search']))->where('sekolah_id', \Auth::user()->sekolah_id)->get();
         $users = [];
-
+        
         foreach ($users_query as $key => $user) {
             if($user->hasRole($role)){
                 $users[] = [
@@ -282,6 +296,7 @@ class UserController extends Controller
                     'jalan' => $user->jalan,
                     'kelurahan' => $user->kelurahan,
                     'kecamatan' => $user->kecamatan,
+                    'sesi' => ($user->jeda_presensi) ? $user->jeda_presensi->nama : ''
                 ];
             }
         }

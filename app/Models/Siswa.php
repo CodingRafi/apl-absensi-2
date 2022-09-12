@@ -52,6 +52,10 @@ class Siswa extends Model
         });
     }
 
+    public function jeda_presensi(){
+        return $this->belongsTo(JedaPresensi::class);
+    }
+
     public static function filterDate($date){
         $explode_date;
         if (gettype($date) == 'string') {

@@ -29,6 +29,7 @@ class SiswaSeeder extends Seeder
             'kelurahan' => 'ase',
             'kecamatan' => 'asda',
             'sekolah_id' => 1,
+            'jeda_presensi_id' => 2
         ]);
     }
 }

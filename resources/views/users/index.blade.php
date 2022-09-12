@@ -54,6 +54,7 @@
                         <th scope="col">Mapel</th>
                         @endif
                         <th scope="col">NIP</th>
+                        <th scope="col">Sesi</th>
                         <th scope="col">Jenis Kelamin</th>
                         <th scope="col">Tempat Lahir</th>
                         <th scope="col">Tanggal Lahir</th>
@@ -88,6 +89,11 @@
                         </td>
                         @endif
                         <td>{{ $user->nip }}</td>
+                        @if ($user->jeda_presensi)
+                        <td>{{ $user->jeda_presensi->nama }}</td>
+                        @else
+                        <td></td>
+                        @endif
                         <td>{{ $user->jk }}</td>
                         <td>{{ $user->tempat_lahir }}</td>
                         <td>{{ $user->tanggal_lahir }}</td>

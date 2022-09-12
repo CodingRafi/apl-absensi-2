@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Run the migdarations.
      *
      * @return void
      */
@@ -24,6 +24,7 @@ return new class extends Migration
             $table->date('tanggal_lahir')->nullable();
             $table->foreignId('kelas_id')->constrained();
             $table->foreignId('kompetensi_id')->nullable()->constrained();
+            $table->foreignId('jeda_presensi_id')->constrained();
             $table->string('nik');
             $table->string('agama');
             $table->string('jalan');
