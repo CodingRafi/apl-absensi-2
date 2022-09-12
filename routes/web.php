@@ -29,6 +29,9 @@ use App\Http\Controllers\AbsensiPelajaranController;
 */
 
 
+Route::get('/register', function() {
+    return view('myauth.register');
+});
 Route::post('/sekolah-create', [App\Http\Controllers\User\SekolahController::class, 'store']);
 
 Route::group(['middleware' => ['auth']], function() {
@@ -116,9 +119,6 @@ require __DIR__.'/auth.php';
 //     return view('myauth.forgot-password');
 // });
 
-// Route::get('/register', function() {
-//     return view('myauth.register');
-// });
 
 // Route::get('/input-absensi', function() {
 //     return view('absensipelajaran.input');

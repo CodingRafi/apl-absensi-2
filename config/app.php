@@ -169,6 +169,7 @@ return [
          */
         Spatie\Permission\PermissionServiceProvider::class,
         LaraIzitoast\LaraIzitoastServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -192,6 +193,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
