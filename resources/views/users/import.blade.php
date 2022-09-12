@@ -17,6 +17,19 @@
                 <label for="formFile" class="form-label">Pilih File</label>
                 <input class="form-control" type="file" id="formFile" style="height: 37px" name="file" required>
             </div>
+            <div class="mb-3 mt-4">
+                <label for="formFile" class="form-label">Sesi</label>
+                <select class="form-select @error('jeda_presensi_id') is-invalid @enderror" name="jeda_presensi_id" value="{{ old('jeda_presensi_id') }}" required>
+                  @foreach ($jedas as $jeda)
+                  <option value="{{ $jeda->id }}">{{ $jeda->nama }} ({{ explode(':', $jeda->jam_masuk)[0] }}:{{ explode(':', $jeda->jam_masuk)[1] }} sd {{ explode(':', $jeda->jam_pulang)[0] }}:{{ explode(':', $jeda->jam_pulang)[1] }})</option>
+                  @endforeach
+                </select>
+                @error('jeda_presensi_id')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
+            </div>
             <button class="btn btn-sm text-white font-weight-bold px-3" style="background-color: #3bae9c" type="submit">Import</button>
         </form>
     </div>

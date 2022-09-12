@@ -44,6 +44,19 @@
                 </select>
             </div>
             @endif
+            <div class="mb-3 mt-4">
+                <label for="formFile" class="form-label">Sesi</label>
+                <select class="form-select @error('jeda_presensi_id') is-invalid @enderror" name="jeda_presensi_id" value="{{ old('jeda_presensi_id') }}" required>
+                  @foreach ($jedas as $jeda)
+                  <option value="{{ $jeda->id }}">{{ $jeda->nama }}</option>
+                  @endforeach
+                </select>
+                @error('jeda_presensi_id')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
+              </div>
             <button class="btn btn-sm text-white font-weight-bold px-3" style="background-color: #3bae9c" type="submit">Import</button>
         </form>
         @else
