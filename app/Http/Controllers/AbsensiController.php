@@ -10,11 +10,13 @@ use App\Models\Kompetensi;
 use App\Models\Siswa;
 use App\Models\Agenda;
 use App\Models\Rfid;
+use App\Exports\AbsensiExport;
 use App\Http\Requests\StoreAbsensiRequest;
 use App\Http\Requests\UpdateAbsensiRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Rap2hpoutre\FastExcel\FastExcel;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AbsensiController extends Controller
 {
@@ -272,10 +274,11 @@ class AbsensiController extends Controller
     }
 
     public function export(Request $request){
+        $role = request('role');
         $now = Carbon::now();
-        $date=[];
         $month = request('idb') ?? $now->month;
         $year = $now->year;
+        $date=[];
         
         for($d=0; $d<=32; $d++)
         {
@@ -287,29 +290,19 @@ class AbsensiController extends Controller
 
         $absensis = [];
         
-        if($request->role == 'siswa'){
+        if($role == 'siswa'){
             $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
-            $kelas_filter = Kelas::where('tahun_ajaran_id', $tahun_ajaran->id)->get();
-            $kompetensis = Kompetensi::where('sekolah_id', \Auth::user()->sekolah_id)->get();
-
-            $siswas = Siswa::filter(request(['idk', 'idj', 'search']))->select('siswas.*', 'kelas.nama as kelas', 'kompetensis.kompetensi as jurusan')->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->get();
-
-            $datas = [];
-            foreach ($siswas as $key => $siswa) {
-                $absensis[] = Absensi::get_absensi($siswa, $date);
+            if($tahun_ajaran){
+                $siswas = Siswa::filter(request(['idk', 'idj', 'search']))->select('siswas.*', 'kelas.nama as kelas', 'kompetensis.kompetensi as jurusan')->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->get();
+                foreach ($siswas as $key => $siswa) {
+                    $absensis[] = Absensi::get_absensi($siswa, $date, $role);
+                }
+            }else{
+                $absensis = [];
+                $siswas = [];
             }
-
-            foreach ($absensis as $key => $absensi) {
-                $datas = [
-                    'name' => $siswas[$key]->name,
-                ];
-
-                $finalArray = array_merge($datas, $absensi);
-                dd($finalArray);
-            }
-
-
-            return (new FastExcel($finalArray))->download('absensi.xlsx');
+            
+            return Excel::download(new AbsensiExport($role, $absensis, $siswas, null, $date), 'absensi.xlsx');
         }else{
             $users_query = User::filter(request(['search']))->where('sekolah_id', \Auth::user()->sekolah_id)->get();
             $users = [];
@@ -321,14 +314,10 @@ class AbsensiController extends Controller
             }
 
             foreach ($users as $key => $user) {
-                $absensis[] = Absensi::get_absensi_siswa($user, $date);
+                $absensis[] = Absensi::get_absensi($user, $date, $role);
             }
 
-            return view('absensi', [
-                'role' => $role,
-                'date' => $date,
-                'absensis' => $absensis
-            ]);
+            return Excel::download(new AbsensiExport($role, $absensis, null, $users, $date), 'absensi.xlsx');
         }
     }
 }

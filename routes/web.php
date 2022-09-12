@@ -29,6 +29,9 @@ use App\Http\Controllers\AbsensiPelajaranController;
 */
 
 
+Route::get('/register', function() {
+    return view('myauth.register');
+});
 Route::post('/sekolah-create', [App\Http\Controllers\User\SekolahController::class, 'store']);
 
 Route::group(['middleware' => ['auth']], function() {
@@ -114,10 +117,6 @@ Route::get('/create-agenda-siswa', function() {
 
 Route::get('/forgot-password', function() {
     return view('myauth.forgot-password');
-});
-
-Route::get('/register', function() {
-    return view('myauth.register');
 });
 
 Route::get('/input-absensi', function() {
