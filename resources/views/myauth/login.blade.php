@@ -30,15 +30,16 @@
             <div class="auth-form-light text-left py-5 px-4 px-sm-5" style="border-radius: 1rem; box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.276)">
               <form action="/login" method="POST" style="width: 100%;">
                 @csrf
+                <input type="hidden" class="role" name="role" id="">
                 <div class="container p-0">
                     <h1 class="mb-3" style="color: #263238;">Masuk</h1>
                     <div class="mb-3">
                         <select class="form-select select-pilihan text-dark" aria-label="Default select example" style="width: 100%; height: 7vh; border: 1px solid rgb(205, 205, 205); border-radius: 5px">
                             <option value="belum" selected>Masuk Sebagai</option>
-                            <option value="karyawan">Karyawan</option>
-                            <option value="admin_sekolah">Admin Sekolah</option>
-                            <option value="yayasan">Yayasan</option>
-                            <option value="super">Super Admin</option>
+                            @foreach ($roles as $role)
+                            <option value="" style="text-transform: capitalize;">{{ str_replace("_", " ", $role->name) }}</option>
+                            @endforeach              
+                            <option value="siswa">Siswa</option>
                         </select>
                     </div>
                     <div class="mb-3 div-email">
@@ -48,7 +49,11 @@
                     </div>
                     <div class="mb-3 div-nip" style="display: none;">
                         <label for="nip" class="form-label">NIP</label>
-                        <input type="text" class="form-control input-nip" id="npsn" placeholder="NIP" name="login">
+                        <input type="number" class="form-control input-nip" id="nip" placeholder="NIP" name="login">
+                    </div>
+                    <div class="mb-3 div-nipd" style="display: none;">
+                        <label for="nipd" class="form-label">NIPD</label>
+                        <input type="number" class="form-control input-nipd" id="nipd" placeholder="NIPD" name="login">
                     </div>
                     <div class="mb-3 form-password-toggle">
                         <label class="form-label" for="password">Password</label>
@@ -101,38 +106,44 @@
 
   {{-- js login --}}
   <script>
+      const inputValue = document.querySelector('.role');
       const inputEmail = document.querySelector('.input-email');
-      const inputNpsn = document.querySelector('.input-nip'); 
       const divEmail = document.querySelector('.div-email');
-      const divNpsn = document.querySelector('.div-nip');
+      const inputNip = document.querySelector('.input-nip'); 
+      const divNip = document.querySelector('.div-nip');
+      const inputNipd = document.querySelector('.input-nipd'); 
+      const divNipd = document.querySelector('.div-nipd');
       const inputPassword = document.querySelector('.input-password');
       const tombolMasuk = document.querySelector('.tombol-masuk');
+      const selectPilihan = document.querySelector('.select-pilihan');
       let sebelum;
 
-      const selectPilihan = document.querySelector('.select-pilihan');
-      selectPilihan.addEventListener('change', function(){
+      selectPilihan.addEventListener('change', function(e){
+        inputValue.value = e.target.value
         if (selectPilihan.value == 'belum') {
-          if(sebelum == 'karyawan'){
-            inputNpsn.setAttribute('disabled', 'disabled');
+          if(sebelum == 'siswa'){
+            inputNipd.setAttribute('disabled', 'disabled');
             inputPassword.setAttribute('disabled', 'disabled');
           }else{
             inputPassword.setAttribute('disabled', 'disabled');
             inputEmail.setAttribute('disabled', 'disabled');
           }
           tombolMasuk.setAttribute('disabled', 'disabled')
-        } else if (selectPilihan.value != 'belum' && selectPilihan.value == 'karyawan') {
+        }else if(selectPilihan.value != 'belum' && selectPilihan.value == 'siswa') {
           inputEmail.setAttribute('disabled', 'disabled');
           divEmail.style.display = 'none';
-          inputNpsn.removeAttribute('disabled');
-          divNpsn.style.display = 'block';
+          inputNipd.removeAttribute('disabled');
+          divNipd.style.display = 'block';
           inputPassword.removeAttribute('disabled');
-          sebelum = 'karyawan';
+          sebelum = 'siswa';
           tombolMasuk.removeAttribute('disabled');
         }else{
           inputEmail.removeAttribute('disabled');
           divEmail.style.display = 'block';
-          inputNpsn.setAttribute('disabled', 'disabled');
-          divNpsn.style.display = 'none';
+          inputNip.setAttribute('disabled', 'disabled');
+          divNip.style.display = 'none';
+          inputNipd.setAttribute('disabled', 'disabled');
+          divNipd.style.display = 'none';
           inputPassword.removeAttribute('disabled');
           sebelum = 'lainnya';
           tombolMasuk.removeAttribute('disabled');
