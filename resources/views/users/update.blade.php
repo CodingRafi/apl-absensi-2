@@ -1,5 +1,38 @@
 @extends('mylayouts.main')
 
+@section('tambahcss')
+    <link rel="stylesheet" href="/css/fstdropdown.css">
+
+    <style>
+        .nav-pills .show>.nav-link {
+            background-color: transparent !important;
+        }
+
+        .dropdown-menu.show {
+            top: .4rem !important;
+            left: -8rem !important;
+        }
+
+        .fstdropdown>.fstlist {
+            min-height: 10rem !important;
+        }
+
+        /* .fstAll {
+            display: none !important;
+        } */
+
+        /* .fstsearch{
+          border: 1px solid rgb(205, 205, 205);
+          margin: 0.5rem;
+          width: 54rem;
+        } */
+
+        .nama-koleksi {
+            font-size: 16px;
+        }
+    </style>
+@endsection
+
 @section('container')
 <div class="card">
   <div class="card-body">
@@ -52,19 +85,19 @@
       @if ($role == 'guru')
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Mapel</label>
-        <select class="form-control" aria-label="Default select example" name="mapel[]" multiple required>
+        <select class="fstdropdown-select" name="mapel[]" style="height: 5rem" required multiple>
           @foreach ($mapels as $mapel)
-          @if (count($user->mapel) > 0)
-          @foreach ($user->mapel as $mapel_pilih)
-          @if ($mapel->id == $mapel_pilih->id)
-          <option value="{{ $mapel->id }}" selected>{{ $mapel->nama }}</option>
-          @else
-          <option value="{{ $mapel->id }}">{{ $mapel->nama }}</option>
-          @endif
-          @endforeach
-          @else
-          <option value="{{ $mapel->id }}">{{ $mapel->nama }}</option>
-          @endif
+            @if (count($user->mapel) > 0)
+              @foreach ($user->mapel as $mapel_pilih)
+                @if ($mapel->id == $mapel_pilih->id)
+                  <option value="{{ $mapel->id }}" selected>{{ $mapel->nama }}</option>
+                @else
+                  <option value="{{ $mapel->id }}">{{ $mapel->nama }}</option>
+                @endif
+              @endforeach
+            @else
+            <option value="{{ $mapel->id }}">{{ $mapel->nama }}</option>
+            @endif
           @endforeach
         </select>
       </div>
@@ -85,7 +118,7 @@
       </div>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Profil</label>
-        <input type="file" class="form-control" name="profil">
+        <input type="file" class="form-control form-control-lg" name="profil" style="height: 6vh">
       </div>
       <div class="mb-3 mt-4">
         <label for="formFile" class="form-label">Sesi</label>
@@ -100,24 +133,24 @@
           </div>
         @enderror
       </div>
-      <div class="">
+      <div>
         <label for="exampleInputEmail1" class="form-label">Status Rfid</label>
       </div>
       <div class="form-check">
         <input class="form-check-input" type="radio" name="status_rfid" id="aktif" {{ ($user->rfid) ?
         ($user->rfid->status == 'aktif') ? 'checked' : '' : '' }} value="on">
-        <label class="form-check-label" for="aktif">
+        <label class="form-check-label" for="aktif" style="margin-left: 0.1rem">
           Aktif
         </label>
       </div>
       <div class="form-check">
         <input class="form-check-input" type="radio" name="status_rfid" id="tidak" {{ ($user->rfid) ?
         ($user->rfid->status == 'tidak') ? 'checked' : '' : '' }} value="tidak">
-        <label class="form-check-label" for="tidak">
+        <label class="form-check-label" for="tidak" style="margin-left: 0.1rem">
           Tidak
         </label>
       </div>
-      <div class="mb-3">
+      <div class="mt-3 mb-3">
         <label for="exampleInputEmail1" class="form-label">Rfid</label>
         <input type="hidden" name="id_rfid" value="{{ ($user->rfid) ? $user->rfid->id : '' }}">
         <input type="text" class="form-control" placeholder="Masukan Rfid" name="rfid"
@@ -127,8 +160,15 @@
         <label for="exampleInputEmail1" class="form-label">Profil</label>
         <input type="file" class="form-control" name="profil">
       </div> --}}
-      <button type="submit" class="btn text-white font-weight-bold" style="background-color: #3bae9c">Simpan</button>
+      <button type="submit" class="btn text-white" style="background-color: #3bae9c">Simpan</button>
     </form>
   </div>
 </div>
+@endsection
+
+@section('tambahjs')
+<script src="/js/fstdropdown.js"></script>
+    <script>
+        setFstDropdown();
+    </script>
 @endsection
