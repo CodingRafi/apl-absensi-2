@@ -151,7 +151,7 @@
                 </thead>
                 <tbody>
                     @foreach ($siswas as $student)
-                    <tr>
+                    <tr class="text-center">
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>
                             @if ($student->profil != '/img/profil.png')

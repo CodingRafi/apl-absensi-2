@@ -24,11 +24,31 @@
                 </select>
             </div>
             <div class="mb-3 ml-4">
-                <input class="form-check-input" type="checkbox" name="status" checked>
-                <label class="form-label">Status</label>
+                <input class="form-check-input" type="checkbox" name="status" onclick="isChecked()">
+                <label class="form-label message">Tidak Aktif</label>
             </div>
             <button type="submit" class="btn text-white" style="background-color: #3bae9c">Simpan</button>
         </form>
     </div>
 </div>
+
+@section('tambahjs')
+    <script>
+
+        function isChecked(){
+            if(document.querySelector('.form-check-input').
+            checked){
+                document.querySelector('.message').
+                textContent = 'Aktif';
+            }else{
+                document.querySelector('.message').
+                textContent = 'Tidak Aktif';
+            }
+        }
+
+
+    </script>
+
+@endsection
+
 @endsection
