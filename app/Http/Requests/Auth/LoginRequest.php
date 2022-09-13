@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
+use App\Models\Siswa;
 use Illuminate\Support\Facades\Hash;
 
 class LoginRequest extends FormRequest
@@ -33,6 +34,7 @@ class LoginRequest extends FormRequest
         return [
             'login' => ['required', 'string'],
             'password' => ['required', 'string'],
+            'role' => ['required', 'string']
         ];
     }
 
@@ -47,19 +49,35 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        $user = User::where('email', $this->login)
-                ->orWhere('nip', $this->login)
-                ->first();
+        if ($this->role != 'siswa') {
+            $user = User::where('email', $this->login)
+                    ->orWhere('nip', $this->login)
+                    ->first();
 
-        if (!$user || !Hash::check($this->password, $user->password)) {
-            RateLimiter::hit($this->throttleKey());
+            if (!$user || !Hash::check($this->password, $user->password)|| !$user->hasRole($this->role)) {
+                RateLimiter::hit($this->throttleKey());
+    
+                throw ValidationException::withMessages([
+                    'message' => 'Login Gagal',
+                ]);
+                
+            }
 
-            throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
-            ]);
+            Auth::login($user, $this->boolean(key: 'remember'));
+        }else{
+            $siswa = Siswa::where('nipd', $this->login)->first();
+
+            if (!$siswa || !Hash::check($this->password, $siswa->password)) {
+                RateLimiter::hit($this->throttleKey());
+    
+                throw ValidationException::withMessages([
+                    'message' => 'Login Gagal',
+                ]);
+            }
+
+            Auth::login($siswa, $this->boolean(key: 'remember'));
         }
 
-        Auth::login($user, $this->boolean(key: 'remember'));
         RateLimiter::clear($this->throttleKey());
     }
 
