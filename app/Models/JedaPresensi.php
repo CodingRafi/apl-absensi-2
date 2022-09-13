@@ -19,7 +19,7 @@ class JedaPresensi extends Model
         return $this->belongsTo(\Spatie\Permission\Models\Role::class);
     }
 
-    public function siswa(){
+    public function siswa_relasi(){
         return $this->hasMany(Siswa::class);
     }
 
