@@ -4,13 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\Siswa as Authenticatable;
 use Carbon\Carbon;
+use Spatie\Permission\Traits\HasRoles;
 
-class Siswa extends Model
+class Siswa extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory,HasRoles;
 
     protected $guarded = ['id'];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 
     public function kelas(){
         return $this->belongsTo(Kelas::class);

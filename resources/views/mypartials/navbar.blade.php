@@ -1,3 +1,4 @@
+{{-- @dd( Auth::user() ) --}}
 <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
         <form action="/" method="get">
@@ -33,7 +34,7 @@
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
             <span class="icon-menu"></span>
         </button>
-        @if ( Auth::user()->hasRole('admin') )  
+        @if ( !Auth::user()->hasRole('super_admin') && !Auth::user()->nisn && !Auth::user()->nipd)  
             @if (count($tahun_ajarans) > 0)    
             <div class="dropdown">
                 <button class="btn dropdown-toggle ml-3" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"

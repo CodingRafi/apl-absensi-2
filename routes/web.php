@@ -34,7 +34,7 @@ Route::get('/register', function() {
 });
 Route::post('/sekolah-create', [App\Http\Controllers\User\SekolahController::class, 'store']);
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth:web,websiswa']], function() {
     Route::get('/', [DashboardController::class, 'index']);
     Route::resource('roles', RoleController::class);
     Route::resource('kompetensi', KompetensiController::class);

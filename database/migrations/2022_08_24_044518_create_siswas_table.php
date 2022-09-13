@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('nisn');
             $table->string('nipd');
+            $table->string('password')->default('$2a$12$EJoe7nRx6rAnP6nwwVGzrOvKIyMVS6svFk5/vZMCvufgr2IMBQtuS');
             $table->enum('jk', ['L', 'P'])->nullable();
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir')->nullable();

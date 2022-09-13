@@ -156,6 +156,7 @@
             </form>
         </li>
         @endif
+        @if (auth()->user()->can('view_jeda_presensi') || auth()->user()->can('add_jeda_presensi') || auth()->user()->can('edit_jeda_presensi') || auth()->user()->can('delete_jeda_presensi'))    
         <li class="nav-item" style="border-radius: 10px">
             <form action="/tenggat" method="get">
                 @include('mypartials.tahunajaran')
@@ -164,5 +165,6 @@
                         class="bi bi-calendar-week menu-icon"></i> Jeda Presensi</button>
             </form>
         </li>
+        @endif
     </ul>
 </nav>
