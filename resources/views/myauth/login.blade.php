@@ -28,6 +28,7 @@
         <div class="row w-100 mx-0">
           <div class="col-lg-6 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5" style="border-radius: 1rem; box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.276)">
+              <x-auth-validation-errors class="mb-4" :errors="$errors" />
               <form action="/login" method="POST" style="width: 100%;">
                 @csrf
                 <input type="hidden" class="role" name="role" id="">
@@ -37,7 +38,7 @@
                         <select class="form-select select-pilihan text-dark" aria-label="Default select example" style="width: 100%; height: 7vh; border: 1px solid rgb(205, 205, 205); border-radius: 5px">
                             <option value="belum" selected>Masuk Sebagai</option>
                             @foreach ($roles as $role)
-                            <option value="" style="text-transform: capitalize;">{{ str_replace("_", " ", $role->name) }}</option>
+                            <option value="{{ $role->name }}" style="text-transform: capitalize;">{{ str_replace("_", " ", $role->name) }}</option>
                             @endforeach              
                             <option value="siswa">Siswa</option>
                         </select>
@@ -124,18 +125,33 @@
           if(sebelum == 'siswa'){
             inputNipd.setAttribute('disabled', 'disabled');
             inputPassword.setAttribute('disabled', 'disabled');
-          }else{
+          }else if(sebelum == 'guru'){
+            inputNip.setAttribute('disabled', 'disabled');
             inputPassword.setAttribute('disabled', 'disabled');
+          }else{
             inputEmail.setAttribute('disabled', 'disabled');
+            inputPassword.setAttribute('disabled', 'disabled');
           }
           tombolMasuk.setAttribute('disabled', 'disabled')
         }else if(selectPilihan.value != 'belum' && selectPilihan.value == 'siswa') {
           inputEmail.setAttribute('disabled', 'disabled');
           divEmail.style.display = 'none';
+          inputNip.setAttribute('disabled', 'disabled');
+          divNip.style.display = 'none';
           inputNipd.removeAttribute('disabled');
           divNipd.style.display = 'block';
           inputPassword.removeAttribute('disabled');
           sebelum = 'siswa';
+          tombolMasuk.removeAttribute('disabled');
+        }else if(selectPilihan.value != 'belum' && selectPilihan.value == 'guru' || selectPilihan.value == 'karyawan'){
+          inputEmail.setAttribute('disabled', 'disabled');
+          divEmail.style.display = 'none';
+          inputNipd.setAttribute('disabled', 'disabled');
+          divNipd.style.display = 'none';
+          inputNip.removeAttribute('disabled');
+          divNip.style.display = 'block';
+          inputPassword.removeAttribute('disabled');
+          sebelum = selectPilihan.value;
           tombolMasuk.removeAttribute('disabled');
         }else{
           inputEmail.removeAttribute('disabled');
