@@ -10,6 +10,13 @@ use App\Http\Requests\UpdateJedaPresensiRequest;
 
 class JedaPresensiController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:view_jeda_presensi|add_jeda_presensi|edit_jeda_presensi|delete_jeda_presensi', ['only' => ['index','store']]);
+         $this->middleware('permission:add_jeda_presensi', ['only' => ['create','store']]);
+         $this->middleware('permission:edit_jeda_presensi', ['only' => ['edit','update']]);
+         $this->middleware('permission:delete_jeda_presensi', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *

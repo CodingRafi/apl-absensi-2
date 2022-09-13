@@ -83,7 +83,8 @@
 @endsection
 
 @section('container')
-@if ( !Auth::user()->hasRole('super_admin') )
+
+@if ( !Auth::user()->hasRole('super_admin') && !Auth::user()->nisn && !Auth::user()->nipd)
 <div class="card mb-3 content1">
     <div class="card-body">
         <div class="title" style="display: flex; justify-content: space-between">
@@ -282,6 +283,8 @@
         </div>
     </div>
 </div>
+@elseif(Auth::user()->nisn && Auth::user()->nipd)
+
 @else
 
 <div class="containerSuper">

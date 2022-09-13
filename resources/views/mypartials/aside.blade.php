@@ -156,6 +156,7 @@
             </form>
         </li>
         @endif
+        @if (auth()->user()->can('view_jeda_presensi') || auth()->user()->can('add_jeda_presensi') || auth()->user()->can('edit_jeda_presensi') || auth()->user()->can('delete_jeda_presensi'))    
         <li class="nav-item" style="border-radius: 10px">
             <form action="/tenggat" method="get">
                 @include('mypartials.tahunajaran')
@@ -163,5 +164,6 @@
                     style="background-color: transparent; border: none; width: 100%;"><i class="bi bi-clock-history menu-icon"></i> <span>Waktu Presensi</span></button>
             </form>
         </li>
+        @endif
     </ul>
 </nav>

@@ -63,7 +63,8 @@ class LoginRequest extends FormRequest
                 
             }
 
-            Auth::login($user, $this->boolean(key: 'remember'));
+            Auth::login($user, $this->boolean('remember'));
+
         }else{
             $siswa = Siswa::where('nipd', $this->login)->first();
 
@@ -74,8 +75,8 @@ class LoginRequest extends FormRequest
                     'message' => 'Login Gagal',
                 ]);
             }
-
-            Auth::login($siswa, $this->boolean(key: 'remember'));
+            
+            dd(Auth::guard('websiswa')->login($siswa, $this->boolean('remember')));
         }
 
         RateLimiter::clear($this->throttleKey());

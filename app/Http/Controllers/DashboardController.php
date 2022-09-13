@@ -12,7 +12,6 @@ use Spatie\Permission\Models\Role;
 class DashboardController extends Controller
 {
     public function index(Request $request){ 
-        
         if (\Auth::user()->hasRole('super_admin')) {
             $roles = Role::all();
             $sekolah = Sekolah::all()->count();
@@ -24,7 +23,9 @@ class DashboardController extends Controller
                 'tahun_ajarans' => $tahun_ajarans
             ]);
 
-        } else {
+        }else if(\Auth::user()->nisn && \Auth::user()->nipd){
+            return view('dashboard');
+        }else {
             $sekolah = \Auth::user()->sekolah;
             $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
 
@@ -56,6 +57,7 @@ class DashboardController extends Controller
                 return view('dashboard');
             }
         }
+
         
 
     }

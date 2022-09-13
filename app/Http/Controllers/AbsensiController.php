@@ -22,10 +22,11 @@ class AbsensiController extends Controller
 {
     function __construct()
     {
-        //  $this->middleware('permission:view_absensi|add_absensi|edit_absensi|delete_absensi', ['only' => ['index','store']]);
-        //  $this->middleware('permission:add_absensi', ['only' => ['create','store']]);
-        //  $this->middleware('permission:edit_absensi', ['only' => ['edit','update']]);
-        //  $this->middleware('permission:delete_absensi', ['only' => ['destroy']]);
+         $this->middleware('permission:view_absensi|add_absensi|edit_absensi|delete_absensi', ['only' => ['index','store']]);
+         $this->middleware('permission:add_absensi', ['only' => ['create','store']]);
+         $this->middleware('permission:edit_absensi', ['only' => ['edit','update']]);
+         $this->middleware('permission:delete_absensi', ['only' => ['destroy']]);
+         $this->middleware('permission:export_absensi', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.
