@@ -104,7 +104,7 @@
                 </div>
 
                 <hr>
-                <h3>User yayasan</h3>
+                <h3>User yayasan (opsional)</h3>
                 <div class="form-group">
                   <label for="nama" class="form-label">Nama</label>
                   <input type="text" class="form-control form-control-lg name-yayasan" placeholder="Nama"
