@@ -57,15 +57,9 @@ class LoginRequest extends FormRequest
             if (!$user || !Hash::check($this->password, $user->password)|| !$user->hasRole($this->role)) {
                 RateLimiter::hit($this->throttleKey());
     
-                if ($this->role == 'guru' || $this->role == 'karyawan') {
-                    throw ValidationException::withMessages([
-                        'message' => 'Terdapat kesalahan pada NIP/Password/Role',
-                    ]);
-                } else {
-                    throw ValidationException::withMessages([
-                        'message' => 'Terdapat kesalahan pada Email/Password/Role',
-                    ]);
-                }
+                throw ValidationException::withMessages([
+                    'message' => 'Login Gagal',
+                ]);
                 
             }
 
@@ -77,7 +71,7 @@ class LoginRequest extends FormRequest
                 RateLimiter::hit($this->throttleKey());
     
                 throw ValidationException::withMessages([
-                    'message' => 'Terdapat Kesalahan pada nipd/password',
+                    'message' => 'Login Gagal',
                 ]);
             }
 
