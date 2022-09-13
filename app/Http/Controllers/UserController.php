@@ -88,7 +88,7 @@ class UserController extends Controller
             'status_rfid' => 'required',
             'profil' => 'mimes:png,jpg,jpeg|file|max:5024'
         ]);
-
+        
         $data = [
             'name' => $request->name,
             'email' => $request->email,

@@ -112,8 +112,23 @@ class JedaPresensiController extends Controller
      * @param  \App\Models\JedaPresensi  $jedaPresensi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(JedaPresensi $jedaPresensi)
+    public function destroy(JedaPresensi $jedaPresensi, $id)
     {
-        //
+        $jedaPresensi = JedaPresensi::findOrFail($id);
+        if ($jedaPresensi->role_id) {
+            foreach ($jedaPresensi->user as $key => $user) {
+                $user->update([
+                    'jeda_presensi_id' => null
+                ]);
+            }
+        } else {
+            foreach ($jedaPresensi->siswa_relasi as $key => $siswa) {
+                $siswa->update([
+                    'jeda_presensi_id' => null
+                ]);
+            }
+        }
+        
+        return TahunAjaran::redirectTahunAjaran('/tenggat', $request, 'Tenggat Waktu Berhasil Dihapus');
     }
 }
