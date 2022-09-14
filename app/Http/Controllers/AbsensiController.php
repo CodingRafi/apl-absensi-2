@@ -322,9 +322,58 @@ class AbsensiController extends Controller
         }
     }
 
-    public function showAbsensi(){
+    public function showAbsensi(Request $request){
         if (\Auth::user()->can('show_absensi') || \Auth::user()->getTable() == 'siswas') {
-            dd('ok');
+            $now = Carbon::now();
+            $month = request('idb') ?? $now->month;
+            $year = $now->year;
+            $date=[];
+            $role;
+            
+            for($d=0; $d<=32; $d++)
+            {
+                $time=mktime(24, 0, 0, $month, $d, $year);  
+                if (date('m', $time)==$month)       
+                $date[]=date('Y-m-d', $time);
+                // $date[]=date('Y-m-d-D', $time);
+            }
+
+            $absensis = [];
+            
+            if( \Auth::user()->getTable() == 'siswas' ){
+                $role = 'siswa';
+                $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+                if($tahun_ajaran){
+                    $siswas = Siswa::filter(request(['idk', 'idj', 'search']))->select('siswas.*', 'kelas.nama as kelas', 'kompetensis.kompetensi as jurusan')->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->where('siswas.id', \Auth::user()->id)->get();
+                    foreach ($siswas as $key => $siswa) {
+                        $absensis[] = Absensi::get_absensi($siswa, $date, $role);
+                    }
+                }else{
+                    $absensis = [];
+                    $siswas = [];
+                }
+                
+                return view('show_absensi', [
+                    'role' => $role,
+                    'date' => $date,
+                    'absensis' => $absensis,
+                    'siswas' => $siswas
+                ]);
+            }else{
+                $role = 'users';
+                $users = User::where('sekolah_id', \Auth::user()->sekolah_id)->where('id', \Auth::user()->id)->get();
+
+                foreach ($users as $key => $user) {
+                    $absensis[] = Absensi::get_absensi($user, $date, $role);
+                }
+
+                return view('show_absensi', [
+                    'role' => $role,
+                    'date' => $date,
+                    'users' => $users,
+                    'absensis' => $absensis
+                ]);
+            }
         }else{
             abort(403);
         }

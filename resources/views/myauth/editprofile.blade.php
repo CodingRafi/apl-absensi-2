@@ -23,7 +23,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control input-email" id="email" placeholder="name@example.com" name="key" style="width: 100%; height: 7vh;" value="{{ Auth::user()->email }}" required>
+                    <input type="email" class="form-control input-email" id="email" placeholder="name@example.com" name="email" style="width: 100%; height: 7vh;" value="{{ Auth::user()->email }}" required>
                 </div>
                 <div class="mt-3">
                     <button type="submit" class="btn btn-block btn-lg text-white auth-form-btn p-1" style="background-color: #3bae9c; font-size: 20px">Simpan</button>

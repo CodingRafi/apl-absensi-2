@@ -62,6 +62,15 @@
         <input type="number" class="form-control" placeholder="Masukan NIP" name="nip" value="{{ $user->nip }}">
       </div>
       <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email</label>
+        <input type="email" class="form-control @error('email') is-invalid @enderror" placeholder="example@gmail.com" name="email" value="{{old('email')}}" required>
+        @error('email')
+          <div class="invalid-feedback">
+            {{ $message }}
+          </div>
+        @enderror
+      </div>
+      <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Tempat Lahir</label>
         <input type="text" class="form-control" placeholder="Masukan Tempat Lahir" name="tempat_lahir"
           value="{{ $user->tempat_lahir }}">

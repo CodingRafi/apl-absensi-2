@@ -44,7 +44,7 @@
               </div>
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Password</label>
-                <input type="text" class="form-control" name="password" value="*123456*" disabled required>
+                <input type="text" class="form-control" value="*123456*" disabled>
               </div>
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">NISN</label>

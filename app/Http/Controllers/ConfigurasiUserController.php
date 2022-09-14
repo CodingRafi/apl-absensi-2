@@ -49,16 +49,14 @@ class ConfigurasiUserController extends Controller
 
         \DB::table($table)->where('id', \Auth::user()->id)->update($validatedData);
 
-        if ($table == 'users') {
-            if ($request->email != $user->email) {
-                \Auth::guard('web')->logout();
-    
-                $request->session()->invalidate();
-    
-                $request->session()->regenerateToken();
-    
-                return redirect('/');
-            }
+        if ($request->email != $user->email) {
+            \Auth::guard('web')->logout();
+
+            $request->session()->invalidate();
+
+            $request->session()->regenerateToken();
+
+            return redirect('/');
         }
 
         return TahunAjaran::redirectTahunAjaran('/user-settings', $request, 'Profil Berhasil Diupdate');

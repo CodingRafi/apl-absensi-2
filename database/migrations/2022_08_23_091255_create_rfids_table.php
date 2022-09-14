@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('rfid_number')->unique();
             $table->foreignId('user_id')->constrined()->nullable();
             $table->foreignId('siswa_id')->constrined()->nullable();
-            $table->enum('status', ['aktif', 'tidak']);
+            $table->enum('status', ['aktif', 'tidak'])->default('tidak');
             $table->timestamps();
         });
     }

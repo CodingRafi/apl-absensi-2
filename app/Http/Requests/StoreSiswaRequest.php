@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreSiswaRequest extends FormRequest
 {
@@ -27,6 +28,7 @@ class StoreSiswaRequest extends FormRequest
             'name' => 'required',
             'nisn' => 'required',
             'nipd' => 'required|unique:siswas',
+            'email' => ['required', Rule::unique(\Auth::user()->getTable()), Rule::unique((\Auth::user()->getTable() == 'users') ? 'siswas' : 'users')],
             'nik' => 'required',
             'jk' => 'required',
             'tempat_lahir' => 'required',

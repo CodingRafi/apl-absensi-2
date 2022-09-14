@@ -74,7 +74,7 @@ class UserController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required',
-            'email' => 'required|unique:users',
+            'email' => ['required', Rule::unique(\Auth::user()->getTable()), Rule::unique((\Auth::user()->getTable() == 'users') ? 'siswas' : 'users')],
             'password' => 'required', 
             'nip' => 'required|unique:users', 
             'jk' => 'required', 
@@ -103,7 +103,8 @@ class UserController extends Controller
             'kelurahan' => $request->kelurahan, 
             'kecamatan' => $request->kecamatan,
             'sekolah_id' => \Auth::user()->sekolah_id,
-            'jeda_presensi_id' => $request->jeda_presensi_id
+            'jeda_presensi_id' => $request->jeda_presensi_id,
+            'email' => $request->email
         ];
 
         if($request->profil){
@@ -176,7 +177,8 @@ class UserController extends Controller
             'kecamatan' => 'required', 
             'role' => 'required',
             'profil' => 'mimes:png,jpg,jpeg|file|max:5024',
-            'jeda_presensi_id' => 'required'
+            'jeda_presensi_id' => 'required',
+            'email' => ['required', Rule::unique(\Auth::user()->getTable())->ignore($user->id), Rule::unique((\Auth::user()->getTable() == 'users') ? 'siswas' : 'users')]
         ]);
 
         if ($request->file('profil')) {
