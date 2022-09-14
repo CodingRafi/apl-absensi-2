@@ -44,9 +44,27 @@
                     <div style="margin: 10% auto">
                         <a class="btn" style="width: 20vw; text-align:left; color:white"><i class="bi bi-person-circle"></i> {{ Auth::user()->name }}</a>
                     </div>
-                    <div style="margin: 10% auto">
-                        <a class="btn" style="width: 20vw; text-align:left; color:white"><i class="bi bi-envelope-paper-fill"></i> {{ Auth::user()->email }}</a>
-                    </div>
+                    @if (Auth::user()->getTable() == 'users') 
+                        @if (Auth::user()->hasRole('guru') || Auth::user()->hasRole('karyawan'))
+                            @if (Auth::user()->nip)
+                            <div style="margin: 10% auto">
+                                <a class="btn" style="width: 20vw; text-align:left; color:white"><i class="bi bi-envelope-paper-fill"></i> {{ Auth::user()->nip }}</a>
+                            </div>
+                            @endif
+                        @else
+                            @if ( Auth::user()->email )  
+                            <div style="margin: 10% auto">
+                                <a class="btn" style="width: 20vw; text-align:left; color:white"><i class="bi bi-envelope-paper-fill"></i> {{ Auth::user()->email }}</a>
+                            </div>
+                            @endif
+                        @endif   
+                    @else
+                        @if ( Auth::user()->nipd )  
+                        <div style="margin: 10% auto">
+                            <a class="btn" style="width: 20vw; text-align:left; color:white"><i class="bi bi-envelope-paper-fill"></i> {{ Auth::user()->nipd }}</a>
+                        </div>
+                        @endif
+                    @endif
                 </div>
             </div>
             <div class="kanan" style="min-width: 25vw;">
@@ -55,10 +73,12 @@
                         @include('mypartials.tahunajaran')
                         <button type="submit" class="btn" style=" min-width: 10rem; background-color: white; color:#3bae9c; margin: 1%; text-align:center">Edit My Profile</button>
                     </form>
+                    @if ( Auth::user()->email || Auth::user()->nipd || Auth::user()->nip) 
                     <form action="/ubah-password" method="get">
                         @include('mypartials.tahunajaran')
                         <button type="submit" class="btn" style=" min-width: 10rem; background-color: white; color:#3bae9c; margin: 1%; text-align:center">Ubah Password</button>
                     </form>
+                    @endif
                     <form action="/" method="get">
                         @include('mypartials.tahunajaran')
                         <button type="submit" class="btn" style=" min-width: 10rem; background-color: red; color:#ffffff; margin: 1%; text-align:center">Back</button>

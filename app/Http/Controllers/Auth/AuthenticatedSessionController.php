@@ -29,6 +29,11 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(Request $request)
     {   
+        $request->validate([
+            'login' => 'required',
+            'password' => 'required'
+        ]);
+
         if (Auth::guard('web')->attempt(['email' => $request->login, 'password' => $request->password]) || Auth::guard('web')->attempt(['nip' => $request->login, 'password' => $request->password]) || Auth::guard('websiswa')->attempt(['nipd' => $request->login, 'password' => $request->password])) {
             $request->session()->regenerate();
     

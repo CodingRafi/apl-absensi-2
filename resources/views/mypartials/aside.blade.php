@@ -166,5 +166,15 @@
             </form>
         </li>
         @endif
+        @if (auth()->user()->can('show_absensi') || Auth::user()->getTable() == 'siswas')    
+        <li class="nav-item" style="border-radius: 10px">
+            <form action="/show-absensi" method="get">
+                @include('mypartials.tahunajaran')
+                <button class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}"
+                    style="background-color: transparent; border: none; width: 100%;"><i
+                        class="bi bi-calendar-week menu-icon"></i> Absensi</button>
+            </form>
+        </li>
+        @endif
     </ul>
 </nav>

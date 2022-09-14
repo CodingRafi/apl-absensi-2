@@ -86,7 +86,7 @@ class UserSeeder extends Seeder
             'guard_name' => 'web'
         ]);
 
-        $izinGuru = ['48', '49', '53', '54', '55'];
+        $izinGuru = ['48', '49', '53', '54', '55', '61'];
         $resultGuru = array_map(function($izin){
             return $izin;
         }, $izinGuru);
@@ -128,7 +128,7 @@ class UserSeeder extends Seeder
             'guard_name' => 'web'
         ]);
 
-        $izinKaryaran = [];
+        $izinKaryaran = ['61'];
         $resultKaryawan = array_map(function($izin){
             return $izin;
         }, $izinKaryaran);

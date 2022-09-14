@@ -65,6 +65,7 @@ Route::group(['middleware' => ['auth:web,websiswa']], function() {
     Route::get('/import/users/{role}', [UserController::class, 'import']);
     Route::post('/import/users/{role}', [UserController::class, 'saveimport']);
     Route::get('/export/users/{role}', [UserController::class, 'export']);
+    Route::get('/show-absensi', [AbsensiController::class, 'showAbsensi']);
     Route::resource('absensi', AbsensiController::class);
     Route::get('/user-settings', [ConfigurasiUserController::class, 'index']);
     Route::get('/edit-profile', [ConfigurasiUserController::class, 'editProfil']);

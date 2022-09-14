@@ -26,7 +26,7 @@ class AbsensiController extends Controller
          $this->middleware('permission:add_absensi', ['only' => ['create','store']]);
          $this->middleware('permission:edit_absensi', ['only' => ['edit','update']]);
          $this->middleware('permission:delete_absensi', ['only' => ['destroy']]);
-         $this->middleware('permission:export_absensi', ['only' => ['destroy']]);
+         $this->middleware('permission:export_absensi', ['only' => ['export']]);
     }
     /**
      * Display a listing of the resource.
@@ -319,6 +319,14 @@ class AbsensiController extends Controller
             }
 
             return Excel::download(new AbsensiExport($role, $absensis, null, $users, $date), 'absensi.xlsx');
+        }
+    }
+
+    public function showAbsensi(){
+        if (\Auth::user()->can('show_absensi') || \Auth::user()->getTable() == 'siswas') {
+            dd('ok');
+        }else{
+            abort(403);
         }
     }
 }

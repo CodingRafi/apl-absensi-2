@@ -26,7 +26,7 @@ class StoreSiswaRequest extends FormRequest
         return [
             'name' => 'required',
             'nisn' => 'required',
-            'nipd' => 'required',
+            'nipd' => 'required|unique:siswas',
             'nik' => 'required',
             'jk' => 'required',
             'tempat_lahir' => 'required',
