@@ -34,7 +34,7 @@ class AbsensiController extends Controller
                             $user = $absensi->siswa;
                             $timeUser = $absensi->siswa->jeda_presensi->jam_pulang;
     
-                            if (date('H', $date) >= explode(':', $timeUser)[0] && date('i', $date) >= explode(':', $timeUser)[1]) {
+                            if (date('H', $date) >= explode(':', $timeUser)[0] || date('i', $date) >= explode(':', $timeUser)[1]) {
                                 $absensi->update([
                                     'presensi_pulang' => Carbon::now()
                                 ]);
@@ -55,7 +55,7 @@ class AbsensiController extends Controller
                             $user = $absensi->user;
                             $timeUser = $absensi->user->jeda_presensi->jam_pulang;
     
-                            if (date('H', $date) >= explode(':', $timeUser)[0] && date('i', $date) >= explode(':', $timeUser)[1]) {
+                            if (date('H', $date) >= explode(':', $timeUser)[0] || date('i', $date) >= explode(':', $timeUser)[1]) {
                                 $absensi->update([
                                     'presensi_pulang' => Carbon::now()
                                 ]);
@@ -87,7 +87,7 @@ class AbsensiController extends Controller
                                 $date = strtotime($now);
                                 $timeUser = $rfid->siswa->jeda_presensi->jam_masuk;
     
-                                if (date('H', $date) <= explode(':', $timeUser)[0] && date('i', $date) <= explode(':', $timeUser)[1]) {
+                                if (date('H', $date) <= explode(':', $timeUser)[0] || date('i', $date) <= explode(':', $timeUser)[1]) {
                                     Absensi::create([
                                         'rfid_id' => $rfid->id,
                                         'siswa_id' => $rfid->siswa->id,
@@ -123,7 +123,8 @@ class AbsensiController extends Controller
                                 $date = strtotime($now);
                                 $timeUser = $rfid->user->jeda_presensi->jam_masuk;
     
-                                if (date('H', $date) <= explode(':', $timeUser)[0] && date('i', $date) <= explode(':', $timeUser)[1]) {
+                                return date('H', $date) <= explode(':', $timeUser)[0];
+                                if (date('H', $date) <= explode(':', $timeUser)[0] || date('i', $date) <= explode(':', $timeUser)[1]) {
                                     Absensi::create([
                                         'rfid_id' => $rfid->id,
                                         'user_id' => $rfid->user->id,
@@ -172,7 +173,7 @@ class AbsensiController extends Controller
             }else{
                 return response()->json([
                     'message' => 'Rfid sudah tidak aktif',
-                    'kode_respon' => 4
+                    'kode_respon' => 7
                 ], 200);
             }
         }
