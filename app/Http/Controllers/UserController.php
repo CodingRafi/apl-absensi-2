@@ -9,6 +9,7 @@ use App\Models\Rfid;
 use App\Models\TahunAjaran;
 use App\Models\JedaPresensi;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
 use Rap2hpoutre\FastExcel\FastExcel;
 use Illuminate\Support\Facades\Storage;
@@ -75,7 +76,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required', 
-            'nip' => 'required', 
+            'nip' => 'required|unique:users', 
             'jk' => 'required', 
             'tempat_lahir' => 'required', 
             'tanggal_lahir' => 'required', 
@@ -165,7 +166,7 @@ class UserController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required',
-            'nip' => 'required', 
+            'nip' => ['required', Rule::unique('users')->ignore($user->id)], 
             'jk' => 'required', 
             'tempat_lahir' => 'required', 
             'tanggal_lahir' => 'required', 

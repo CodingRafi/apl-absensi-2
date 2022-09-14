@@ -10,6 +10,7 @@ use App\Models\Kompetensi;
 use App\Models\TahunAjaran;
 use App\Models\JedaPresensi;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Rap2hpoutre\FastExcel\FastExcel;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreSiswaRequest;
@@ -158,8 +159,24 @@ class SiswaController extends Controller
      * @param  \App\Models\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateSiswaRequest $request, Siswa $siswa)
+    public function update(Request $request, Siswa $siswa)
     {
+        $request->validate([
+            'name' => 'required',
+            'nisn' => 'required',
+            'nipd' => ['required', Rule::unique('siswas')->ignore($siswa->id)],
+            'nik' => 'required',
+            'jk' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'kelas_id' => 'required',
+            'agama' => 'required',
+            'jalan' => 'required',
+            'kelurahan' => 'required',
+            'kecamatan' => 'required',
+            'profil' => 'mimes:png,jpg,jpeg|max:5024'
+        ]);
+
         if ($siswa->sekolah_id == \Auth::user()->sekolah_id) {
             $data = [
                 'name' => $request->name,
@@ -196,11 +213,13 @@ class SiswaController extends Controller
                     Rfid::updateRfid($request);
                 }
             }else{
-                Rfid::create([
-                    'rfid_number' => $request->rfid,
-                    'siswa_id' => $siswa->id,
-                    'status' => ($request->status_rfid == 'on') ? 'aktif' : 'tidak'
-                ]);
+                if ($request->rfid) {
+                    Rfid::create([
+                        'rfid_number' => $request->rfid,
+                        'siswa_id' => $siswa->id,
+                        'status' => ($request->status_rfid == 'on') ? 'aktif' : 'tidak'
+                    ]);
+                }
             }
     
             return TahunAjaran::redirectTahunAjaran('/siswa', $request, 'Berhasil Mengupdate Siswa');

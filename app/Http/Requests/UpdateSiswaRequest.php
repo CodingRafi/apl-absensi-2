@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Illuminate\Http\Request;
 
 class UpdateSiswaRequest extends FormRequest
 {
@@ -21,12 +23,13 @@ class UpdateSiswaRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
+        dd($request);
         return [
             'name' => 'required',
             'nisn' => 'required',
-            'nipd' => 'required',
+            'nipd' => ['required', Rule::unique('siswas')->ignore($user->id)],
             'nik' => 'required',
             'jk' => 'required',
             'tempat_lahir' => 'required',

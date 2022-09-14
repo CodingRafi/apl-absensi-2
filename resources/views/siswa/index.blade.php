@@ -131,6 +131,7 @@
                         <th scope="col">NISN</th>
                         <th scope="col">NIPD</th>
                         <th scope="col">Name</th>
+                        <th scope="col">Email</th>
                         <th scope="col">Kelas</th>
                         <th scope="col">Jurusan</th>
                         <th scope="col">JK</th>
@@ -163,6 +164,7 @@
                         <td>{{ $student->nisn }}</td>
                         <td>{{ $student->nipd }}</td>
                         <td>{{ $student->name }}</td>
+                        <td>{{ $student->email }}</td>
                         <td>{{ $student->kelas }}</td>
                         <td>{{ $student->jurusan }}</td>
                         <td>{{ $student->jk }}</td>

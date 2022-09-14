@@ -83,12 +83,27 @@
                         <a class="titik2" style="text-align:left; padding: 0; text-decoration: none; color:white">:</a>
                         <a class="btn" style="text-align:left; max-width: 39vw; color:white;">Rekayasa Perangkat Lunak</a>
                     </div>
-                    <div class="data-profile d-flex align-items-center">
-                        <i class="bi bi-envelope-paper-fill text-white"></i>
-                        <a class="judul" style="text-align:left; min-width: 5vw; text-decoration: none; margin: 10px; color:white">Email</a>
-                        <a class="titik2" style="text-align:left; padding: 0; text-decoration: none; color:white">:</a>
-                        <a class="btn" style="text-align:left; max-width: 39vw; color:white">{{ Auth::user()->email }}</a>
-                    </div>
+                    @if (Auth::user()->getTable() == 'users') 
+                        @if (Auth::user()->hasRole('guru') || Auth::user()->hasRole('karyawan'))
+                            @if (Auth::user()->nip)
+                            <div style="margin: 10% auto">
+                                <a class="btn" style="width: 20vw; text-align:left; color:white"><i class="bi bi-envelope-paper-fill"></i> {{ Auth::user()->nip }}</a>
+                            </div>
+                            @endif
+                        @else
+                            @if ( Auth::user()->email )  
+                            <div style="margin: 10% auto">
+                                <a class="btn" style="width: 20vw; text-align:left; color:white"><i class="bi bi-envelope-paper-fill"></i> {{ Auth::user()->email }}</a>
+                            </div>
+                            @endif
+                        @endif   
+                    @else
+                        @if ( Auth::user()->nipd )  
+                        <div style="margin: 10% auto">
+                            <a class="btn" style="width: 20vw; text-align:left; color:white"><i class="bi bi-envelope-paper-fill"></i> {{ Auth::user()->nipd }}</a>
+                        </div>
+                        @endif
+                    @endif
                 </div>
             </div>
             <div class="kanan" style="min-width: 25vw;">
@@ -97,10 +112,12 @@
                         @include('mypartials.tahunajaran')
                         <button type="submit" class="btn" style=" min-width: 10rem; background-color: white; color:#3bae9c; margin: 2%; text-align:center">Edit Profil Saya</button>
                     </form>
+                    @if ( Auth::user()->email || Auth::user()->nipd || Auth::user()->nip) 
                     <form action="/ubah-password" method="get">
                         @include('mypartials.tahunajaran')
                         <button type="submit" class="btn" style=" min-width: 10rem; background-color: white; color:#3bae9c; margin: 2%; text-align:center">Ubah Password</button>
                     </form>
+                    @endif
                     <form action="/" method="get">
                         @include('mypartials.tahunajaran')
                         <button type="submit" class="btn" style=" min-width: 10rem; background-color: red; color:#ffffff; margin: 2%; text-align:center">Kembali</button>

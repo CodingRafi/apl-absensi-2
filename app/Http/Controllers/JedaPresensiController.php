@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\JedaPresensi;
 use App\Models\TahunAjaran;
+use App\Models\JedaPresensi;
+use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Requests\StoreJedaPresensiRequest;
 use App\Http\Requests\UpdateJedaPresensiRequest;
@@ -119,7 +120,7 @@ class JedaPresensiController extends Controller
      * @param  \App\Models\JedaPresensi  $jedaPresensi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(JedaPresensi $jedaPresensi, $id)
+    public function destroy(Request $request, $id)
     {
         $jedaPresensi = JedaPresensi::findOrFail($id);
         if ($jedaPresensi->role_id) {
@@ -135,6 +136,8 @@ class JedaPresensiController extends Controller
                 ]);
             }
         }
+
+        $jedaPresensi->delete();
         
         return TahunAjaran::redirectTahunAjaran('/tenggat', $request, 'Tenggat Waktu Berhasil Dihapus');
     }

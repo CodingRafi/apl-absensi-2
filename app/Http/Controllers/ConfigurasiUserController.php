@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\User;
+use App\Models\Siswa;
 use App\Models\TahunAjaran;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules;
@@ -20,11 +21,19 @@ class ConfigurasiUserController extends Controller
     }
 
     public function saveProfil(Request $request){
-        $user = User::find(\Auth::user()->id);
+        $user;
+        $table = \Auth::user()->getTable();
+
+        if ($table == 'users') {
+            $user = User::findOrFail(\Auth::user()->id);
+        }else{
+            $user = Siswa::findOrFail(\Auth::user()->id);
+        }
+
         $validatedData = $request->validate([
             'profil' => 'mimes:png,jpg,jpeg|file|max:5024',
             'name' => 'required',
-            'email' =>  ['required', 'email', Rule::unique('users')->ignore($user->id)]
+            'email' =>  ['required', 'email', Rule::unique($table)->ignore($user->id), Rule::unique(($table == 'users') ? 'siswas' : 'users')]
         ]);
 
         if ($request->email != $user->email) {
@@ -38,16 +47,18 @@ class ConfigurasiUserController extends Controller
             $validatedData['profil'] = $request->file('profil')->store('profil');
         }
 
-        \DB::table('users')->where('id', \Auth::user()->id)->update($validatedData);
+        \DB::table($table)->where('id', \Auth::user()->id)->update($validatedData);
 
-        if ($request->email != $user->email) {
-            \Auth::guard('web')->logout();
-
-            $request->session()->invalidate();
-
-            $request->session()->regenerateToken();
-
-            return redirect('/');
+        if ($table == 'users') {
+            if ($request->email != $user->email) {
+                \Auth::guard('web')->logout();
+    
+                $request->session()->invalidate();
+    
+                $request->session()->regenerateToken();
+    
+                return redirect('/');
+            }
         }
 
         return TahunAjaran::redirectTahunAjaran('/user-settings', $request, 'Profil Berhasil Diupdate');
@@ -63,7 +74,15 @@ class ConfigurasiUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
         
-        $user = User::where('email', \Auth::user()->email)->get()->first();
+        $user;
+        $table = \Auth::user()->getTable();
+
+        if ($table == 'users') {
+            $user = User::where('email', \Auth::user()->email)->first();
+        }else{
+            $user = Siswa::where('email', \Auth::user()->email)->first();
+        }
+
         $user->update([
             'password' => \Hash::make($request->password)
         ]);
