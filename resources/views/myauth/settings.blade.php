@@ -54,24 +54,6 @@
                         <a class="btn py-0" style="text-align:left; max-width: 39vw; color:white">{{ Auth::user()->name }}</a>
                     </div>
                     <div class="data-profile d-flex align-items-center">
-                        <i class="bi bi-postcard text-white"></i>
-                        <a class="judul" style="text-align:left; min-width: 5vw; text-decoration: none; margin: 10px; color:white">NIP</a>
-                        <a class="titik2" style="text-align:left; padding: 0; text-decoration: none; color:white">:</a>
-                        <a class="btn" style="text-align:left; max-width: 39vw; color:white">0987654321</a>
-                    </div>
-                    <div class="data-profile d-flex align-items-center">
-                        <i class="bi bi-postcard text-white"></i>
-                        <a class="judul" style="text-align:left; min-width: 5vw; text-decoration: none; margin: 10px; color:white">NISN</a>
-                        <a class="titik2" style="text-align:left; padding: 0; text-decoration: none; color:white">:</a>
-                        <a class="btn" style="text-align:left; max-width: 39vw; color:white">5647382910</a>
-                    </div>
-                    <div class="data-profile d-flex align-items-center">
-                        <i class="bi bi-postcard text-white"></i>
-                        <a class="judul" style="text-align:left; min-width: 5vw; text-decoration: none; margin: 10px; color:white">NIPD</a>
-                        <a class="titik2" style="text-align:left; padding: 0; text-decoration: none; color:white">:</a>
-                        <a class="btn" style="text-align:left; max-width: 39vw; color:white">1234567890</a>
-                    </div>
-                    <div class="data-profile d-flex align-items-center">
                         <i class="bi bi-door-open text-white"></i>
                         <a class="judul" style="text-align:left; min-width: 5vw; text-decoration: none; margin: 10px; color:white">Kelas</a>
                         <a class="titik2" style="text-align:left; padding: 0; text-decoration: none; color:white">:</a>
@@ -86,21 +68,30 @@
                     @if (Auth::user()->getTable() == 'users') 
                         @if (Auth::user()->hasRole('guru') || Auth::user()->hasRole('karyawan'))
                             @if (Auth::user()->nip)
-                            <div style="margin: 10% auto">
-                                <a class="btn" style="width: 20vw; text-align:left; color:white"><i class="bi bi-envelope-paper-fill"></i> {{ Auth::user()->nip }}</a>
+                            <div class="data-profile d-flex align-items-center">
+                                <i class="bi bi-envelope-paper-fill text-white"></i>
+                                <a class="judul" style="text-align:left; min-width: 5vw; text-decoration: none; margin: 10px; color:white">NIP</a>
+                                <a class="titik2" style="text-align:left; padding: 0; text-decoration: none; color:white">:</a>
+                                <a class="btn" style="text-align:left; max-width: 39vw; color:white">{{ Auth::user()->nip }}</a>
                             </div>
                             @endif
                         @else
                             @if ( Auth::user()->email )  
-                            <div style="margin: 10% auto">
-                                <a class="btn" style="width: 20vw; text-align:left; color:white"><i class="bi bi-envelope-paper-fill"></i> {{ Auth::user()->email }}</a>
+                            <div class="data-profile d-flex align-items-center">
+                                <i class="bi bi-envelope-paper-fill text-white"></i>
+                                <a class="judul" style="text-align:left; min-width: 5vw; text-decoration: none; margin: 10px; color:white">Email</a>
+                                <a class="titik2" style="text-align:left; padding: 0; text-decoration: none; color:white">:</a>
+                                <a class="btn" style="text-align:left; max-width: 39vw; color:white">{{ Auth::user()->email }}</a>
                             </div>
                             @endif
                         @endif   
                     @else
                         @if ( Auth::user()->nipd )  
-                        <div style="margin: 10% auto">
-                            <a class="btn" style="width: 20vw; text-align:left; color:white"><i class="bi bi-envelope-paper-fill"></i> {{ Auth::user()->nipd }}</a>
+                        <div class="data-profile d-flex align-items-center">
+                                <i class="bi bi-envelope-paper-fill text-white"></i>
+                                <a class="judul" style="text-align:left; min-width: 5vw; text-decoration: none; margin: 10px; color:white">NIPD</a>
+                                <a class="titik2" style="text-align:left; padding: 0; text-decoration: none; color:white">:</a>
+                            <a class="btn" style="text-align:left; max-width: 39vw; color:white">{{ Auth::user()->nipd }}</a>
                         </div>
                         @endif
                     @endif
