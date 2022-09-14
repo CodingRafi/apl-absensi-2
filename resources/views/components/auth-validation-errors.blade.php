@@ -1,6 +1,5 @@
 @props(['errors'])
 @if ($errors->any())
-@dd($errors->all());
     <div {{ $attributes }}>
         <div class="font-medium text-red-600 alert alert-danger m-0">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">

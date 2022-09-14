@@ -172,7 +172,7 @@ class AbsensiController extends Controller
             }else{
                 return response()->json([
                     'message' => 'Rfid sudah tidak aktif',
-                    'kode_respon' => 4
+                    'kode_respon' => 7
                 ], 200);
             }
         }

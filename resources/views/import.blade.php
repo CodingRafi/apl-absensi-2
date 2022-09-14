@@ -27,6 +27,10 @@
                 <input class="form-control" type="file" id="formFile" style="height: 37px" name="file">
             </div>
             <div class="mb-3 mt-4">
+              <label for="exampleInputEmail1" class="form-label">Password</label>
+              <input type="text" class="form-control" name="password" value="*123456*" style="height: 37px;" disabled required>
+            </div>
+            <div class="mb-3 mt-4">
                 <label for="formFile" class="form-label">Kelas</label>
                 <select class="form-select" name="kelas_id">
                     @foreach ($classes as $kelas)

@@ -34,6 +34,19 @@
                 @enderror
               </div>
               <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email</label>
+                <input type="email" class="form-control @error('email') is-invalid @enderror" placeholder="example@gmail.com" name="email" value="{{old('email')}}" required>
+                @error('email')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Password</label>
+                <input type="text" class="form-control" name="password" value="*123456*" disabled required>
+              </div>
+              <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">NISN</label>
                 <input type="number" class="form-control @error('nisn') is-invalid @enderror" placeholder="Masukan NISN" name="nisn" value="{{old('nisn')}}" required>
                 @error('nisn')
@@ -374,7 +387,7 @@
           <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/>
           </svg>
         </div>
-        <div>Data sesi belum tersedia, silahkan input data sesi pada laman "Jeda Presensi".</div>
+        <div>Data Waktu Presensi belum tersedia, silahkan input data "Waktu Presensi" yang berada di kiri menu.</div>
       </div>
       @endif
     @else
