@@ -39,10 +39,24 @@
               <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
               <form action="/reset" style="width: 100%; margin-top: 5vh">
+                @if ( Auth::user()->getTable() == 'siswas' )    
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control input-email" id="email" placeholder="name@example.com" name="email" style="width: 100%; height: 7vh;" value="{{ Auth::user()->email }}">
+                    <label for="nipd" class="form-label">NIPD</label>
+                    <input type="number" class="form-control input-nipd" id="nipd" placeholder="name@example.com" name="key" style="width: 100%; height: 7vh;" value="{{ Auth::user()->email }}">
                 </div>
+                @else
+                    @if ( Auth::user()->hasRole('karyawan') || Auth::user()->hasRole('guru') )   
+                    <div class="mb-3">
+                        <label for="nip" class="form-label">NIP</label>
+                        <input type="nip" class="form-control input-nip" id="nip" placeholder="name@example.com" name="key" style="width: 100%; height: 7vh;" value="{{ Auth::user()->nip }}">
+                    </div>
+                    @else
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control input-email" id="email" placeholder="name@example.com" name="key" style="width: 100%; height: 7vh;" value="{{ Auth::user()->email }}">
+                    </div>
+                    @endif
+                @endif
                 <div class="mb-3">
                     <label for="nip" class="form-label">NIP</label>
                     <input type="number" class="form-control input-nip" id="nip" placeholder="1234xxxx" name="nip" style="width: 100%; height: 7vh;">

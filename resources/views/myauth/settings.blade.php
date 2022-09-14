@@ -53,18 +53,6 @@
                         <a class="titik2" style="text-align:left; padding: 0; text-decoration: none; color:white">:</a>
                         <a class="btn py-0" style="text-align:left; max-width: 39vw; color:white">{{ Auth::user()->name }}</a>
                     </div>
-                    <div class="data-profile d-flex align-items-center">
-                        <i class="bi bi-door-open text-white"></i>
-                        <a class="judul" style="text-align:left; min-width: 5vw; text-decoration: none; margin: 10px; color:white">Kelas</a>
-                        <a class="titik2" style="text-align:left; padding: 0; text-decoration: none; color:white">:</a>
-                        <a class="btn" style="text-align:left; max-width: 39vw; color:white">XII RPL 2</a>
-                    </div>
-                    <div class="data-profile d-flex align-items-center">
-                        <i class="bi bi-award text-white"></i>
-                        <a class="judul" style="text-align:left; min-width: 5vw; text-decoration: none; margin: 10px; color:white">Jurusan</a>
-                        <a class="titik2" style="text-align:left; padding: 0; text-decoration: none; color:white">:</a>
-                        <a class="btn" style="text-align:left; max-width: 39vw; color:white;">Rekayasa Perangkat Lunak</a>
-                    </div>
                     @if (Auth::user()->getTable() == 'users') 
                         @if (Auth::user()->hasRole('guru') || Auth::user()->hasRole('karyawan'))
                             @if (Auth::user()->nip)
@@ -94,6 +82,18 @@
                             <a class="btn" style="text-align:left; max-width: 39vw; color:white">{{ Auth::user()->nipd }}</a>
                         </div>
                         @endif
+                        <div class="data-profile d-flex align-items-center">
+                            <i class="bi bi-door-open text-white"></i>
+                            <a class="judul" style="text-align:left; min-width: 5vw; text-decoration: none; margin: 10px; color:white">Kelas</a>
+                            <a class="titik2" style="text-align:left; padding: 0; text-decoration: none; color:white">:</a>
+                            <a class="btn" style="text-align:left; max-width: 39vw; color:white">{{ Auth::user()->kelas->nama }}</a>
+                        </div>
+                        <div class="data-profile d-flex align-items-center">
+                            <i class="bi bi-award text-white"></i>
+                            <a class="judul" style="text-align:left; min-width: 5vw; text-decoration: none; margin: 10px; color:white">Jurusan</a>
+                            <a class="titik2" style="text-align:left; padding: 0; text-decoration: none; color:white">:</a>
+                            <a class="btn" style="text-align:left; max-width: 39vw; color:white;">{{ Auth::user()->kompetensi->kompetensi }}</a>
+                        </div>
                     @endif
                 </div>
             </div>

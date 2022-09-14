@@ -24,13 +24,13 @@ class AbsensiController extends Controller
 
         if ($rfid) {
             $absensi = Absensi::where('rfid_id', $rfid->id)->whereDate('presensi_masuk', Carbon::today())->first();
-    
             if ($rfid->status == 'aktif') {
                 if($absensi && $absensi->presensi_pulang === null){
                     $user;
+                    $date = strtotime($now);
                     
                     if($absensi->siswa){
-                        if ($absensi->siswa->jeda_waktu) {
+                        if ($absensi->siswa->jeda_presensi) {
                             $user = $absensi->siswa;
                             $timeUser = $absensi->siswa->jeda_presensi->jam_pulang;
     
@@ -51,8 +51,8 @@ class AbsensiController extends Controller
                             ], 200);
                         }
                     }else{  
-                        if ($absensi->user->jeda_waktu) {
-                            $user = $absensi->user;
+                        if ($absensi->user->jeda_presensi) {
+                            $user = $absensi->user; 
                             $timeUser = $absensi->user->jeda_presensi->jam_pulang;
     
                             if (date('H', $date) >= explode(':', $timeUser)[0] || date('i', $date) >= explode(':', $timeUser)[1]) {
@@ -123,7 +123,6 @@ class AbsensiController extends Controller
                                 $date = strtotime($now);
                                 $timeUser = $rfid->user->jeda_presensi->jam_masuk;
     
-                                return date('H', $date) <= explode(':', $timeUser)[0];
                                 if (date('H', $date) <= explode(':', $timeUser)[0] || date('i', $date) <= explode(':', $timeUser)[1]) {
                                     Absensi::create([
                                         'rfid_id' => $rfid->id,
