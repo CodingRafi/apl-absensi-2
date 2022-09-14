@@ -45,8 +45,7 @@
                     </div>
                     <div class="mb-3 div-email">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control input-email" id="email" placeholder="name@example.com"
-                            name="login" style="width: 100%; height: 7vh;" disabled>
+                        <input type="email" class="form-control input-email" id="email" placeholder="name@example.com" name="login" style="width: 100%; height: 7vh;" disabled>
                     </div>
                     <div class="mb-3 div-nip" style="display: none;">
                         <label for="nip" class="form-label">NIP</label>
@@ -58,7 +57,7 @@
                     </div>
                     <div class="mb-3 form-password-toggle">
                         <label class="form-label" for="password">Password</label>
-                        <input type="password" id="password" class="form-control input-password" name="password" style="width: 100%; height: 7vh; border: 1px solid rgb(205, 205, 205); border-radius: 5px" placeholder="&nbsp;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" disabled>
+                        <input type="password" id="password" class="form-control input-password" name="password" style="width: 100%; height: 7vh; border: 1px solid rgb(205, 205, 205); border-radius: 5px" placeholder="&nbsp;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" disabled> 
                     </div>
                     <div class="mb-3">
                         <div class="container p-0">

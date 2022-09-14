@@ -393,7 +393,7 @@
         <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/>
         </svg>
       </div>
-      <div>Data Jeda Waktu belum tersedia, silahkan input data Jeda Waktu pada laman "Jeda Presensi".</div>
+      <div>Data Waktu Presensi belum tersedia, silahkan input data "Waktu Presensi" yang berada di kiri menu.</div>
     </div>
     @endif
   </div>

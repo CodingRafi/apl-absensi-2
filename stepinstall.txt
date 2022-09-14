@@ -1,0 +1,29 @@
+Langkah-langkah instalasi aplikasi absensi :
+
+1. Fork project Github (yang berada di kanan atas, diantara menu "Watch" dan "Star").
+2. Setelah itu klik tombol "Code" yang berwarna hijau.
+3. Lalu salin link https.
+4. Setelah itu buka file explorer.
+5. Pilih folder untuk tempat menyimpan project.
+6. Klik kanan, lalu klik "Git Bash Here".
+7. Ketik "git clone" lalu paste link https yang sudah di salin tadi.
+   contoh:( git clone https://github.com ), lalu klik enter.
+8. Jika project sudah muncul di folder penyimpanan, langkah selanjutnya adalah masuk ke project tersebut.
+    Lalu klik kanan, dan klik "Git Bash Here".
+9. Jika sudah, lalu ketikan "composer update", lalu klik enter.
+10. Jika sudah selesai, buka text editor kesayangan anda(vscode, sublime dll). Lalu pilih "open folder"
+    project tadi, pilih file ".env.example" dan rename menjadi ".env". 
+11. Setelah itu masuk ke file ".env", lalu ubah isi dari "DB_DATABASE, DB_USERNAME, DB_PASSWORD" sesuai
+    dengan database anda.
+12. Jika sudah, buka terminal pada teks editor. Dengan cara klik menu "terminal" yang berada di kiri atas
+    lalu klik "New Terminal".
+13. Lalu ketik "php artisan key:generate", lalu klik enter.
+14. Jika sudah, buka "vendor/laravel/framework/src/Illuminate/foundation/Auth".
+15. Duplikat file "User.php", lalu rename file hasil duplikat menjadi "Siswa.php".
+16. Jika sudah, buka file "Siswa.php", lalu ubah "class User extends Model implements" menjadi 
+    "class Siswa extends Model implements".
+17. Langkah selanjutnya, buka kembali terminal yang berada di teks editor. Lalu ketik 
+    "php artisan migrate:fresh --seed", lalu klik enter.
+18. Jika sudah, ketik "php artisan serve" untuk menyalakan server.
+19. Jika sudah, salin url yang tertampil.
+20. Lalu paste di browser kesayangan anda(Chrome, Firefox dll), lalu klik enter. 
