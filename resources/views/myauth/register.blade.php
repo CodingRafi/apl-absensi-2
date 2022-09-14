@@ -88,7 +88,7 @@
 
                 <h3>User admin sekolah</h3>
                 <div class="form-group">
-                  <label for="nama" class="form-label">Nama</label>
+                  <label for="nama" class="form-label">Nama admin sekolah</label>
                   <input type="text" class="form-control form-control-lg" placeholder="Nama"
                     name="name" style="border-radius: 5px; width: 100%" value="{{ old('name') }}" required>
                 </div>
@@ -104,9 +104,9 @@
                 </div>
 
                 <hr>
-                <h3>User yayasan</h3>
+                <h3>User yayasan (opsional)</h3>
                 <div class="form-group">
-                  <label for="nama" class="form-label">Nama</label>
+                  <label for="nama" class="form-label">Nama yayasan</label>
                   <input type="text" class="form-control form-control-lg name-yayasan" placeholder="Nama"
                     name="name_yayasan" style="border-radius: 5px; width: 100%" value="{{ old('name_yayasan') }}">
                 </div>

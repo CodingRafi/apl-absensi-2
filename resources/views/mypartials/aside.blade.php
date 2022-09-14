@@ -151,8 +151,8 @@
             <form action="/presensi-pelajaran" method="get">
                 @include('mypartials.tahunajaran')
                 <button class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}"
-                    style="background-color: transparent; border: none; width: 100%;"><i
-                        class="bi bi-calendar-week menu-icon"></i> Presensi Pelajaran</button>
+                    style="background-color: transparent; border: none;  width: 100%;">
+                    <i class="bi bi-calendar-week menu-icon"></i> Presensi Pelajaran</button>
             </form>
         </li>
         @endif
@@ -161,8 +161,7 @@
             <form action="/tenggat" method="get">
                 @include('mypartials.tahunajaran')
                 <button class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}"
-                    style="background-color: transparent; border: none; width: 100%;"><i
-                        class="bi bi-calendar-week menu-icon"></i> Jeda Presensi</button>
+                    style="background-color: transparent; border: none; width: 100%;"><i class="bi bi-clock-history menu-icon"></i> <span>Waktu Presensi</span></button>
             </form>
         </li>
         @endif

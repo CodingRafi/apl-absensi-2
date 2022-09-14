@@ -356,15 +356,6 @@
               </div>
             @enderror
           </div>
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Rfid</label>
-            <input type="text" class="form-control @error('rfid') is-invalid @enderror" placeholder="Masukan Rfid" name="rfid_number" value="{{ old('rfid') }}" required>
-            @error('rfid')
-              <div class="invalid-feedback">
-                {{ $message }}
-              </div>
-            @enderror
-          </div>
           <div class="">
             <label for="exampleInputEmail1" class="form-label">Status Rfid</label>
           </div>
@@ -384,6 +375,15 @@
             <label for="exampleInputEmail1" class="form-label">Profil</label>
             <input type="file" class="form-control" name="profil" style="height: 5.5vh;">
           </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Rfid</label>
+            <input type="text" class="form-control @error('rfid') is-invalid @enderror" placeholder="Masukan Rfid" name="rfid" value="{{ old('rfid') }}" required>
+            @error('rfid')
+              <div class="invalid-feedback">
+                {{ $message }}
+              </div>
+            @enderror
+          </div>
           <button type="submit" class="btn text-white mt-3" style="background-color: #3bae9c">Simpan</button>
         </form>
       @endif  
@@ -393,7 +393,7 @@
         <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/>
         </svg>
       </div>
-      <div>Data Jeda Waktu belum tersedia, silahkan input data Jeda Waktu pada laman "Jeda Presensi".</div>
+      <div>Data Waktu Presensi belum tersedia, silahkan input data "Waktu Presensi" yang berada di kiri menu.</div>
     </div>
     @endif
   </div>

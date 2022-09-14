@@ -14,7 +14,7 @@
       @include('mypartials.tahunajaran')
       <div class="mb-3">
         <label for="profil" class="form-label">Profil</label>
-        <input type="file" class="form-control @error('profil') is-invalid @enderror" name="profil">
+        <input class="form-control form-control-lg @error('profil') is-invalid @enderror" id="formFileLg" type="file" name="profile" style="max-height: 6vh">
         @error('profil')
           <div class="invalid-feedback">
             {{ $message }}
@@ -119,17 +119,17 @@
       </div>
       <div class="form-check">
         <input class="form-check-input" type="radio" name="status_rfid" id="aktif" {{ ($siswa->rfid != null) ? ($siswa->rfid->status == 'aktif') ? 'checked' : '' : '' }} value="on">
-        <label class="form-check-label" for="aktif">
+        <label class="form-check-label" for="aktif" style="margin-left: 0.1rem">
           Aktif
         </label>
       </div>
-      <div class="form-check">
+      <div class="form-check mb-3">
         <input class="form-check-input" type="radio" name="status_rfid" id="tidak" {{ ($siswa->rfid != null) ? ($siswa->rfid->status == 'tidak') ? 'checked' : '' : '' }} value="tidak">
-        <label class="form-check-label" for="tidak">
+        <label class="form-check-label" for="tidak" style="margin-left: 0.1rem;">
           Tidak
         </label>
       </div>
-      <button type="submit" class="btn text-white font-weight-bold" style="background-color: #3bae9c">Simpan</button>
+      <button type="submit" class="btn text-white" style="background-color: #3bae9c">Simpan</button>
     </form>
   </div>
 </div>
