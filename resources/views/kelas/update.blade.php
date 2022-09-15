@@ -10,7 +10,7 @@
             @include('mypartials.tahunajaran')
             <div class="mb-3">
                 <label for="nama" class="form-label">Nama Kelas</label>
-                <input type="text" class="form-control" id="nama" name="nama" value="{{ $kelas->nama }}">
+                <input type="text" class="form-control" id="nama" name="nama" value="{{ $kelas->nama }}" style=" font-size: 15px; height: 6.5vh;">
             </div>
             <button type="submit" class="btn text-white" style="background-color: #3bae9c">Simpan</button>
         </form>
