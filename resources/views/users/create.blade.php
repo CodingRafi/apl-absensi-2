@@ -57,7 +57,7 @@
           <input type="hidden" name="role" value="{{ $role }}">
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Nama Lengkap</label>
-            <input type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Masukan Nama" name="name" value="{{ old('name') }}" required>
+            <input type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Masukan Nama" name="name" value="{{ old('name') }}" style=" font-size: 15px; height: 6.5vh;" required>
             @error('name')
               <div class="invalid-feedback">
                 {{ $message }}
@@ -66,7 +66,7 @@
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">NIP</label>
-            <input type="number" class="form-control @error('nip') is-invalid @enderror" placeholder="Masukan NIP" name="nip" value="{{ old('nip') }}" required>
+            <input type="number" class="form-control @error('nip') is-invalid @enderror" placeholder="Masukan NIP" name="nip" value="{{ old('nip') }}" style=" font-size: 15px; height: 6.5vh;" required>
             @error('nip')
               <div class="invalid-feedback">
                 {{ $message }}
@@ -75,7 +75,7 @@
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email</label>
-            <input type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Masukan Email" name="email" value="{{ old('email') }}" required>
+            <input type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Masukan Email" name="email" value="{{ old('email') }}" style=" font-size: 15px; height: 6.5vh;" required>
             @error('email')
               <div class="invalid-feedback">
                 {{ $message }}
@@ -84,7 +84,7 @@
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Tempat Lahir</label>
-            <input type="text" class="form-control @error('tempat_lahir') is-invalid @enderror" placeholder="Masukan Tempat Lahir" name="tempat_lahir" value="{{ old('tempat_lahir') }}" required>
+            <input type="text" class="form-control @error('tempat_lahir') is-invalid @enderror" placeholder="Masukan Tempat Lahir" name="tempat_lahir" value="{{ old('tempat_lahir') }}" style=" font-size: 15px; height: 6.5vh;" required>
             @error('tempat_lahir')
               <div class="invalid-feedback">
                 {{ $message }}
@@ -93,7 +93,7 @@
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Tanggal Lahir</label>
-            <input type="date" class="form-control @error('tanggal_lahir') is-invalid @enderror" placeholder="Masukan Tanggal Lahir" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required>
+            <input type="date" class="form-control @error('tanggal_lahir') is-invalid @enderror" placeholder="Masukan Tanggal Lahir" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" style=" font-size: 15px; height: 6.5vh;" required>
             @error('tanggal_lahir')
               <div class="invalid-feedback">
                 {{ $message }}
@@ -102,7 +102,7 @@
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Agama</label>
-            <input type="text" class="form-control @error('agama') is-invalid @enderror" placeholder="Masukan Agama" name="agama" value="{{ old('agama') }}" required>
+            <input type="text" class="form-control @error('agama') is-invalid @enderror" placeholder="Masukan Agama" name="agama" value="{{ old('agama') }}" style=" font-size: 15px; height: 6.5vh;" required>
             @error('agama')
               <div class="invalid-feedback">
                 {{ $message }}
@@ -111,7 +111,7 @@
           </div>
           <div class="mb-3 mt-4">
             <label for="formFile" class="form-label">Sesi</label>
-            <select class="form-select @error('jeda_presensi_id') is-invalid @enderror" name="jeda_presensi_id" value="{{ old('jeda_presensi_id') }}" required>
+            <select class="form-select @error('jeda_presensi_id') is-invalid @enderror" name="jeda_presensi_id" value="{{ old('jeda_presensi_id') }}" style=" font-size: 15px; height: 6.5vh;" required>
               @foreach ($jedas as $jeda)
               <option value="{{ $jeda->id }}">{{ $jeda->nama }} ({{ explode(':', $jeda->jam_masuk)[0] }}:{{ explode(':', $jeda->jam_masuk)[1] }} sd {{ explode(':', $jeda->jam_pulang)[0] }}:{{ explode(':', $jeda->jam_pulang)[1] }})</option>
               @endforeach
@@ -124,7 +124,7 @@
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Jenis Kelamin</label>
-            <select class="form-control @error('jk') is-invalid @enderror" aria-label="Default select example" name="jk" value="{{ old('jk') }}" required>
+            <select class="form-control @error('jk') is-invalid @enderror" aria-label="Default select example" name="jk" value="{{ old('jk') }}" style=" font-size: 15px; height: 6.5vh;" required>
               <option value="L">Laki-laki</option>
               <option value="P">Perempuan</option>
             </select>
@@ -136,7 +136,7 @@
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Mapel</label>
-            <select class="fstdropdown-select @error('mapel[]') is-invalid @enderror" name="mapel[]" value="{{ old('mapel[]') }}" style="height: 5rem" required multiple>
+            <select class="fstdropdown-select @error('mapel[]') is-invalid @enderror" name="mapel[]" value="{{ old('mapel[]') }}" style=" font-size: 15px; height: 6.5vh;" required multiple>
               @foreach ($mapels as $mapel)
               <option value="{{ $mapel->id }}">{{ $mapel->nama }}</option>
               @endforeach
@@ -149,7 +149,7 @@
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Jalan</label>
-            <input type="text" class="form-control @error('jalan') is-invalid @enderror" placeholder="Masukan Jalan" name="jalan" value="{{ old('jalan') }}" required>
+            <input type="text" class="form-control @error('jalan') is-invalid @enderror" placeholder="Masukan Jalan" name="jalan" value="{{ old('jalan') }}" style=" font-size: 15px; height: 6.5vh;" required>
             @error('jalan')
               <div class="invalid-feedback">
                 {{ $message }}
@@ -158,7 +158,7 @@
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Kelurahan</label>
-            <input type="text" class="form-control @error('kelurahan') is-invalid @enderror" placeholder="Masukan Kelurahan" name="kelurahan" value="{{ old('kelurahan') }}" required>
+            <input type="text" class="form-control @error('kelurahan') is-invalid @enderror" placeholder="Masukan Kelurahan" name="kelurahan" value="{{ old('kelurahan') }}" style=" font-size: 15px; height: 6.5vh;" required>
             @error('kelurahan')
               <div class="invalid-feedback">
                 {{ $message }}
@@ -167,7 +167,7 @@
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Kecamatan</label>
-            <input type="text" class="form-control @error('kecamatan') is-invalid @enderror" placeholder="Masukan Kecamatan" name="kecamatan" value="{{ old('kecamatan') }}" required>
+            <input type="text" class="form-control @error('kecamatan') is-invalid @enderror" placeholder="Masukan Kecamatan" name="kecamatan" value="{{ old('kecamatan') }}" style=" font-size: 15px; height: 6.5vh;" required>
             @error('kecamatan')
               <div class="invalid-feedback">
                 {{ $message }}
@@ -176,7 +176,7 @@
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Password</label>
-            <input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" name="password" value="{{ old('password') }}" required>
+            <input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" name="password" value="{{ old('password') }}" style=" font-size: 15px; height: 6.5vh;" required>
             @error('password')
               <div class="invalid-feedback">
                 {{ $message }}
@@ -185,8 +185,8 @@
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Rfid</label>
-            <input type="text" class="form-control @error('rfid') is-invalid @enderror" placeholder="Masukan Rfid" name="rfid_number" value="{{ old('rfid') }}" required>
-            @error('rfid')
+            <input type="text" class="form-control @error('rfid_number') is-invalid @enderror" placeholder="Masukan Rfid" name="rfid_number" value="{{ old('rfid_number') }}" style=" font-size: 15px; height: 6.5vh;" required>
+            @error('rfid_number')
               <div class="invalid-feedback">
                 {{ $message }}
               </div>
@@ -209,7 +209,7 @@
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Profil</label>
-            <input type="file" class="form-control" name="profil" style="height: 5.5vh">
+            <input type="file" class="form-control form-control-lg" name="profil" style=" font-size: 15px; height: 6.5vh;">
           </div>
           <button type="submit" class="btn text-white mt-3" style="background-color: #3bae9c">Simpan</button>
         </form>
@@ -228,7 +228,7 @@
           <input type="hidden" name="role" value="{{ $role }}">
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Nama Lengkap</label>
-            <input type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Masukan Nama" name="name" value="{{ old('name') }}" required>
+            <input type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Masukan Nama" name="name" value="{{ old('name') }}" style=" font-size: 15px; height: 6.5vh;" required>
             @error('name')
               <div class="invalid-feedback">
                 {{ $message }}
@@ -237,7 +237,7 @@
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">NIP</label>
-            <input type="number" class="form-control @error('nip') is-invalid @enderror" placeholder="Masukan NIP" name="nip" value="{{ old('nip') }}" required>
+            <input type="number" class="form-control @error('nip') is-invalid @enderror" placeholder="Masukan NIP" name="nip" value="{{ old('nip') }}" style=" font-size: 15px; height: 6.5vh;" required>
             @error('nip')
               <div class="invalid-feedback">
                 {{ $message }}
@@ -246,7 +246,7 @@
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email</label>
-            <input type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Masukan Email" name="email" value="{{ old('email') }}" required>
+            <input type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Masukan Email" name="email" value="{{ old('email') }}" style=" font-size: 15px; height: 6.5vh;" required>
             @error('email')
               <div class="invalid-feedback">
                 {{ $message }}
@@ -255,7 +255,7 @@
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Tempat Lahir</label>
-            <input type="text" class="form-control @error('tempat_lahir') is-invalid @enderror" placeholder="Masukan Tempat Lahir" name="tempat_lahir" value="{{ old('tempat_lahir') }}" required>
+            <input type="text" class="form-control @error('tempat_lahir') is-invalid @enderror" placeholder="Masukan Tempat Lahir" name="tempat_lahir" value="{{ old('tempat_lahir') }}" style=" font-size: 15px; height: 6.5vh;" required>
             @error('tempat_lahir')
               <div class="invalid-feedback">
                 {{ $message }}
@@ -264,7 +264,7 @@
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Tanggal Lahir</label>
-            <input type="date" class="form-control @error('tanggal_lahir') is-invalid @enderror" placeholder="Masukan Tanggal Lahir" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required>
+            <input type="date" class="form-control @error('tanggal_lahir') is-invalid @enderror" placeholder="Masukan Tanggal Lahir" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" style=" font-size: 15px; height: 6.5vh;" required>
             @error('tanggal_lahir')
               <div class="invalid-feedback">
                 {{ $message }}
@@ -273,7 +273,7 @@
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Agama</label>
-            <input type="text" class="form-control @error('agama') is-invalid @enderror" placeholder="Masukan Agama" name="agama" value="{{ old('agama') }}" required>
+            <input type="text" class="form-control @error('agama') is-invalid @enderror" placeholder="Masukan Agama" name="agama" value="{{ old('agama') }}" style=" font-size: 15px; height: 6.5vh;" required>
             @error('agama')
               <div class="invalid-feedback">
                 {{ $message }}
@@ -282,7 +282,7 @@
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Jenis Kelamin</label>
-            <select class="form-control @error('jk') is-invalid @enderror" aria-label="Default select example" name="jk" value="{{ old('jk') }}" required>
+            <select class="form-control @error('jk') is-invalid @enderror" aria-label="Default select example" name="jk" value="{{ old('jk') }}" style=" font-size: 15px; height: 6.5vh;" required>
               <option value="L">Laki-laki</option>
               <option value="P">Perempuan</option>
             </select>
@@ -295,7 +295,7 @@
           @if ($role == 'guru')
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Mapel</label>
-            <select class="fstdropdown-select @error('mapel[]') is-invalid @enderror" name="mapel[]" value="{{ old('mapel[]') }}" style="height: 5rem" required multiple>
+            <select class="fstdropdown-select @error('mapel[]') is-invalid @enderror" name="mapel[]" value="{{ old('mapel[]') }}" style=" font-size: 15px; height: 6.5vh;" required multiple>
               @foreach ($mapels as $mapel)
               <option value="{{ $mapel->id }}">{{ $mapel->nama }}</option>
               @endforeach
@@ -309,7 +309,7 @@
           @endif
           <div class="mb-3 mt-4">
             <label for="formFile" class="form-label">Sesi</label>
-            <select class="form-select @error('jeda_presensi_id') is-invalid @enderror" name="jeda_presensi_id" value="{{ old('jeda_presensi_id') }}" required>
+            <select class="form-select @error('jeda_presensi_id') is-invalid @enderror" name="jeda_presensi_id" value="{{ old('jeda_presensi_id') }}" style=" font-size: 15px; height: 6.5vh;" required>
               @foreach ($jedas as $jeda)
               <option value="{{ $jeda->id }}">{{ $jeda->nama }} ({{ explode(':', $jeda->jam_masuk)[0] }}:{{ explode(':', $jeda->jam_masuk)[1] }} sd {{ explode(':', $jeda->jam_pulang)[0] }}:{{ explode(':', $jeda->jam_pulang)[1] }})</option>
               @endforeach
@@ -322,7 +322,7 @@
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Jalan</label>
-            <input type="text" class="form-control @error('jalan') is-invalid @enderror" placeholder="Masukan Jalan" name="jalan" value="{{ old('jalan') }}" required>
+            <input type="text" class="form-control @error('jalan') is-invalid @enderror" placeholder="Masukan Jalan" name="jalan" value="{{ old('jalan') }}" style=" font-size: 15px; height: 6.5vh;" required>
             @error('jalan')
               <div class="invalid-feedback">
                 {{ $message }}
@@ -331,7 +331,7 @@
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Kelurahan</label>
-            <input type="text" class="form-control @error('kelurahan') is-invalid @enderror" placeholder="Masukan Kelurahan" name="kelurahan" value="{{ old('kelurahan') }}" required>
+            <input type="text" class="form-control @error('kelurahan') is-invalid @enderror" placeholder="Masukan Kelurahan" name="kelurahan" value="{{ old('kelurahan') }}" style=" font-size: 15px; height: 6.5vh;" required>
             @error('kelurahan')
               <div class="invalid-feedback">
                 {{ $message }}
@@ -340,7 +340,7 @@
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Kecamatan</label>
-            <input type="text" class="form-control @error('kecamatan') is-invalid @enderror" placeholder="Masukan Kecamatan" name="kecamatan" value="{{ old('kecamatan') }}" required>
+            <input type="text" class="form-control @error('kecamatan') is-invalid @enderror" placeholder="Masukan Kecamatan" name="kecamatan" value="{{ old('kecamatan') }}" style=" font-size: 15px; height: 6.5vh;" required>
             @error('kecamatan')
               <div class="invalid-feedback">
                 {{ $message }}
@@ -349,7 +349,7 @@
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Password</label>
-            <input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" name="password" value="{{ old('password') }}" required>
+            <input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" name="password" value="{{ old('password') }}" style=" font-size: 15px; height: 6.5vh;" required>
             @error('password')
               <div class="invalid-feedback">
                 {{ $message }}
@@ -373,11 +373,11 @@
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Profil</label>
-            <input type="file" class="form-control" name="profil" style="height: 5.5vh;">
+            <input type="file" class="form-control" name="profil" style=" font-size: 15px; height: 6.5vh;">
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Rfid</label>
-            <input type="text" class="form-control @error('rfid') is-invalid @enderror" placeholder="Masukan Rfid" name="rfid" value="{{ old('rfid') }}" required>
+            <input type="text" class="form-control @error('rfid') is-invalid @enderror" placeholder="Masukan Rfid" name="rfid" value="{{ old('rfid') }}" style=" font-size: 15px; height: 6.5vh;" required>
             @error('rfid')
               <div class="invalid-feedback">
                 {{ $message }}

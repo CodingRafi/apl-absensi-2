@@ -59,8 +59,14 @@
         @endif
         <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item nav-profile dropdown">
+                <div class="mr-3">
+                    <div class="d-flex justify-content-end">
+                        <b class="d-block">{{ Auth::user()->name }}</b>
+                    </div>
+                    <span class="text-white badge text-user d-block" style="background-color:#3bae9ddc; border:1.5px solid #308b7d; font-weight: 600; display:flex;justify-content:center; width:fit-content !important"><i class="bi bi-info-circle mr-2"></i><span class="text-user" style="font-size: 12px; margin-top:1px;">Masuk Sebagai {{ (Auth::user()->getTable() == 'users') ? Auth::user()->getRoleNames()->first() : 'Siswa' }}</span>
+                    </span>
+                </div>
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                    <b class="mr-4">{{ Auth::user()->name }}</b>
                     <img src="/template/images/faces/defaultProfile.jpg" alt="profile" />
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
