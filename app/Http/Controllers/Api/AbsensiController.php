@@ -59,7 +59,8 @@ class AbsensiController extends Controller
                             $user = $absensi->user; 
                             $timeUser = $absensi->user->jeda_presensi->jam_pulang;
     
-                            if (date('H', $date) > explode(':', $timeUser)[0]) {
+                            if (date('H', $date) > explode(':', $timeUser)[0]
+                            ) {
                                 $absensi->update([
                                     'presensi_pulang' => Carbon::now()
                                 ]);
