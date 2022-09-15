@@ -186,8 +186,8 @@
     </div>
     @if (!Auth::user()->nisn && !Auth::user()->nipd)
     <div class="cover1">
-        @if (auth()->user()->can('view_users'))  
-        <div class="card mb-3 yayasan">
+        @if (auth()->user()->can('view_users') && !Auth::user()->hasRole('yayasan') )  
+        <div class="card mb-3 yayasan col-5">
             <div class="card-body">
                 <div class="title-yayasan" style="display: flex; justify-content: space-between">
                     <h4 class="card-title" style="color: #369488; font-weight:600;">Yayasan</h4>
@@ -220,7 +220,7 @@
         </div>
         @endif
         @if (auth()->user()->can('view_kompetensi'))     
-        <div class="card mb-3 kompetensi">
+        <div class="card mb-3 kompetensi col">
             <div class="card-body">
                 <h4 class="card-title" style="color: #369488; font-weight:600;">Kompetensi</h4>
                 @if (count(Auth::user()->sekolah->kompetensi) > 0)  
