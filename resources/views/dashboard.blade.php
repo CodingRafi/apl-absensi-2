@@ -186,7 +186,7 @@
     </div>
     @if (!Auth::user()->nisn && !Auth::user()->nipd)
     <div class="cover1">
-        @if (auth()->user()->can('view_users'))  
+        @if (auth()->user()->can('view_users') && !Auth::user()->hasRole('yayasan') )  
         <div class="card mb-3 yayasan">
             <div class="card-body">
                 <div class="title-yayasan" style="display: flex; justify-content: space-between">
