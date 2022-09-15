@@ -350,6 +350,7 @@ class AbsensiController extends Controller
                     }
                 }else{
                     $absensis = [];
+                    
                     $siswas = [];
                 }
                 
