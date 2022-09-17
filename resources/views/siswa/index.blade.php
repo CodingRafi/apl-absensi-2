@@ -199,7 +199,7 @@
                                 @csrf
                                 @method('delete')
                                 @include('mypartials.tahunajaran')
-                                <button type="submit" class="btn btn-sm btn-danger font-weight-bold" style="width: 5rem; margin: 0.1rem;" onclick="return confirm('yakin?')">Hapus</button>
+                                <button type="submit" class="btn btn-sm btn-danger font-weight-bold" style="width: 5rem; margin: 0.1rem;" onclick="return confirm('apakah anda yakin ingin menghapus user ini?')">Hapus</button>
                             </form>
                             @endif
                         </td>

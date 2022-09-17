@@ -94,8 +94,11 @@ class SiswaController extends Controller
             'kecamatan' => $request->kecamatan,
             'sekolah_id' => \Auth::user()->sekolah_id,
             'jeda_presensi_id' => $request->jeda_presensi_id,
-            'email' => $request->email
         ];
+
+        if ($request->email) {
+            $data += ['email' => $request->email];
+        }
 
         if (\Auth::user()->sekolah->tingkat == 'smk') {
             $data += ['kompetensi_id' => $request->kompetensi_id];
@@ -109,8 +112,8 @@ class SiswaController extends Controller
 
         $siswa = Siswa::create($data);
         
-        if ($request->rfid) {
-            Rfid::createRfid($request->rfid, $siswa->id, null, $request->status_rfid);
+        if ($request->rfid_number) {
+            Rfid::createRfid($request->rfid_number, $siswa->id, null, $request->status_rfid);
         }
 
         return TahunAjaran::redirectTahunAjaran('/siswa', $request, 'Berhasil menambahkan siswa');
@@ -162,12 +165,13 @@ class SiswaController extends Controller
      */
     public function update(Request $request, Siswa $siswa)
     {
+        // dd($request);
         // dd((\Auth::user()->getTable() == 'users') ? 'siswas' : 'users');
         $request->validate([
             'name' => 'required',
-            'nisn' => 'required',
+            'nisn' => ['required', Rule::unique('siswas')->ignore($siswa->id)],
             'nipd' => ['required', Rule::unique('siswas')->ignore($siswa->id)],
-            'nik' => 'required',
+            'nik' => ['required', Rule::unique('siswas')->ignore($siswa->id)],
             'jk' => 'required',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
@@ -177,8 +181,15 @@ class SiswaController extends Controller
             'kelurahan' => 'required',
             'kecamatan' => 'required',
             'profil' => 'mimes:png,jpg,jpeg|max:5024',
-            'email' => ['required', Rule::unique(\Auth::user()->getTable())->ignore($siswa->id), Rule::unique((\Auth::user()->getTable() == 'users') ? 'siswas' : 'users')]
+            'email' => [Rule::unique('siswas')->ignore($siswa->id), Rule::unique('users')]
         ]);
+
+        $rfid = $siswa->rfid;
+        if ($rfid) {
+            $request->validate([
+                'rfid_number' => [Rule::unique('rfids')->ignore($rfid->id)],
+            ]);
+        }
 
         if ($siswa->sekolah_id == \Auth::user()->sekolah_id) {
             $data = [
@@ -195,8 +206,12 @@ class SiswaController extends Controller
                 'kelurahan' => $request->kelurahan,
                 'kecamatan' => $request->kecamatan,
                 'jeda_presensi_id' => $request->jeda_presensi_id,
-                'email' => $request->email
             ];
+
+            if ($request->email) {
+                $data += ['email' => $request->email];
+            }
+            
             if (\Auth::user()->sekolah->tingkat == 'smk') {
                 $data += ['kompetensi_id' => $request->kompetensi_id];
             }
@@ -219,7 +234,7 @@ class SiswaController extends Controller
             }else{
                 if ($request->rfid) {
                     Rfid::create([
-                        'rfid_number' => $request->rfid,
+                        'rfid_number' => $request->rfid_number,
                         'siswa_id' => $siswa->id,
                         'status' => ($request->status_rfid == 'on') ? 'aktif' : 'tidak'
                     ]);

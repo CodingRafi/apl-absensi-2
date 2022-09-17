@@ -43,7 +43,7 @@ class Rfid extends Model
         $rfid = Rfid::where('id', $request->id_rfid)->first();
         
         $rfid->update([
-            'rfid_number' => $request->rfid,
+            'rfid_number' => $request->rfid_number,
             'status' => ($request->status_rfid   == 'on') ? 'aktif' : 'tidak'
         ]);
     }
