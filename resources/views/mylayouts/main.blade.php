@@ -80,6 +80,13 @@
       .alert-nontifikasi{
         transition: 1s;
       }
+
+      @media (max-width: 400px){
+        .tahun-ajaran-navbar{
+          color: transparent;
+          width: 5px;
+        }
+      }
     </style>
 
     @yield('tambahcss')

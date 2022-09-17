@@ -39,7 +39,7 @@
             <div class="dropdown">
                 <button class="btn dropdown-toggle ml-3" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
                     aria-expanded="false" style="border: none">
-                    Tahun Ajaran
+                    <span class="tahun-ajaran-navbar">Tahun Ajaran</span>
                 </button>
                 <ul class="dropdown-menu ml-1" aria-labelledby="dropdownMenuButton1">
                     @foreach ($tahun_ajarans as $tahun_ajaran)

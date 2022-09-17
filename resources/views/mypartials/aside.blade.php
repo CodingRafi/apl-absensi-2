@@ -139,11 +139,39 @@
         @endif
         @if (auth()->user()->can('view_agenda') || auth()->user()->can('add_agenda') || auth()->user()->can('edit_agenda') || auth()->user()->can('delete_agenda')) 
         <li class="nav-item" style="border-radius: 10px">
-            <form action="/agenda" method="get">
-                @include('mypartials.tahunajaran')
-                <button class="nav-link {{ Request::is('agenda') ? 'active' : '' }}"
-                    style="background-color: transparent; border: none; border-radius: 10px; width: 100%;"><i class="bi bi-calendar-week mr-3"></i> <span>Agenda</span></button>
-            </form>
+            <a class="nav-link {{ Request::is('agenda*') ? 'active' : '' }}" data-toggle="collapse" href="#data-agenda" aria-expanded="false" aria-controls="ui-basic" style=" border-radius: 10px;">
+                <i class="bi bi-calendar-week mr-3"></i>
+                <span class="menu-title">Agenda</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="data-agenda">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item" style="border-radius: 10px">
+                        <form action="/agenda-guru" method="get">
+                            @include('mypartials.tahunajaran')
+                            <button class="nav-link"
+                                style="background-color: #3bae9c; border: none; border-radius: 10px; min-width: 150px">Agenda Guru
+                            </button>
+                        </form>
+                    </li>
+                    <li class="nav-item" style="border-radius: 10px">
+                        <form action="agenda-karyawan" method="get">
+                            @include('mypartials.tahunajaran')
+                            <button class="nav-link"
+                                style="background-color: #3bae9c; border: none; border-radius: 10px; min-width: 150px">Agenda Karyawan
+                            </button>
+                        </form>
+                    </li>
+                    <li class="nav-item" style="border-radius: 10px">
+                        <form action="agenda-siswa" method="get">
+                            @include('mypartials.tahunajaran')
+                            <button class="nav-link"
+                                style="background-color: #3bae9c; border: none; border-radius: 10px; min-width: 150px">Agenda Siswa
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
         </li>
         @endif
         @if (auth()->user()->can('view_presensi') || auth()->user()->can('add_presensi') || auth()->user()->can('edit_presensi') || auth()->user()->can('delete_presensi'))
