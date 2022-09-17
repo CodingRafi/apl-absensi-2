@@ -74,7 +74,7 @@
       </div>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email</label>
-        <input type="email" class="form-control @error('email') is-invalid @enderror" placeholder="example@gmail.com" name="email" value="{{old('email')}}" style=" font-size: 15px; height: 6.5vh;" required> 
+        <input type="email" class="form-control @error('email') is-invalid @enderror" placeholder="example@gmail.com" name="email" value="{{ $user->email, old('email') }}" style=" font-size: 15px; height: 6.5vh;" required> 
         @error('email')
           <div class="invalid-feedback">
             {{ $message }}
@@ -199,8 +199,8 @@
       <div class="mt-3 mb-3">
         <label for="exampleInputEmail1" class="form-label">Rfid</label>
         <input type="hidden" name="id_rfid" value="{{ ($user->rfid) ? $user->rfid->id : '' }}">
-        <input type="text" class="form-control @error('rfid') is-invalid @enderror" placeholder="Masukan Rfid" name="rfid" value="{{ ($user->rfid) ? $user->rfid->rfid_number : '' }}" value="{{ old('rfid') }}" style=" font-size: 15px; height: 6.5vh;" required>
-          @error('rfid')
+        <input type="text" class="form-control @error('rfid_number') is-invalid @enderror" placeholder="Masukan Rfid" name="rfid_number" value="{{ ($user->rfid) ? $user->rfid->rfid_number : '' }}" value="{{ old('rfid_number') }}" style=" font-size: 15px; height: 6.5vh;" required>
+          @error('rfid_number')
         <div class="invalid-feedback">
           {{ $message }}
         </div>

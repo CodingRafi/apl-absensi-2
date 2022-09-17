@@ -55,7 +55,7 @@ class UserController extends Controller
     public function create(Request $request, $role)
     {   
         $roleQuery = Role::where('name', $role)->first();
-        $jedas = JedaPresensi::where('role_id', $roleQuery->id)->get();
+        $jedas = JedaPresensi::where('role_id', $roleQuery->id)->where('sekolah_id', \Auth::user()->sekolah_id)->get();
         $mapels = Mapel::where('sekolah_id', \Auth::user()->sekolah_id)->get();
         return view('users.create', [
             'role' => $role,
@@ -74,7 +74,7 @@ class UserController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required',
-            'email' => ['required', Rule::unique(\Auth::user()->getTable()), Rule::unique((\Auth::user()->getTable() == 'users') ? 'siswas' : 'users')],
+            'email' => ['required', Rule::unique('users'), Rule::unique('siswas')],
             'password' => 'required', 
             'nip' => 'required|unique:users', 
             'jk' => 'required', 
@@ -146,7 +146,7 @@ class UserController extends Controller
     {
         $role = $user->getRoleNames()[0];
         $roleQuery = Role::where('name', $role)->first();
-        $jedas = JedaPresensi::where('role_id', $roleQuery->id)->get();
+        $jedas = JedaPresensi::where('role_id', $roleQuery->id)->where('sekolah_id', \Auth::user()->sekolah_id)->get();
         $mapels = Mapel::where('sekolah_id', \Auth::user()->sekolah_id)->get();
         return view('users.update', [
             'user' => $user,
@@ -178,8 +178,15 @@ class UserController extends Controller
             'role' => 'required',
             'profil' => 'mimes:png,jpg,jpeg|file|max:5024',
             'jeda_presensi_id' => 'required',
-            'email' => ['required', Rule::unique(\Auth::user()->getTable())->ignore($user->id), Rule::unique((\Auth::user()->getTable() == 'users') ? 'siswas' : 'users')]
+            'email' => ['required', Rule::unique('users')->ignore($user->id), Rule::unique('siswas')]
         ]);
+
+        $rfid = $user->rfid;
+        if ($rfid) {
+            $request->validate([
+                'rfid_number' => [Rule::unique('rfids')->ignore($rfid->id)],
+            ]);
+        }
 
         if ($request->file('profil')) {
             if($user->profil != '/img/profil'){
@@ -224,6 +231,13 @@ class UserController extends Controller
                     $agenda->delete();
                 }
             }
+
+            if(count($user->absensi_pelajaran) > 0){
+                foreach ($user->absensi_pelajaran as $key => $absensi_pelajaran) {
+                    $absensi_pelajaran->delete();
+                }
+            }
+
         }
 
         

@@ -39,7 +39,7 @@
             <div class="dropdown">
                 <button class="btn dropdown-toggle ml-3" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
                     aria-expanded="false" style="border: none">
-                    Tahun Ajaran
+                    <span class="tahun-ajaran-navbar">Tahun Ajaran</span>
                 </button>
                 <ul class="dropdown-menu ml-1" aria-labelledby="dropdownMenuButton1">
                     @foreach ($tahun_ajarans as $tahun_ajaran)
@@ -63,7 +63,7 @@
                     <div class="d-flex justify-content-end">
                         <b class="d-block">{{ Auth::user()->name }}</b>
                     </div>
-                    <span class="text-white badge text-user d-block" style="background-color:#3bae9ddc; border:1.5px solid #308b7d; font-weight: 600; display:flex;justify-content:center; width:fit-content !important"><i class="bi bi-info-circle mr-2"></i><span class="text-user" style="font-size: 12px; margin-top:1px;">Masuk Sebagai {{ (Auth::user()->getTable() == 'users') ? Auth::user()->getRoleNames()->first() : 'Siswa' }}</span>
+                    <span class="text-white badge text-user d-block" style="background-color:#3bae9ddc; border:1.5px solid #308b7d; font-weight: 600; display:flex;justify-content:center; width:fit-content !important; text-transform: capitalize;"><i class="bi bi-info-circle mr-2"></i><span class="text-user" style="font-size: 12px; margin-top:1px;">Masuk Sebagai {{ (Auth::user()->getTable() == 'users') ? str_replace("_", " ", Auth::user()->getRoleNames()->first())  : 'Siswa' }}</span>
                     </span>
                 </div>
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">

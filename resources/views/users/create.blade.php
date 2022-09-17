@@ -183,15 +183,6 @@
               </div>
             @enderror
           </div>
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Rfid</label>
-            <input type="text" class="form-control @error('rfid_number') is-invalid @enderror" placeholder="Masukan Rfid" name="rfid_number" value="{{ old('rfid_number') }}" style=" font-size: 15px; height: 6.5vh;" required>
-            @error('rfid_number')
-              <div class="invalid-feedback">
-                {{ $message }}
-              </div>
-            @enderror
-          </div>
           <div class="">
             <label for="exampleInputEmail1" class="form-label">Status Rfid</label>
           </div>
@@ -210,6 +201,15 @@
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Profil</label>
             <input type="file" class="form-control form-control-lg" name="profil" style=" font-size: 15px; height: 6.5vh;">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Rfid</label>
+            <input type="text" class="form-control @error('rfid_number') is-invalid @enderror" placeholder="Masukan Rfid" name="rfid_number" value="{{ old('rfid_number') }}" style=" font-size: 15px; height: 6.5vh;" required>
+            @error('rfid_number')
+              <div class="invalid-feedback">
+                {{ $message }}
+              </div>
+            @enderror
           </div>
           <button type="submit" class="btn text-white mt-3" style="background-color: #3bae9c">Simpan</button>
         </form>

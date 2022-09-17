@@ -118,11 +118,6 @@
         <label for="exampleInputEmail1" class="form-label">Kecamatan</label>
         <input type="text" class="form-control" placeholder="Masukan Kecamatan" name="kecamatan" value="{{ $siswa->kecamatan }}" style=" font-size: 15px; height: 6.5vh;">
       </div>
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Rfid</label>
-        <input type="hidden" name="id_rfid" value="{{ ($siswa->rfid != null) ? $siswa->rfid->id : '' }}">
-        <input type="text" class="form-control" placeholder="Masukan Rfid" name="rfid" value="{{ ($siswa->rfid != null) ? $siswa->rfid->rfid_number : '' }}" style=" font-size: 15px; height: 6.5vh;">
-      </div>
       <div class="">
         <label for="exampleInputEmail1" class="form-label">Status Rfid</label>
       </div>
@@ -137,6 +132,11 @@
         <label class="form-check-label" for="tidak" style="margin-left: 0.1rem;">
           Tidak
         </label>
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Rfid</label>
+        <input type="hidden" name="id_rfid" value="{{ ($siswa->rfid != null) ? $siswa->rfid->id : '' }}">
+        <input type="text" class="form-control" placeholder="Masukan Rfid" name="rfid_number" value="{{ ($siswa->rfid != null) ? $siswa->rfid->rfid_number : '' }}" style=" font-size: 15px; height: 6.5vh;">
       </div>
       <button type="submit" class="btn text-white" style="background-color: #3bae9c">Simpan</button>
     </form>
