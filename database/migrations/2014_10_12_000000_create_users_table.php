@@ -29,7 +29,6 @@ return new class extends Migration
             $table->string('kelurahan')->nullable();
             $table->string('kecamatan')->nullable();
             $table->foreignId('sekolah_id')->nullable();
-            $table->foreignId('jeda_presensi_id')->nullable()->constrained();
             $table->rememberToken();
             $table->timestamps();
         });

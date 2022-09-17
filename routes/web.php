@@ -49,7 +49,7 @@ Route::group(['middleware' => ['auth:web,websiswa']], function() {
     Route::get('edit-sekolah', [App\Http\Controllers\SekolahController::class, 'edit']);
     Route::resource('sekolah', App\Http\Controllers\SekolahController::class);
     Route::resource('presensi-pelajaran', AbsensiPelajaranController::class);
-    Route::resource('tenggat', JedaPresensiController::class);
+    // Route::resource('tenggat', JedaPresensiController::class);
     Route::get('/presensi/{id}', [PresensiController::class, 'index']);
     Route::post('/presensi/{id}', [PresensiController::class, 'update']);
     Route::post('/absensi/{id}', [AbsensiController::class, 'update']);

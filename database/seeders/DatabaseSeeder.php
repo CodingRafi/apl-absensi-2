@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SekolahSeeder::class);
         $this->call(PermissionTableSeeder::class);
         $this->call(UserSeeder::class);
-        $this->call(JedaPresensiSeeder::class);
+        // $this->call(JedaPresensiSeeder::class);
         $this->call(TahunAjaranSeeder::class);
         $this->call(KelasSeeder::class);
         $this->call(KompetensiSeeder::class);
