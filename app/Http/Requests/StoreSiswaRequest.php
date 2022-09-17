@@ -26,10 +26,10 @@ class StoreSiswaRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'nisn' => 'required',
+            'nisn' => 'required|unique:siswas',
             'nipd' => 'required|unique:siswas',
-            'email' => ['required', Rule::unique(\Auth::user()->getTable()), Rule::unique((\Auth::user()->getTable() == 'users') ? 'siswas' : 'users')],
-            'nik' => 'required',
+            'email' => [Rule::unique('siswas'), Rule::unique('users')],
+            'nik' => 'required|unique:siswas',
             'jk' => 'required',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
@@ -38,7 +38,8 @@ class StoreSiswaRequest extends FormRequest
             'jalan' => 'required',
             'kelurahan' => 'required',
             'kecamatan' => 'required',
-            'profil' => 'mimes:png,jpg,jpeg|max:5024'
+            'profil' => 'mimes:png,jpg,jpeg|max:5024',
+            'rfid_number' => 'unique:rfids'
         ];
     }
 }

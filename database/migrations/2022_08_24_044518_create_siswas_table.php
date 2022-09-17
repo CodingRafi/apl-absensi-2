@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('profil')->default('/img/profil.png');
             $table->string('name');
-            $table->string('nisn');
+            $table->string('nisn')->unique();
             $table->string('nipd')->unique();
             $table->string('email')->nullable()->unique();
             $table->string('password')->default('$2a$12$EJoe7nRx6rAnP6nwwVGzrOvKIyMVS6svFk5/vZMCvufgr2IMBQtuS');
@@ -27,7 +27,7 @@ return new class extends Migration
             $table->foreignId('kelas_id')->constrained();
             $table->foreignId('kompetensi_id')->nullable()->constrained();
             $table->foreignId('jeda_presensi_id')->nullable()->constrained();
-            $table->string('nik');
+            $table->string('nik')->unique();
             $table->string('agama');
             $table->string('jalan');
             $table->string('kelurahan');

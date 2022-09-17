@@ -18,11 +18,11 @@
                         <div class="col-md-10">
                             <h5 class="card-header" style="background-color: white">Users</h5>
                         </div>
-                        <div class="col-md-2 d-flex justify-center align-items-center">
+                        <div class="col-md-2 d-flex justify-content-center align-items-center">
                             @can('add_roles')
                                 <button type="button" class="btn text-white tombol-buat-user" style="background-color: #3bae9c" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal">
-                                    Create Role
+                                    Buat Role
                                 </button>
                             @endcan
                         </div>
@@ -65,7 +65,7 @@
                                         <div class="container-fluid">
                                             <div class="row flex-wrap">
                                                 @foreach ($rolePermissions[$key] as $rolePermission)
-                                                    <div class="col-md-3 mb-2 mt-2">{{ $rolePermission->name }}</div>
+                                                    <div class="col-md-3 mb-2 mt-2" style="text-transform: capitalize">{{ str_replace("_", " ", $rolePermission->name) }}</div>
                                                 @endforeach
                                             </div>
                                         </div>
@@ -92,7 +92,7 @@
                     <div class="modal-content">
                         <form action="{{ route('roles.store') }}" method="post">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Create Role</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Buat Role</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
@@ -102,7 +102,7 @@
                                     <label for="html5-text-input" class="col-md-3 col-form-label">Name Role</label>
                                     <div class="col-md-9">
                                         <input class="form-control @error('name') is-invalid @enderror" type="text"
-                                            id="html5-text-input" placeholder="Pilih Role" name="name"
+                                            id="html5-text-input" placeholder="Masukan nama Role" name="name"
                                             value="{{ old('name') }}" />
                                         @error('name')
                                             <div class="invalid-feedback d-block">
@@ -115,15 +115,14 @@
                                     <div class="form-check mt-3">
                                         <input class="form-check-input" type="checkbox" value="{{ $permission->id }}"
                                             id="{{ $permission->name }}" name="permission[]" />
-                                        <label class="form-check-label"
-                                            for="{{ $permission->name }}">{{ $permission->name }}</label>
+                                        <label class="form-check-label" for="{{ $permission->name }}" style="text-transform: capitalize">{{ str_replace("_", " ", $permission->name) }}</label>
                                     </div>
                                 @endforeach
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary tombol-close-bawah"
-                                    data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn text-white" style="background-color: #3bae9c">Create Role</button>
+                                    data-bs-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn text-white" style="background-color: #3bae9c">Buat Role</button>
                             </div>
                         </form>
                     </div>

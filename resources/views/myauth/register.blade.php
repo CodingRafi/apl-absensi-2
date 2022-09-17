@@ -144,8 +144,7 @@
   <script src="/template/js/hoverable-collapse.js"></script>
   <script src="/template/js/template.js"></script>
   <script src="/template/js/settings.js"></script>
-  <scrip src="/template/js/todolist.js"></scrip>
-  <!-- endinject -->
+  <script src="/template/js/todolist.js"></script>
   
   <script>
       const nameYayasan = document.querySelector('.name-yayasan');
