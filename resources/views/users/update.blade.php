@@ -166,19 +166,6 @@
         <label for="exampleInputEmail1" class="form-label">Profil</label>
         <input type="file" class="form-control form-control-lg" name="profil" style="height: 6vh; font-size: 15px;">
       </div>
-      <div class="mb-3 mt-4">
-        <label for="formFile" class="form-label">Sesi</label>
-        <select class="form-select @error('jeda_presensi_id') is-invalid @enderror" name="jeda_presensi_id" value="{{ old('jeda_presensi_id') }}" style=" font-size: 15px; height: 6.5vh;" required>
-          @foreach ($jedas as $jeda)
-          <option value="{{ $jeda->id }}">{{ $jeda->nama }} ({{ explode(':', $jeda->jam_masuk)[0] }}:{{ explode(':', $jeda->jam_masuk)[1] }} sd {{ explode(':', $jeda->jam_pulang)[0] }}:{{ explode(':', $jeda->jam_pulang)[1] }})</option>
-          @endforeach
-        </select>
-        @error('jeda_presensi_id')
-          <div class="invalid-feedback">
-            {{ $message }}
-          </div>
-        @enderror
-      </div>
       <div>
         <label for="exampleInputEmail1" class="form-label">Status Rfid</label>
       </div>
@@ -199,7 +186,7 @@
       <div class="mt-3 mb-3">
         <label for="exampleInputEmail1" class="form-label">Rfid</label>
         <input type="hidden" name="id_rfid" value="{{ ($user->rfid) ? $user->rfid->id : '' }}">
-        <input type="text" class="form-control @error('rfid_number') is-invalid @enderror" placeholder="Masukan Rfid" name="rfid_number" value="{{ ($user->rfid) ? $user->rfid->rfid_number : '' }}" value="{{ old('rfid_number') }}" style=" font-size: 15px; height: 6.5vh;" required>
+        <input type="text" class="form-control @error('rfid_number') is-invalid @enderror" placeholder="Masukan Rfid" name="rfid_number" value="{{ ($user->rfid) ? $user->rfid->rfid_number : '' }}" value="{{ old('rfid_number') }}" style=" font-size: 15px; height: 6.5vh;">
           @error('rfid_number')
         <div class="invalid-feedback">
           {{ $message }}

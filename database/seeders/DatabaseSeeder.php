@@ -1,4 +1,4 @@
--\<?php
+<?php
 
 namespace Database\Seeders;
 
@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(SekolahSeeder::class);
+        $this->call(SekolahSeeder::class);
         $this->call(PermissionTableSeeder::class);
         $this->call(UserSeeder::class);
         // $this->call(JedaPresensiSeeder::class);

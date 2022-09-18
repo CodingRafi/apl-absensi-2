@@ -159,6 +159,24 @@
                     </div>
                 </div>
             </li>
+            <li class="nav-item">
+                <form action="/presensi-export" method="get">
+                    @include('mypartials.tahunajaran')
+                    @if (request('idk'))
+                        <input type="hidden" name="idk" value="{{ request('idk') }}">
+                    @endif
+                    @if (request('idj'))
+                        <input type="hidden" name="idj" value="{{ request('idj') }}">
+                    @endif
+                    @if (request('search'))
+                        <input type="hidden" name="search" value="{{ request('search') }}">
+                    @endif
+                    <button type="submit" class="btn btn-sm text-white font-weight-bold px-3"
+                    style="background-color: #3bae9c">Export</button>
+                </form>
+            </li>
+            @if (auth()->user()->can('export_presensi'))
+            @endif
         </ul>
         <div class="table-responsive">
             <table class="table text-center">

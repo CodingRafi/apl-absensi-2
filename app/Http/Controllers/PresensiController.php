@@ -10,7 +10,9 @@ use App\Models\Absensi;
 use App\Http\Requests\StorePresensiRequest;
 use App\Http\Requests\UpdatePresensiRequest;
 use Carbon\Carbon;
+use App\Exports\PresensiExport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PresensiController extends Controller
 {
@@ -43,7 +45,6 @@ class PresensiController extends Controller
         $presensis = [];
 
         $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
-        $kompetensis = Kompetensi::where('sekolah_id', \Auth::user()->sekolah_id)->get();
 
         $siswas = Siswa::filter(request(['idk', 'idj', 'search']))->select('siswas.*', 'kelas.nama as kelas', 'kompetensis.kompetensi as jurusan')->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->get();
 
@@ -53,7 +54,6 @@ class PresensiController extends Controller
 
         return view('absensipelajaran.input', [
             'date' => $date,
-            'kompetensis' => $kompetensis,
             'presensis' => $presensis,
             'siswas' => $siswas,
             'id' => $id
@@ -147,5 +147,37 @@ class PresensiController extends Controller
     public function destroy(Presensi $presensi)
     {
         //
+    }
+
+    public function export(Request $request){
+        $now = Carbon::now();
+        $month = request('idb') ?? $now->month;
+        $year = $now->year;
+        $date=[];
+        
+        for($d=0; $d<=32; $d++)
+        {
+            $time=mktime(24, 0, 0, $month, $d, $year);  
+            if (date('m', $time)==$month)       
+            $date[]=date('Y-m-d', $time);
+        }
+
+        $presensis = [];
+
+        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+
+        $siswas = Siswa::filter(request(['idk', 'idj', 'search']))->select('siswas.*', 'kelas.nama as kelas', 'kompetensis.kompetensi as jurusan')->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->get();
+
+        foreach ($siswas as $key => $siswa) {
+            $presensis[] = Presensi::get_presensi($siswa, $date);
+        }
+
+        return Excel::download(new PresensiExport($presensis, $siswas, $date), 'presensi.xlsx');
+
+        return view('absensipelajaran.export', [
+            'date' => $date,
+            'presensis' => $presensis,
+            'siswas' => $siswas,
+        ]);
     }
 }

@@ -139,7 +139,6 @@
                         <th scope="col">Tanggal Lahir</th>
                         <th scope="col">NIK</th>
                         <th scope="col">Agama</th>
-                        <th scope="col">Sesi</th>
                         <th scope="col">Jalan</th>
                         <th scope="col">kelurahan</th>
                         <th scope="col">kecamatan</th>
@@ -172,7 +171,6 @@
                         <td>{{ $student->tanggal_lahir }}</td>
                         <td>{{ $student->nik }}</td>
                         <td>{{ $student->agama }}</td>
-                        <td>{{ $student->jeda_presensi->nama }}</td>
                         <td>{{ $student->jalan }}</td>
                         <td>{{ $student->kelurahan }}</td>
                         <td>{{ $student->kecamatan }}</td>

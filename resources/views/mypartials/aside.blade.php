@@ -119,7 +119,7 @@
                         <form action="/absensi/{{ $role->name }}" method="get">
                             @include('mypartials.tahunajaran')
                             <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"
-                                style="background-color: #3bae9c; border: none; border-radius: 10px; min-width: 150px">Absensi {{
+                                style="background-color: #3bae9c; border: none; border-radius: 10px; min-width: 150px;text-transform: capitalize;">Absensi {{
                                 str_replace("_", " ", $role->name) }}
                             </button>
                         </form>
@@ -146,24 +146,21 @@
             </a>
             <div class="collapse" id="data-agenda">
                 <ul class="nav flex-column sub-menu">
+                    @foreach ($roles as $role)
+                    @if ($role->name != 'yayasan' && $role->name != 'admin' && $role->name != 'super_admin')
                     <li class="nav-item" style="border-radius: 10px">
-                        <form action="/agenda-guru" method="get">
+                        <form action="/agenda/{{ $role->name }}" method="get">
                             @include('mypartials.tahunajaran')
-                            <button class="nav-link"
-                                style="background-color: #3bae9c; border: none; border-radius: 10px; min-width: 150px">Agenda Guru
+                            <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"
+                                style="background-color: #3bae9c; border: none; border-radius: 10px; min-width: 150px;text-transform: capitalize;">Agenda {{
+                                str_replace("_", " ", $role->name) }}
                             </button>
                         </form>
                     </li>
+                    @endif
+                    @endforeach
                     <li class="nav-item" style="border-radius: 10px">
-                        <form action="agenda-karyawan" method="get">
-                            @include('mypartials.tahunajaran')
-                            <button class="nav-link"
-                                style="background-color: #3bae9c; border: none; border-radius: 10px; min-width: 150px">Agenda Karyawan
-                            </button>
-                        </form>
-                    </li>
-                    <li class="nav-item" style="border-radius: 10px">
-                        <form action="agenda-siswa" method="get">
+                        <form action="/agenda/siswa" method="get">
                             @include('mypartials.tahunajaran')
                             <button class="nav-link"
                                 style="background-color: #3bae9c; border: none; border-radius: 10px; min-width: 150px">Agenda Siswa

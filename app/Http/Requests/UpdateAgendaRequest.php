@@ -24,12 +24,9 @@ class UpdateAgendaRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required',
-            'mapel_id' => 'required',
             'hari' => 'required',
             'jam_awal' => 'required',
             'jam_akhir' => 'required',
-            'urutan' => 'required',
         ];
     }
 }

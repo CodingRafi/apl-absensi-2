@@ -55,12 +55,10 @@ class UserController extends Controller
     public function create(Request $request, $role)
     {   
         $roleQuery = Role::where('name', $role)->first();
-        $jedas = JedaPresensi::where('role_id', $roleQuery->id)->where('sekolah_id', \Auth::user()->sekolah_id)->get();
         $mapels = Mapel::where('sekolah_id', \Auth::user()->sekolah_id)->get();
         return view('users.create', [
             'role' => $role,
-            'mapels' => $mapels,
-            'jedas' => $jedas
+            'mapels' => $mapels
         ]);
     }
 
@@ -85,8 +83,7 @@ class UserController extends Controller
             'kelurahan' => 'required', 
             'kecamatan' => 'required', 
             'role' => 'required',
-            'rfid_number' => 'required|unique:rfids',
-            'status_rfid' => 'required',
+            'rfid_number' => 'unique:rfids',
             'profil' => 'mimes:png,jpg,jpeg|file|max:5024'
         ]);
         
@@ -103,7 +100,6 @@ class UserController extends Controller
             'kelurahan' => $request->kelurahan, 
             'kecamatan' => $request->kecamatan,
             'sekolah_id' => \Auth::user()->sekolah_id,
-            'jeda_presensi_id' => $request->jeda_presensi_id,
             'email' => $request->email
         ];
 
@@ -146,13 +142,11 @@ class UserController extends Controller
     {
         $role = $user->getRoleNames()[0];
         $roleQuery = Role::where('name', $role)->first();
-        $jedas = JedaPresensi::where('role_id', $roleQuery->id)->where('sekolah_id', \Auth::user()->sekolah_id)->get();
         $mapels = Mapel::where('sekolah_id', \Auth::user()->sekolah_id)->get();
         return view('users.update', [
             'user' => $user,
             'role' => $role,
-            'mapels' => $mapels,
-            'jedas' => $jedas
+            'mapels' => $mapels
         ]);
     }
 
@@ -177,7 +171,6 @@ class UserController extends Controller
             'kecamatan' => 'required', 
             'role' => 'required',
             'profil' => 'mimes:png,jpg,jpeg|file|max:5024',
-            'jeda_presensi_id' => 'required',
             'email' => ['required', Rule::unique('users')->ignore($user->id), Rule::unique('siswas')]
         ]);
 
@@ -228,13 +221,17 @@ class UserController extends Controller
 
             if(count($user->agenda) > 0){
                 foreach ($user->agenda as $key => $agenda) {
-                    $agenda->delete();
+                    $agenda->update([
+                        'user_id' => null
+                    ]);
                 }
             }
 
             if(count($user->absensi_pelajaran) > 0){
                 foreach ($user->absensi_pelajaran as $key => $absensi_pelajaran) {
-                    $absensi_pelajaran->delete();
+                    $absensi_pelajaran->update([
+                        'user_id' => null
+                    ]);
                 }
             }
 
@@ -282,8 +279,7 @@ class UserController extends Controller
                         'kelurahan' => $user['kelurahan'],
                         'kecamatan' => $user['kecamatan'],
                         'password' => \Hash::make('12345678'),
-                        'sekolah_id' => \Auth::user()->sekolah_id,
-                        'jeda_presensi_id' => $request->jeda_presensi_id
+                        'sekolah_id' => \Auth::user()->sekolah_id
                     ]);
     
                     $user->assignRole($role);
@@ -313,7 +309,6 @@ class UserController extends Controller
                     'jalan' => $user->jalan,
                     'kelurahan' => $user->kelurahan,
                     'kecamatan' => $user->kecamatan,
-                    'sesi' => ($user->jeda_presensi) ? $user->jeda_presensi->nama : ''
                 ];
             }
         }

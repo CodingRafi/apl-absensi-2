@@ -25,12 +25,9 @@ class StoreAgendaRequest extends FormRequest
     {
         return [
             'user_id' => 'required',
-            'kelas_id' => 'required',
-            'mapel_id' => 'required',
             'hari' => 'required',
             'jam_awal' => 'required',
             'jam_akhir' => 'required',
-            'urutan' => 'required',
         ];
     }
 }

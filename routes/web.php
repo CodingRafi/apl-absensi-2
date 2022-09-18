@@ -45,6 +45,10 @@ Route::group(['middleware' => ['auth:web,websiswa']], function() {
     Route::resource('users', UserController::class);
     Route::resource('siswa', SiswaController::class);
     Route::resource('tahun-ajaran', TahunAjaranController::class);
+    Route::get('/agenda/{role}', [AgendaController::class, 'index']);
+    Route::get('/agenda/create/{role}', [AgendaController::class, 'create']);
+    Route::get('/agenda/{role}/{id}/edit', [AgendaController::class, 'edit']);
+    Route::get('/create-agenda', [AgendaController::class, 'create']);
     Route::resource('agenda', AgendaController::class);
     Route::get('edit-sekolah', [App\Http\Controllers\SekolahController::class, 'edit']);
     Route::resource('sekolah', App\Http\Controllers\SekolahController::class);
@@ -52,12 +56,13 @@ Route::group(['middleware' => ['auth:web,websiswa']], function() {
     // Route::resource('tenggat', JedaPresensiController::class);
     Route::get('/presensi/{id}', [PresensiController::class, 'index']);
     Route::post('/presensi/{id}', [PresensiController::class, 'update']);
+    Route::get('/presensi-export', [PresensiController::class, 'export']);
     Route::post('/absensi/{id}', [AbsensiController::class, 'update']);
     Route::resource('presensi', PresensiController::class);
     Route::get('/agenda-guru', [AgendaController::class, 'show_guru']);
     Route::get('/absensi/{role}', [AbsensiController::class, 'index']);
     Route::get('get-mapel/{id}', [AgendaController::class, 'get_mapel']);
-    Route::get('agenda/kelas/{id}', [AgendaController::class, 'showJadwal']);
+    Route::get('agenda/{role}/{id}', [AgendaController::class, 'showJadwal']);
     Route::get('/import', [SiswaController::class, 'import']);
     Route::post('/import', [SiswaController::class, 'saveimport']);
     Route::get('/export', [SiswaController::class, 'export']);
