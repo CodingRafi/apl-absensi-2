@@ -8,7 +8,7 @@
             Tahun Ajaran</a>
         <table class="table">
             <thead>
-                <tr>
+                <tr class="text-center">
                     <th scope="col">No</th>
                     <th scope="col">Tahun Awal</th>
                     <th scope="col">Tahun Akhir</th>
@@ -19,7 +19,7 @@
             </thead>
             <tbody>
                 @foreach ($tahun_ajarans as $tahun_ajaran)
-                <tr>
+                <tr class="text-center">
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $tahun_ajaran->tahun_awal }}</td>
                     <td>{{ $tahun_ajaran->tahun_akhir }}</td>

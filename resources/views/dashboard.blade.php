@@ -142,10 +142,10 @@
                     @endif
                     <div class="mt-1" style="display: flex; justify-content: center; gap:20px;">
                         @if ( Auth::user()->sekolah->instagram )
-                        <a href="{{ Auth::user()->sekolah->instagram }}"><i class="bi bi-instagram"></i></a>
+                        <a href="{{ Auth::user()->sekolah->instagram }}"><i class="bi bi-instagram" style="color: purple;"></i></a>
                         @endif
                         @if ( Auth::user()->sekolah->youtube )
-                        <a href="{{ Auth::user()->sekolah->youtube }}"><i class="bi bi-youtube"></i></a>
+                        <a href="{{ Auth::user()->sekolah->youtube }}"><i class="bi bi-youtube" style="color: red"></i></a>
                         @endif
                     </div>
                 </div>
