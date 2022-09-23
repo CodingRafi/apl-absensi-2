@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('kelas_id')->nullable()->constrained();
             $table->foreignId('tahun_ajaran_id')->constrained();
             $table->text('other')->nullable();
-            $table->enum('hari', ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu']);
+            $table->enum('hari', ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu']);
             $table->time('jam_awal');
             $table->time('jam_akhir');
             $table->timestamps();

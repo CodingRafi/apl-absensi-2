@@ -195,8 +195,8 @@ class UserController extends Controller
         
         if($request->id_rfid){
             Rfid::updateRfid($request);
-        }else if($request->rfid){
-            Rfid::createRfid($request->rfid, null, $user->id, $request->status_rfid ?? 'tidak');
+        }else if($request->rfid_number){
+            Rfid::createRfid($request->rfid_number, null, $user->id, $request->status_rfid ?? 'tidak');
         }
 
         return TahunAjaran::redirectTahunAjaran('/users/' . $request->role, $request,  'Berhasil mengupdate ' . $request->role);
