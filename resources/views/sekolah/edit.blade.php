@@ -29,11 +29,11 @@
                 </div>
                 <div class="mb-3">
                     <label for="">Instagram (opsional)</label>
-                    <input class="form-control form-control-lg" type="text" placeholder="Masukan Instagram" value="{{ Auth::user()->sekolah->instagram }}" name="instagram" style=" font-size: 15px; height: 6.5vh;">
+                    <input class="form-control form-control-lg" type="text" placeholder="https://instagram.com" value="{{ Auth::user()->sekolah->instagram }}" name="instagram" style=" font-size: 15px; height: 6.5vh;">
                 </div>
                 <div class="mb-3">
                     <label for="">Youtube (opsional)</label>
-                    <input class="form-control form-control-lg" type="text" placeholder="Masukan Youtube" value="{{ Auth::user()->sekolah->youtube }}" name="youtube" style=" font-size: 15px; height: 6.5vh;">
+                    <input class="form-control form-control-lg" type="text" placeholder="https://youtube.com" value="{{ Auth::user()->sekolah->youtube }}" name="youtube" style=" font-size: 15px; height: 6.5vh;">
                 </div>
                 <button class="btn text-white" type="submit" style="background-color: #3bae9c">Update</button>
             </form>

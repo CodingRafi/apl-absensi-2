@@ -47,7 +47,7 @@
                 </div>
                 <div class="form-group">
                   <label for="npsn" class="form-label">NPSN</label>
-                  <input type="text" class="form-control form-control-lg" placeholder="NPSN"
+                  <input type="number" class="form-control form-control-lg" placeholder="NPSN"
                     name="npsn" style="border-radius: 5px; width: 100%" value="{{ old('npsn') }}" required>
                 </div>
                 <div class="form-group">
