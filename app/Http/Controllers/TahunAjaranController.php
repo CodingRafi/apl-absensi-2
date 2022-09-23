@@ -54,11 +54,23 @@ class TahunAjaranController extends Controller
             }
         }
 
+        $tahun_ajarans = TahunAjaran::where('status', 'aktif')->count();
+        $status;
+        if ($tahun_ajarans <= 0) {
+            if (!$request->status) {
+                $status = 'on';
+            }else{
+                $status = $request->status;
+            }
+        }else{
+            $status = $request->status;
+        }
+
         TahunAjaran::create([
             'tahun_awal' => $request->tahun_awal,
             'tahun_akhir' => $request->tahun_akhir,
             'semester' => $request->semester,
-            'status' => ($request->status == 'on') ? 'aktif' : 'tidak',
+            'status' => ($status == 'on') ? 'aktif' : 'tidak',
             'sekolah' => \Auth::user()->sekolah,
         ]);
 
@@ -84,7 +96,9 @@ class TahunAjaranController extends Controller
      */
     public function edit(TahunAjaran $tahunAjaran)
     {
-        //
+        return view('tahun-ajaran.update', [
+            'tahun_ajaran' => $tahunAjaran
+        ]);
     }
 
     /**
@@ -103,13 +117,21 @@ class TahunAjaranController extends Controller
                 ]);
             }
         }
-        
+
+        // dd($request->status ?? 'tidak');
+
         $tahunAjaran->update([
             'tahun_awal' => $request->tahun_awal,
             'tahun_akhir' => $request->tahun_akhir,
             'tahun_semester' => $request->tahun_semester,
-            'status' => $request->status,
+            'status' => ($request->status) ? 'aktif' : 'tidak',
         ]);
+        
+        if (!TahunAjaran::where('status', 'aktif')->first()) {
+            TahunAjaran::orderBy('created_at', 'desc')->first()->update([
+                'status' => 'aktif'
+            ]);
+        }
 
         return redirect('/tahun-ajaran')->with('message', 'Berhasil Di Update');
     }

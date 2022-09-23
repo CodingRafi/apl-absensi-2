@@ -31,11 +31,12 @@
                 <div class="container" style="height: 65vh;overflow: auto;">
                     <div id="accordionIcon" class="accordion mt-3 accordion-without-arrow">
                         @foreach ($roles as $key => $role)
+                            @if ($role->name != 'super_admin')
                             <div class="accordion-item card mb-3">
                                 <h2 class="accordion-header text-body d-flex justify-content-between" id="accordionIconOne">
                                     <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
                                         data-bs-target="#accordionIcon-{{ $loop->iteration }}"
-                                        aria-controls="accordionIcon-{{ $loop->iteration }}">
+                                        aria-controls="accordionIcon-{{ $loop->iteration }}" style="text-transform: capitalize;">
                                         {{ $loop->iteration }}. Role {{ $role->name }}
                                     </button>
                                 </h2>
@@ -65,15 +66,15 @@
                                         <div class="container-fluid">
                                             <div class="row flex-wrap">
                                                 @foreach ($rolePermissions[$key] as $rolePermission)
-                                                    <div class="col-md-3 mb-2 mt-2" style="text-transform: capitalize">{{ str_replace("_", " ", $rolePermission->name) }}</div>
+                                                    <div class="col-md-3 mb-2 mt-2" style="text-transform: capitalize;">{{ str_replace("_", " ", $rolePermission->name) }}</div>
                                                 @endforeach
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            @endif
                         @endforeach
-
                     </div>
                 </div>
             </div>

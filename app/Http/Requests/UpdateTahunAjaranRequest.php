@@ -26,7 +26,7 @@ class UpdateTahunAjaranRequest extends FormRequest
         return [
             'tahun_awal' => 'required',
             'tahun_akhir' => 'required',
-            'semester' => 'status'
+            'semester' => 'required'
         ];
     }
 }

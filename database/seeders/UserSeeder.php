@@ -62,14 +62,14 @@ class UserSeeder extends Seeder
 
         $roleAdminSmk->syncPermissions($resultAdminSmk);
 
-        $adminSmk = User::create([
-            'name' => 'Admin SMK',
-            'email' => 'adminsmk@gmail.com',
-            'password' => bcrypt('12345678'),
-            'sekolah_id' => 1
-        ]);
+        // $adminSmk = User::create([
+        //     'name' => 'Admin SMK',
+        //     'email' => 'adminsmk@gmail.com',
+        //     'password' => bcrypt('12345678'),
+        //     'sekolah_id' => 1
+        // ]);
 
-        $adminSmk->assignRole('admin');
+        // $adminSmk->assignRole('admin');
 
         // $adminSmp = User::create([
         //     'name' => 'Admin SMP',

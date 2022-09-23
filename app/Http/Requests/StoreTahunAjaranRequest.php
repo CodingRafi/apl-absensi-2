@@ -27,7 +27,6 @@ class StoreTahunAjaranRequest extends FormRequest
             'tahun_awal' => 'required',
             'tahun_akhir' => 'required',
             'semester' => 'required',
-            'status' => 'required',
         ];
     }
 }

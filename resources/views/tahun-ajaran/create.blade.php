@@ -31,6 +31,7 @@
         </form>
     </div>
 </div>
+@endsection
 
 @section('tambahjs')
     <script>
@@ -48,7 +49,4 @@
 
 
     </script>
-
-@endsection
-
 @endsection
