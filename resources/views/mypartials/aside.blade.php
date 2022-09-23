@@ -10,9 +10,9 @@
                     style="background-color: transparent; border: none; border-radius: 10px; width: 100%;"><i class="bi bi-columns-gap mr-3"></i> <span>Dasboard</span></button>
             </form>
         </li>
-        @if (auth()->user()->can('show_agenda_guru')) 
+        @if (auth()->user()->can('show_jadwal')) 
         <li class="nav-item" style="border-radius: 10px">
-            <form action="/agenda-guru" method="get">
+            <form action="/agenda/guru/{{ Auth::user()->id }}" method="get">
                 @include('mypartials.tahunajaran')
                 <button class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}"
                     style="background-color: transparent; border: none; border-radius: 10px; width: 100%;"><i
@@ -137,39 +137,41 @@
             </div>
         </li>
         @endif
-        @if (auth()->user()->can('view_agenda') || auth()->user()->can('add_agenda') || auth()->user()->can('edit_agenda') || auth()->user()->can('delete_agenda')) 
-        <li class="nav-item" style="border-radius: 10px">
-            <a class="nav-link {{ Request::is('agenda*') ? 'active' : '' }}" data-toggle="collapse" href="#data-agenda" aria-expanded="false" aria-controls="ui-basic" style=" border-radius: 10px;">
-                <i class="bi bi-calendar-week mr-3"></i>
-                <span class="menu-title">Agenda</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="data-agenda">
-                <ul class="nav flex-column sub-menu">
-                    @foreach ($roles as $role)
-                    @if ($role->name != 'yayasan' && $role->name != 'admin' && $role->name != 'super_admin')
-                    <li class="nav-item" style="border-radius: 10px">
-                        <form action="/agenda/{{ $role->name }}" method="get">
-                            @include('mypartials.tahunajaran')
-                            <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"
-                                style="background-color: #3bae9c; border: none; border-radius: 10px; min-width: 150px;text-transform: capitalize;">Agenda {{
-                                str_replace("_", " ", $role->name) }}
-                            </button>
-                        </form>
-                    </li>
-                    @endif
-                    @endforeach
-                    <li class="nav-item" style="border-radius: 10px">
-                        <form action="/agenda/siswa" method="get">
-                            @include('mypartials.tahunajaran')
-                            <button class="nav-link"
-                                style="background-color: #3bae9c; border: none; border-radius: 10px; min-width: 150px">Agenda Siswa
-                            </button>
-                        </form>
-                    </li>
-                </ul>
-            </div>
-        </li>
+        @if ( !auth()->user()->can('show_jadwal') )
+            @if (auth()->user()->can('view_agenda') || auth()->user()->can('add_agenda') || auth()->user()->can('edit_agenda') || auth()->user()->can('delete_agenda')) 
+            <li class="nav-item" style="border-radius: 10px">
+                <a class="nav-link {{ Request::is('agenda*') ? 'active' : '' }}" data-toggle="collapse" href="#data-agenda" aria-expanded="false" aria-controls="ui-basic" style=" border-radius: 10px;">
+                    <i class="bi bi-calendar-week mr-3"></i>
+                    <span class="menu-title">Agenda</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="data-agenda">
+                    <ul class="nav flex-column sub-menu">
+                        @foreach ($roles as $role)
+                        @if ($role->name != 'yayasan' && $role->name != 'admin' && $role->name != 'super_admin')
+                        <li class="nav-item" style="border-radius: 10px">
+                            <form action="/agenda/{{ $role->name }}" method="get">
+                                @include('mypartials.tahunajaran')
+                                <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"
+                                    style="background-color: #3bae9c; border: none; border-radius: 10px; min-width: 150px;text-transform: capitalize;">Agenda {{
+                                    str_replace("_", " ", $role->name) }}
+                                </button>
+                            </form>
+                        </li>
+                        @endif
+                        @endforeach
+                        <li class="nav-item" style="border-radius: 10px">
+                            <form action="/agenda/siswa" method="get">
+                                @include('mypartials.tahunajaran')
+                                <button class="nav-link"
+                                    style="background-color: #3bae9c; border: none; border-radius: 10px; min-width: 150px">Agenda Siswa
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            @endif
         @endif
         @if (auth()->user()->can('view_presensi') || auth()->user()->can('add_presensi') || auth()->user()->can('edit_presensi') || auth()->user()->can('delete_presensi'))
         <li class="nav-item" style="border-radius: 10px">

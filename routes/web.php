@@ -83,24 +83,24 @@ Route::group(['middleware' => ['auth:web,websiswa']], function() {
 
 require __DIR__.'/auth.php';
 
-Route::get('agenda-guru', function(){
-    return view('agenda.guruView');
-});
+// Route::get('agenda-guru', function(){
+//     return view('agenda.guruView');
+// });
 
-Route::get('agenda-karyawan', function(){
-    return view('agenda.karyawanView');
-});
+// Route::get('agenda-karyawan', function(){
+//     return view('agenda.karyawanView');
+// });
 
-Route::get('agenda-siswa', function(){
-    return view('agenda.siswaView');
-});
+// Route::get('agenda-siswa', function(){
+//     return view('agenda.siswaView');
+// });
 
-Route::get('agenda-create-guru', function(){
-    return view('agenda.createGuru');
-});
+// Route::get('agenda-create-guru', function(){
+//     return view('agenda.createGuru');
+// });
 
-Route::get('agenda-create-karyawan', function(){
-    return view('agenda.createOther');
-});
+// Route::get('agenda-create-karyawan', function(){
+//     return view('agenda.createOther');
+// });
 
 

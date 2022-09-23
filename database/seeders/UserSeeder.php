@@ -55,7 +55,7 @@ class UserSeeder extends Seeder
             'guard_name' => 'web'
         ]);
 
-        $izinAdminSmk = ['1', '2', '3', '4', '5', '6', '18', '19', '20', '21', '22', '23', '24', '25', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '16', '57', '58', '59', '60'];
+        $izinAdminSmk = ['1', '2', '3', '4', '5', '6', '18', '19', '20', '21', '22', '23', '24', '25', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '16'];
         $resultAdminSmk = array_map(function($izinAdmin){
             return $izinAdmin;
         }, $izinAdminSmk);
@@ -86,7 +86,7 @@ class UserSeeder extends Seeder
             'guard_name' => 'web'
         ]);
 
-        $izinGuru = ['48', '49', '53', '54', '55', '61'];
+        $izinGuru = ['48', '49', '53', '54', '55', '57', '41', '42', '43'];
         $resultGuru = array_map(function($izin){
             return $izin;
         }, $izinGuru);
@@ -128,7 +128,7 @@ class UserSeeder extends Seeder
             'guard_name' => 'web'
         ]);
 
-        $izinKaryaran = ['61'];
+        $izinKaryaran = ['57'];
         $resultKaryawan = array_map(function($izin){
             return $izin;
         }, $izinKaryaran);

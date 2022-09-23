@@ -43,7 +43,7 @@
                             <th scope="col">Kegiatan</th>
                         @endif
                         @if (auth()->user()->can('edit_agenda') || auth()->user()->can('delete_agenda'))
-                        <th scope="col">action</th>
+                            <th scope="col">action</th>
                         @endif
                     </tr>
                 </thead>

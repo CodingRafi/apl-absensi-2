@@ -350,7 +350,7 @@
         </div>
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Rfid</label>
-          <input type="text" class="form-control @error('rfid_number') is-invalid @enderror" placeholder="Masukan Rfid_number" name="rfid_number" value="{{ old('rfid_number') }}" style=" font-size: 15px; height: 6.5vh;">
+          <input type="text" class="form-control @error('rfid_number') is-invalid @enderror" placeholder="Masukan Rfid" name="rfid_number" value="{{ old('rfid_number') }}" style=" font-size: 15px; height: 6.5vh;">
           @error('rfid_number')
             <div class="invalid-feedback">
               {{ $message }}
