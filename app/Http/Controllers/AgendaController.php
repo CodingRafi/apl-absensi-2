@@ -21,7 +21,7 @@ class AgendaController extends Controller
          $this->middleware('permission:add_agenda', ['only' => ['create','store']]);
          $this->middleware('permission:edit_agenda', ['only' => ['edit','update']]);
          $this->middleware('permission:delete_agenda', ['only' => ['destroy']]);
-         $this->middleware('permission:show_agenda_guru', ['only' => ['show_guru']]);
+         $this->middleware('permission:show_jadwal', ['only' => ['show_jadwal']]);
     }
     /**
      * Display a listing of the resource.
@@ -325,29 +325,43 @@ class AgendaController extends Controller
     }
 
     public function show_guru(Request $request){
-        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+        // $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
 
-        $now = Carbon::now();
-        $month = $request->idb ?? $now->month;
-        $day = $request->idt ?? $now->day;
-        $year = $tahun_ajaran->tahun_awal;
+        // $now = Carbon::now();
+        // $month = $request->idb ?? $now->month;
+        // $day = $request->idt ?? $now->day;
+        // $year = $tahun_ajaran->tahun_awal;
 
-        $dates=[];
+        // $dates=[];
         
-        for($d=0; $d<=32; $d++)
-        {
-            $time=mktime(24, 0, 0, $month, $d, $year);  
-            if (date('m', $time)==$month)       
-            $dates[]=date('Y-m-d', $time);
-        }
+        // for($d=0; $d<=32; $d++)
+        // {
+        //     $time=mktime(24, 0, 0, $month, $d, $year);  
+        //     if (date('m', $time)==$month)       
+        //     $dates[]=date('Y-m-d', $time);
+        // }
 
-        $date = Carbon::parse(date("Y-m-d", mktime(0, 0, 0, $month, $day, $year)))->locale('id')->isoFormat('dddd');
+        // $date = Carbon::parse(date("Y-m-d", mktime(0, 0, 0, $month, $day, $year)))->locale('id')->isoFormat('dddd');
 
-        $agendas = Agenda::where('tahun_ajaran_id', $tahun_ajaran->id)->where('hari', strtolower($date))->orderBy('jam_awal', 'asc')->get();
+        // $agendas = Agenda::where('tahun_ajaran_id', $tahun_ajaran->id)->where('hari', strtolower($date))->orderBy('jam_awal', 'asc')->get();
 
-        return view('agenda.guru', [
-            'agendas' => $agendas,
-            'dates' => $dates
-        ]);
+        // return view('agenda.guru', [
+        //     'agendas' => $agendas,
+        //     'dates' => $dates
+        // ]);
+
+        // $users = [];
+        // $usersQuery = User::where('sekolah_id', \Auth::user()->sekolah->id)->get();
+
+        // foreach ($usersQuery as $key => $user) {
+        //     if ($user->hasRole('guru')) {
+        //         $users[] = $user;
+        //     }
+        // }
+
+        // return view('agenda.index',[
+        //     'role' => 'guru',
+        //     'users' => $users
+        // ]);
     }
 }

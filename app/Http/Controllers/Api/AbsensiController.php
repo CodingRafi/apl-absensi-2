@@ -22,7 +22,7 @@ class AbsensiController extends Controller
         $rfid = Rfid::where('rfid_number', $request->rfid)->first();
         $now = Carbon::now();
 
-        if (strtolower($now->isoFormat('dddd')) == 'minggu') {
+        if (strtolower($now->isoFormat('dddd')) != 'minggu') {
             if ($rfid) {
                 $absensi = Absensi::where('rfid_id', $rfid->id)->whereDate('presensi_masuk', Carbon::today())->first();
                 if ($rfid->status == 'aktif') {
