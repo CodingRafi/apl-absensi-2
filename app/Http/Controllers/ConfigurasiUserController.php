@@ -17,7 +17,7 @@ class ConfigurasiUserController extends Controller
     }
 
     public function editProfil(){
-        return view('myauth.editProfile');   
+        return view('myauth.editprofile');   
     }
 
     public function saveProfil(Request $request){

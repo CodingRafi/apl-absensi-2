@@ -67,7 +67,11 @@
                     </span>
                 </div>
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                    @if (Auth::user()->profil != '/img/profil.png')
+                    <img src="{{ asset('storage/' . Auth::user()->profil) }}" alt="profile" />
+                    @else
                     <img src="/template/images/faces/defaultProfile.jpg" alt="profile" />
+                    @endif
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                     <form action="/user-settings" method="get">
