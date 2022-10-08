@@ -30,7 +30,7 @@
                     @include('mypartials.tahunajaran')
                     <button class="btn btn-sm text-white font-weight-bold"
                         style="background-color: #3bae9c">Import</button>
-                </form>
+                </form> 
             </li>
             @endif
             @if (auth()->user()->can('add_users'))
@@ -72,10 +72,10 @@
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>
                             @if ($user->profil == '/img/profil.png')
-                            <img src="{{ $user->profil }}" alt="" style="width: 50px;object-fit: contain">
+                            <img src="{{ $user->profil }}" alt="" style="object-fit: cover; border-radius: 50%">
                             @else
                             <img src="{{ asset('storage/' . $user->profil) }}" alt=""
-                                style="width: 50px;object-fit: contain">
+                                style="object-fit: cover; border-radius: 50%">
                             @endif
                         </td>
                         <td>{{ $user->name }}</td>

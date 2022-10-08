@@ -3,7 +3,7 @@
 @section('container')
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title float-left">Agenda Karyawan</h4>
+        <h4 class="card-title float-left">Jadwal Karyawan</h4>
         <ul class="nav float-right mb-4" style="gap: 1rem;">
             <div class="nav-item">
                 <div class="input-group">

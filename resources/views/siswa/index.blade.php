@@ -155,9 +155,9 @@
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>
                             @if ($student->profil != '/img/profil.png')
-                            <img src="{{ asset('storage/' . $student->profil) }}" alt="" style="width: 50px;height:50px;object-fit: cover">
+                            <img src="{{ asset('storage/' . $student->profil) }}" alt="" style="object-fit: cover">
                             @else
-                            <img src="{{ $student->profil }}" alt="" style="width: 50px;height:50px;object-fit: cover">
+                            <img src="{{ $student->profil }}" alt="" style="object-fit: cover">
                             @endif
                         </td>
                         <td>{{ $student->nisn }}</td>

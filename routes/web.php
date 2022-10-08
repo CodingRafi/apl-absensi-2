@@ -83,6 +83,22 @@ Route::group(['middleware' => ['auth:web,websiswa']], function() {
 
 require __DIR__.'/auth.php';
 
+Route::get('/kelompok', function(){
+    return view('kelompok.index');
+});
+
+Route::get('/createKelompok', function(){
+    return view('kelompok.create');
+});
+
+Route::get('/jamPelajaran', function(){
+    return view('jamPelajaran.index');
+});
+
+Route::get('/createJamPelajaran', function(){
+    return view('jamPelajaran.create');
+});
+
 // Route::get('agenda-guru', function(){
 //     return view('agenda.guruView');
 // });
