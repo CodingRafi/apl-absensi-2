@@ -4,7 +4,7 @@
     <div class="card">
         <div class="card-body">
             <div class="title d-flex justify-content-between">
-                <h4 class="card-title">Create Agenda</h4>
+                <h4 class="card-title">Create Jadwal</h4>
                 <form action="/agenda-guru" method="get">
                     @include('mypartials.tahunajaran')
                     <button class="btn btn-sm btn-danger text-white font-weight-bold">Kembali</button>

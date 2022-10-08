@@ -47,7 +47,7 @@
                 </div>
                 <div class="form-group">
                   <label for="npsn" class="form-label">NPSN</label>
-                  <input type="text" class="form-control form-control-lg" placeholder="NPSN"
+                  <input type="number" class="form-control form-control-lg" placeholder="NPSN"
                     name="npsn" style="border-radius: 5px; width: 100%" value="{{ old('npsn') }}" required>
                 </div>
                 <div class="form-group">
@@ -76,11 +76,11 @@
                 </div>
                 <div class="form-group">
                   <label for="instagram" class="form-label">Instagram (opsional)</label>
-                  <input type="text" class="form-control form-control-lg" placeholder="instagram"
+                  <input type="text" class="form-control form-control-lg" placeholder="https://instagram.com"
                     name="instagram" style="border-radius: 5px; width: 100%">
                 </div><div class="form-group">
                   <label for="youtube" class="form-label">Youtube (opsional)</label>
-                  <input type="text" class="form-control form-control-lg" placeholder="youtube"
+                  <input type="text" class="form-control form-control-lg" placeholder="https://youtube.com"
                     name="youtube" style="border-radius: 5px; width: 100%">
                 </div>
 

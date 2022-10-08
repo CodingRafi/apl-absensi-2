@@ -42,9 +42,9 @@
             <div class="table-responsive table-borderless">
               <table>
                 <tr>
-                  <th class="col-4">Nama Sekolah</th>
+                  <th class="col-4">Nama Admin Sekolah</th>
                   <td class="col-1">:</td>
-                  <td class="col-7">{{ $sekolah->nama }}</td>
+                  <td class="col-7">{{ $user->name }}</td>
                 </tr>
                 <tr>
                   <th class="col-4">Email</th>
@@ -65,9 +65,9 @@
             <div class="table-responsive table-borderless">
               <table>
                 <tr>
-                  <th class="col-4">Nama Sekolah</th>
+                  <th class="col-4">Nama Yayasan</th>
                   <td class="col-1">:</td>
-                  <td class="col-7">{{ $sekolah->nama }}</td>
+                  <td class="col-7">{{ $yayasan->name }}</td>
                 </tr>
                 <tr>
                   <th class="col-4">Email</th>

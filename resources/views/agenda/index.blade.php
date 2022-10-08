@@ -3,7 +3,7 @@
 @section('container')
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title float-left">Agenda {{ $role }}</h4>
+        <h4 class="card-title float-left">Jadwal {{ $role }}</h4>
         <div class="table-responsive">
             <table class="table">
                 <thead class="thead-light">
