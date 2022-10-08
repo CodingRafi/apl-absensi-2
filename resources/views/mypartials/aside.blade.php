@@ -46,15 +46,15 @@
             <a href="/tahun-ajaran" class="nav-link {{ Request::is('tahun-ajaran') ? 'active' : '' }}" style=" border-radius: 10px;"><i class="bi bi-calendar-date mr-3"></i> <span>Tahun Ajaran</span></a>
         </li>
         @endif
-        @if (auth()->user()->can('view_kelas') || auth()->user()->can('add_kelas') || auth()->user()->can('edit_kelas') || auth()->user()->can('delete_kelas'))
-        <li class="nav-item" style="border-radius: 10px">
-            <form action="/kelas" method="get">
-                @include('mypartials.tahunajaran')
-                <button class="nav-link {{ Request::is('kelas') ? 'active' : '' }}"
-                    style="background-color: transparent; border: none; border-radius: 10px; width: 100%;"><i class="bi bi-door-open mr-3"></i> <span>Kelas</span></button>
-            </form>
-        </li>
-        @endif
+                @if (auth()->user()->can('view_kelas') || auth()->user()->can('add_kelas') || auth()->user()->can('edit_kelas') || auth()->user()->can('delete_kelas'))
+                <li class="nav-item" style="border-radius: 10px">
+                    <form action="/kelas" method="get">
+                        @include('mypartials.tahunajaran')
+                        <button class="nav-link {{ Request::is('kelas') ? 'active' : '' }}"
+                            style="background-color: transparent; border: none; border-radius: 10px; width: 100%;"><i class="bi bi-door-open mr-3"></i> <span>Kelas</span></button>
+                    </form>
+                </li>
+                @endif
         @if (auth()->user()->can('view_mapel') || auth()->user()->can('add_mapel') || auth()->user()->can('edit_mapel') || auth()->user()->can('delete_mapel'))
         <li class="nav-item" style="border-radius: 10px">
             <form action="/mapel" method="get">
