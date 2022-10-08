@@ -13,7 +13,7 @@
 @section('container')
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title float-left">Agenda Guru</h4>
+        <h4 class="card-title float-left">jadwal Guru</h4>
         <ul class="nav float-right mb-4" style="gap: 1rem;">
             <form action="/agenda-create-guru" method="get">
                 @include('mypartials.tahunajaran')

@@ -4,7 +4,7 @@
 <div class="card">
     <div class="card-body">
         <div style="display: flex; justify-content:space-between">
-            <h4 class="card-title m-0">Create Agenda</h4>
+            <h4 class="card-title m-0">Create Jadwal</h4>
             <form action="/agenda/{{ $role }}/{{ request('idk') ?? request('idu') }}" method="get">
                 @include('mypartials.tahunajaran')
                 <button class="btn btn-sm btn-danger font-weight-bold float-right text-white" type="submit">Kembali</button>

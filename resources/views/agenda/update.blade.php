@@ -119,7 +119,7 @@
                 <input type="time" class="form-control" id="jam_akhir" name="jam_akhir"
                     value="{{ $agenda->jam_akhir }}">
             </div>
-            <button type="submit" class="btn btn-success">Simpan</button>
+            <button type="submit" class="btn text-white" style="background-color: #3bae9c">Simpan</button>
         </form>
     </div>
 </div>
