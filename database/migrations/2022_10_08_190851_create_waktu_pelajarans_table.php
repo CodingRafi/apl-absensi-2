@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('waktu_presensis', function (Blueprint $table) {
+        Schema::create('waktu_pelajarans', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('waktu_presensis');
+        Schema::dropIfExists('waktu_pelajarans');
     }
 };

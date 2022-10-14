@@ -5,7 +5,7 @@
         <div class="card-body">
             <div class="title d-flex justify-content-between">
                 <h4 class="card-title">Jam Pelajaran</h4>
-                <form action="/createJamPelajaran" method="get">
+                <form action="/jam-pelajaran/create" method="get">
                     @include('mypartials.tahunajaran')
                     <button class="btn btn-sm text-white font-weight-bold" style="background-color: #3bae9c; min-width: 5vh;">Create</button>
                 </form>

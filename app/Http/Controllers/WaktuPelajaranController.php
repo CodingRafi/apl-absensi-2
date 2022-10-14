@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\WaktuPresensi;
-use App\Http\Requests\StoreWaktuPresensiRequest;
-use App\Http\Requests\UpdateWaktuPresensiRequest;
+use App\Models\WaktuPelajaran;
+use App\Http\Requests\StoreWaktuPelajaranRequest;
+use App\Http\Requests\UpdateWaktuPelajaranRequest;
 
-class WaktuPresensiController extends Controller
+class WaktuPelajaranController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class WaktuPresensiController extends Controller
      */
     public function index()
     {
-        //
+        return view('jamPelajaran.index');
     }
 
     /**
@@ -25,16 +25,16 @@ class WaktuPresensiController extends Controller
      */
     public function create()
     {
-        //
+        return view('jamPelajaran.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreWaktuPresensiRequest  $request
+     * @param  \App\Http\Requests\StoreWaktuPelajaranRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreWaktuPresensiRequest $request)
+    public function store(StoreWaktuPelajaranRequest $request)
     {
         //
     }
@@ -42,10 +42,10 @@ class WaktuPresensiController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\WaktuPresensi  $waktuPresensi
+     * @param  \App\Models\WaktuPelajaran  $waktuPelajaran
      * @return \Illuminate\Http\Response
      */
-    public function show(WaktuPresensi $waktuPresensi)
+    public function show(WaktuPelajaran $waktuPelajaran)
     {
         //
     }
@@ -53,10 +53,10 @@ class WaktuPresensiController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\WaktuPresensi  $waktuPresensi
+     * @param  \App\Models\WaktuPelajaran  $waktuPelajaran
      * @return \Illuminate\Http\Response
      */
-    public function edit(WaktuPresensi $waktuPresensi)
+    public function edit(WaktuPelajaran $waktuPelajaran)
     {
         //
     }
@@ -64,11 +64,11 @@ class WaktuPresensiController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateWaktuPresensiRequest  $request
-     * @param  \App\Models\WaktuPresensi  $waktuPresensi
+     * @param  \App\Http\Requests\UpdateWaktuPelajaranRequest  $request
+     * @param  \App\Models\WaktuPelajaran  $waktuPelajaran
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateWaktuPresensiRequest $request, WaktuPresensi $waktuPresensi)
+    public function update(UpdateWaktuPelajaranRequest $request, WaktuPelajaran $waktuPelajaran)
     {
         //
     }
@@ -76,10 +76,10 @@ class WaktuPresensiController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\WaktuPresensi  $waktuPresensi
+     * @param  \App\Models\WaktuPelajaran  $waktuPelajaran
      * @return \Illuminate\Http\Response
      */
-    public function destroy(WaktuPresensi $waktuPresensi)
+    public function destroy(WaktuPelajaran $waktuPelajaran)
     {
         //
     }

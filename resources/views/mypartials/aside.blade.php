@@ -35,24 +35,7 @@
             <a href="/tahun-ajaran" class="nav-link {{ Request::is('tahun-ajaran') ? 'active' : '' }}" style=" border-radius: 10px;"><i class="bi bi-calendar-date mr-3"></i> <span>Tahun Ajaran</span></a>
         </li>
         @endif
-        @if (auth()->user()->can('view_kelas') || auth()->user()->can('add_kelas') || auth()->user()->can('edit_kelas') || auth()->user()->can('delete_kelas'))
-        <li class="nav-item" style="border-radius: 10px">
-            <form action="/kelas" method="get">
-                @include('mypartials.tahunajaran')
-                <button class="nav-link {{ Request::is('kelas') ? 'active' : '' }}"
-                    style="background-color: transparent; border: none; border-radius: 10px; width: 100%;"><i class="bi bi-door-open mr-3"></i> <span>Kelas</span></button>
-            </form>
-        </li>
-        @endif
-        @if (auth()->user()->can('view_mapel') || auth()->user()->can('add_mapel') || auth()->user()->can('edit_mapel') || auth()->user()->can('delete_mapel'))
-        <li class="nav-item" style="border-radius: 10px">
-            <form action="/mapel" method="get">
-                @include('mypartials.tahunajaran')
-                <button class="nav-link {{ Request::is('mapel') ? 'active' : '' }}"
-                    style="background-color: transparent; border: none; border-radius: 10px; width: 100%;"><i class="bi bi-book-half mr-3"></i> <span>Mapel</span></button>
-            </form>
-        </li>
-        @endif
+
 
         @if (auth()->user()->can('view_users') || auth()->user()->can('add_users') || auth()->user()->can('edit_users') || auth()->user()->can('delete_users') || auth()->user()->can('import_users') || auth()->user()->can('export_users') || auth()->user()->can('view_siswa') || auth()->user()->can('add_siswa') || auth()->user()->can('edit_siswa') || auth()->user()->can('delete_siswa') || auth()->user()->can('import_siswa') || auth()->user()->can('export_siswa') || auth()->user()->can('view_mapel') || auth()->user()->can('add_mapel') || auth()->user()->can('edit_mapel') || auth()->user()->can('delete_mapel') || auth()->user()->can('view_kompetensi') || auth()->user()->can('add_kompetensi') || auth()->user()->can('edit_kompetensi') || auth()->user()->can('delete_kompetensi') || auth()->user()->can('view_kelas') || auth()->user()->can('add_kelas') || auth()->user()->can('edit_kelas') || auth()->user()->can('delete_kelas'))
         <li class="nav-item" style="border-radius: 10px">
@@ -188,6 +171,7 @@
             </li>
             @endif
         @endif
+
         <li class="nav-item" style="border-radius: 10px">
             <form action="/kelompok" method="get">
                 @include('mypartials.tahunajaran')
@@ -195,13 +179,15 @@
                     style="background-color: transparent; border: none; border-radius: 10px; width: 100%;"><i class="bi bi-book-half mr-3"></i> <span>Kelompok Jadwal</span></button>
             </form>
         </li>
+
         <li class="nav-item" style="border-radius: 10px">
-            <form action="/jamPelajaran" method="get">
+            <form action="/jam-pelajaran" method="get">
                 @include('mypartials.tahunajaran')
                 <button class="nav-link {{ Request::is('jamPelajaran') ? 'active' : '' }}"
                     style="background-color: transparent; border: none; border-radius: 10px; width: 100%;"><i class="bi bi-book-half mr-3"></i> <span>Jam Pelajaran</span></button>
             </form>
         </li>
+        
         @if (auth()->user()->can('view_presensi') || auth()->user()->can('add_presensi') || auth()->user()->can('edit_presensi') || auth()->user()->can('delete_presensi'))
         <li class="nav-item" style="border-radius: 10px">
             <form action="/presensi-pelajaran" method="get">

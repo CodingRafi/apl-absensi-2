@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\WaktuPresensi;
+use App\Models\WaktuPelajaran;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class WaktuPresensiPolicy
+class WaktuPelajaranPolicy
 {
     use HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class WaktuPresensiPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\WaktuPresensi  $waktuPresensi
+     * @param  \App\Models\WaktuPelajaran  $waktuPelajaran
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, WaktuPresensi $waktuPresensi)
+    public function view(User $user, WaktuPelajaran $waktuPelajaran)
     {
         //
     }
@@ -48,10 +48,10 @@ class WaktuPresensiPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\WaktuPresensi  $waktuPresensi
+     * @param  \App\Models\WaktuPelajaran  $waktuPelajaran
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, WaktuPresensi $waktuPresensi)
+    public function update(User $user, WaktuPelajaran $waktuPelajaran)
     {
         //
     }
@@ -60,10 +60,10 @@ class WaktuPresensiPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\WaktuPresensi  $waktuPresensi
+     * @param  \App\Models\WaktuPelajaran  $waktuPelajaran
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, WaktuPresensi $waktuPresensi)
+    public function delete(User $user, WaktuPelajaran $waktuPelajaran)
     {
         //
     }
@@ -72,10 +72,10 @@ class WaktuPresensiPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\WaktuPresensi  $waktuPresensi
+     * @param  \App\Models\WaktuPelajaran  $waktuPelajaran
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, WaktuPresensi $waktuPresensi)
+    public function restore(User $user, WaktuPelajaran $waktuPelajaran)
     {
         //
     }
@@ -84,10 +84,10 @@ class WaktuPresensiPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\WaktuPresensi  $waktuPresensi
+     * @param  \App\Models\WaktuPelajaran  $waktuPelajaran
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, WaktuPresensi $waktuPresensi)
+    public function forceDelete(User $user, WaktuPelajaran $waktuPelajaran)
     {
         //
     }
