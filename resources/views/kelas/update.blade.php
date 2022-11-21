@@ -4,7 +4,7 @@
 <div class="card">
     <div class="card-body">
         <h4 class="card-title">Update Kelas</h4>
-        <form action="/kelas/{{ $kelas->id }}" method="POST">
+        <form action="{{ route('kelas.update', [$kelas->id]) }}}}" method="POST">
             @csrf
             @method('patch')
             @include('mypartials.tahunajaran')

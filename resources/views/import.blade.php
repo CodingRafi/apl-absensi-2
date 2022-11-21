@@ -14,21 +14,16 @@
             @if (request('semester'))
             <input type="hidden" name="semester" value="{{ request('semester') }}">
             @endif
-            <button
-                class="nav-link {{ Request::is('dashboard') ? 'active' : '' }} btn btn-sm btn-danger float-right text-white font-weight-bold"
+            <button class="nav-link {{ Request::is('dashboard') ? 'active' : '' }} btn btn-sm btn-danger float-right text-white font-weight-bold"
                 style="display: inline">Kembali</button>
         </form>
         @if (count($classes) > 0 && count($kompetensis) > 0)
-        <form action="/import" method="post" enctype="multipart/form-data">
+        <form action="{{ route('save.import.siswa') }}" method="post" enctype="multipart/form-data">
             @csrf
             @include('mypartials.tahunajaran')
             <div class="mb-3 mt-4">
                 <label for="formFile" class="form-label">Pilih File</label>
                 <input class="form-control" type="file" id="formFile" style="height: 37px" name="file">
-            </div>
-            <div class="mb-3 mt-4">
-              <label for="exampleInputEmail1" class="form-label">Password</label>
-              <input type="text" class="form-control" name="password" value="*123456*" style="height: 37px;" disabled required>
             </div>
             <div class="mb-3 mt-4">
                 <label for="formFile" class="form-label">Kelas</label>

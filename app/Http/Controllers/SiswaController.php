@@ -113,7 +113,7 @@ class SiswaController extends Controller
             Rfid::createRfid($request->rfid_number, $siswa->id, null, $request->status_rfid);
         }
 
-        return TahunAjaran::redirectTahunAjaran('/siswa', $request, 'Berhasil menambahkan siswa');
+        return TahunAjaran::redirectWithTahunAjaranManual('/siswa', $request, 'Berhasil menambahkan siswa');
     }
 
     /**
@@ -235,7 +235,7 @@ class SiswaController extends Controller
                 }
             }
     
-            return TahunAjaran::redirectTahunAjaran('/siswa', $request, 'Berhasil Mengupdate Siswa');
+            return TahunAjaran::redirectWithTahunAjaranManual('/siswa', $request, 'Berhasil Mengupdate Siswa');
         }else{
             abort(403);
         }
@@ -250,7 +250,7 @@ class SiswaController extends Controller
     public function destroy(Request $request, $id)
     {
         $user = Siswa::deleteSiswa($id);
-        return TahunAjaran::redirectTahunAjaran('/siswa', $request, 'Berhasil Menghapus Siswa');
+        return TahunAjaran::redirectWithTahunAjaranManual('/siswa', $request, 'Berhasil Menghapus Siswa');
     }
 
     public function import(Request $request){
@@ -268,43 +268,52 @@ class SiswaController extends Controller
 
     public function saveimport(Request $request){
         $siswas = (new FastExcel)->import($request->file);
-
+        $berhasil = 0;
+        $gagal = 0;
         foreach ($siswas as $key => $siswa) {
             if (array_key_exists("nisn",$siswa) && array_key_exists("nipd",$siswa) && array_key_exists("nik",$siswa)) {
                 if ($siswa['name'] != null && $siswa['nisn'] != null && $siswa['nipd'] != null) {
-                    $data = [
-                        'name' => $siswa['name'],
-                        'nisn' => $siswa['nisn'],
-                        'nipd' => $siswa['nipd'],
-                        'email' => (array_key_exists("email",$siswa)) ? $siswa['email'] : null,
-                        'jk' => ($siswa['jk'] == 'L' || $siswa['jk'] == 'P') ? strtoupper($siswa['jk']) : null,
-                        'tempat_lahir' => $siswa['tempat_lahir'],
-                        'tanggal_lahir' => Siswa::filterDate($siswa['tanggal_lahir']),
-                        'nik' => $siswa['nik'],
-                        'agama' => $siswa['agama'],
-                        'jalan' => $siswa['jalan'],
-                        'kelurahan' => $siswa['kelurahan'],
-                        'kecamatan' => $siswa['kecamatan'],
-                        'sekolah_id' => \Auth::user()->sekolah_id,
-                        'kelas_id' => $request->kelas_id,
-                    ];
+                    $siswaCek = Siswa::where('nisn', $siswa['nisn'])->orWhere('nipd', $siswa['nipd'])->first();
 
-                    if (\Auth::user()->sekolah->tingkat == 'smk') {
-                        $data += ['kompetensi_id' => $request->kompetensi_id];
-                    }
+                    if ($siswaCek) {
+                        $gagal++;
+                    }else{
+                        $data = [
+                            'name' => $siswa['name'],
+                            'nisn' => $siswa['nisn'],
+                            'nipd' => $siswa['nipd'],
+                            'email' => (array_key_exists("email",$siswa)) ? $siswa['email'] : null,
+                            'jk' => ($siswa['jk'] == 'L' || $siswa['jk'] == 'P') ? strtoupper($siswa['jk']) : null,
+                            'tempat_lahir' => $siswa['tempat_lahir'],
+                            'tanggal_lahir' => Siswa::filterDate($siswa['tanggal_lahir']),
+                            'nik' => $siswa['nik'],
+                            'agama' => $siswa['agama'],
+                            'jalan' => $siswa['jalan'],
+                            'kelurahan' => $siswa['kelurahan'],
+                            'kecamatan' => $siswa['kecamatan'],
+                            'sekolah_id' => \Auth::user()->sekolah_id,
+                            'kelas_id' => $request->kelas_id,
+                        ];
+    
+                        if (\Auth::user()->sekolah->tingkat == 'smk') {
+                            $data += ['kompetensi_id' => $request->kompetensi_id];
+                        }
+    
+                        $siswa = Siswa::create($data);
+    
+                        if($siswa['rfid']){
+                            Rfid::createRfid($siswa['rfid'], $siswa->id, null, ($siswa['status_rfid']) ? $siswa['status_rfid'] : '');
+                        }
 
-                    $siswa = Siswa::create($data);
-
-                    if($siswa['rfid']){
-                        Rfid::createRfid($siswa['rfid'], $siswa->id, null, ($siswa['status_rfid']) ? $siswa['status_rfid'] : '');
+                        $berhasil++;
                     }
                 }
             }else{
-                return TahunAjaran::redirectTahunAjaran('/import', $request, 'kolom tidak valid');
+                return TahunAjaran::redirectWithTahunAjaranManual('/import/siswa', $request, 'kolom tidak valid');
             }
         }
 
-        return TahunAjaran::redirectTahunAjaran('/siswa', $request, 'Berhasil menginport siswa');
+        return TahunAjaran::redirectWithTahunAjaranManual('/siswa', $request, 'Berhasil mengimport ' . $berhasil . ','. $gagal . ' Gagal');
     }
 
     public function export(Request $request){

@@ -6,7 +6,7 @@
         <h4 class="card-title">Kelas</h4>
         @if (auth()->user()->can('add_kelas'))
             @if (count($tahun_ajarans) > 0)
-            <form action="/kelas/create" method="get">
+            <form action="{{ route('kelas.create') }}" method="get">
                 @include('mypartials.tahunajaran')
                 <button type="submit" class="btn btn-sm text-white font-weight-bold position-absolute px-3" style="top: .7rem; right: 1rem; background-color: #3bae9c;">Tambah Kelas</button>
             </form>
@@ -30,13 +30,13 @@
                     @if (auth()->user()->can('edit_kelas') || auth()->user()->can('delete_kelas'))      
                     <td>
                         @if (auth()->user()->can('edit_kelas'))
-                        <form action="/kelas/{{ $kelas->id }}/edit" method="get">
+                        <form action="{{ route('kelas.edit', [$kelas->id]) }}" method="get">
                             @include('mypartials.tahunajaran')
                             <button type="submit" class="btn btn-sm btn-warning text-white font-weight-bold" style="width: 5rem; margin: 0.1rem">Edit</button>
                         </form>
                         @endif
                         @if (auth()->user()->can('delete_kelas'))
-                        <form action="/kelas/{{ $kelas->id }}" method="post">
+                        <form action="{{ route('kelas.destroy', [$kelas->id]) }}" method="post">
                             @csrf
                             @method('delete')
                             @include('mypartials.tahunajaran')

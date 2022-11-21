@@ -144,9 +144,9 @@ class AgendaController extends Controller
         }
 
         if ($request->role == 'siswa') {
-            return TahunAjaran::redirectTahunAjaran('/agenda/'. $request->role . '/' . $request->kelas_id, $request, 'Jadwal Berhasil Ditambahkan');
+            return TahunAjaran::redirectWithTahunAjaran('/agenda/'. $request->role . '/' . $request->kelas_id, $request, 'Jadwal Berhasil Ditambahkan');
         }else{
-            return TahunAjaran::redirectTahunAjaran('/agenda/'. $request->role . '/' . $request->user_id, $request, 'Jadwal Berhasil Ditambahkan');
+            return TahunAjaran::redirectWithTahunAjaran('/agenda/'. $request->role . '/' . $request->user_id, $request, 'Jadwal Berhasil Ditambahkan');
         }
     }
 
@@ -248,9 +248,9 @@ class AgendaController extends Controller
         }
 
         if ($request->role == 'siswa') {
-            return TahunAjaran::redirectTahunAjaran('/agenda/'. $request->role . '/' . $agenda->kelas_id, $request, 'Jadwal Berhasil Diupdate');
+            return TahunAjaran::redirectWithTahunAjaran('/agenda/'. $request->role . '/' . $agenda->kelas_id, $request, 'Jadwal Berhasil Diupdate');
         }else{
-            return TahunAjaran::redirectTahunAjaran('/agenda/'. $request->role . '/' . $agenda->user_id, $request, 'Jadwal Berhasil Diupdate');
+            return TahunAjaran::redirectWithTahunAjaran('/agenda/'. $request->role . '/' . $agenda->user_id, $request, 'Jadwal Berhasil Diupdate');
         }
     }
 
@@ -279,9 +279,9 @@ class AgendaController extends Controller
         $agenda->delete();
 
         if ($request->role == 'siswa') {
-            return TahunAjaran::redirectTahunAjaran('/agenda/'. $request->role . '/' . $agenda->kelas_id, $request, 'Jadwal Berhasil Diupdate');
+            return TahunAjaran::redirectWithTahunAjaran('/agenda/'. $request->role . '/' . $agenda->kelas_id, $request, 'Jadwal Berhasil Diupdate');
         }else{
-            return TahunAjaran::redirectTahunAjaran('/agenda/'. $request->role . '/' . $agenda->user_id, $request, 'Jadwal Berhasil Diupdate');
+            return TahunAjaran::redirectWithTahunAjaran('/agenda/'. $request->role . '/' . $agenda->user_id, $request, 'Jadwal Berhasil Diupdate');
         }
     }
 

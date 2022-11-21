@@ -70,6 +70,10 @@ class User extends Authenticatable
         return $this->belongsTo(JedaPresensi::class);
     }
 
+    public function kelompok(){
+        return $this->belongsToMany(Kelompok::class);
+    }
+
     public static function getUserRole($role, $sekolah){
         $roles = Role::all();
         $users = \App\Models\User::with('roles')->get();

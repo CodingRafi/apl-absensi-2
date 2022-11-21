@@ -4,7 +4,7 @@
 <div class="card">
     <div class="card-body">
         <h4 class="card-title">Create Mata Pelajaran</h4>
-        <form action="/mapel" method="POST">
+        <form action="{{ route('mapel.store') }}" method="POST">
             @csrf
             @include('mypartials.tahunajaran')
             <div class="mb-3">

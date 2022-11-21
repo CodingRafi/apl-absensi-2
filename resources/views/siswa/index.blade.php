@@ -105,7 +105,7 @@
             @endif
             @if (auth()->user()->can('import_siswa'))  
             <li class="nav-item">
-                <form action="/import" method="get">
+                <form action="{{ route('import.siswa') }}" method="get">
                     @include('mypartials.tahunajaran')
                     <button class="btn btn-sm text-white font-weight-bold"
                         style="background-color: #3bae9c">Import</button>

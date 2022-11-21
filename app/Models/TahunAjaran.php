@@ -40,7 +40,15 @@ class TahunAjaran extends Model
         return $tahun_ajaran;
     }
     
-    public static function redirectTahunAjaran($route, $request, $message){
+    public static function redirectWithTahunAjaran($route, $request, $message){
+        if($request->tahun_awal && $request->tahun_akhir && $request->semester){ 
+            return redirect()->route($route, ['tahun_awal' => $request->tahun_awal, 'tahun_akhir' => $request->tahun_akhir, 'semester' => $request->semester])->with('message', $message);
+        }else{
+            return redirect()->route($route)->with('message', $message);
+        }
+    }
+
+    public static function redirectWithTahunAjaranManual($route, $request, $message){
         if($request->tahun_awal && $request->tahun_akhir && $request->semester){ 
             return redirect($route . '?tahun_awal='. $request->tahun_awal . '&tahun_akhir=' . $request->tahun_akhir . '&semester='. $request->semester)->with('message', $message);
         }else{

@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('waktu_pelajarans', function (Blueprint $table) {
+        Schema::create('waktu_istirahats', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('waktu_pelajaran_id')->constrained();
             $table->foreignId('sekolah_id')->constrained();
-            $table->string('jam_ke');
             $table->time('jam_awal')->nullable();
             $table->time('jam_akhir')->nullable();
             $table->timestamps();
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('waktu_pelajarans');
+        Schema::dropIfExists('waktu_istirahats');
     }
 };

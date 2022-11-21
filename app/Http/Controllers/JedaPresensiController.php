@@ -68,7 +68,7 @@ class JedaPresensiController extends Controller
 
         JedaPresensi::create($data);
 
-        return TahunAjaran::redirectTahunAjaran('/tenggat', $request, 'Tenggat Waktu Berhasil Dibuat');
+        return TahunAjaran::redirectWithTahunAjaran('/tenggat', $request, 'Tenggat Waktu Berhasil Dibuat');
     }
 
     /**
@@ -112,7 +112,7 @@ class JedaPresensiController extends Controller
             'jam_pulang' => $request->jam_pulang,
         ]);
 
-        return TahunAjaran::redirectTahunAjaran('/tenggat', $request, 'Tenggat Waktu Berhasil Diubah');
+        return TahunAjaran::redirectWithTahunAjaran('/tenggat', $request, 'Tenggat Waktu Berhasil Diubah');
     }
 
     /**
@@ -140,6 +140,6 @@ class JedaPresensiController extends Controller
 
         $jedaPresensi->delete();
         
-        return TahunAjaran::redirectTahunAjaran('/tenggat', $request, 'Tenggat Waktu Berhasil Dihapus');
+        return TahunAjaran::redirectWithTahunAjaran('/tenggat', $request, 'Tenggat Waktu Berhasil Dihapus');
     }
 }

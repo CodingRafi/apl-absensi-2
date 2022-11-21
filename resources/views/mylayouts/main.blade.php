@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dashboard</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <!-- plugins:css -->
     <link rel="stylesheet" href="/template/vendors/feather/feather.css">

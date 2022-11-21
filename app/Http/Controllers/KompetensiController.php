@@ -65,7 +65,7 @@ class KompetensiController extends Controller
             'sekolah_id' => \Auth::user()->sekolah_id
         ]);
 
-        return TahunAjaran::redirectTahunAjaran('/kompetensi', $request, 'Berhasil Menambahkan Kompetensi');
+        return TahunAjaran::redirectWithTahunAjaran('kompetensi.index', $request, 'Berhasil Menambahkan Kompetensi');
     }
 
     /**
@@ -112,7 +112,7 @@ class KompetensiController extends Controller
                 'program' => $request->program,
             ]);
     
-            return TahunAjaran::redirectTahunAjaran('/kompetensi', $request, 'Berhasil Mengupdate Kompetensi');
+            return TahunAjaran::redirectWithTahunAjaran('kompetensi.index', $request, 'Berhasil Mengupdate Kompetensi');
         }else{
             abort(403);
         }
@@ -133,7 +133,7 @@ class KompetensiController extends Controller
             }
     
             $kompetensi->delete();
-            return TahunAjaran::redirectTahunAjaran('/kompetensi', $request, 'Berhasil meghapus Kompetensi');
+            return TahunAjaran::redirectWithTahunAjaran('kompetensi.index', $request, 'Berhasil meghapus Kompetensi');
         }else{
             abort(403);
         }

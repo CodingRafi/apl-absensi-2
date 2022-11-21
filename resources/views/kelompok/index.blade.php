@@ -5,7 +5,7 @@
         <div class="card-body">
             <div class="title d-flex justify-content-between">
                 <h4 class="card-title">Kelompok</h4>
-                <form action="/createKelompok" method="get">
+                <form action="{{ route('kelompok.create') }}" method="get">
                     @include('mypartials.tahunajaran')
                     <button class="btn btn-sm text-white font-weight-bold" style="background-color: #3bae9c; min-width: 5vw;">Create</button>
                 </form>

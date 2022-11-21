@@ -59,7 +59,7 @@ class ConfigurasiUserController extends Controller
             return redirect('/');
         }
 
-        return TahunAjaran::redirectTahunAjaran('/user-settings', $request, 'Profil Berhasil Diupdate');
+        return TahunAjaran::redirectWithTahunAjaran('/user-settings', $request, 'Profil Berhasil Diupdate');
     }
 
     public function ubahPassword(){

@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
         $yayasanSmk = User::create([
             'name' => 'yayasan SMK',
             'email' => 'yayasansmk@gmail.com',
-            'password' => bcrypt('12345678'),
+            'password' => bcrypt('password'),
             'sekolah_id' => 1
         ]);
 
@@ -42,7 +42,7 @@ class UserSeeder extends Seeder
         // $yayasanSmp = User::create([
         //     'name' => 'yayasan SMP',
         //     'email' => 'yayasansmp@gmail.com',
-        //     'password' => bcrypt('12345678'),
+        //     'password' => bcrypt('password'),
         //     'sekolah_id' => 2
         // ]);
 
@@ -65,7 +65,7 @@ class UserSeeder extends Seeder
         $adminSmk = User::create([
             'name' => 'Admin SMK',
             'email' => 'adminsmk@gmail.com',
-            'password' => bcrypt('12345678'),
+            'password' => bcrypt('password'),
             'sekolah_id' => 1
         ]);
 
@@ -74,7 +74,7 @@ class UserSeeder extends Seeder
         // $adminSmp = User::create([
         //     'name' => 'Admin SMP',
         //     'email' => 'adminsmp@gmail.com',
-        //     'password' => bcrypt('12345678'),
+        //     'password' => bcrypt('password'),
         //     'sekolah_id' => 2
         // ]);
 
@@ -95,9 +95,9 @@ class UserSeeder extends Seeder
         // $userGuru = User::create([
         //     'name' => 'pak',
         //     'email' => 'bapak@gmail.com',
-        //     'password' => \Hash::make('12345678'),
+        //     'password' => \Hash::make('password'),
         //     'sekolah_id' => 1,
-        //     'nip' => 123456789
+        //     'nip' => password9
         // ]);
 
         // $userGuru->assignRole('guru');
@@ -117,7 +117,7 @@ class UserSeeder extends Seeder
         $superAdmin = User::create([
             'name' => 'Super Admin',
             'email' => 'superadmin@gmail.com',
-            'password' => bcrypt('12345678')
+            'password' => bcrypt('password')
         ]);
 
         $superAdmin->assignRole('super_admin');
@@ -151,7 +151,7 @@ class UserSeeder extends Seeder
         // $user = User::create([
         //     'name' => 'User',
         //     'email' => 'user@gmail.com',
-        //     'password' => bcrypt('12345678'),
+        //     'password' => bcrypt('password'),
         // ]);
 
         // $user->assignRole('student');

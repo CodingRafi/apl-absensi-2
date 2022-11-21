@@ -53,7 +53,7 @@ class MapelController extends Controller
             'sekolah_id' => \Auth::user()->sekolah_id
         ]);
 
-        return TahunAjaran::redirectTahunAjaran('/mapel', $request,  'Berhasil menambahkan mapel');
+        return TahunAjaran::redirectWithTahunAjaran('mapel.index', $request,  'Berhasil menambahkan mapel');
     }
 
     /**
@@ -98,7 +98,7 @@ class MapelController extends Controller
                 'nama' => $request->nama
             ]);
             
-            return TahunAjaran::redirectTahunAjaran('/mapel', $request,  'Berhasil mengupdate mapel');
+            return TahunAjaran::redirectWithTahunAjaran('mapel.index', $request,  'Berhasil mengupdate mapel');
         }else{
             abort(403);
         }
@@ -125,7 +125,7 @@ class MapelController extends Controller
     
             $mapel->delete();
     
-            return TahunAjaran::redirectTahunAjaran('/mapel', $request, 'Mapel Berhasil Dihapus');
+            return TahunAjaran::redirectWithTahunAjaran('mapel.index', $request, 'Mapel Berhasil Dihapus');
         }else{
             abort(403);
         }

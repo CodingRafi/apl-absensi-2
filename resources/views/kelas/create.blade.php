@@ -4,7 +4,7 @@
 <div class="card">
     <div class="card-body">
         <h4 class="card-title">Create Kelas</h4>
-        <form action="/kelas" method="POST">
+        <form action="{{ route('kelas.store') }}" method="POST">
             @csrf
             @include('mypartials.tahunajaran')
             <div class="mb-3">

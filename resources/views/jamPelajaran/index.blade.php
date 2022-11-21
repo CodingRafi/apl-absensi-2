@@ -41,283 +41,59 @@
                 </div>
                 <div class="card-body text-left jamPel">
                     <div class="d-flex justify-content-end">
-                        {{-- <form action="" method="get"> --}}
-                            {{-- @include('mypartials.tahunajaran') --}}
-                            <button class="btn btn-sm text-white font-weight-bold btn-warning editJamPel" style="min-width: 5vw; margin: 2px;">Edit</button>
-                        {{-- </form> --}}
+                        <button type="button" class="btn btn-sm text-white font-weight-bold btn-warning editJamPel" style="min-width: 5vw; margin: 2px;">Edit</button>
+                        <button type="button" class="btn btn-sm text-white font-weight-bold btn-danger batal-edit-jam-pel" style="min-width: 5vw; margin: 2px;display: none;">Batal</button>
                     </div>
-                    <div class="table-responsive mt-3">
-                        <table class="table">
-                            <thead>
-                                <tr class="text-center">
-                                    <th>No</th>
-                                    <th>Jam Ke</th>
-                                    <th>Jam Awal</th>
-                                    <th>Jam Akhir</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="text-center">
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>
-                                        <input type="time" class="jamAwal1" name="jamAwal1" id="jamAwal1" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <input type="time" class="jamAkhir1" name="jamAkhir1" id="jamAkhir1" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <form action="" method="get">
-                                            @include('mypartials.tahunajaran')
-                                            <button class="btn btn-sm text-white font-weight-bold btn-danger" style="min-width: 5vw; margin: 2px;">Reset</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                <tr class="text-center">
-                                    <td>2</td>
-                                    <td>2</td>
-                                    <td>
-                                        <input type="time" class="jamAwal2" name="jamAwal2" id="jamAwal2" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <input type="time" class="jamAkhir2" name="jamAkhir2" id="jamAkhir2" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <form action="" method="get">
-                                            @include('mypartials.tahunajaran')
-                                            <button class="btn btn-sm text-white font-weight-bold btn-danger" style="min-width: 5vw; margin: 2px;">Reset</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                <tr class="text-center">
-                                    <td>3</td>
-                                    <td>3</td>
-                                    <td>
-                                        <input type="time" class="jamAwal3" name="jamAwal3" id="jamAwal3" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <input type="time" class="jamAkhir3" name="jamAkhir3" id="jamAkhir3" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <form action="" method="get">
-                                            @include('mypartials.tahunajaran')
-                                            <button class="btn btn-sm text-white font-weight-bold btn-danger" style="min-width: 5vw; margin: 2px;">Reset</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                <tr class="text-center">
-                                    <td>4</td>
-                                    <td>4</td>
-                                    <td>
-                                        <input type="time" class="jamAwal4" name="jamAwal4" id="jamAwal4" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <input type="time" class="jamAkhir4" name="jamAkhir4" id="jamAkhir4" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <form action="" method="get">
-                                            @include('mypartials.tahunajaran')
-                                            <button class="btn btn-sm text-white font-weight-bold btn-danger" style="min-width: 5vw; margin: 2px;">Reset</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                <tr class="text-center">
-                                    <td>5</td>
-                                    <td>5</td>
-                                    <td>
-                                        <input type="time" class="jamAwal5" name="jamAwal5" id="jamAwal5" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <input type="time" class="jamAkhir5" name="jamAkhir5" id="jamAkhir5" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <form action="" method="get">
-                                            @include('mypartials.tahunajaran')
-                                            <button class="btn btn-sm text-white font-weight-bold btn-danger" style="min-width: 5vw; margin: 2px;">Reset</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                <tr class="text-center">
-                                    <td>6</td>
-                                    <td>6</td>
-                                    <td>
-                                        <input type="time" class="jamAwal6" name="jamAwal6" id="jamAwal6" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <input type="time" class="jamAkhir6" name="jamAkhir6" id="jamAkhir6" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <form action="" method="get">
-                                            @include('mypartials.tahunajaran')
-                                            <button class="btn btn-sm text-white font-weight-bold btn-danger" style="min-width: 5vw; margin: 2px;">Reset</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                <tr class="text-center">
-                                    <td>7</td>
-                                    <td>7</td>
-                                    <td>
-                                        <input type="time" class="jamAwal7" name="jamAwal7" id="jamAwal7" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <input type="time" class="jamAkhir7" name="jamAkhir7" id="jamAkhir7" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <form action="" method="get">
-                                            @include('mypartials.tahunajaran')
-                                            <button class="btn btn-sm text-white font-weight-bold btn-danger" style="min-width: 5vw; margin: 2px;">Reset</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                <tr class="text-center">
-                                    <td>8</td>
-                                    <td>8</td>
-                                    <td>
-                                        <input type="time" class="jamAwal8" name="jamAwal8" id="jamAwal8" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <input type="time" class="jamAkhir8" name="jamAkhir8" id="jamAkhir8" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <form action="" method="get">
-                                            @include('mypartials.tahunajaran')
-                                            <button class="btn btn-sm text-white font-weight-bold btn-danger" style="min-width: 5vw; margin: 2px;">Reset</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                <tr class="text-center">
-                                    <td>9</td>
-                                    <td>9</td>
-                                    <td>
-                                        <input type="time" class="jamAwal9" name="jamAwal9" id="jamAwal9" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <input type="time" class="jamAkhir9" name="jamAkhir9" id="jamAkhir9" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <form action="" method="get">
-                                            @include('mypartials.tahunajaran')
-                                            <button class="btn btn-sm text-white font-weight-bold btn-danger" style="min-width: 5vw; margin: 2px;">Reset</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                <tr class="text-center">
-                                    <td>10</td>
-                                    <td>10</td>
-                                    <td>
-                                        <input type="time" class="jamAwal10" name="jamAwal10" id="jamAwal10" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <input type="time" class="jamAkhir10" name="jamAkhir10" id="jamAkhir10" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <form action="" method="get">
-                                            @include('mypartials.tahunajaran')
-                                            <button class="btn btn-sm text-white font-weight-bold btn-danger" style="min-width: 5vw; margin: 2px;">Reset</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                <tr class="text-center">
-                                    <td>11</td>
-                                    <td>11</td>
-                                    <td>
-                                        <input type="time" class="jamAwal11" name="jamAwal11" id="jamAwal11" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <input type="time" class="jamAkhir11" name="jamAkhir11" id="jamAkhir11" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <form action="" method="get">
-                                            @include('mypartials.tahunajaran')
-                                            <button class="btn btn-sm text-white font-weight-bold btn-danger" style="min-width: 5vw; margin: 2px;">Reset</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                <tr class="text-center">
-                                    <td>12</td>
-                                    <td>12</td>
-                                    <td>
-                                        <input type="time" class="jamAwal12" name="jamAwal12" id="jamAwal12" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <input type="time" class="jamAkhir12" name="jamAkhir12" id="jamAkhir12" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <form action="" method="get">
-                                            @include('mypartials.tahunajaran')
-                                            <button class="btn btn-sm text-white font-weight-bold btn-danger" style="min-width: 5vw; margin: 2px;">Reset</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                <tr class="text-center">
-                                    <td>13</td>
-                                    <td>13</td>
-                                    <td>
-                                        <input type="time" class="jamAwal13" name="jamAwal13" id="jamAwal13" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <input type="time" class="jamAkhir13" name="jamAkhir13" id="jamAkhir13" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <form action="" method="get">
-                                            @include('mypartials.tahunajaran')
-                                            <button class="btn btn-sm text-white font-weight-bold btn-danger" style="min-width: 5vw; margin: 2px;">Reset</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                <tr class="text-center">
-                                    <td>14</td>
-                                    <td>14</td>
-                                    <td>
-                                        <input type="time" class="jamAwal14" name="jamAwal14" id="jamAwal14" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <input type="time" class="jamAkhir14" name="jamAkhir14" id="jamAkhir14" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <form action="" method="get">
-                                            @include('mypartials.tahunajaran')
-                                            <button class="btn btn-sm text-white font-weight-bold btn-danger" style="min-width: 5vw; margin: 2px;">Reset</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                <tr class="text-center">
-                                    <td>15</td>
-                                    <td>15</td>
-                                    <td>
-                                        <input type="time" class="jamAwal15" name="jamAwal15" id="jamAwal15" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <input type="time" class="jamAkhir15" name="jamAkhir15" id="jamAkhir15" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <form action="" method="get">
-                                            @include('mypartials.tahunajaran')
-                                            <button class="btn btn-sm text-white font-weight-bold btn-danger" style="min-width: 5vw; margin: 2px;">Reset</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                <tr class="text-center">
-                                    <td>16</td>
-                                    <td>16</td>
-                                    <td>
-                                        <input type="time" class="jamAwal16" name="jamAwal16" id="jamAwal16" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <input type="time" class="jamAkhir16" name="jamAkhir16" id="jamAkhir16" style="border: none;" disabled>
-                                    </td>
-                                    <td>
-                                        <form action="" method="get">
-                                            @include('mypartials.tahunajaran')
-                                            <button class="btn btn-sm text-white font-weight-bold btn-danger" style="min-width: 5vw; margin: 2px;">Reset</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <button type="button" class="btn text-white simpanJamPel" style="background-color: #3bae9c">Simpan</button>
-                    </div>
+                    <form action="{{ route('jam-pelajaran.store') }}" method="post">
+                        @csrf
+                        <div class="table-responsive mt-3">
+                            <table class="table">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th>Jam Ke</th>
+                                        <th>Jam Awal</th>
+                                        <th>Jam Akhir</th>
+                                        <th class="th-action" style="display: none;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($jams as $key => $jam)
+                                        @if ($jam)    
+                                        <tr class="text-center">
+                                            <td>{{ $key+1 }}</td>
+                                            <td>
+                                                <input type="time" class="input-awal" name="jam_awal_{{ $key+1 }}" id="jam-awal-{{ $key+1 }}" style="border: none;background: transparent;" disabled data-jam-ke="{{ $key+1 }}" value="{{ ($jam->jam_awal) ? $jam->jam_awal : "00:00" }}">
+                                            </td>
+                                            <td>
+                                                <input type="time" class="input-akhir" name="jam_akhir_{{ $key+1 }}" id="jam-akhir-{{ $key+1 }}" style="border: none;background: transparent;" disabled data-jam-ke="{{ $key+1 }}" value="{{ ($jam->jam_akhir) ? $jam->jam_akhir : "00:00" }}">
+                                            </td>
+                                            <td class="td-kosongkan" style="display: none;">
+                                                <button type="button" class="btn btn-sm text-white font-weight-bold btn-danger button-reset" style="min-width: 5vw; margin: 2px;" onclick="return confirm('Apakah anda yakin akan mereset ini?')" data-id="{{ $jam->id }}">Reset</button>
+                                            </td>
+                                        </tr>
+                                        @else
+                                        <tr class="text-center">
+                                            <td>{{ $key+1 }}</td>
+                                            <td>    
+                                                <input type="time" class="input-awal" name="jam_awal_{{ $key+1 }}" id="jam-awal-{{ $key+1 }}" style="border: none;background: transparent;" disabled data-jam-ke="{{ $key+1 }}">
+                                            </td>
+                                            <td>
+                                                <input type="time" class="input-akhir" name="jam_akhir_{{ $key+1 }}" id="jam-akhir-{{ $key+1 }}" style="border: none;background: transparent;" disabled data-jam-ke="{{ $key+1 }}">
+                                            </td>
+                                            <td class="td-kosongkan" style="display: none;">
+                                                <form action="" method="get">
+                                                    @include('mypartials.tahunajaran')
+                                                    <button type="button" class="btn btn-sm text-white font-weight-bold btn-danger" style="min-width: 5vw; margin: 2px;" disabled>Reset</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <button type="submit" class="btn text-white simpanJamPel" style="background-color: #3bae9c;display: none;">Simpan</button>
+                        </div>
+                    </form>
                 </div>
                 <div class="card-body jamIst" style="display: none;">
                     <div class="d-flex justify-content-end">
@@ -327,30 +103,28 @@
                         <table class="table">
                             <thead>
                                 <tr class="text-center">
-                                    <th>No</th>
-                                    <th>Jam Ke</th>
+                                    <th>Setelah Jam Ke</th>
                                     <th>Jam Awal</th>
                                     <th>Jam Akhir</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($waktu_istirahats as $key => $waktu_istirahat)    
                                 <tr class="text-center">
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>09.00</td>
-                                    <td>09.45</td>
+                                    <td>{{ $waktu_istirahat->waktu_pelajaran->jam_ke }}</td>
+                                    <td class="jam-awal-istirahat-{{ $key+1 }}">{{ $waktu_istirahat->jam_awal }}</td>
+                                    <td class="jam-akhir-istirahat-{{ $key+1 }}">{{ $waktu_istirahat->jam_akhir }}</td>
                                     <td>
-                                        <form action="" method="get">
-                                            @include('mypartials.tahunajaran')
-                                            <button class="btn btn-sm text-white font-weight-bold btn-warning" style="min-width: 5vw; margin: 2px;">Edit</button>
-                                        </form>
+                                        @include('mypartials.tahunajaran')
+                                        <button class="btn btn-sm text-white font-weight-bold btn-warning edit-jam-istirahat" style="min-width: 5vw; margin: 2px;" type="button" data-loop="{{ $key+1 }}" data-jam-ke={{ $waktu_istirahat->waktu_pelajaran->id }} data-bs-toggle="modal" data-bs-target="#modalEditJamIst" data-id="{{ $waktu_istirahat->id }}">Edit</button>
                                         <form action="" method="get">
                                             @include('mypartials.tahunajaran')
                                             <button class="btn btn-sm text-white font-weight-bold btn-danger" style="min-width: 5vw; margin: 2px;">Hapus</button>
                                         </form>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -358,35 +132,82 @@
                 {{-- modal jam istirahat --}}
                 <div class="modal fade" id="modalJamIst" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Jam Istirahat</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body text-left">
-                            <div class="bawah mb-3">
-                                <label for="labelJam" class="form-label">Jam Ke</label>
-                                <select class="form-control" name="" id="">
-                                    <option value="">1</option>
-                                    <option value="">2</option>
-                                    <option value="">3</option>
-                                </select>
+                        <div class="modal-content">
+                        <form action="{{ route('jam-istirahat.store') }}" method="post">
+                            @csrf
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Jam Istirahat</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="bawah mb-3">
-                                <div class="jam d-flex justify-content-between align-items-center gap-3">
-                                    <input type="time" class="form-control" name="jamAwal" id="jamAwal">
-                                    <span>s.d.</span>
-                                    <input type="time" class="form-control" name="jamAkhir" id="jamAkhir">
+                            @if (count($jam_pelajaran_for_istirahat) > 0)    
+                            <div class="modal-body text-left">
+                                <div class="bawah mb-3">
+                                    <label for="labelJam" class="form-label">Setelah jam Ke</label>
+                                    <select class="form-select" name="waktu_pelajaran_id" id="labelJam">
+                                        @foreach ($jams as $jam)
+                                            @if ($jam)
+                                                <option value="{{ $jam->id }}">{{ $jam->jam_ke }} ({{ $jam->jam_awal }} - {{ $jam->jam_akhir }})</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="bawah mb-3">
+                                    <div class="jam d-flex justify-content-between align-items-center gap-3">
+                                        <input type="time" class="form-control" name="jam_awal">
+                                        <span>s.d.</span>
+                                        <input type="time" class="form-control" name="jam_akhir">
+                                    </div>
                                 </div>
                             </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn text-white" style="background-color: #3bae9c">Simpan</button>
+                            </div>
+                            @else
+                            <div class="alert alert-primary" role="alert">
+                                Tidak ada jam pelajaran ditemukan
+                            </div>
+                            @endif
+                        </form>
                         </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
-                          <button type="button" class="btn text-white" style="background-color: #3bae9c">Simpan</button>
+                    </div>              
+                </div>
+
+                <div class="modal fade" id="modalEditJamIst" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <form action="" method="post" class="form-edit-waktu-istirahat">
+                            @csrf
+                            @method('patch')
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Edit Jam Istirahat</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-left">
+                                <div class="bawah mb-3">
+                                    <label for="wapel_edit" class="form-label">Setelah jam Ke</label>
+                                    <select class="form-select select-wapel-edit" name="waktu_pelajaran_id" id="wapel_edit">
+                                        @foreach ($japel as $jam)
+                                            <option value="{{ $jam->id }}">{{ $jam->jam_ke }} ({{ $jam->jam_awal }} - {{ $jam->jam_akhir }})</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="bawah mb-3">
+                                    <div class="jam d-flex justify-content-between align-items-center gap-3">
+                                        <input type="time" class="form-control edit-istirahat-jam-awal" name="jam_awal">
+                                        <span>s.d.</span>
+                                        <input type="time" class="form-control edit-istirahat-jam-akhir" name="jam_akhir">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn text-white" style="background-color: #3bae9c">Simpan</button>
+                            </div>
+                        </form>
                         </div>
-                      </div>
-                    </div>
-                  </div>
+                    </div>              
+                </div>
             </div>
         </div>
     </div>
@@ -420,142 +241,113 @@
 
     <script>
         const editJamPel = document.querySelector('.editJamPel');
-        const jamAwal1 = document.querySelector('.jamAwal1');
-        const jamAwal2 = document.querySelector('.jamAwal2');
-        const jamAwal3 = document.querySelector('.jamAwal3');
-        const jamAwal4 = document.querySelector('.jamAwal4');
-        const jamAwal5 = document.querySelector('.jamAwal5');
-        const jamAwal6 = document.querySelector('.jamAwal6');
-        const jamAwal7 = document.querySelector('.jamAwal7');
-        const jamAwal8 = document.querySelector('.jamAwal8');
-        const jamAwal9 = document.querySelector('.jamAwal9');
-        const jamAwal10 = document.querySelector('.jamAwal10');
-        const jamAwal11 = document.querySelector('.jamAwal11');
-        const jamAwal12 = document.querySelector('.jamAwal12');
-        const jamAwal13 = document.querySelector('.jamAwal13');
-        const jamAwal14 = document.querySelector('.jamAwal14');
-        const jamAwal15 = document.querySelector('.jamAwal15');
-        const jamAwal16 = document.querySelector('.jamAwal16');
+        const batalEditJamPel = document.querySelector('.batal-edit-jam-pel');
+        const inputAwal = document.querySelectorAll('.input-awal');
+        const inputAkhir = document.querySelectorAll('.input-akhir');
+        const simpanJamPel = document.querySelector('.simpanJamPel');
+        const thAction = document.querySelector('.th-action');
+        const tdKosongkan = document.querySelectorAll('.td-kosongkan');
+        const edit_jam_istirahat = document.querySelectorAll('.edit-jam-istirahat');
+        const select_wapel_edit = document.querySelector('.select-wapel-edit');
+        const edit_istirahat_jam_awal = document.querySelector('.edit-istirahat-jam-awal');
+        const edit_istirahat_jam_akhir = document.querySelector('.edit-istirahat-jam-akhir');
+        const formEditWaktuIstirahat = document.querySelector('.form-edit-waktu-istirahat');
 
-        const jamAkhir1 = document.querySelector('.jamAkhir1');
-        const jamAkhir2 = document.querySelector('.jamAkhir2');
-        const jamAkhir3 = document.querySelector('.jamAkhir3');
-        const jamAkhir4 = document.querySelector('.jamAkhir4');
-        const jamAkhir5 = document.querySelector('.jamAkhir5');
-        const jamAkhir6 = document.querySelector('.jamAkhir6');
-        const jamAkhir7 = document.querySelector('.jamAkhir7');
-        const jamAkhir8 = document.querySelector('.jamAkhir8');
-        const jamAkhir9 = document.querySelector('.jamAkhir9');
-        const jamAkhir10 = document.querySelector('.jamAkhir10');
-        const jamAkhir11 = document.querySelector('.jamAkhir11');
-        const jamAkhir12 = document.querySelector('.jamAkhir12');
-        const jamAkhir13 = document.querySelector('.jamAkhir13');
-        const jamAkhir14 = document.querySelector('.jamAkhir14');
-        const jamAkhir15 = document.querySelector('.jamAkhir15');
-        const jamAkhir16 = document.querySelector('.jamAkhir16');
+        function edit(data){
+            data.forEach(e => {
+                e.removeAttribute('disabled');
+                e.style.border = '1px solid black';
+                e.style.borderRadius = '3px';
+            });
+        }
 
-        editJamPel.addEventListener('click', () => {
-            jamAwal1.style.border = '1px solid black';
-            jamAwal2.style.border = '1px solid black';
-            jamAwal3.style.border = '1px solid black';
-            jamAwal4.style.border = '1px solid black';
-            jamAwal5.style.border = '1px solid black';
-            jamAwal6.style.border = '1px solid black';
-            jamAwal7.style.border = '1px solid black';
-            jamAwal8.style.border = '1px solid black';
-            jamAwal9.style.border = '1px solid black';
-            jamAwal10.style.border = '1px solid black';
-            jamAwal11.style.border = '1px solid black';
-            jamAwal12.style.border = '1px solid black';
-            jamAwal13.style.border = '1px solid black';
-            jamAwal14.style.border = '1px solid black';
-            jamAwal15.style.border = '1px solid black';
-            jamAwal16.style.border = '1px solid black';
+        function batalEdit(data){
+            data.forEach(e => {
+                e.setAttribute('disabled', 'disabled');
+                e.style.border = 'none';
+                e.style.borderRadius = '3px';
+            });
+        }
 
-            jamAwal1.style.borderRadius = '3px';
-            jamAwal2.style.borderRadius = '3px';
-            jamAwal3.style.borderRadius = '3px';
-            jamAwal4.style.borderRadius = '3px';
-            jamAwal5.style.borderRadius = '3px';
-            jamAwal6.style.borderRadius = '3px';
-            jamAwal7.style.borderRadius = '3px';
-            jamAwal8.style.borderRadius = '3px';
-            jamAwal9.style.borderRadius = '3px';
-            jamAwal10.style.borderRadius = '3px';
-            jamAwal11.style.borderRadius = '3px';
-            jamAwal12.style.borderRadius = '3px';
-            jamAwal13.style.borderRadius = '3px';
-            jamAwal14.style.borderRadius = '3px';
-            jamAwal15.style.borderRadius = '3px';
-            jamAwal16.style.borderRadius = '3px';
-
-            jamAkhir1.style.border = '1px solid black';
-            jamAkhir2.style.border = '1px solid black';
-            jamAkhir3.style.border = '1px solid black';
-            jamAkhir4.style.border = '1px solid black';
-            jamAkhir5.style.border = '1px solid black';
-            jamAkhir6.style.border = '1px solid black';
-            jamAkhir7.style.border = '1px solid black';
-            jamAkhir8.style.border = '1px solid black';
-            jamAkhir9.style.border = '1px solid black';
-            jamAkhir10.style.border = '1px solid black';
-            jamAkhir11.style.border = '1px solid black';
-            jamAkhir12.style.border = '1px solid black';
-            jamAkhir13.style.border = '1px solid black';
-            jamAkhir14.style.border = '1px solid black';
-            jamAkhir15.style.border = '1px solid black';
-            jamAkhir16.style.border = '1px solid black';
-
-            jamAkhir1.style.borderRadius = '3px';
-            jamAkhir2.style.borderRadius = '3px';
-            jamAkhir3.style.borderRadius = '3px';
-            jamAkhir4.style.borderRadius = '3px';
-            jamAkhir5.style.borderRadius = '3px';
-            jamAkhir6.style.borderRadius = '3px';
-            jamAkhir7.style.borderRadius = '3px';
-            jamAkhir8.style.borderRadius = '3px';
-            jamAkhir9.style.borderRadius = '3px';
-            jamAkhir10.style.borderRadius = '3px';
-            jamAkhir11.style.borderRadius = '3px';
-            jamAkhir12.style.borderRadius = '3px';
-            jamAkhir13.style.borderRadius = '3px';
-            jamAkhir14.style.borderRadius = '3px';
-            jamAkhir15.style.borderRadius = '3px';
-            jamAkhir16.style.borderRadius = '3px';
-
-            jamAwal1.removeAttribute('disabled');
-            jamAwal2.removeAttribute('disabled');
-            jamAwal3.removeAttribute('disabled');
-            jamAwal4.removeAttribute('disabled');
-            jamAwal5.removeAttribute('disabled');
-            jamAwal6.removeAttribute('disabled');
-            jamAwal7.removeAttribute('disabled');
-            jamAwal8.removeAttribute('disabled');
-            jamAwal9.removeAttribute('disabled');
-            jamAwal10.removeAttribute('disabled');
-            jamAwal11.removeAttribute('disabled');
-            jamAwal12.removeAttribute('disabled');
-            jamAwal13.removeAttribute('disabled');
-            jamAwal14.removeAttribute('disabled');
-            jamAwal15.removeAttribute('disabled');
-            jamAwal16.removeAttribute('disabled');
-            
-            jamAkhir1.removeAttribute('disabled');
-            jamAkhir2.removeAttribute('disabled');
-            jamAkhir3.removeAttribute('disabled');
-            jamAkhir4.removeAttribute('disabled');
-            jamAkhir5.removeAttribute('disabled');
-            jamAkhir6.removeAttribute('disabled');
-            jamAkhir7.removeAttribute('disabled');
-            jamAkhir8.removeAttribute('disabled');
-            jamAkhir9.removeAttribute('disabled');
-            jamAkhir10.removeAttribute('disabled');
-            jamAkhir11.removeAttribute('disabled');
-            jamAkhir12.removeAttribute('disabled');
-            jamAkhir13.removeAttribute('disabled');
-            jamAkhir14.removeAttribute('disabled');
-            jamAkhir15.removeAttribute('disabled');
-            jamAkhir16.removeAttribute('disabled');
+        editJamPel.addEventListener('click', function(){
+            edit(inputAwal);
+            edit(inputAkhir);
+            this.style.display = 'none';
+            batalEditJamPel.style.display = 'block';
+            simpanJamPel.style.display = 'block';
+            thAction.style.display = 'block';
+            tdKosongkan.forEach(e => {
+                e.style.display = 'block';
+            });
         })
+
+        batalEditJamPel.addEventListener('click', function(){
+            batalEdit(inputAwal);
+            batalEdit(inputAkhir);
+            this.style.display = 'none';
+            editJamPel.style.display = 'block';
+            simpanJamPel.style.display = 'none';
+            thAction.style.display = 'none';
+            tdKosongkan.forEach(e => {
+                e.style.display = 'none';
+            });
+        })
+
+        inputAwal.forEach(e => {
+            e.addEventListener('change', function(){
+                if (this.value != '') {
+                    document.querySelector('#jam-akhir-' + this.getAttribute('data-jam-ke')).setAttribute('required', 'required')
+                }else{
+                    document.querySelector('#jam-akhir-' + this.getAttribute('data-jam-ke')).removeAttribute('required', 'required')
+                }
+            })
+        });
+
+        inputAkhir.forEach(e => {
+            e.addEventListener('change', function(){
+                if (this.value != '') {
+                    document.querySelector('#jam-awal-' + this.getAttribute('data-jam-ke')).setAttribute('required', 'required')
+                }else{
+                    document.querySelector('#jam-awal-' + this.getAttribute('data-jam-ke')).removeAttribute('required', 'required')
+                }
+            })
+        });
+
+        document.querySelectorAll('.button-reset').forEach(e => {
+            e.addEventListener('click', function(){
+                reset(this.getAttribute('data-id'));
+            })
+        });
+
+        function reset(id) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            return $.ajax({
+                type: "DELETE",
+                url: "/jam-pelajaran/" + id,
+                data: {
+                    id: id
+                },
+                dataType: "json",
+                success: function(response) {
+                    location.reload();
+                },
+                error: function(response) {
+                    alert('Gagal Menghapus');
+                }
+            });
+        }
+
+        edit_jam_istirahat.forEach(e => {
+            e.addEventListener('click', function(){
+                select_wapel_edit.value = this.getAttribute('data-jam-ke');
+                edit_istirahat_jam_awal.value = document.querySelector('.jam-awal-istirahat-' + this.getAttribute('data-loop')).innerHTML; 
+                edit_istirahat_jam_akhir.value = document.querySelector('.jam-akhir-istirahat-' + this.getAttribute('data-loop')).innerHTML;
+                formEditWaktuIstirahat.setAttribute('action', '/jam-istirahat/' + this.getAttribute('data-id'));
+            })
+        });
     </script>
 @endsection

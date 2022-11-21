@@ -65,7 +65,7 @@ class KelasController extends Controller
             'sekolah_id' => \Auth::user()->sekolah_id
         ]);
 
-        return TahunAjaran::redirectTahunAjaran('/kelas', $request, 'Kelas Berhasil Ditambahkan');
+        return TahunAjaran::redirectWithTahunAjaran('kelas.index', $request, 'Kelas Berhasil Ditambahkan');
     }
 
     /**
@@ -112,7 +112,7 @@ class KelasController extends Controller
                 'nama' => $request->nama
             ]);
     
-            return TahunAjaran::redirectTahunAjaran('/kelas', $request, 'Kelas Berhasil Diupdate');
+            return TahunAjaran::redirectWithTahunAjaran('kelas.index', $request, 'Kelas Berhasil Diupdate');
         }else{
             abort(403);
         }
@@ -139,7 +139,7 @@ class KelasController extends Controller
     
             $kelas->delete();
     
-            return TahunAjaran::redirectTahunAjaran('/kelas', $request, 'Kelas Berhasil Dihapus');
+            return TahunAjaran::redirectWithTahunAjaran('kelas.index', $request, 'Kelas Berhasil Dihapus');
         }else{
             abort(403);
         }

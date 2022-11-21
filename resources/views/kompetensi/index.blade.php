@@ -5,12 +5,12 @@
     <div class="card-body">
         <h4 class="card-title">Kompetensi</h4>
         @if (auth()->user()->can('add_kompetensi'))
-        @if (count($tahun_ajarans) > 0)  
-        <form action="/kompetensi/create" method="get">
-            @include('mypartials.tahunajaran')
-            <button class="btn btn-sm text-white font-weight-bold position-absolute px-3" style="top: .7rem; right: 1rem; background-color: #3bae9c">Tambah</button>
-        </form>
-        @endif
+            @if (count($tahun_ajarans) > 0)  
+            <form action="{{ route('kompetensi.create') }}" method="get">
+                @include('mypartials.tahunajaran')
+                <button class="btn btn-sm text-white font-weight-bold position-absolute px-3" style="top: .7rem; right: 1rem; background-color: #3bae9c">Tambah</button>
+            </form>
+            @endif
         @endif
         <div class="table-responsive">
             <table class="table">
@@ -35,13 +35,13 @@
                         @if (auth()->user()->can('edit_kompetensi') || auth()->user()->can('delete_kompetensi'))   
                         <td>
                             @if (auth()->user()->can('edit_kompetensi'))   
-                            <form action="/kompetensi/{{ $kompetensi->id }}/edit" method="get">
+                            <form action="{{ route('kompetensi.edit', [$kompetensi->id]) }}" method="get">
                                 @include('mypartials.tahunajaran')
                                 <button type="submit" class="btn btn-sm btn-warning text-white font-weight-bold" style="width: 5rem; margin: 0.1rem">Edit</button>
                             </form>
                             @endif
                             @if (auth()->user()->can('delete_kompetensi'))
-                            <form action="/kompetensi/{{ $kompetensi->id }}" method="post">
+                            <form action="{{ route('kompetensi.destroy', [$kompetensi->id]) }}" method="POST">
                                 @csrf
                                 @method('delete')
                                 @include('mypartials.tahunajaran')

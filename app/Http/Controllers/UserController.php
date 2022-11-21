@@ -118,7 +118,7 @@ class UserController extends Controller
             Rfid::createRfid($request->rfid_number, null, $user->id, $request->status_rfid);
         }
 
-        return TahunAjaran::redirectTahunAjaran('/users/' . $request->role, $request,  'Berhasil menambahkan ' . $request->role);
+        return TahunAjaran::redirectWithTahunAjaranManual('/users/' . $request->role, $request,  'Berhasil menambahkan ' . $request->role);
     }
 
     /**
@@ -199,7 +199,7 @@ class UserController extends Controller
             Rfid::createRfid($request->rfid_number, null, $user->id, $request->status_rfid ?? 'tidak');
         }
 
-        return TahunAjaran::redirectTahunAjaran('/users/' . $request->role, $request,  'Berhasil mengupdate ' . $request->role);
+        return TahunAjaran::redirectWithTahunAjaranManual('/users/' . $request->role, $request,  'Berhasil mengupdate ' . $request->role);
     }
 
     /**
@@ -250,7 +250,7 @@ class UserController extends Controller
 
         $user->delete();
 
-        return TahunAjaran::redirectTahunAjaran('/users/' . $user->getRoleNames()[0], $request, 'Berhasil menghapus ' . $user->getRoleNames()[0]);
+        return TahunAjaran::redirectWithTahunAjaranManual('/users/' . $user->getRoleNames()[0], $request, 'Berhasil menghapus ' . $user->getRoleNames()[0]);
     }
 
     public function import($role){
@@ -264,32 +264,42 @@ class UserController extends Controller
 
     public function saveimport(Request $request, $role){
         $users = (new FastExcel)->import($request->file);
+        $berhasil = 0;
+        $gagal = 0;
+
         foreach ($users as $key => $user) {
             if (array_key_exists("email",$user) && array_key_exists("nip",$user)) {     
                 if($user['name'] != null && $user['email'] != null && $user['nip'] != null){
-                    $user = User::create([
-                        'name' => $user['name'],
-                        'email' => $user['email'],
-                        'nip' => $user['nip'],
-                        'jk' => ($user['jk'] == 'L' || $user['jk'] == 'P') ? strtoupper($user['jk']) : null,
-                        'tempat_lahir' => $user['tempat_lahir'],
-                        'tanggal_lahir' => Siswa::filterDate($user['tanggal_lahir']),
-                        'agama' => $user['agama'],
-                        'jalan' => $user['jalan'],
-                        'kelurahan' => $user['kelurahan'],
-                        'kecamatan' => $user['kecamatan'],
-                        'password' => \Hash::make('12345678'),
-                        'sekolah_id' => \Auth::user()->sekolah_id
-                    ]);
-    
-                    $user->assignRole($role);
+                    $cekUser = User::where('email', $user['email'])->orWhere('nip', $user['nip'])->first();
+                    
+                    if ($cekUser) {
+                        $gagal++;
+                    }else{
+                        $user = User::create([
+                            'name' => $user['name'],
+                            'email' => $user['email'],
+                            'nip' => $user['nip'],
+                            'jk' => ($user['jk'] == 'L' || $user['jk'] == 'P') ? strtoupper($user['jk']) : null,
+                            'tempat_lahir' => $user['tempat_lahir'],
+                            'tanggal_lahir' => Siswa::filterDate($user['tanggal_lahir']),
+                            'agama' => $user['agama'],
+                            'jalan' => $user['jalan'],
+                            'kelurahan' => $user['kelurahan'],
+                            'kecamatan' => $user['kecamatan'],
+                            'password' => \Hash::make('12345678'),
+                            'sekolah_id' => \Auth::user()->sekolah_id
+                        ]);
+        
+                        $user->assignRole($role);
+                        $berhasil++;
+                    }
                 }
             }else{
-                return TahunAjaran::redirectTahunAjaran('/import/users/' . $role, $request, 'kolom tidak valid');
+                return TahunAjaran::redirectWithTahunAjaranManual('/import/users/' . $role, $request, 'kolom tidak valid');
             }
         }
 
-        return TahunAjaran::redirectTahunAjaran('/users/' . $role, $request,  'Berhasil mengimport');
+        return TahunAjaran::redirectWithTahunAjaranManual('/users/' . $role, $request,  'Berhasil mengimport ' . $berhasil . ','. $gagal . ' Gagal');
     }
 
     public function export(Request $request, $role){
@@ -341,6 +351,6 @@ class UserController extends Controller
         $user->assignRole('yayasan');
 
 
-        return TahunAjaran::redirectTahunAjaran('/', $request, 'Berhasil menambahkan yayasan');
+        return TahunAjaran::redirectWithTahunAjaranManual('/', $request, 'Berhasil menambahkan yayasan');
     }
 }
