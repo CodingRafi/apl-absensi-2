@@ -68,7 +68,7 @@
                                                 <input type="time" class="input-akhir" name="jam_akhir_{{ $key+1 }}" id="jam-akhir-{{ $key+1 }}" style="border: none;background: transparent;" disabled data-jam-ke="{{ $key+1 }}" value="{{ ($jam->jam_akhir) ? $jam->jam_akhir : "00:00" }}">
                                             </td>
                                             <td class="td-kosongkan" style="display: none;">
-                                                <button type="button" class="btn btn-sm text-white font-weight-bold btn-danger button-reset" style="min-width: 5vw; margin: 2px;" onclick="return confirm('Apakah anda yakin akan mereset ini?')" data-id="{{ $jam->id }}">Reset</button>
+                                                <button type="button" class="btn btn-sm text-white font-weight-bold btn-danger button-reset" style="min-width: 5vw; margin: 2px;"data-id="{{ $jam->id }}">Reset</button>
                                             </td>
                                         </tr>
                                         @else
@@ -315,7 +315,9 @@
 
         document.querySelectorAll('.button-reset').forEach(e => {
             e.addEventListener('click', function(){
-                reset(this.getAttribute('data-id'));
+                if (confirm('Apakah anda yakin akan mereset ini?')) {
+                    reset(this.getAttribute('data-id'));
+                }
             })
         });
 

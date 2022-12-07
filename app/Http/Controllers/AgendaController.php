@@ -8,6 +8,7 @@ use App\Models\Mapel;
 use App\Models\Agenda;
 use App\Models\TahunAjaran;
 use App\Models\AbsensiPelajaran;
+use App\Models\WaktuPelajaran;
 use App\Http\Requests\StoreAgendaRequest;
 use App\Http\Requests\UpdateAgendaRequest;
 use Illuminate\Http\Request;
@@ -29,7 +30,7 @@ class AgendaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request, $role)
-    {
+        {
         if ($role == 'siswa') {
             $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
             
@@ -43,14 +44,7 @@ class AgendaController extends Controller
                 'role' => $role
             ]);
         }else{
-            $users = [];
-            $usersQuery = User::where('sekolah_id', \Auth::user()->sekolah->id)->get();
-
-            foreach ($usersQuery as $key => $user) {
-                if ($user->hasRole($role)) {
-                    $users[] = $user;
-                }
-            }
+            $users = User::role($role)->where('sekolah_id', \Auth::user()->sekolah->id)->get();
 
             return view('agenda.index',[
                 'role' => $role,
@@ -67,32 +61,24 @@ class AgendaController extends Controller
      */
     public function create(Request $request, $role)
     {
-        $returnData = [
-            'role' => $role
-        ];
-        if ($role == 'siswa') {
-            $user_query = User::where('sekolah_id', \Auth::user()->sekolah_id)->get();
-            $gurus = [];
-    
-            foreach ($user_query as $key => $user) {
-                if($user->hasRole('guru')){
-                    $gurus[] = $user;
-                }
-            }
-
-            $returnData += [
-                'gurus' => $gurus,
-            ];
-        }elseif($role == 'guru'){
-            $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
-            $classes = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)->where('tahun_ajaran_id', $tahun_ajaran->id)->get();
-            // dd($classes);
+        $gurus = User::role('guru')->get();
+        $jam_pelajarans = WaktuPelajaran::where('sekolah_id', \Auth::user()->sekolah_id)->get();
+        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+        $classes = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)->where('tahun_ajaran_id', $tahun_ajaran->id)->get();
+        
+        if (request('idu')) {
             $user = User::findOrFail(request('idu'));
-            $returnData += ['classes' => $classes,'user' => $user];
+        } else {
+            $user = null;
         }
 
-
-        return view('agenda.create', $returnData);
+        return view('agenda.create', [
+            'role' => $role,
+            'gurus' => $gurus,
+            'jam_pelajarans' => $jam_pelajarans,
+            'classes' => $classes,
+            'user' => $user
+        ]);
     }
 
     /**

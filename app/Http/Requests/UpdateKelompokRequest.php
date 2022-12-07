@@ -13,7 +13,7 @@ class UpdateKelompokRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class UpdateKelompokRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nama' => 'required',
+            'jam_masuk' => 'required',
+            'jam_pulang' => 'required',
         ];
     }
 }

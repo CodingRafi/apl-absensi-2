@@ -25,11 +25,7 @@ class UserController extends Controller
          $this->middleware('permission:import_users', ['only' => ['import', 'saveimport']]);
          $this->middleware('permission:export_users', ['only' => ['export']]);
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index(Request $request, $role)
     {   
         $users_query = User::filter(request(['search']))->where('sekolah_id', \Auth::user()->sekolah_id)->get();
@@ -47,11 +43,6 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create(Request $request, $role)
     {   
         $roleQuery = Role::where('name', $role)->first();
@@ -62,12 +53,6 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -121,23 +106,6 @@ class UserController extends Controller
         return TahunAjaran::redirectWithTahunAjaranManual('/users/' . $request->role, $request,  'Berhasil menambahkan ' . $request->role);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
     public function edit(User $user)
     {
         $role = $user->getRoleNames()[0];
@@ -236,7 +204,6 @@ class UserController extends Controller
             }
 
         }
-
         
         if (count($user->absensi) > 0) {
             foreach ($user->absensi as $key => $absensi) {

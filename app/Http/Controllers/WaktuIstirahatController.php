@@ -18,7 +18,7 @@ class WaktuIstirahatController extends Controller
             'sekolah_id' => \Auth::user()->sekolah_id
         ]);
 
-        return TahunAjaran::redirectWithTahunAjaran(route('jam-pelajaran.index'), $request,  'Jam Istirahat Berhasil Tersimpan');
+        return TahunAjaran::redirectWithTahunAjaranManual(route('jam-pelajaran.index'), $request,  'Jam Istirahat Berhasil Tersimpan');
     }
 
     public function update(UpdateWaktuIstirahatRequest $request, WaktuIstirahat $waktuIstirahat, $id)
@@ -29,12 +29,12 @@ class WaktuIstirahatController extends Controller
             'jam_awal' => $request->jam_awal,
             'jam_akhir' => $request->jam_akhir,
         ]);
-        return TahunAjaran::redirectWithTahunAjaran(route('jam-pelajaran.index'), $request,  'Jam Istirahat Berhasil Diubah');
+        return TahunAjaran::redirectWithTahunAjaranManual(route('jam-pelajaran.index'), $request,  'Jam Istirahat Berhasil Diubah');
     }
 
     public function destroy(Request $request, $id)
     {
         $waktuIstirahat = WaktuIstirahat::findOrFail($id)->delete();
-        return TahunAjaran::redirectWithTahunAjaran(route('jam-pelajaran.index'), $request,  'Jam Istirahat Berhasil Dihapus');
+        return TahunAjaran::redirectWithTahunAjaranManual(route('jam-pelajaran.index'), $request,  'Jam Istirahat Berhasil Dihapus');
     }
 }

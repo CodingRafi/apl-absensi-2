@@ -40,17 +40,16 @@ Route::post('/sekolah-create', [App\Http\Controllers\User\SekolahController::cla
 Route::group(['middleware' => ['auth:web,websiswa']], function() {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('roles', RoleController::class);
-
+    
     Route::prefix('data-master')->group(function () {
         Route::resource('kompetensi', KompetensiController::class);
         Route::resource('kelas', KelasController::class);
         Route::resource('mapel', MapelController::class);
+        Route::resource('tahun-ajaran', TahunAjaranController::class);
     });
     
-    Route::prefix('users')->group(function () {
-        Route::get('{role}', [UserController::class, 'index'])->name('users.index');
-        Route::get('create/{role}', [UserController::class, 'create'])->name('users.create');
-    });
+    Route::get('/users/{role}', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/create/{role}', [UserController::class, 'create'])->name('users.user_create');
     Route::resource('/users', UserController::class);
 
     // Export dan Import User
@@ -65,7 +64,6 @@ Route::group(['middleware' => ['auth:web,websiswa']], function() {
 
     Route::resource('siswa', SiswaController::class);
     
-    Route::resource('tahun-ajaran', TahunAjaranController::class);
     Route::get('/agenda/{role}', [AgendaController::class, 'index']);
     Route::get('/agenda/create/{role}', [AgendaController::class, 'create']);
     Route::get('/agenda/{role}/{id}/edit', [AgendaController::class, 'edit']);
@@ -100,21 +98,5 @@ Route::group(['middleware' => ['auth:web,websiswa']], function() {
 });
 
 require __DIR__.'/auth.php';
-
-// Route::get('/kelompok', function(){
-//     return view('kelompok.index');
-// });
-
-// Route::get('/createKelompok', function(){
-//     return view('kelompok.create');
-// });
-
-// Route::get('/jamPelajaran', function(){
-//     return view('jamPelajaran.index');
-// });
-
-// Route::get('/createJamPelajaran', function(){
-//     return view('jamPelajaran.create');
-// });
 
 

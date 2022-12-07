@@ -16,12 +16,13 @@ return new class extends Migration
         Schema::create('kelompoks', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->time('jam_masuk')->nullable();
-            $table->time('jam_pulang')->nullable();
+            $table->time('jam_masuk');
+            $table->time('jam_pulang');
+            $table->time('sekolah_id');
             $table->timestamps();
         });
 
-        Schema::create('user_kelompok', function (Blueprint $table) {
+        Schema::create('kelompok_user', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('kelompok_id');

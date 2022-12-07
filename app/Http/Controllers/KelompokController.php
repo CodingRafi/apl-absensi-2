@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelompok;
 use App\Models\User;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreKelompokRequest;
 use App\Http\Requests\UpdateKelompokRequest;
 
@@ -16,51 +17,34 @@ class KelompokController extends Controller
      */
     public function index()
     {
-        return view('kelompok.index');
+        $kelompoks = Kelompok::where('sekolah_id', \Auth::user()->sekolah_id)->get();
+        return view('kelompok.index', compact('kelompoks'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $gurus = User::role('guru')->get();
         return view('kelompok.create', compact('gurus'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreKelompokRequest  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreKelompokRequest $request)
     {
-        //
+        $kelompok = Kelompok::create([
+            'nama' => $request->nama,
+            'jam_masuk' => $request->jam_masuk,
+            'jam_pulang' => $request->jam_pulang,
+            'sekolah_id' => \Auth::user()->sekolah_id
+        ]);
+
+        $kelompok->user()->sync($request->gurus);
+
+        return redirect()->route('kelompok.index')->with('message', 'Berhasil menambah kelompok');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Kelompok  $kelompok
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Kelompok $kelompok)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Kelompok  $kelompok
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Kelompok $kelompok)
     {
-        //
+        $gurus = User::role('guru')->get();
+        return view('kelompok.edit', compact('kelompok', 'gurus'));
     }
 
     /**
@@ -72,7 +56,15 @@ class KelompokController extends Controller
      */
     public function update(UpdateKelompokRequest $request, Kelompok $kelompok)
     {
-        //
+        $kelompok->update([
+            'nama' => $request->nama,
+            'jam_masuk' => $request->jam_masuk,
+            'jam_pulang' => $request->jam_pulang,
+        ]);
+
+        $kelompok->user()->sync($request->gurus);
+
+        return redirect()->route('kelompok.index')->with('message', 'Berhasil mengupdate kelompok');
     }
 
     /**
@@ -83,6 +75,8 @@ class KelompokController extends Controller
      */
     public function destroy(Kelompok $kelompok)
     {
-        //
+        $kelompok->user()->sync([]);
+        $kelompok->delete();
+        return redirect()->back()->with('Berhasil menghapus kelompok');
     }
 }

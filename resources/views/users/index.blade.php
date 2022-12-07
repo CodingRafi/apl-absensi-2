@@ -35,7 +35,7 @@
             @endif
             @if (auth()->user()->can('add_users'))
             <li class="nav-item">
-                <form action="{{ route('users.create', [$role]) }}" method="get">
+                <form action="{{ route('users.user_create', [$role]) }}" method="get">
                     @include('mypartials.tahunajaran')
                     <button class="btn btn-sm text-white font-weight-bold" style="background-color: #3bae9c">Tambah</button>
                 </form>
