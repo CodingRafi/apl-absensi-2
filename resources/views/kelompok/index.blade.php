@@ -10,10 +10,10 @@
                     <button class="btn btn-sm text-white font-weight-bold" style="background-color: #3bae9c; min-width: 5vw;">Create</button>
                 </form>
             </div>
-            <div class="table-responsive">
-                <table class="table">
+            <div class="table table-responsive table-hover text-center">
+                <table class="table align-middle">
                     <thead>
-                        <tr class="text-center">
+                        <tr>
                             <th>No</th>
                             <th>Nama Kelompok</th>
                             <th>Jam Masuk</th>
@@ -24,14 +24,14 @@
                     </thead>
                     <tbody>
                         @foreach ($kelompoks as $kelompok)
-                        <tr class="text-center">
+                        <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $kelompok->nama }}</td>
                             <td>{{ $kelompok->jam_masuk }}</td>
                             <td>{{ $kelompok->jam_pulang }}</td>
                             <td>
                                 @foreach ($kelompok->user as $user)
-                                    <p>{{ $user->name }}</p>
+                                    {{ $user->name }}
                                 @endforeach
                             </td>
                             <td>

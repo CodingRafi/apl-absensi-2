@@ -42,10 +42,10 @@
             </li>
             @endif
         </ul>
-        <div class="table-responsive">
-            <table class="table">
-                <thead class="thead-light">
-                    <tr class="text-center">
+        <div class="table table-responsive table-hover text-center">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
                         <th scope="col">No</th>
                         <th scope="col">Profil</th>
                         <th scope="col">Name</th>
@@ -68,7 +68,7 @@
                 <tbody>
                     @foreach ($users as $user)
                     {{-- @dd($user) --}}
-                    <tr class="text-center">
+                    <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>
                             @if ($user->profil == '/img/profil.png')
@@ -83,7 +83,9 @@
                         @if ($role == 'guru')
                         <td>
                             @foreach ($user->mapel as $mapel)
-                            <p>{{ $loop->iteration }}. {{ $mapel->nama }}</p>
+                                <div style="padding: 5px; border-bottom: 1.5px solid rgb(128, 128, 128)">
+                                    {{ $mapel->nama }}
+                                </div>
                             @endforeach
                         </td>
                         @endif

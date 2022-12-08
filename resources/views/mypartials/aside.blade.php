@@ -6,7 +6,7 @@
         <li class="nav-item" style="border-radius: 10px;transition: none;">
             <form action="{{ route('dashboard') }}" method="get">
                 @include('mypartials.tahunajaran')
-                <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"
+                <button class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}"
                     style="background-color: transparent; border: none; border-radius: 10px; width: 100%;transition: none;"><i
                         class="bi bi-columns-gap mr-3"></i> <span>Dashboard</span></button>
             </form>
@@ -47,9 +47,8 @@
         <li class="nav-item" style="border-radius: 10px;transition: none;">
             <form action="{{ route('jam-pelajaran.index') }}" method="get">
                 @include('mypartials.tahunajaran')
-                <button class="nav-link {{ Request::is('jamPelajaran') ? 'active' : '' }}"
-                    style="background-color: transparent; border: none; border-radius: 10px; width: 100%;transition: none;"><i
-                        class="bi bi-book-half mr-3"></i> <span>Jam Pelajaran</span></button>
+                <button class="nav-link {{ Request::is('jam-pelajaran') ? 'active' : '' }}"
+                    style="background-color: transparent; border: none; border-radius: 10px; width: 100%;transition: none;"><i class="bi bi-clock-fill mr-3"></i> <span>Jam Pelajaran</span></button>
             </form>
         </li>
 
@@ -57,8 +56,7 @@
             <form action="/kelompok" method="get">
                 @include('mypartials.tahunajaran')
                 <button class="nav-link {{ Request::is('kelompok') ? 'active' : '' }}"
-                    style="background-color: transparent; border: none; border-radius: 10px; width: 100%;transition: none;"><i
-                        class="bi bi-book-half mr-3"></i> <span>Kelompok Jadwal</span></button>
+                    style="background-color: transparent; border: none; border-radius: 10px; width: 100%;transition: none;"><i class="bi bi-hourglass-split mr-3"></i> <span>Kelompok Jadwal</span></button>
             </form>
         </li>
 
@@ -69,12 +67,14 @@
         <li class="nav-item" style="border-radius: 10px;transition: none;">
             <a class="nav-link {{ Request::is('agenda*') ? 'active' : '' }}" data-toggle="collapse" href="#data-agenda"
                 aria-expanded="false" aria-controls="ui-basic" style=" border-radius: 10px;transition: none;">
-                <i class="bi bi-calendar-week mr-3"></i>
-                <span class="menu-title">Jadwal</span>
-                <i class="menu-arrow"></i>
+                <div class="col-lg-12 m-0 p-0">
+                    <i class="bi bi-calendar-week mr-3"></i>
+                    <span class="menu-title">Jadwal</span>
+                    <span class="float-right"><i class="bi bi-chevron-down"></i></span>
+                </div>
             </a>
             <div class="collapse" id="data-agenda">
-                <ul class="nav flex-column sub-menu">
+                <ul class="nav flex-column sub-menu" style="border-radius: 0px 0px 10px 10px; margin-top: -8px;">
                     @foreach ($roles as $role)
                     @if ($role->name != 'yayasan' && $role->name != 'admin' && $role->name != 'super_admin')
                     <li class="nav-item" style="border-radius: 10px;transition: none;">
@@ -107,14 +107,16 @@
         @if (auth()->user()->can('view_absensi') || auth()->user()->can('add_absensi') ||
         auth()->user()->can('edit_absensi') || auth()->user()->can('delete_absensi'))
         <li class="nav-item" style="border-radius: 10px;transition: none;">
-            <a class="nav-link {{ Request::is('absensi*') ? 'active' : '' }}" data-toggle="collapse" href="#ui-basic"
+            <a class="nav-link {{ Request::is('absensi*') ? 'active' : '' }} d-flex justify-content-between" data-toggle="collapse" href="#ui-basic"
                 aria-expanded="false" aria-controls="ui-basic" style=" border-radius: 10px;transition: none;">
-                <i class="bi bi-journal-check mr-3"></i>
-                <span class="menu-title">Absensi</span>
-                <i class="menu-arrow"></i>
+                <div class="col-lg-12 m-0 p-0">
+                    <i class="bi bi-journal-check mr-3"></i>
+                    <span class="menu-title">Absensi</span>
+                    <span class="float-right"><i class="bi bi-chevron-down"></i></span>
+                </div>
             </a>
             <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
+                <ul class="nav flex-column sub-menu" style="border-radius: 0px 0px 10px 10px; margin-top: -8px;">
                     @foreach ($roles as $role)
                     @if ($role->name != 'yayasan' && $role->name != 'admin' && $role->name != 'super_admin')
                     <li class="nav-item" style="border-radius: 10px;transition: none;">
@@ -171,14 +173,16 @@
         auth()->user()->can('edit_siswa') || auth()->user()->can('delete_siswa') || auth()->user()->can('import_siswa')
         || auth()->user()->can('export_siswa'))
         <li class="nav-item" style="border-radius: 10px;transition: none;">
-            <a class="nav-link {{ Request::is('users*') ? 'active' : '' }}" data-toggle="collapse" href="#data-user"
+            <a class="nav-link {{ Request::is('users*') ? 'active' : '' }}{{ Request::is('siswa') ? 'active' : '' }} d-flex justify-content-between" data-toggle="collapse" href="#data-user"
                 aria-expanded="false" aria-controls="data-user" style=" border-radius: 10px;transition: none;">
-                <i class="bi bi-people-fill mr-3"></i>
-                <span class="menu-title">Data User</span>
-                <i class="menu-arrow"></i>
+                <div class="col-lg-12 m-0 p-0">
+                    <i class="bi bi-people-fill mr-3"></i>
+                    <span class="menu-title">Data User</span>
+                    <span class="float-right"><i class="bi bi-chevron-down"></i></span>
+                </div>
             </a>
             <div class="collapse" id="data-user">
-                <ul class="nav flex-column sub-menu">
+                <ul class="nav flex-column sub-menu" style="border-radius: 0px 0px 10px 10px; margin-top: -8px;">
                     @if (auth()->user()->can('view_users') || auth()->user()->can('add_users') ||
                     auth()->user()->can('edit_users') || auth()->user()->can('delete_users') ||
                     auth()->user()->can('import_users') || auth()->user()->can('export_users'))
@@ -203,7 +207,7 @@
                     <li class="nav-item" style="border-radius: 10px;transition: none;">
                         <form action="/siswa" method="get">
                             @include('mypartials.tahunajaran')
-                            <button class="nav-link {{ Request::is('siswa') ? 'active' : '' }}"
+                            <button class="nav-link {{ Request::is('siswa.*') ? 'active' : '' }}"
                                 style="background-color: #3bae9c; border: none; min-width: 150px">Data Siswa</button>
                         </form>
                     </li>
@@ -224,15 +228,17 @@
         auth()->user()->can('view_kelas') || auth()->user()->can('add_kelas') || auth()->user()->can('edit_kelas') ||
         auth()->user()->can('delete_kelas'))
         <li class="nav-item" style="border-radius: 10px;transition: none;">
-            <a class="nav-link {{ Request::is('data-master*') ? 'active' : '' }}" data-toggle="collapse"
+            <a class="nav-link {{ Request::is('data-master*') ? 'active' : '' }} d-flex justify-content-between" data-toggle="collapse"
                 href="#data-master" aria-expanded="false" aria-controls="data-master"
                 style=" border-radius: 10px;transition: none;">
-                <i class="bi bi-hdd-stack-fill mr-3"></i>
-                <span class="menu-title">Data Master</span>
-                <i class="menu-arrow"></i>
+                <div class="col-lg-12 m-0 p-0">
+                    <i class="bi bi-hdd-stack-fill mr-3"></i>
+                    <span class="menu-title">Data Master</span>
+                    <span class="float-right"><i class="bi bi-chevron-down"></i></span>
+                </div>
             </a>
             <div class="collapse" id="data-master">
-                <ul class="nav flex-column sub-menu">
+                <ul class="nav flex-column sub-menu" style="border-radius: 0px 0px 10px 10px; margin-top: -8px;">
                     @if ( Auth::user()->sekolah->tingkat == 'smk' && auth()->user()->can('view_kompetensi') ||
                     auth()->user()->can('add_kompetensi') || auth()->user()->can('edit_kompetensi') ||
                     auth()->user()->can('delete_kompetensi'))

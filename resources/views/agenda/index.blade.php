@@ -4,10 +4,10 @@
 <div class="card">
     <div class="card-body">
         <h4 class="card-title float-left">Jadwal {{ $role }}</h4>
-        <div class="table-responsive">
-            <table class="table">
-                <thead class="thead-light">
-                    <tr class="text-center">
+        <div class="table table-responsive table-hover text-center">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
                         <th>No</th>
                         @if ($role == 'siswa')
                         <th>Kelas</th>
@@ -20,7 +20,7 @@
                 <tbody>
                     @if ($role == 'siswa')    
                         @foreach ($classes as $kelas)
-                        <tr class="text-center">
+                        <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $kelas->nama }}</td>
                             <td>
@@ -33,7 +33,7 @@
                         @endforeach
                     @else
                         @foreach ($users as $user)
-                            <tr class="text-center">
+                            <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>

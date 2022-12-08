@@ -122,10 +122,10 @@
             @endif
         </ul>
         @endif
-        <div class="table-responsive">
-            <table class="table">
-                <thead class="thead-light">
-                    <tr class="text-center">
+        <div class="table table-responsive table-hover text-center">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
                         <th scope="col">No</th>
                         <th scope="col">Profil</th>
                         <th scope="col">NISN</th>
@@ -151,7 +151,7 @@
                 </thead>
                 <tbody>
                     @foreach ($siswas as $student)
-                    <tr class="text-center">
+                    <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>
                             @if ($student->profil != '/img/profil.png')
