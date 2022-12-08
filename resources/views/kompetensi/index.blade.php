@@ -41,13 +41,13 @@
                             </form>
                             @endif
                             @if (auth()->user()->can('delete_kompetensi'))
-                            <form action="{{ route('kompetensi.destroy', [$kompetensi->id]) }}" method="POST">
+                            <button type="submit" class="btn btn-sm btn-danger font-weight-bold"
+                                onclick="deleteData('{{ route('kompetensi.destroy', [$kompetensi->id]) }}')" style="width: 5rem; margin: 0.1rem">Hapus</button>
+                            {{-- <form action="{{ route('kompetensi.destroy', [$kompetensi->id]) }}" method="POST">
                                 @csrf
                                 @method('delete')
                                 @include('mypartials.tahunajaran')
-                                <button type="submit" class="btn btn-sm btn-danger font-weight-bold"
-                                    onclick="return confirm('apakah anda yakin akan menghapus jurusan ini? maka semua siswa pada jurusan ini akan terhapus')" style="width: 5rem; margin: 0.1rem">Hapus</button>
-                            </form>
+                            </form> --}}
                             @endif
                         </td>
                         @endif

@@ -274,6 +274,16 @@
                         </form>
                     </li>
                     @endif
+                    @if (auth()->user()->can('view_status_kehadiran') || auth()->user()->can('add_status_kehadiran') ||
+                    auth()->user()->can('edit_status_kehadiran') || auth()->user()->can('delete_status_kehadiran'))
+                    <li class="nav-item" style="border-radius: 10px;transition: none;">
+                        <form action="{{ route('status-kehadiran.index') }}" method="get">
+                            @include('mypartials.tahunajaran')
+                            <button class="nav-link {{ Request::is('mapel') ? 'active' : '' }}"
+                                style="background-color: #3bae9c; border: none; min-width: 150px;text-transform: capitalize;">Status kehadiran</button>
+                        </form>
+                    </li>
+                    @endif
                 </ul>
             </div>
         </li>
