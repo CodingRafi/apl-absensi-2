@@ -45,6 +45,7 @@ Route::group(['middleware' => ['auth:web,websiswa']], function() {
         Route::resource('kompetensi', KompetensiController::class);
         Route::resource('kelas', KelasController::class);
         Route::resource('mapel', MapelController::class);
+        Route::resource('status-kehadiran', StatusKehadiranController::class);
         Route::resource('tahun-ajaran', TahunAjaranController::class);
     });
     

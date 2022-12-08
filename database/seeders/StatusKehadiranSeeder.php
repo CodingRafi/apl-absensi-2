@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\StatusKehadiran;
 
 class StatusKehadiranSeeder extends Seeder
 {
@@ -14,6 +15,9 @@ class StatusKehadiranSeeder extends Seeder
      */
     public function run()
     {
-        //
+        StatusKehadiran::create([
+            'nama' => 'Masuk',
+            'color' => '#57B657'
+        ]);
     }
 }
