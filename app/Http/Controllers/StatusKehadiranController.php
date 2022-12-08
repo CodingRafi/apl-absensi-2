@@ -8,6 +8,13 @@ use App\Http\Requests\UpdateStatusKehadiranRequest;
 
 class StatusKehadiranController extends Controller
 {
+    public function __construct()
+    {
+    $this->middleware('permission:view_status_kehadiran|edit_status_kehadiran|delete_status_kehadiran', ['only' => ['index', 'store']]);
+    $this->middleware('permission:add_status_kehadiran', ['only' => ['create', 'store']]);
+    $this->middleware('permission:edit_status_kehadiran', ['only' => ['edit', 'update']]);
+    $this->middleware('permission:delete_status_kehadiran', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +22,7 @@ class StatusKehadiranController extends Controller
      */
     public function index()
     {
-        //
+        return view('status_kehadiran.index');
     }
 
     /**
@@ -36,7 +43,10 @@ class StatusKehadiranController extends Controller
      */
     public function store(StoreStatusKehadiranRequest $request)
     {
-        //
+        StatusKehadiran::create([
+            'nama' => $request->nama,
+            'color' => $request->color
+        ]);
     }
 
     /**

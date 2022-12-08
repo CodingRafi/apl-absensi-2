@@ -60,7 +60,10 @@ class UserSeeder extends Seeder
             return $izinAdmin;
         }, $izinAdminSmk);
 
-        $roleAdminSmk->syncPermissions($resultAdminSmk);
+        $permissions = Permission::pluck('id','id')->all();
+
+        // $roleAdminSmk->syncPermissions($resultAdminSmk);
+        $roleAdminSmk->syncPermissions($permissions);
 
         $adminSmk = User::create([
             'name' => 'Admin SMK',

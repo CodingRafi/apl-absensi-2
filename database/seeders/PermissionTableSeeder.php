@@ -86,7 +86,12 @@ class PermissionTableSeeder extends Seeder
             'edit_presensi',
             'delete_presensi',
 
-            'show_absensi'
+            'show_absensi',
+
+            'view_status_kehadiran',
+            'add_status_kehadiran',
+            'edit_status_kehadiran',
+            'delete_status_kehadiran',
         ];
 
         foreach ($permissions as $permission) {

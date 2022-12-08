@@ -38,7 +38,7 @@
         @if (auth()->user()->can('view_tahun_ajaran') || auth()->user()->can('add_tahun_ajaran') ||
         auth()->user()->can('edit_tahun_ajaran') || auth()->user()->can('delete_tahun_ajaran'))
         <li class="nav-item" style="border-radius: 10px;transition: none;">
-            <a href="{{ route('data-master.tahun-ajaran.index') }}" class="nav-link {{ Request::is('tahun-ajaran') ? 'active' : '' }}"
+            <a href="{{ route('tahun-ajaran.index') }}" class="nav-link {{ Request::is('tahun-ajaran') ? 'active' : '' }}"
                 style=" border-radius: 10px;transition: none;"><i class="bi bi-calendar-date mr-3"></i> <span>Tahun
                     Ajaran</span></a>
         </li>
@@ -257,6 +257,16 @@
                             @include('mypartials.tahunajaran')
                             <button class="nav-link {{ Request::is('kelas') ? 'active' : '' }}"
                                 style="background-color: #3bae9c; border: none; min-width: 150px;text-transform: capitalize;">Kelas</button>
+                        </form>
+                    </li>
+                    @endif
+                    @if (auth()->user()->can('view_mapel') || auth()->user()->can('add_mapel') ||
+                    auth()->user()->can('edit_mapel') || auth()->user()->can('delete_mapel'))
+                    <li class="nav-item" style="border-radius: 10px;transition: none;">
+                        <form action="{{ route('mapel.index') }}" method="get">
+                            @include('mypartials.tahunajaran')
+                            <button class="nav-link {{ Request::is('mapel') ? 'active' : '' }}"
+                                style="background-color: #3bae9c; border: none; min-width: 150px;text-transform: capitalize;">Mapel</button>
                         </form>
                     </li>
                     @endif

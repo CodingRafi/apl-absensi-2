@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('status_kehadirans', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
+            $table->string('color');
             $table->timestamps();
         });
     }

@@ -4,12 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Sekolah;
-use App\Models\Siswa;
-use App\Models\Kelas;
-use App\Models\Kompetensi;
-use App\Models\Rfid;
-
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -28,5 +22,6 @@ class DatabaseSeeder extends Seeder
         $this->call(KompetensiSeeder::class);
         $this->call(SiswaSeeder::class);
         $this->call(RfidSeeder::class);
+        $this->call(StatusKehadiranSeeder::class);
     }
 }
