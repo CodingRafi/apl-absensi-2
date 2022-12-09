@@ -22,7 +22,8 @@ class StatusKehadiranController extends Controller
      */
     public function index()
     {
-        return view('status_kehadiran.index');
+        $status_kehadirans = StatusKehadiran::all();
+        return view('status_kehadiran.index', compact('status_kehadirans'));
     }
 
     /**
@@ -47,6 +48,8 @@ class StatusKehadiranController extends Controller
             'nama' => $request->nama,
             'color' => $request->color
         ]);
+
+        return redirect()->back()->with('msg_success', 'Berhasil Menambahkan Status Kehadiran');
     }
 
     /**
@@ -68,7 +71,7 @@ class StatusKehadiranController extends Controller
      */
     public function edit(StatusKehadiran $statusKehadiran)
     {
-        //
+        return view('status_kehadiran.update', compact('statusKehadiran'));
     }
 
     /**
@@ -80,7 +83,12 @@ class StatusKehadiranController extends Controller
      */
     public function update(UpdateStatusKehadiranRequest $request, StatusKehadiran $statusKehadiran)
     {
-        //
+        $statusKehadiran->update([
+            'nama' => $request->nama,
+            'color' => $request->color,
+        ]);
+
+        return redirect()->route('status-kehadiran.index')->with('msg_success', 'Berhasil Mengubah Status Kehadiran');
     }
 
     /**

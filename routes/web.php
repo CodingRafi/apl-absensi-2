@@ -18,6 +18,7 @@ use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\WaktuPelajaranController;
 use App\Http\Controllers\WaktuIstirahatController;
 use App\Http\Controllers\ConfigurasiUserController;
+use App\Http\Controllers\StatusKehadiranController;
 use App\Http\Controllers\AbsensiPelajaranController;
 
 /*

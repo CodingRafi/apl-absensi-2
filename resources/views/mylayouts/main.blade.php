@@ -99,10 +99,10 @@
   @yield('tambahcss')
 </head>
 
-<body >
+<body>
   @if ($message = Session::get('message'))
   <script>
-     iziToast.success({
+    iziToast.success({
           title: 'Success',
           message: '{{ $message }}',
           position: 'topRight',
@@ -139,6 +139,11 @@
     <!-- page-body-wrapper ends -->
   </div>
 
+  <form action="" class="form-delete" method="POST">
+    @csrf
+    @method('delete')
+  </form>
+
 
   <!-- container-scroller -->
 
@@ -165,11 +170,30 @@
   {{-- ajax --}}
   <script src="https://code.jquery.com/jquery-3.6.1.min.js"
     integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    function deleteData(url){
+          Swal.fire({
+              title: 'Apakah anda yakin ingin hapus data ini?',
+              text: "Data yang terhapus tidak dapat dikembalikan",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes, delete it!'
+
+          }).then((result) => {
+              if (result.isConfirmed) {
+                  $('.form-delete').attr('action', url).submit();
+              } 
+          })
+      }
+  </script>
 
   @yield('tambahjs')
 
   <script>
-        // const li_tahun_ajaran = document.querySelectorAll('.li_tahun_ajaran');
+    // const li_tahun_ajaran = document.querySelectorAll('.li_tahun_ajaran');
         
   </script>
 </body>
