@@ -92,9 +92,9 @@ class PresensiController extends Controller
                 'tgl_kehadiran' => $request->date
             ]);
 
-            return redirect('/presensi/'. $request->absensi_pelajaran_id . '/' .'?idk=' . $request->idk)->with('message', 'berhasil tersimpan');
+            return redirect('/presensi/'. $request->absensi_pelajaran_id . '/' .'?idk=' . $request->idk)->with('msg_success', 'berhasil tersimpan');
         }else{
-            return redirect('/presensi/'. $request->absensi_pelajaran_id . '/' .'?idk=' . $request->idk)->with('message', 'belum absensi masuk');
+            return redirect('/presensi/'. $request->absensi_pelajaran_id . '/' .'?idk=' . $request->idk)->with('msg_success', 'belum absensi masuk');
         }
     }
 
@@ -135,7 +135,7 @@ class PresensiController extends Controller
             'kehadiran' => $request->kehadiran
         ]);
 
-        return redirect()->back()->with('message', 'Berhasil Update');
+        return redirect()->back()->with('msg_success', 'Berhasil Update');
     }
 
     /**
