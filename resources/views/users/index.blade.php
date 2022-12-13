@@ -112,13 +112,9 @@
                                 <button class="btn btn-sm btn-warning text-white font-weight-bold" style="width: 5rem; margin: 0.1rem;">Edit</button>
                             </form>
                             @endif
-                            @if (auth()->user()->can('delete_users'))
-                            <form action="/users/{{ $user->id }}" method="post">
-                                @csrf
-                                @method('delete')
-                                @include('mypartials.tahunajaran')
-                                <button type="submit" class="btn btn-sm btn-danger font-weight-bold" style="width: 5rem; margin: 0.1rem;" onclick="return confirm('apakah anda yakin ingin menghapus user ini? data lainnya termasuk rfid, absensi, dan agenda juga akan terhapus.')">Hapus</button>
-                            </form>
+                            @if (auth()->user()->can('delete_user'))
+                            <button type="submit" class="btn btn-sm btn-danger font-weight-bold"
+                                onclick="deleteData('{{ route('user.destroy', [$user->id]) }}')" style="width: 5rem; margin: 0.1rem">Hapus</button>
                             @endif
                         </td>
                         @endif

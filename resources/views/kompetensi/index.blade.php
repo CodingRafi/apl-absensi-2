@@ -43,11 +43,6 @@
                             @if (auth()->user()->can('delete_kompetensi'))
                             <button type="submit" class="btn btn-sm btn-danger font-weight-bold"
                                 onclick="deleteData('{{ route('kompetensi.destroy', [$kompetensi->id]) }}')" style="width: 5rem; margin: 0.1rem">Hapus</button>
-                            {{-- <form action="{{ route('kompetensi.destroy', [$kompetensi->id]) }}" method="POST">
-                                @csrf
-                                @method('delete')
-                                @include('mypartials.tahunajaran')
-                            </form> --}}
                             @endif
                         </td>
                         @endif

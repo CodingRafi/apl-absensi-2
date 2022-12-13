@@ -26,10 +26,11 @@
                 <ul class="nav flex-column sub-menu" style="border-radius: 0px 0px 10px 10px; margin-top: -8px;">
                     @if (auth()->user()->can('view_tahun_ajaran'))
                     <li class="nav-item" style="border-radius: 10px;transition: none;">
-                        <a href="{{ route('tahun-ajaran.index') }}" class="nav-link {{ Request::is('tahun-ajaran') ? 'active' : '' }}"
-                            style=" border-radius: 10px;transition: none;">
-                            <span>Tahun Ajaran</span>
-                        </a>
+                        <form action="{{ route('tahun-ajaran.index') }}">
+                            @include('mypartials.tahunajaran')
+                            <button class="nav-link {{ Request::is('tahun-ajaran') ? 'active' : '' }}"
+                                style="background-color: #3bae9c; border: none; min-width: 150px;text-transform: capitalize;">Tahun Ajaran</button>
+                        </form>
                     </li>
                     @endif
               

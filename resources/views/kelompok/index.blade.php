@@ -39,12 +39,10 @@
                                     @include('mypartials.tahunajaran')
                                     <button class="btn btn-sm btn-warning text-white font-weight-bold" style="min-width: 5vw; margin: 2px;">Edit</button>
                                 </form>
-                                <form action="{{ route('kelompok.destroy', [$kelompok->id]) }}" method="post">
-                                    @csrf
-                                    @method('delete')
-                                    @include('mypartials.tahunajaran')
-                                    <button class="btn btn-sm btn-danger text-white font-weight-bold" style="min-width: 5vw; margin: 2px;">Hapus</button>
-                                </form>
+                                @if (auth()->user()->can('delete_kelompok'))
+                                    <button type="submit" class="btn btn-sm btn-danger font-weight-bold"
+                                        onclick="deleteData('{{ route('kelompok.destroy', [$kelompok->id]) }}')" style="width: 5rem; margin: 0.1rem">Hapus</button>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

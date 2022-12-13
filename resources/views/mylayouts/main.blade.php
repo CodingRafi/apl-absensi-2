@@ -94,6 +94,21 @@
         width: 5px;
       }
     }
+    
+    .swal2-icon.swal2-warning.swal2-icon-show {
+    animation: swal2-animate-error-icon .5s;
+    margin-top: 50px;
+    margin-bottom: 10px !important;
+    }
+
+    .swal2-modal .swal2-title {
+    font-size: 25px;
+    line-height: 1;
+    font-weight: 600 !important;
+    color: #1F1F1F;
+    font-weight: initial;
+    margin-bottom: 0;
+    }
   </style>
 
   @yield('tambahcss')
@@ -180,7 +195,8 @@
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
               cancelButtonColor: '#d33',
-              confirmButtonText: 'Yes, delete it!'
+              confirmButtonText: 'Hapus',
+              cancelButtonText: 'Kembali'
 
           }).then((result) => {
               if (result.isConfirmed) {

@@ -43,12 +43,8 @@
                         @if (auth()->user()->can('edit_sekolah') || auth()->user()->can('delete_sekolah')) 
                         <td>
                             @if (auth()->user()->can('delete_sekolah'))
-                            <form action="/sekolah/{{ $sekolah->id }}" method="post">
-                                @csrf
-                                @method('delete')
-                                @include('mypartials.tahunajaran')
-                                <button type="submit" class="btn btn-sm btn-danger font-weight-bold" style="width: 5rem; margin: 0.1rem;" onclick="return confirm('yakin?')">Hapus</button>
-                            </form>
+                            <button type="submit" class="btn btn-sm btn-danger font-weight-bold"
+                                onclick="deleteData('{{ route('sekolah.destroy', [$sekolah->id]) }}')" style="width: 5rem; margin: 0.1rem">Hapus</button>
                             @endif
                         </td>
                         @endif

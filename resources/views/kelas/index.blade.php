@@ -36,12 +36,8 @@
                         </form>
                         @endif
                         @if (auth()->user()->can('delete_kelas'))
-                        <form action="{{ route('kelas.destroy', [$kelas->id]) }}" method="post">
-                            @csrf
-                            @method('delete')
-                            @include('mypartials.tahunajaran')
-                            <button type="submit" class="btn btn-sm btn-danger font-weight-bold" onclick="return confirm('Ini akan menghapus semua siswa, dan agenda untuk kelas ini?')" style="width: 5rem; margin: 0.1rem">Hapus</button>
-                        </form>
+                            <button type="submit" class="btn btn-sm btn-danger font-weight-bold"
+                                onclick="deleteData('{{ route('kelas.destroy', [$kelas->id]) }}')" style="width: 5rem; margin: 0.1rem">Hapus</button>
                         @endif
                     </td>
                     @endif
