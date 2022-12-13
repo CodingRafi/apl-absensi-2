@@ -130,7 +130,7 @@
                     @if (auth()->user()->can('edit_sekolah'))
                     <form action="/edit-sekolah" method="get">
                         @include('mypartials.tahunajaran')
-                        <button class="btn btn-warning text-white font-weight-bold">Edit</button>
+                        <button class="btn btn-warning btn-sm text-white" style="min-width: 5vw;font-weight: 500;border: 2px solid #e8b228">Edit</button>
                     </form>
                     @endif
                 </div>
@@ -205,16 +205,20 @@
                     @endif
                 </div>
                 @if ($yayasan)
-                <div class="table-responsive table-bordered" style="border-color: white">
-                    <table>
-                        <tr class="text-center">
-                            <th style="width: 5%; height: 8vh">Nama</th>
-                            <td style="width: 15%; height: 8vh">{{ $yayasan->name }}</td>
-                        </tr>
-                        <tr class="text-center">
-                            <th style="width: 5%; height: 8vh">Email</th>
-                            <td style="width: 15%; height: 8vh">{{ $yayasan->email }}</td>
-                        </tr>
+                <div class="table table-responsive table-hover text-center" style="border-radius: 3px;">
+                    <table class="table align-middle">
+                        <thead style="background-color: #3bae9ddc; color: aliceblue;">
+                            <tr>
+                                <th style="width: 5%;">Nama</th>
+                                <th style="width: 5%;">Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="width: 15%; height: 8vh">{{ $yayasan->name }}</td>
+                                <td style="width: 15%; height: 8vh">{{ $yayasan->email }}</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
                 @else
@@ -238,9 +242,9 @@
             <div class="card mb-3" style="height: 15rem;overflow: auto;">
                 <div class="card-body">
                     <h4 class="card-title" style="color: #369488; font-weight:600;">Data User</h4>
-                    <div class="table-responsive table-bordered" style="border-color: white">
-                        <table>
-                            <thead>
+                    <div class="table table-responsive table-hover text-center" style="border-radius: 3px;">
+                        <table class="table align-middle">
+                            <thead style="background-color: #3bae9ddc; color: aliceblue;">
                                 <tr>
                                     <th>User</th>
                                     <th>Jumlah</th>
@@ -269,10 +273,10 @@
             <div class="card mb-3" style="height: 15rem;overflow: auto;">
                 <div class="card-body">
                     <h4 class="card-title" style="color: #369488; font-weight:600;">Mapel</h4>
-                    <div class="table-responsive table-bordered" style="border-color: white">
+                    <div class="table table-responsive table-hover text-center" style="border-radius: 3px;">
                         @if (count(Auth::user()->sekolah->mapel) > 0)
-                        <table class="text-center">
-                            <thead>
+                        <table class="table align-middle">
+                            <thead style="background-color: #3bae9ddc; color: aliceblue;">
                                 <tr>
                                     <th>Mapel</th>
                                 </tr>
@@ -300,10 +304,10 @@
             <div class="card mb-3" style="height: 15rem;overflow: auto;">
                 <div class="card-body">
                     <h4 class="card-title" style="color: #369488; font-weight:600;">Kelas</h4>
-                    <div class="table-responsive table-bordered" style="border-color: white">
+                    <div class="table table-responsive table-hover text-center" style="border-radius: 3px;">
                         @if (count(Auth::user()->sekolah->kelas) > 0)
-                        <table class="text-center">
-                            <thead>
+                        <table class="table align-middle">
+                            <thead style="background-color: #3bae9ddc; color: aliceblue;">
                                 <tr>
                                     <th>Nama Kelas</th>
                                 </tr>
@@ -336,20 +340,24 @@
         <div class="card-body">
             <h4 class="card-title" style="color: #369488; font-weight:600;">Kompetensi</h4>
             @if (count(Auth::user()->sekolah->kompetensi) > 0)
-            <div class="table-responsive table-bordered" style="border-color: white">
-                <table>
-                    <tr class="text-center">
-                        <th style="width: 5%">Kompetensi</th>
-                        <th style="width: 5%">Program Keahlian</th>
-                        <th style="width: 5%">Bidang Keahlian</th>
-                    </tr>
+            <div class="table table-responsive table-hover text-center" style="border-radius: 3px;">
+                <table class="table align-middle">
+                    <thead style="background-color: #3bae9ddc; color: aliceblue;">
+                        <tr>
+                            <th style="width: 5%">Kompetensi</th>
+                            <th style="width: 5%">Program Keahlian</th>
+                            <th style="width: 5%">Bidang Keahlian</th>
+                        </tr>
+                    </thead>
 
                     @foreach (Auth::user()->sekolah->kompetensi as $kompetensi)
-                    <tr class="text-center">
-                        <td style="width: 5%">{{ $kompetensi->kompetensi }}</td>
-                        <td style="width: 5%">{{ $kompetensi->program }}</td>
-                        <td style="width: 5%">{{ $kompetensi->bidang }}</td>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <td style="width: 5%">{{ $kompetensi->kompetensi }}</td>
+                            <td style="width: 5%">{{ $kompetensi->program }}</td>
+                            <td style="width: 5%">{{ $kompetensi->bidang }}</td>
+                        </tr>
+                    </tbody>
                     @endforeach
                 </table>
             </div>

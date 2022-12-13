@@ -174,10 +174,10 @@ class AbsensiController extends Controller
                             'presensi_pulang' => ($request->waktu) ? $request->date . ' ' . $request->waktu .  ':00' : $request->date . ' ' . explode(' ', Carbon::now())[1]
                         ]);
                     }else{
-                        return redirect()->back()->with('message', 'kehadiran tidak sesuai dengan presensi masuk');
+                        return redirect()->back()->with('msg_succes', 'kehadiran tidak sesuai dengan presensi masuk');
                     }
                 }else{
-                    return redirect()->back()->with('message', 'belum presensi masuk');
+                    return redirect()->back()->with('msg_succes', 'belum presensi masuk');
                 }
             }else{
                 $absensi = Absensi::where('user_id', $request->user_id)->whereDate('presensi_masuk', $request->date)->first();
@@ -188,10 +188,10 @@ class AbsensiController extends Controller
                             'presensi_pulang' => ($request->waktu) ? $request->date . ' ' . $request->waktu .  ':00' : $request->date . ' ' . explode(' ', Carbon::now())[1]
                         ]);
                     }else{
-                        return redirect()->back()->with('message', 'kehadiran tidak sesuai dengan presensi masuk');
+                        return redirect()->back()->with('msg_succes', 'kehadiran tidak sesuai dengan presensi masuk');
                     }
                 }else{
-                    return redirect()->back()->with('message', 'belum presensi masuk');
+                    return redirect()->back()->with('msg_succes', 'belum presensi masuk');
                 }
             }
         }
@@ -249,16 +249,16 @@ class AbsensiController extends Controller
                 ]);
             }
 
-            return redirect()->back()->with('message', 'Berhasil Diupdate');
+            return redirect()->back()->with('msg_succes', 'Berhasil Diupdate');
         }else{
             if($absensi->kehadiran == $request->kehadiran){
                 $absensi->update([
                     'presensi_pulang' => ($request->waktu) ? $request->date . ' ' . $request->waktu .  ':00' : $request->date . ' ' . explode(' ', Carbon::now())[1]
                 ]);
 
-                return redirect()->back()->with('message', 'Berhasil Diupdate');
+                return redirect()->back()->with('msg_succes', 'Berhasil Diupdate');
             }else{
-                return redirect()->back()->with('message', 'tidak sama dengan absensi masuk');
+                return redirect()->back()->with('msg_succes', 'tidak sama dengan absensi masuk');
             }
         }
     }

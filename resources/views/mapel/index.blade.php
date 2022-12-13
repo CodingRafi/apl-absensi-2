@@ -34,14 +34,9 @@
                         </form>
                         @endif
                         @if (auth()->user()->can('delete_mapel'))
-                        <form action="{{ route('mapel.destroy', [$mapel->id]) }}" method="post">
-                            @csrf
-                            @method('delete')
-                            @include('mypartials.tahunajaran')
                             <button type="submit" class="btn btn-sm btn-danger font-weight-bold"
-                                onclick="return confirm('semua agenda dan guru yang menggunakan mapel ini akan berubah')" style="width: 5rem; margin: 0.1rem">Hapus</button>
-                        </form>
-                        @endif
+                                onclick="deleteData('{{ route('mapel.destroy', [$mapel->id]) }}')" style="width: 5rem; margin: 0.1rem">Hapus</button>
+                            @endif
                     </td>
                     @endif
                 </tr>

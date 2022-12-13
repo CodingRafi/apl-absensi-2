@@ -38,7 +38,10 @@
                         <td><div style="width: 1rem;height: 1rem;background-color: {{ $status_kehadiran->color }}"></div></td>
                         <td>
                             <a href="{{ route('status-kehadiran.edit', [$status_kehadiran->id]) }}" class="btn btn-warning">Edit</a>
-                            <button type="button" class="btn btn-danger" onclick="deleteData('{{ route('status-kehadiran.destroy', [$status_kehadiran->id]) }}')">Hapus</button>
+                            @if (auth()->user()->can('delete_status_kehadiran'))
+                            <button type="submit" class="btn btn-sm btn-danger font-weight-bold"
+                                onclick="deleteData('{{ route('status-kehadiran.destroy', [$status_kehadiran->id]) }}')" style="width: 5rem; margin: 0.1rem">Hapus</button>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

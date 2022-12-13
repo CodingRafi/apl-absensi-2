@@ -42,10 +42,10 @@
             </li>
             @endif
         </ul>
-        <div class="table-responsive">
-            <table class="table">
-                <thead class="thead-light">
-                    <tr class="text-center">
+        <div class="table table-responsive table-hover text-center">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
                         <th scope="col">No</th>
                         <th scope="col">Profil</th>
                         <th scope="col">Name</th>
@@ -68,7 +68,7 @@
                 <tbody>
                     @foreach ($users as $user)
                     {{-- @dd($user) --}}
-                    <tr class="text-center">
+                    <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>
                             @if ($user->profil == '/img/profil.png')
@@ -83,7 +83,9 @@
                         @if ($role == 'guru')
                         <td>
                             @foreach ($user->mapel as $mapel)
-                            <p>{{ $loop->iteration }}. {{ $mapel->nama }}</p>
+                                <div style="padding: 5px; border-bottom: 1.5px solid rgb(128, 128, 128)">
+                                    {{ $mapel->nama }}
+                                </div>
                             @endforeach
                         </td>
                         @endif
@@ -110,13 +112,9 @@
                                 <button class="btn btn-sm btn-warning text-white font-weight-bold" style="width: 5rem; margin: 0.1rem;">Edit</button>
                             </form>
                             @endif
-                            @if (auth()->user()->can('delete_users'))
-                            <form action="/users/{{ $user->id }}" method="post">
-                                @csrf
-                                @method('delete')
-                                @include('mypartials.tahunajaran')
-                                <button type="submit" class="btn btn-sm btn-danger font-weight-bold" style="width: 5rem; margin: 0.1rem;" onclick="return confirm('apakah anda yakin ingin menghapus user ini? data lainnya termasuk rfid, absensi, dan agenda juga akan terhapus.')">Hapus</button>
-                            </form>
+                            @if (auth()->user()->can('delete_user'))
+                            <button type="submit" class="btn btn-sm btn-danger font-weight-bold"
+                                onclick="deleteData('{{ route('user.destroy', [$user->id]) }}')" style="width: 5rem; margin: 0.1rem">Hapus</button>
                             @endif
                         </td>
                         @endif

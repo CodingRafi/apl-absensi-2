@@ -52,7 +52,7 @@
                         @endforeach
                     </select>
                 </div>
-                <button class="btn text-white" style="background-color: #3bae9c; min-width: 6vw;">Simpan</button>
+                <div class="d-flex justify-content-center"><button class="btn text-white" style="background-color: #3bae9c; min-width: 6vw;">Simpan</button></div>
             </form>
             @else
             <div class="alert alert-primary" role="alert">

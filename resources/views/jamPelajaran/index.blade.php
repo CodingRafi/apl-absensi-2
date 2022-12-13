@@ -91,13 +91,13 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <button type="submit" class="btn text-white simpanJamPel" style="background-color: #3bae9c;display: none;">Simpan</button>
+                            <div class="d-flex justify-content-center"><button type="submit" class="btn text-white simpanJamPel" style="background-color: #3bae9c; display: none;">Simpan</button></div>
                         </div>
                     </form>
                 </div>
                 <div class="card-body jamIst" style="display: none;">
                     <div class="d-flex justify-content-end">
-                        <button class="btn btn-sm text-white font-weight-bold floar-right" data-bs-toggle="modal" data-bs-target="#modalJamIst" style="background-color: #3bae9c">Create</button>
+                        <button class="btn btn-sm text-white font-weight-bold float-right" data-bs-toggle="modal" data-bs-target="#modalJamIst" style="background-color: #3bae9c">Create</button>
                     </div>
                     <div class="table-responsive mt-3">
                         <table class="table">

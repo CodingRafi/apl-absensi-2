@@ -38,7 +38,7 @@ class KelompokController extends Controller
 
         $kelompok->user()->sync($request->gurus);
 
-        return redirect()->route('kelompok.index')->with('message', 'Berhasil menambah kelompok');
+        return redirect()->route('kelompok.index')->with('msg_success', 'Berhasil menambah kelompok');
     }
 
     public function edit(Kelompok $kelompok)
@@ -64,7 +64,7 @@ class KelompokController extends Controller
 
         $kelompok->user()->sync($request->gurus);
 
-        return redirect()->route('kelompok.index')->with('message', 'Berhasil mengupdate kelompok');
+        return redirect()->route('kelompok.index')->with('msg_success', 'Berhasil mengupdate kelompok');
     }
 
     /**

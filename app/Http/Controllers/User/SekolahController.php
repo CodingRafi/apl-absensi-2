@@ -79,6 +79,6 @@ class SekolahController extends Controller
 
         // $sekolah->notify(new RegisterEmailNotification($sekolah, $request->password));
 
-        return redirect('/login')->with('message', 'Berhasil registrasi');
+        return redirect('/login')->with('msg_success', 'Berhasil registrasi');
     }
 }

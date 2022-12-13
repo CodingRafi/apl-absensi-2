@@ -39,7 +39,7 @@ class AuthenticatedSessionController extends Controller
     
             return redirect()->intended(RouteServiceProvider::HOME);     
         }else{
-            return redirect()->back()->with('message', 'Login Gagal');
+            return redirect()->back()->with('msg_success', 'Login Gagal');
         }
     }
 

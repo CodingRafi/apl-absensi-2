@@ -108,7 +108,7 @@ class SekolahController extends Controller
 
         $sekolah->update($data);
 
-        return redirect('/')->with('message', 'Berhasil di update');
+        return redirect('/')->with('msg_success', 'Berhasil di update');
     }
 
     /**
@@ -201,7 +201,7 @@ class SekolahController extends Controller
 
         $sekolah->delete();
 
-        return redirect()->back()->with('message', 'Sekolah berhasil dihapus');
+        return redirect()->back()->with('msg_success', 'Sekolah berhasil dihapus');
 
     }
 }

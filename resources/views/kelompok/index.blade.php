@@ -10,10 +10,10 @@
                     <button class="btn btn-sm text-white font-weight-bold" style="background-color: #3bae9c; min-width: 5vw;">Create</button>
                 </form>
             </div>
-            <div class="table-responsive">
-                <table class="table">
+            <div class="table table-responsive table-hover text-center">
+                <table class="table align-middle">
                     <thead>
-                        <tr class="text-center">
+                        <tr>
                             <th>No</th>
                             <th>Nama Kelompok</th>
                             <th>Jam Masuk</th>
@@ -24,14 +24,14 @@
                     </thead>
                     <tbody>
                         @foreach ($kelompoks as $kelompok)
-                        <tr class="text-center">
+                        <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $kelompok->nama }}</td>
                             <td>{{ $kelompok->jam_masuk }}</td>
                             <td>{{ $kelompok->jam_pulang }}</td>
                             <td>
                                 @foreach ($kelompok->user as $user)
-                                    <p>{{ $user->name }}</p>
+                                    {{ $user->name }}
                                 @endforeach
                             </td>
                             <td>
@@ -39,12 +39,10 @@
                                     @include('mypartials.tahunajaran')
                                     <button class="btn btn-sm btn-warning text-white font-weight-bold" style="min-width: 5vw; margin: 2px;">Edit</button>
                                 </form>
-                                <form action="{{ route('kelompok.destroy', [$kelompok->id]) }}" method="post">
-                                    @csrf
-                                    @method('delete')
-                                    @include('mypartials.tahunajaran')
-                                    <button class="btn btn-sm btn-danger text-white font-weight-bold" style="min-width: 5vw; margin: 2px;">Hapus</button>
-                                </form>
+                                @if (auth()->user()->can('delete_kelompok'))
+                                    <button type="submit" class="btn btn-sm btn-danger font-weight-bold"
+                                        onclick="deleteData('{{ route('kelompok.destroy', [$kelompok->id]) }}')" style="width: 5rem; margin: 0.1rem">Hapus</button>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

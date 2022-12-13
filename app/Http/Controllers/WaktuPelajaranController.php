@@ -52,7 +52,7 @@ class WaktuPelajaranController extends Controller
         }
         $waktuPelajaran->delete();
         return response()->json([
-            'message' => 'Berhasil Direset'
+            'msg_success' => 'Berhasil Direset'
         ], 200);
     }
 }
