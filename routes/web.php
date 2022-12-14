@@ -31,7 +31,9 @@ use App\Http\Controllers\AbsensiPelajaranController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/', function(){
+    return view('landingPage');
+});
 
 Route::get('/register', function() {
     return view('myauth.register');
