@@ -74,7 +74,7 @@ class PermissionTableSeeder extends Seeder
             'edit_absensi',
             'delete_absensi',
             
-            'show_jadwal',
+            'show_jadwal_guru',
 
             'view_absensi_pelajaran',
             'add_absensi_pelajaran',

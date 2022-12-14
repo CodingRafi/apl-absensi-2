@@ -22,7 +22,7 @@ class AgendaController extends Controller
          $this->middleware('permission:add_agenda', ['only' => ['create','store']]);
          $this->middleware('permission:edit_agenda', ['only' => ['edit','update']]);
          $this->middleware('permission:delete_agenda', ['only' => ['destroy']]);
-         $this->middleware('permission:show_jadwal', ['only' => ['show_jadwal']]);
+         $this->middleware('permission:show_jadwal_guru', ['only' => ['show_jadwal']]);
     }
     /**
      * Display a listing of the resource.
