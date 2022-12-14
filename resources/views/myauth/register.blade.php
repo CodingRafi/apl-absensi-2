@@ -39,9 +39,11 @@
                 <label for="tingkat" class="form-label">Tingkat</label>
                 <br>
                 <select name="tingkat" id="tingkat" class="text-dark form-control form-control-lg" style="border: 1px solid rgb(205, 205, 205); border-radius: 5px; height: 3rem; width: 100%" required>
-                  @foreach ($roles as $role)
-                    <option value="{{ str_replace("Admin ", '', $role->name_long) }}">{{ str_replace("Admin ", '', $role->name_long) }}</option>
-                  @endforeach
+                    <option value="">Pilih Tingkat</option>
+                    <option value="sd">SD</option>
+                    <option value="smp">SMP</option>
+                    <option value="sma">SMA</option>
+                    <option value="smk">SMK</option>
                 </select>
               </div>
               <div class="form-group">
