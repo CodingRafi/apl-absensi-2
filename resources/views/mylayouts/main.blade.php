@@ -115,15 +115,6 @@
 </head>
 
 <body>
-  @if ($message = Session::get('message'))
-  <script>
-    iziToast.success({
-          title: 'Success',
-          message: '{{ $message }}',
-          position: 'topRight',
-      });
-  </script>
-  @endif
   <div class="container-scroller">
 
     <!-- partial:partials/_navbar.html -->
@@ -206,12 +197,8 @@
       }
   </script>
 
+  @include('mypartials.js')
   @yield('tambahjs')
-
-  <script>
-    // const li_tahun_ajaran = document.querySelectorAll('.li_tahun_ajaran');
-        
-  </script>
 </body>
 
 </html>

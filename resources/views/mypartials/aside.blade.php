@@ -63,6 +63,16 @@
                         </form>
                     </li>
                     @endif
+
+                    @if (auth()->user()->can('view_status_kehadiran'))
+                    <li class="nav-item" style="border-radius: 10px;transition: none;">
+                        <form action="{{ route('status-kehadiran.index') }}" method="get">
+                            @include('mypartials.tahunajaran')
+                            <button class="nav-link {{ Request::is('mapel') ? 'active' : '' }}"
+                                style="background-color: #3bae9c; border: none; min-width: 150px;text-transform: capitalize;">Status Kehadiran</button>
+                        </form>
+                    </li>
+                    @endif
                 </ul>
             </div>
         </li>
@@ -130,7 +140,7 @@
         </li>
         @endif
                           
-        @if (auth()->user()->can('show_jadwal'))
+        @if (auth()->user()->can('show_jadwal_guru'))
         <li class="nav-item" style="border-radius: 10px;transition: none;">
             <form action="/agenda/guru/{{ Auth::user()->id }}" method="get">
                 @include('mypartials.tahunajaran')
@@ -159,7 +169,6 @@
             </form>
         </li>
 
-        @if ( !auth()->user()->can('show_jadwal') )
         @if (auth()->user()->can('view_agenda'))
         <li class="nav-item" style="border-radius: 10px;transition: none;">
             <a class="nav-link {{ Request::is('agenda*') ? 'active' : '' }}" data-toggle="collapse" href="#data-agenda"
@@ -198,7 +207,6 @@
                 </ul>
             </div>
         </li>
-        @endif
         @endif
 
         @if (auth()->user()->can('view_absensi'))

@@ -33,17 +33,20 @@ use App\Http\Controllers\AbsensiPelajaranController;
 */
 
 
-Route::get('/register', function() {
-    return view('myauth.register');
+Route::middleware(['guest'])->group(function () {
+    Route::get('/register',[App\Http\Controllers\User\SekolahController::class, 'create'])->name('register');
+    Route::post('/register', [App\Http\Controllers\User\SekolahController::class, 'store'])->name('register.store');
 });
-Route::post('/sekolah-create', [App\Http\Controllers\User\SekolahController::class, 'store']);
+
 
 Route::group(['middleware' => ['auth:web,websiswa']], function() {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('roles', RoleController::class);
     
     Route::prefix('data-master')->group(function () {
-        Route::resource('kompetensi', KompetensiController::class);
+        Route::middleware(['auth.smk'])->group(function () {
+            Route::resource('kompetensi', KompetensiController::class);
+        });
         Route::resource('kelas', KelasController::class);
         Route::resource('mapel', MapelController::class);
         Route::resource('status-kehadiran', StatusKehadiranController::class);
