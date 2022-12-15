@@ -20,7 +20,7 @@
                         </div>
                         <div class="col-md-2 d-flex justify-content-center align-items-center">
                             @can('add_roles')
-                                <button type="button" class="btn text-white tombol-buat-user" style="background-color: #3bae9c" data-bs-toggle="modal"
+                                <button type="button" class="btn btn-sm text-white tombol-buat-user" style="background-color: #3bae9c; border-radius: 5px; font-weight: 500;" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal">
                                     Buat Role
                                 </button>
@@ -53,10 +53,10 @@
                                                     @can('edit_roles')
                                                         @if ($role->name == 'super_admin')
                                                             <a href="{{ route('roles.edit', $role->id) }}"
-                                                                class="btn btn-warning disabled">Update</a>
+                                                                class="btn btn-sm btn-warning float-right disabled" style="border-radius: 5px; font-weight: 500;">Edit</a>
                                                         @else
                                                             <a href="{{ route('roles.edit', $role->id) }}"
-                                                                class="btn btn-warning text-white">Update</a>
+                                                                class="btn btn-sm btn-warning text-white float-right" style="border-radius: 5px; font-weight: 500;">Edit</a>
                                                         @endif
                                                     @endcan
                                                 </div>
@@ -100,10 +100,10 @@
                             <div class="modal-body">
                                 @csrf
                                 <div class="mb-3 row">
-                                    <label for="html5-text-input" class="col-md-3 col-form-label">Name Role</label>
+                                    <label for="nama" class="col-md-3 col-form-label">Nama Role</label>
                                     <div class="col-md-9">
                                         <input class="form-control @error('name') is-invalid @enderror" type="text"
-                                            id="html5-text-input" placeholder="Masukan nama Role" name="name"
+                                            id="nama" placeholder="Masukan nama Role" name="name"
                                             value="{{ old('name') }}" />
                                         @error('name')
                                             <div class="invalid-feedback d-block">

@@ -189,7 +189,7 @@
                             @if (auth()->user()->can('edit_siswa'))
                             <form action="{{ route('users.siswa.edit', [$student->id]) }}" method="get">
                                 @include('mypartials.tahunajaran')
-                                <button class="btn btn-sm btn-warning text-white font-weight-bold" style="width: 5rem; margin: 0.1rem;border-radius: 5px;">Edit</button>
+                                <button class="btn btn-sm btn-warning text-white" style="width: 5rem; margin: 0.1rem;border-radius: 5px; font-weight: 500;">Edit</button>
                             </form>
                             @endif
                             @if (auth()->user()->can('delete_siswa'))
@@ -197,7 +197,7 @@
                                 @csrf
                                 @method('delete')
                                 @include('mypartials.tahunajaran')
-                                <button type="submit" class="btn btn-sm btn-danger font-weight-bold" style="width: 5rem; margin: 0.1rem;border-radius: 5px;" onclick="return confirm('apakah anda yakin ingin menghapus user ini?')">Hapus</button>
+                                <button type="submit" class="btn btn-sm btn-danger" style="width: 5rem; margin: 0.1rem;border-radius: 5px; font-weight: 500;" onclick="return confirm('apakah anda yakin ingin menghapus user ini?')">Hapus</button>
                             </form>
                             @endif
                         </td>
