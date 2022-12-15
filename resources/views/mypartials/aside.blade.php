@@ -1,6 +1,6 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
-      <li class="nav-item">
+      <li class="nav-item" style="transition: none;">
         <form action="{{ route('dashboard') }}" method="get">
             @include('mypartials.tahunajaran')
             <button class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}"
@@ -12,7 +12,7 @@
       </li>
 
       {{-- @if (auth()->user()->can('view_sekolah'))
-        <li class="nav-item">
+        <li class="nav-item" style="transition: none;">
             <a href="/sekolah" class="nav-link {{ Request::is('sekolah') ? 'active' : '' }}">
                 <i class="bi bi-building mr-3"></i>
                 <span class="menu-title">Sekolah</span>
@@ -21,7 +21,7 @@
       @endif
 
       @if (auth()->user()->can('view_roles'))
-        <li class="nav-item">
+        <li class="nav-item" style="transition: none;">
             <a href="/roles" class="nav-link {{ Request::is('roles') ? 'active' : '' }}">
                 <i class="bi bi-person-rolodex mr-3"></i>
                 <span class="menu-title">Role</span>
@@ -29,7 +29,7 @@
         </li>
       @endif --}}
 
-      <li class="nav-item">
+      <li class="nav-item" style="transition: none;">
         <form action="{{ route('jam-pelajaran.index') }}" method="get">
             @include('mypartials.tahunajaran')
             <button class="nav-link {{ Request::is('jam-pelajaran') ? 'active' : '' }}"
@@ -40,7 +40,7 @@
         </form>
       </li>
 
-      <li class="nav-item">
+      <li class="nav-item" style="transition: none;">
         <form action="/kelompok" method="get">
             @include('mypartials.tahunajaran')
             <button class="nav-link {{ Request::is('kelompok') ? 'active' : '' }}"
@@ -52,7 +52,7 @@
       </li>
 
       @if (auth()->user()->can('view_presensi'))
-      <li class="nav-item">
+      <li class="nav-item" style="transition: none;">
         <form action="/presensi-pelajaran" method="get">
             @include('mypartials.tahunajaran')
             <button class="nav-link {{ Request::is('presensi*') ? 'active' : '' }}"
@@ -65,7 +65,7 @@
       @endif
 
       @if (auth()->user()->can('view_users'))
-      <li class="nav-item">
+      <li class="nav-item" style="transition: none;">
         <a class="nav-link {{ Request::is('data-master*') ? 'active' : '' }}" data-toggle="collapse"
             href="#data-master" aria-expanded="false" aria-controls="data-master">
             <i class="bi bi-collection-fill mr-4"></i>
@@ -75,7 +75,7 @@
         <div class="collapse" id="data-master">
           <ul class="nav flex-column sub-menu">
             @if (auth()->user()->can('view_tahun_ajaran'))
-            <li class="nav-item">
+            <li class="nav-item" style="transition: none;">
                 <form action="{{ route('tahun-ajaran.index') }}">
                     @include('mypartials.tahunajaran')
                     <button class="nav-link {{ Request::is('tahun-ajaran') ? 'active' : '' }}"
@@ -84,7 +84,7 @@
             </li>
             @endif
             @if ( Auth::user()->sekolah->tingkat == 'smk' && auth()->user()->can('view_kompetensi'))
-            <li class="nav-item">
+            <li class="nav-item" style="transition: none;">
                 <form action="{{ route('kompetensi.index') }}" method="get">
                     @include('mypartials.tahunajaran')
                     <button class="nav-link {{ Request::is('kompetensi') ? 'active' : '' }}"
@@ -93,7 +93,7 @@
             </li>
             @endif
             @if(auth()->user()->can('view_kelas'))
-            <li class="nav-item">
+            <li class="nav-item" style="transition: none;">
                 <form action="{{ route('kelas.index') }}" method="get">
                     @include('mypartials.tahunajaran')
                     <button class="nav-link {{ Request::is('kelas') ? 'active' : '' }}"
@@ -102,11 +102,20 @@
             </li>
             @endif
             @if (auth()->user()->can('view_mapel'))
-            <li class="nav-item">
+            <li class="nav-item" style="transition: none;">
                 <form action="{{ route('mapel.index') }}" method="get">
                     @include('mypartials.tahunajaran')
                     <button class="nav-link {{ Request::is('mapel') ? 'active' : '' }}"
                         style="background-color: #3bae9c; border: none; min-width: 150px;text-transform: capitalize;">Mapel</button>
+                </form>
+            </li>
+            @endif
+            @if (auth()->user()->can('view_status_kehadiran'))
+            <li class="nav-item" style="transition: none;">
+                <form action="{{ route('status-kehadiran.index') }}" method="get">
+                    @include('mypartials.tahunajaran')
+                    <button class="nav-link {{ Request::is('mapel') ? 'active' : '' }}"
+                        style="background-color: #3bae9c; border: none; min-width: 150px;text-transform: capitalize;">Status kehadiran</button>
                 </form>
             </li>
             @endif
@@ -116,7 +125,7 @@
       @endif
 
       @if (auth()->user()->can('view_users'))
-      <li class="nav-item">
+      <li class="nav-item" style="transition: none;">
         <a class="nav-link {{ Request::is('users*') ? 'active' : '' }}{{ Request::is('siswa') ? 'active' : '' }}" data-toggle="collapse" href="#data-user" aria-expanded="false" aria-controls="data-user">
             <i class="bi bi-people-fill mr-4"></i>
             <span class="menu-title">Data User</span>
@@ -127,7 +136,7 @@
             @if (auth()->user()->can('view_users'))
             @foreach ($roles as $role)
             @if ($role->name != 'yayasan' && $role->name != 'admin' && $role->name != 'super_admin')
-            <li class="nav-item">
+            <li class="nav-item" style="transition: none;">
                 <form action="/users/{{ $role->name }}" method="get">
                     @include('mypartials.tahunajaran')
                     <button class="nav-link"
@@ -141,7 +150,7 @@
             @endforeach
             @endif
             @if (auth()->user()->can('view_siswa'))
-            <li class="nav-item">
+            <li class="nav-item" style="transition: none;">
                 <form action="/siswa" method="get">
                     @include('mypartials.tahunajaran')
                     <button class="nav-link {{ Request::is('siswa.*') ? 'active' : '' }}"
@@ -155,7 +164,7 @@
       @endif
 
       @if (auth()->user()->can('view_agenda'))
-      <li class="nav-item">
+      <li class="nav-item" style="transition: none;">
         <a class="nav-link {{ Request::is('agenda*') ? 'active' : '' }}" data-toggle="collapse" href="#data-agenda"
                 aria-expanded="false" aria-controls="data-agenda">
             <i class="bi bi-calendar-week mr-4"></i>
@@ -166,7 +175,7 @@
           <ul class="nav flex-column sub-menu">
             @foreach ($roles as $role)
             @if ($role->name != 'yayasan' && $role->name != 'admin' && $role->name != 'super_admin')
-            <li class="nav-item">
+            <li class="nav-item" style="transition: none;">
                 <form action="/agenda/{{ $role->name }}" method="get">
                     @include('mypartials.tahunajaran')
                     <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"
@@ -178,7 +187,7 @@
             </li>
             @endif
             @endforeach
-            <li class="nav-item">
+            <li class="nav-item" style="transition: none;">
                 <form action="/agenda/siswa" method="get">
                     @include('mypartials.tahunajaran')
                     <button class="nav-link"
@@ -193,7 +202,7 @@
       @endif
 
       @if (auth()->user()->can('view_absensi'))
-      <li class="nav-item">
+      <li class="nav-item" style="transition: none;">
         <a class="nav-link {{ Request::is('absensi*') ? 'active' : '' }}" data-toggle="collapse" href="#absensi"
             aria-expanded="false" aria-controls="absensi">
             <i class="bi bi-journal-check mr-4"></i>
@@ -204,7 +213,7 @@
           <ul class="nav flex-column sub-menu">
             @foreach ($roles as $role)
             @if ($role->name != 'yayasan' && $role->name != 'admin' && $role->name != 'super_admin')
-            <li class="nav-item">
+            <li class="nav-item" style="transition: none;">
                 <form action="/absensi/{{ $role->name }}" method="get">
                     @include('mypartials.tahunajaran')
                     <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"
@@ -216,7 +225,7 @@
             </li>
             @endif
             @endforeach
-            <li class="nav-item">
+            <li class="nav-item" style="transition: none;">
                 <form action="/absensi/siswa" method="get">
                     @include('mypartials.tahunajaran')
                     <button class="nav-link {{ Request::is('/absensi*') ? 'active' : '' }}"

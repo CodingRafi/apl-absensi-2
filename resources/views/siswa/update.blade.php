@@ -6,7 +6,7 @@
     <h4 class="card-title float-left">Update Data Siswa</h4>
     <form action="/siswa" method="get">
       @include('mypartials.tahunajaran')
-      <button class="btn btn-sm btn-danger font-weight-bold float-right text-white" type="submit">Kembali</button>
+      <button class="btn btn-sm btn-danger float-right text-white" type="submit" style="border-radius: 5px;font-weight: 500;">Kembali</button>
     </form>
     <form class="mt-5" action="/siswa/{{ $siswa->id }}" method="POST" enctype="multipart/form-data">
       @csrf

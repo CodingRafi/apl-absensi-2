@@ -1,25 +1,20 @@
 @extends('mylayouts.main')
 
 @section('container')
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Status Kehadiran</h1>
-</div>
-
-<div class="container">
-    <div class="container p-0">
+<div class="card">
+    <div class="card-body">
         @can('add_status_kehadiran')
-        <div class="row">
-            <div class="col-md d-flex justify-content-end">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambah-status_kehadiran"
-                    style="height: fit-content;">
-                    Tambah Status Kehadiran
-                </button>
-            </div>
+        <div class="title d-flex justify-content-between">
+            <h4 class="card-title">Status Kehadiran</h4>
+            <button type="button" class="btn btn-sm text-white float-right" data-bs-toggle="modal" data-bs-target="#tambah-status_kehadiran"
+                style="height: fit-content; background-color: #3bae9c;border-radius: 5px;font-weight: 500;">
+                Tambah Status Kehadiran
+            </button>
         </div>
         @endcan
     </div>
-    <div class="table-responsive p-3">
-        <table class="table text-center">
+    <div class="table table-responsive table-hover text-center">
+        <table class="table align-middle">
             <thead>
                 <tr>
                     <th scope="col" class="text-center">No</th>
@@ -35,12 +30,12 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $status_kehadiran->nama }}</td>
-                        <td><div style="width: 1rem;height: 1rem;background-color: {{ $status_kehadiran->color }}"></div></td>
+                        <td><div style="margin:auto;width: 1rem;height: 1rem;background-color: {{ $status_kehadiran->color }}"></div></td>
                         <td>
-                            <a href="{{ route('status-kehadiran.edit', [$status_kehadiran->id]) }}" class="btn btn-warning">Edit</a>
+                            <a href="{{ route('status-kehadiran.edit', [$status_kehadiran->id]) }}" class="btn btn-warning btn-sm" style="border-radius: 5px;font-weight: 500;">Edit</a>
                             @if (auth()->user()->can('delete_status_kehadiran'))
-                            <button type="submit" class="btn btn-sm btn-danger font-weight-bold"
-                                onclick="deleteData('{{ route('status-kehadiran.destroy', [$status_kehadiran->id]) }}')" style="width: 5rem; margin: 0.1rem">Hapus</button>
+                            <button type="submit" class="btn btn-danger btn-sm" style="border-radius: 5px;font-weight: 500;"
+                                onclick="deleteData('{{ route('status-kehadiran.destroy', [$status_kehadiran->id]) }}')">Hapus</button>
                             @endif
                         </td>
                     </tr>
@@ -83,8 +78,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn text-white" style="background-color: #3bae9c;">Tambah</button>
                 </div>
             </div>
         </form>

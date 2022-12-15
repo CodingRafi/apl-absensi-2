@@ -7,7 +7,7 @@
                 <h4 class="card-title">Kelompok</h4>
                 <form action="{{ route('kelompok.create') }}" method="get">
                     @include('mypartials.tahunajaran')
-                    <button class="btn btn-sm text-white font-weight-bold" style="background-color: #3bae9c; min-width: 5vw;">Create</button>
+                    <button class="btn btn-sm text-white font-weight-bold" style="background-color: #3bae9c; min-width: 5vw;border-radius: 5px;">Create</button>
                 </form>
             </div>
             <div class="table table-responsive table-hover text-center">
@@ -37,11 +37,11 @@
                             <td>
                                 <form action="{{ route('kelompok.edit', [$kelompok->id]) }}" method="get">
                                     @include('mypartials.tahunajaran')
-                                    <button class="btn btn-sm btn-warning text-white font-weight-bold" style="min-width: 5vw; margin: 2px;">Edit</button>
+                                    <button class="btn btn-sm btn-warning text-white" style="min-width: 5vw; margin: 2px;border-radius: 5px;font-weight: 500;">Edit</button>
                                 </form>
                                 @if (auth()->user()->can('delete_kelompok'))
-                                    <button type="submit" class="btn btn-sm btn-danger font-weight-bold"
-                                        onclick="deleteData('{{ route('kelompok.destroy', [$kelompok->id]) }}')" style="width: 5rem; margin: 0.1rem">Hapus</button>
+                                    <button type="submit" class="btn btn-sm btn-danger"
+                                        onclick="deleteData('{{ route('kelompok.destroy', [$kelompok->id]) }}')" style="width: 5rem; margin: 0.1rem;border-radius: 5px;font-weight: 500;">Hapus</button>
                                 @endif
                             </td>
                         </tr>

@@ -130,7 +130,7 @@
                     @if (auth()->user()->can('edit_sekolah'))
                     <form action="/edit-sekolah" method="get">
                         @include('mypartials.tahunajaran')
-                        <button class="btn btn-warning btn-sm text-white" style="min-width: 5vw;font-weight: 500;border: 2px solid #e8b228">Edit</button>
+                        <button class="btn btn-warning btn-sm text-white" style="min-width: 5vw;font-weight: 500;border-radius: 5px;">Edit</button>
                     </form>
                     @endif
                 </div>

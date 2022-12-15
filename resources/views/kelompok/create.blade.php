@@ -26,7 +26,7 @@
                 <h4 class="card-title">Create Kelompok</h4>
                 <form action="{{ route('kelompok.index') }}" method="get">
                     @include('mypartials.tahunajaran')
-                    <button class="btn btn-sm btn-danger text-white font-weight-bold" style="min-width: 5vw;">Kembali</button>
+                    <button class="btn btn-sm btn-danger text-white" style="min-width: 5vw;border-radius: 5px;font-weight: 500;">Kembali</button>
                 </form>
             </div>
             @if (count($gurus) > 0)

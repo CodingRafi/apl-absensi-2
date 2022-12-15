@@ -19,8 +19,8 @@
             <li class="nav-item">
                 <form action="/export/users/{{ $role }}" method="get">
                     @include('mypartials.tahunajaran')
-                    <button type="submit" class="btn btn-sm text-white font-weight-bold px-3"
-                        style="background-color: #3bae9c">Export</button>
+                    <button type="submit" class="btn btn-sm text-white px-3"
+                        style="background-color: #3bae9c;border-radius: 5px;font-weight: 500;">Export</button>
                 </form>
             </li>
             @endif
@@ -28,8 +28,8 @@
             <li class="nav-item">
                 <form action="/import/users/{{ $role }}" method="get">
                     @include('mypartials.tahunajaran')
-                    <button class="btn btn-sm text-white font-weight-bold"
-                        style="background-color: #3bae9c">Import</button>
+                    <button class="btn btn-sm text-white"
+                        style="background-color: #3bae9c;border-radius: 5px;font-weight: 500;">Import</button>
                 </form> 
             </li>
             @endif
@@ -37,7 +37,7 @@
             <li class="nav-item">
                 <form action="{{ route('users.user_create', [$role]) }}" method="get">
                     @include('mypartials.tahunajaran')
-                    <button class="btn btn-sm text-white font-weight-bold" style="background-color: #3bae9c">Tambah</button>
+                    <button class="btn btn-sm text-white" style="background-color: #3bae9c;border-radius: 5px;font-weight: 500;">Tambah</button>
                 </form>
             </li>
             @endif
@@ -109,12 +109,12 @@
                             @if (auth()->user()->can('edit_users'))
                             <form action="/users/{{ $user->id }}/edit" method="get">
                                 @include('mypartials.tahunajaran')
-                                <button class="btn btn-sm btn-warning text-white font-weight-bold" style="width: 5rem; margin: 0.1rem;">Edit</button>
+                                <button class="btn btn-sm btn-warning text-white" style="width: 5rem; margin: 0.1rem;border-radius: 5px;font-weight: 500;">Edit</button>
                             </form>
                             @endif
                             @if (auth()->user()->can('delete_user'))
-                            <button type="submit" class="btn btn-sm btn-danger font-weight-bold"
-                                onclick="deleteData('{{ route('user.destroy', [$user->id]) }}')" style="width: 5rem; margin: 0.1rem">Hapus</button>
+                            <button type="submit" class="btn btn-sm btn-danger"
+                                onclick="deleteData('{{ route('user.destroy', [$user->id]) }}')" style="width: 5rem; margin: 0.1rem;border-radius: 5px;font-weight: 500;">Hapus</button>
                             @endif
                         </td>
                         @endif
