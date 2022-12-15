@@ -287,8 +287,8 @@
                         <input type="hidden" name="search" value="{{ request('search') }}">
                     @endif
                     <input type="hidden" name="role" value="{{ $role }}">
-                    <button type="submit" class="btn btn-sm text-white font-weight-bold px-3"
-                    style="background-color: #3bae9c">Export</button>
+                    <button type="submit" class="btn btn-sm text-white px-3"
+                    style="background-color: #3bae9c;border-radius: 5px;font-weight: 500;">Export</button>
                 </form>
             </li>
         </ul>

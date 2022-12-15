@@ -41,8 +41,8 @@
                 </div>
                 <div class="card-body text-left jamPel">
                     <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-sm text-white font-weight-bold btn-warning editJamPel" style="min-width: 5vw; margin: 2px;">Edit</button>
-                        <button type="button" class="btn btn-sm text-white font-weight-bold btn-danger batal-edit-jam-pel" style="min-width: 5vw; margin: 2px;display: none;">Batal</button>
+                        <button type="button" class="btn btn-sm text-white btn-warning editJamPel" style="min-width: 5vw; margin: 2px;border-radius: 5px;font-weight: 500;">Edit</button>
+                        <button type="button" class="btn btn-sm text-white btn-danger batal-edit-jam-pel" style="min-width: 5vw; margin: 2px;display: none;border-radius: 5px;font-weight: 500;">Batal</button>
                     </div>
                     <form action="{{ route('jam-pelajaran.store') }}" method="post">
                         @csrf
@@ -68,7 +68,7 @@
                                                 <input type="time" class="input-akhir" name="jam_akhir_{{ $key+1 }}" id="jam-akhir-{{ $key+1 }}" style="border: none;background: transparent;" disabled data-jam-ke="{{ $key+1 }}" value="{{ ($jam->jam_akhir) ? $jam->jam_akhir : "00:00" }}">
                                             </td>
                                             <td class="td-kosongkan" style="display: none;">
-                                                <button type="button" class="btn btn-sm text-white font-weight-bold btn-danger button-reset" style="min-width: 5vw; margin: 2px;"data-id="{{ $jam->id }}">Reset</button>
+                                                <button type="button" class="btn btn-sm text-white btn-danger button-reset" style="min-width: 5vw; margin: 2px;font-weight: 500;"data-id="{{ $jam->id }}">Reset</button>
                                             </td>
                                         </tr>
                                         @else
@@ -83,7 +83,7 @@
                                             <td class="td-kosongkan" style="display: none;">
                                                 <form action="" method="get">
                                                     @include('mypartials.tahunajaran')
-                                                    <button type="button" class="btn btn-sm text-white font-weight-bold btn-danger" style="min-width: 5vw; margin: 2px;" disabled>Reset</button>
+                                                    <button type="button" class="btn btn-sm text-white btn-danger" style="min-width: 5vw; margin: 2px;border-radius: 5px;font-weight: 500;" disabled>Reset</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -97,7 +97,7 @@
                 </div>
                 <div class="card-body jamIst" style="display: none;">
                     <div class="d-flex justify-content-end">
-                        <button class="btn btn-sm text-white font-weight-bold float-right" data-bs-toggle="modal" data-bs-target="#modalJamIst" style="background-color: #3bae9c">Create</button>
+                        <button class="btn btn-sm text-white float-right" data-bs-toggle="modal" data-bs-target="#modalJamIst" style="background-color: #3bae9c;border-radius: 5px;font-weight: 500;">Create</button>
                     </div>
                     <div class="table-responsive mt-3">
                         <table class="table">
@@ -117,10 +117,10 @@
                                     <td class="jam-akhir-istirahat-{{ $key+1 }}">{{ $waktu_istirahat->jam_akhir }}</td>
                                     <td>
                                         @include('mypartials.tahunajaran')
-                                        <button class="btn btn-sm text-white font-weight-bold btn-warning edit-jam-istirahat" style="min-width: 5vw; margin: 2px;" type="button" data-loop="{{ $key+1 }}" data-jam-ke={{ $waktu_istirahat->waktu_pelajaran->id }} data-bs-toggle="modal" data-bs-target="#modalEditJamIst" data-id="{{ $waktu_istirahat->id }}">Edit</button>
+                                        <button class="btn btn-sm text-white btn-warning edit-jam-istirahat" style="min-width: 5vw; margin: 2px;" type="button" data-loop="{{ $key+1 }}" data-jam-ke={{ $waktu_istirahat->waktu_pelajaran->id }} data-bs-toggle="modal" data-bs-target="#modalEditJamIst" data-id="{{ $waktu_istirahat->id }}">Edit</button>
                                         <form action="" method="get">
                                             @include('mypartials.tahunajaran')
-                                            <button class="btn btn-sm text-white font-weight-bold btn-danger" style="min-width: 5vw; margin: 2px;">Hapus</button>
+                                            <button class="btn btn-sm text-white btn-danger" style="min-width: 5vw; margin: 2px;">Hapus</button>
                                         </form>
                                     </td>
                                 </tr>

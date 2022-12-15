@@ -47,7 +47,7 @@
       @if (request('semester'))
       <input type="hidden" name="semester" value="{{ request('semester') }}">
       @endif
-      <button class="btn btn-sm btn-danger font-weight-bold float-right text-white" type="submit">Kembali</button>
+      <button class="btn btn-sm btn-danger float-right text-white" type="submit" style="border-radius: 5px;font-weight: 500;">Kembali</button>
     </form>
     <form class="mt-5" action="/users" method="POST" enctype="multipart/form-data">
       @csrf
