@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('tahun_ajaran_id')->constrained();
             $table->foreignId('waktu_pelajaran_id')->constrained();
             $table->text('other')->nullable();
-            $table->enum('hari', ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu']);
+            $table->enum('hari', config('services.hari.value'));
             $table->timestamps();
         });
     }

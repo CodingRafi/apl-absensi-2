@@ -77,9 +77,10 @@ Route::group(['middleware' => ['auth:web,websiswa']], function() {
     
     Route::name('agenda.')->prefix('agenda')->group(function () {
         Route::get('{role}', [AgendaController::class, 'index'])->name('index');
-        Route::get('create/{role}', [AgendaController::class, 'create'])->name('create');
+        Route::get('{role}/{id}', [AgendaController::class, 'show'])->name('show');
+        Route::get('create/{role}/{id}', [AgendaController::class, 'create'])->name('create');
+        Route::post('/', [AgendaController::class, 'store'])->name('store');
         Route::get('{role}/{id}/edit', [AgendaController::class, 'edit'])->name('edit');
-        Route::get('{role}/{id}', [AgendaController::class, 'show'])->name('show.jadwal');
     });
     // Route::get('/create-agenda', [AgendaController::class, 'create']);
     // Route::resource('agenda', AgendaController::class);

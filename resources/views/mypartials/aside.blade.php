@@ -29,19 +29,6 @@
     </li>
     @endif
 
-    @can('view_waktu_pelajaran')
-    <li class="nav-item">
-      <form action="{{ route('jam-pelajaran.index') }}" method="get">
-        @include('mypartials.tahunajaran')
-        <button class="nav-link {{ Request::is('jam-pelajaran') ? 'active' : '' }}"
-          style="background-color: transparent; border: none; width: 100%;transition: none;">
-          <i class="bi bi-clock-fill mr-3"></i>
-          <span class="menu-title">Jam Pelajaran</span>
-        </button>
-      </form>
-    </li>
-    @endcan
-
     @can('view_kelompok')
     <li class="nav-item">
       <form action="/kelompok" method="get">
@@ -134,6 +121,15 @@
               @include('mypartials.tahunajaran')
               <button class="nav-link {{ Request::is('agama') ? 'active' : '' }}"
                 style="background-color: #3bae9c; border: none; min-width: 150px;text-transform: capitalize;">Agama</button>
+            </form>
+          </li>
+          @endif
+          @if (auth()->user()->can('view_waktu_pelajaran'))
+          <li class="nav-item">
+            <form action="{{ route('jam-pelajaran.index') }}" method="get">
+              @include('mypartials.tahunajaran')
+              <button class="nav-link {{ Request::is('jam-pelajaran') ? 'active' : '' }}"
+                style="background-color: #3bae9c; border: none; min-width: 150px;text-transform: capitalize;">Jam Pelajaran</button>
             </form>
           </li>
           @endif
