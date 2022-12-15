@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(SekolahSeeder::class);
         $this->call(PermissionTableSeeder::class);
+        $this->call(MapelSeeder::class);
+        $this->call(RefAgamaSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(JedaPresensiSeeder::class);
         $this->call(TahunAjaranSeeder::class);

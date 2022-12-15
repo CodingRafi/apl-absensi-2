@@ -27,7 +27,7 @@ return new class extends Migration
             $table->foreignId('kelas_id')->constrained();
             $table->foreignId('kompetensi_id')->nullable()->constrained();
             $table->string('nik');
-            $table->string('agama');
+            $table->foreignId('ref_agama_id')->contrained();
             $table->string('jalan');
             $table->string('kelurahan');
             $table->string('kecamatan');

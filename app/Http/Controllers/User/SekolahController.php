@@ -14,8 +14,7 @@ use Illuminate\Support\Facades\Storage;
 class SekolahController extends Controller
 {
     public function create(){
-        $roles = Role::where('name', 'LIKE', '%admin_%')->get();
-        return view('myauth.register', compact('roles'));
+        return view('myauth.register');
     }
     
     public function store(Request $request)
@@ -33,33 +32,29 @@ class SekolahController extends Controller
         ]);
 
         $sekolah = Sekolah::store($request);
-        $role_admin = Role::where('name_long', 'like', 'Admin ' . $request->ingkat)->first();
 
-        if ($role_admin) {
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => \Hash::make($request->password),
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => \Hash::make($request->password),
+            'sekolah_id' => $sekolah->id
+        ]);
+
+        $user->assignRole('admin');
+
+        if($request->name_yayasan && $request->email_yayasan){
+            $yayasan = User::create([
+                'name' => $request->name_yayasan,
+                'email' => $request->email_yayasan,
+                'password' => \Hash::make($request->password_yayasan),
                 'sekolah_id' => $sekolah->id
             ]);
 
-            $user->assignRole($role_admin->name);
-    
-            if($request->name_yayasan && $request->email_yayasan){
-                $yayasan = User::create([
-                    'name' => $request->name_yayasan,
-                    'email' => $request->email_yayasan,
-                    'password' => \Hash::make($request->password_yayasan),
-                    'sekolah_id' => $sekolah->id
-                ]);
-    
-                $yayasan->assignRole('yayasan');
-            }
-            Mail::to($user['email'])->send(new RegisterMail($sekolah, $user, $yayasan, $request->password, $request->password_yayasan));
-    
-            return redirect('/login')->with('msg_success', 'Berhasil registrasi');
-        }else{
-            return redirect()->back()->with('msg_error', 'Gagal registrasi');
+            $yayasan->assignRole('yayasan');
         }
+
+        Mail::to($user['email'])->send(new RegisterMail($sekolah, $user, $yayasan ?? '', $request->password, $request->password_yayasan));
+
+        return redirect('/login')->with('msg_success', 'Registrasi Success');
     }
 }

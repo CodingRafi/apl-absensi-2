@@ -4,9 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Mapel;
+use App\Models\ref_agama;
 
-class MapelSeeder extends Seeder
+class RefAgamaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,9 +15,8 @@ class MapelSeeder extends Seeder
      */
     public function run()
     {
-        Mapel::create([
-            'nama' => 'Mapel',
-            'sekolah_id' => 1
+        ref_agama::create([
+            'nama' => 'Islam'
         ]);
     }
 }

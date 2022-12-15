@@ -24,7 +24,7 @@ return new class extends Migration
             $table->enum('jk', ['L', 'P'])->nullable();
             $table->string('tempat_lahir')->nullable();
             $table->date('tanggal_lahir')->nullable();
-            $table->string('agama')->nullable();
+            $table->foreignId('ref_agama_id')->nullable()->constrained();
             $table->string('jalan')->nullable();
             $table->string('kelurahan')->nullable();
             $table->string('kecamatan')->nullable();

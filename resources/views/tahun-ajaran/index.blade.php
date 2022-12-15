@@ -26,7 +26,11 @@
                     <td>{{ $tahun_ajaran->semester }}</td>
                     <td>{{ $tahun_ajaran->status }}</td>
                     <td>
+<<<<<<< HEAD
                         <a href="/tahun-ajaran/{{ $tahun_ajaran->id }}/edit" class="btn btn-sm btn-warning text-white px-3" style="border-radius: 5px;font-weight: 500;">Edit</a>
+=======
+                        <a href="{{ route('tahun-ajaran.edit', $tahun_ajaran->id) }}" class="btn btn-sm btn-warning text-white font-weight-bold px-3">Edit</a>
+>>>>>>> ebec64c571e87310fe1e80a6696837d383c9468f
                     </td>
                 </tr>
                 @endforeach

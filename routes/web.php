@@ -8,6 +8,7 @@ use App\Http\Controllers\MapelController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\RefAgamaController;
 use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\KelompokController;
 use App\Http\Controllers\DashboardController;
@@ -46,11 +47,12 @@ Route::group(['middleware' => ['auth:web,websiswa']], function() {
     Route::resource('roles', RoleController::class);
     
     Route::prefix('data-master')->group(function () {
-        Route::middleware(['auth.smk'])->group(function () {
+        Route::middleware(['auth.sma_smk'])->group(function () {
             Route::resource('kompetensi', KompetensiController::class);
         });
         Route::resource('kelas', KelasController::class);
         Route::resource('mapel', MapelController::class);
+        Route::resource('agama', RefAgamaController::class);
         Route::resource('status-kehadiran', StatusKehadiranController::class);
         Route::resource('tahun-ajaran', TahunAjaranController::class);
     });
@@ -58,17 +60,17 @@ Route::group(['middleware' => ['auth:web,websiswa']], function() {
     Route::get('/users/{role}', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create/{role}', [UserController::class, 'create'])->name('users.user_create');
     Route::resource('/users', UserController::class);
-
+    
     // Export dan Import User
     Route::get('/import/users/{role}', [UserController::class, 'import']);
     Route::post('/import/users/{role}', [UserController::class, 'saveimport']);
     Route::get('/export/users/{role}', [UserController::class, 'export']);
-
+    
     // Export dan Import Siswa
     Route::get('/import/siswa', [SiswaController::class, 'import'])->name('import.siswa');
     Route::post('/import/siswa', [SiswaController::class, 'saveimport'])->name('save.import.siswa');
     Route::get('/export', [SiswaController::class, 'export']);
-
+    
     Route::resource('siswa', SiswaController::class);
     
     Route::get('/agenda/{role}', [AgendaController::class, 'index']);

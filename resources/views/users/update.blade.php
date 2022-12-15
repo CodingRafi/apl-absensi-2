@@ -17,16 +17,6 @@
             min-height: 10rem !important;
         }
 
-        /* .fstAll {
-            display: none !important;
-        } */
-
-        /* .fstsearch{
-          border: 1px solid rgb(205, 205, 205);
-          margin: 0.5rem;
-          width: 54rem;
-        } */
-
         .nama-koleksi {
             font-size: 16px;
         }
@@ -102,12 +92,21 @@
           @enderror
         </div>
         <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Agama</label>
-          <input type="text" class="form-control @error('agama') is-invalid @enderror" placeholder="Masukan Agama" name="agama" value="{{ $user->agama }}" value="{{ old('agama') }}" style=" font-size: 15px; height: 6.5vh;" required>
-          @error('agama')
-          <div class="invalid-feedback">
-            {{ $message }}
-          </div>
+          <label for="agama_id" class="form-label">Agama</label>
+          <select class="form-control @error('agama_id') is-invalid @enderror" id="agama_id" name="ref_agama_id" value="{{ old('agama_id') }}" style=" font-size: 15px; height: 6.5vh;" required>
+            <option value="">Pilih Agama</option>
+            @foreach ($agamas as $agama)
+            @if ($agama->id == $user->ref_agama_id)
+            <option value="{{ $agama->id }}" selected>{{ $agama->nama }}</option>
+            @else
+            <option value="{{ $agama->id }}">{{ $agama->nama }}</option>
+            @endif
+            @endforeach
+          </select>
+          @error('agama_id')
+            <div class="invalid-feedback">
+              {{ $message }}
+            </div>
           @enderror
         </div>
         <div class="mb-3">

@@ -59,6 +59,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Kelompok::class);
     }
 
+    public function ref_agama(){
+        return $this->belongsTo(ref_agama::class);
+    }
+
     public static function getUserRole($role, $sekolah){
         $roles = Role::all();
         $users = \App\Models\User::with('roles')->get();

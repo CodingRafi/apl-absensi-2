@@ -67,7 +67,6 @@
                 </thead>
                 <tbody>
                     @foreach ($users as $user)
-                    {{-- @dd($user) --}}
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>
@@ -93,7 +92,7 @@
                         <td>{{ $user->jk }}</td>
                         <td>{{ $user->tempat_lahir }}</td>
                         <td>{{ $user->tanggal_lahir }}</td>
-                        <td>{{ $user->agama }}</td>
+                        <td>{{ $user->ref_agama ? $user->ref_agama->nama : '' }}</td>
                         @if ($user->rfid)
                         <td>{{ $user->rfid->rfid_number }}</td>
                         @else
