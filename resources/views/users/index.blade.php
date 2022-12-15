@@ -111,10 +111,10 @@
                                 <button class="btn btn-sm btn-warning text-white font-weight-bold" style="width: 5rem; margin: 0.1rem;">Edit</button>
                             </form>
                             @endif
-                            {{-- @if (auth()->user()->can('delete_users'))
+                            @if (auth()->user()->can('delete_users'))
                             <button type="submit" class="btn btn-sm btn-danger font-weight-bold"
                                 onclick="deleteData('{{ route('users.destroy', [$user->id]) }}')" style="width: 5rem; margin: 0.1rem">Hapus</button>
-                            @endif --}}
+                            @endif
                         </td>
                         @endif
                     </tr>

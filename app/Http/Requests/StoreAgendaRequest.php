@@ -24,10 +24,10 @@ class StoreAgendaRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required',
+            'role' => 'required',
             'hari' => 'required',
-            'jam_awal' => 'required',
-            'jam_akhir' => 'required',
+            'waktu_pelajaran_id' => 'required',
+            'id' => 'required',
         ];
     }
 }

@@ -11,6 +11,10 @@ class WaktuPelajaran extends Model
 
     protected $guarded = ['id'];
 
+    public function agenda(){
+        return $this->hasMany(Agenda::class);
+    }
+
     public function waktu_istirahat(){
         return $this->hasOne(WaktuIstirahat::class);
     }
