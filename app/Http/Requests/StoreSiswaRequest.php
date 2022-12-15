@@ -34,7 +34,7 @@ class StoreSiswaRequest extends FormRequest
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
             'kelas_id' => 'required',
-            'agama' => 'required',
+            'ref_agama_id' => 'required',
             'jalan' => 'required',
             'kelurahan' => 'required',
             'kecamatan' => 'required',

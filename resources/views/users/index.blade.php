@@ -106,7 +106,7 @@
                         @if (auth()->user()->can('edit_users') || auth()->user()->can('delete_users'))      
                         <td>
                             @if (auth()->user()->can('edit_users'))
-                            <form action="/users/{{ $user->id }}/edit" method="get">
+                            <form action="{{ route('users.edit', [$user->id]) }}" method="get">
                                 @include('mypartials.tahunajaran')
                                 <button class="btn btn-sm btn-warning text-white" style="width: 5rem; margin: 0.1rem;border-radius: 5px;font-weight: 500;">Edit</button>
                             </form>

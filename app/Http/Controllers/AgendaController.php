@@ -29,28 +29,28 @@ class AgendaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $role)
-        {
+    public function index(Request $request, $role){
+        $return = [
+            'role' => $role
+        ];
+
         if ($role == 'siswa') {
             $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
-            
-            if ($tahun_ajaran) {
-                $classes = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)->where('tahun_ajaran_id', $tahun_ajaran->id)->get();
-            }else{
-                $classes = [];    
-            }
-            return view('agenda.index', [
+            $classes = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)
+                        ->when($tahun_ajaran, function ($q) use ($tahun_ajaran) {
+                            return $q->where('kelas.tahun_ajaran_id', $tahun_ajaran->id);
+                        })->get();
+            $return += [
                 'classes' => $classes,
-                'role' => $role
-            ]);
+            ];
         }else{
             $users = User::role($role)->where('sekolah_id', \Auth::user()->sekolah->id)->get();
-
-            return view('agenda.index',[
-                'role' => $role,
+            $return += [
                 'users' => $users
-            ]);
+            ];
         }
+
+        return view('agenda.index', $return);
 
     }
 
@@ -142,9 +142,39 @@ class AgendaController extends Controller
      * @param  \App\Models\Agenda  $agenda
      * @return \Illuminate\Http\Response
      */
-    public function show(Agenda $agenda)
+    public function show($role, $id)
     {
-        //
+        $haris = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
+        $agendas = [];
+        $returnData = [];
+
+        if ($role == 'siswa') {
+            $kelas = Kelas::findOrFail($id);
+            
+            foreach ($haris as $key => $hari) {
+                $agenda = Agenda::get_agenda($id, $hari);
+                $agendas[$hari] = $agenda;
+            }
+
+            $returnData = [
+                'kelas' => $kelas,
+                'agendas' => $agendas,
+                'role' => $role
+            ];
+        }else{
+            $user = User::findOrFail($id);
+            foreach ($haris as $key => $hari) {
+                $agendas[$hari] = Agenda::where('user_id', $user->id)->where('hari', $hari)->get();
+            }
+
+            $returnData = [
+                'user' => $user,
+                'agendas' => $agendas,
+                'role' => $role
+            ];
+        }
+
+        return view('agenda.sigleJadwal', $returnData);
     }
 
     /**
@@ -274,40 +304,6 @@ class AgendaController extends Controller
     public function get_mapel($id){
         $user = User::findOrFail($id);
         return $user->mapel;
-    }
-
-    public function showJadwal($role, $id){
-        $haris = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
-        $agendas = [];
-        $returnData = [];
-
-        if ($role == 'siswa') {
-            $kelas = Kelas::findOrFail($id);
-            
-            foreach ($haris as $key => $hari) {
-                $agenda = Agenda::get_agenda($id, $hari);
-                $agendas[$hari] = $agenda;
-            }
-
-            $returnData = [
-                'kelas' => $kelas,
-                'agendas' => $agendas,
-                'role' => $role
-            ];
-        }else{
-            $user = User::findOrFail($id);
-            foreach ($haris as $key => $hari) {
-                $agendas[$hari] = Agenda::where('user_id', $user->id)->where('hari', $hari)->orderBy('jam_awal', 'asc')->get();
-            }
-
-            $returnData = [
-                'user' => $user,
-                'agendas' => $agendas,
-                'role' => $role
-            ];
-        }
-
-        return view('agenda.sigleJadwal', $returnData);
     }
 
     public function show_guru(Request $request){

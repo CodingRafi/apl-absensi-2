@@ -170,7 +170,7 @@
           @endif
           @if (auth()->user()->can('view_siswa'))
           <li class="nav-item" style="transition: none;">
-            <form action="/siswa" method="get">
+            <form action="{{ route('users.siswa.index') }}" method="get">
               @include('mypartials.tahunajaran')
               <button class="nav-link {{ Request::is('siswa.*') ? 'active' : '' }}"
                 style="background-color: #3bae9c; border: none; min-width: 150px">Data Siswa</button>

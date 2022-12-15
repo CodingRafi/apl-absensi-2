@@ -38,13 +38,20 @@ class SiswaController extends Controller
         $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
         $kompetensis = Kompetensi::where('sekolah_id', \Auth::user()->sekolah_id)->get();
         
-        if ($tahun_ajaran) {
-            $kelas_filter = Kelas::where('tahun_ajaran_id', $tahun_ajaran->id)->get();
-            $siswas = Siswa::filter(request(['idk', 'idj', 'search']))->select('siswas.*', 'kelas.nama as kelas', 'kompetensis.kompetensi as jurusan')->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->where('kelas.sekolah_id', \Auth::user()->sekolah_id)->get();
-        }else{
-            $kelas_filter = [];
-            $siswas = [];
-        }
+        $siswas = Siswa::filter(request(['idk', 'idj', 'search']))
+                        ->select('siswas.*', 'kelas.nama as kelas', 'kompetensis.kompetensi as jurusan')
+                        ->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')
+                        ->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')
+                        ->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')
+                        ->where('kelas.sekolah_id', \Auth::user()->sekolah_id)
+                        ->when($tahun_ajaran, function ($q) use ($tahun_ajaran) {
+                            return $q->where('kelas.tahun_ajaran_id', $tahun_ajaran->id);
+                        })
+                        ->get();
+                        
+        $kelas_filter = Kelas::when($tahun_ajaran, function ($q) use ($tahun_ajaran) {
+            return $q->where('tahun_ajaran_id', $tahun_ajaran->id)->get();
+        });
 
         return view('siswa.index',[
             'siswas' => $siswas,
@@ -116,7 +123,7 @@ class SiswaController extends Controller
             Rfid::createRfid($request->rfid_number, $siswa->id, null, $request->status_rfid);
         }
 
-        return TahunAjaran::redirectWithTahunAjaranManual('/siswa', $request, 'Berhasil menambahkan siswa');
+        return TahunAjaran::redirectWithTahunAjaran('users.siswa.index', $request, 'Berhasil menambahkan siswa');
     }
 
     /**
@@ -127,7 +134,7 @@ class SiswaController extends Controller
      */
     public function show(Siswa $siswa)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -163,8 +170,6 @@ class SiswaController extends Controller
      */
     public function update(Request $request, Siswa $siswa)
     {
-        // dd($request);
-        // dd((\Auth::user()->getTable() == 'users') ? 'siswas' : 'users');
         $request->validate([
             'name' => 'required',
             'nisn' => ['required', Rule::unique('siswas')->ignore($siswa->id)],
@@ -238,7 +243,7 @@ class SiswaController extends Controller
                 }
             }
     
-            return TahunAjaran::redirectWithTahunAjaranManual('/siswa', $request, 'Berhasil Mengupdate Siswa');
+            return TahunAjaran::redirectWithTahunAjaran('users.siswa.index', $request, 'Berhasil Mengupdate Siswa');
         }else{
             abort(403);
         }
@@ -253,7 +258,7 @@ class SiswaController extends Controller
     public function destroy(Request $request, $id)
     {
         $user = Siswa::deleteSiswa($id);
-        return TahunAjaran::redirectWithTahunAjaranManual('/siswa', $request, 'Berhasil Menghapus Siswa');
+        return TahunAjaran::redirectWithTahunAjaran('users.siswa.index', $request, 'Berhasil Menghapus Siswa');
     }
 
     public function import(Request $request){
