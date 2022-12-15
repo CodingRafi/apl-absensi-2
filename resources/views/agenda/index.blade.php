@@ -24,7 +24,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $kelas->nama }}</td>
                             <td>
-                                <form action="/agenda/siswa/{{ $kelas->id }}" method="get">
+                                <form action="{{ route('agenda.create', ['role' => 'siswa', 'id' => $kelas->id]) }}" method="get">
                                     @include('mypartials.tahunajaran')
                                     <button type="submit" class="btn btn-sm text-white text-white font-weight-bold" style="background-color: #3bae9c">Show Jadwal</button>
                                 </form>
@@ -37,7 +37,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>
-                                    <form action="/agenda/{{ $role }}/{{ $user->id }}" method="get">
+                                    <form action="{{ route('agenda.create', ['role' => $role, 'id' => $user->id]) }}" method="get">
                                         @include('mypartials.tahunajaran')
                                         <button type="submit" class="btn btn-sm text-white text-white font-weight-bold" style="background-color: #3bae9c">Show Jadwal</button>
                                     </form>

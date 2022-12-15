@@ -29,9 +29,12 @@ class UserController extends Controller
     
     public function index(Request $request, $role)
     {   
-        $users = User::filter(request(['search']))->where('sekolah_id', \Auth::user()->sekolah_id)->with("roles")->whereHas("roles", function($q) use($role) {
-            $q->whereIn("name", [$role]);
-        })->get();
+        $users = User::filter(request(['search']))
+                    ->where('sekolah_id', \Auth::user()->sekolah_id)
+                    ->with("roles")
+                    ->whereHas("roles", function($q) use($role) {
+                        $q->whereIn("name", [$role]);
+                    })->get();
 
         return view('users.index', [
             'users' => $users,
@@ -53,7 +56,7 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'name' => 'required',
             'email' => ['required', Rule::unique('users'), Rule::unique('siswas')],
             'password' => 'required', 

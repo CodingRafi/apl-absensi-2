@@ -114,7 +114,7 @@
             @endif
             @if (auth()->user()->can('add_siswa'))
             <li class="nav-item">
-                <form action="/siswa/create" method="get">
+                <form action="{{ route('users.siswa.create') }}" method="get">
                     @include('mypartials.tahunajaran')
                     <button class="btn btn-sm text-white font-weight-bold" style="background-color: #3bae9c">Tambah</button>
                 </form>
@@ -187,13 +187,13 @@
                         @if (auth()->user()->can('edit_siswa') || auth()->user()->can('delete_siswa')) 
                         <td>
                             @if (auth()->user()->can('edit_siswa'))
-                            <form action="/siswa/{{ $student->id }}/edit" method="get">
+                            <form action="{{ route('users.siswa.edit', [$student->id]) }}" method="get">
                                 @include('mypartials.tahunajaran')
                                 <button class="btn btn-sm btn-warning text-white font-weight-bold" style="width: 5rem; margin: 0.1rem;">Edit</button>
                             </form>
                             @endif
                             @if (auth()->user()->can('delete_siswa'))
-                            <form action="/siswa/{{ $student->id }}" method="post">
+                            <form action="{{ route('users.siswa.destroy', [$student->id]) }}" method="post">
                                 @csrf
                                 @method('delete')
                                 @include('mypartials.tahunajaran')

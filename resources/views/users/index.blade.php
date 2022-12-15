@@ -106,15 +106,15 @@
                         @if (auth()->user()->can('edit_users') || auth()->user()->can('delete_users'))      
                         <td>
                             @if (auth()->user()->can('edit_users'))
-                            <form action="/users/{{ $user->id }}/edit" method="get">
+                            <form action="{{ route('users.edit', [$user->id]) }}" method="get">
                                 @include('mypartials.tahunajaran')
                                 <button class="btn btn-sm btn-warning text-white font-weight-bold" style="width: 5rem; margin: 0.1rem;">Edit</button>
                             </form>
                             @endif
-                            @if (auth()->user()->can('delete_users'))
+                            {{-- @if (auth()->user()->can('delete_users'))
                             <button type="submit" class="btn btn-sm btn-danger font-weight-bold"
                                 onclick="deleteData('{{ route('users.destroy', [$user->id]) }}')" style="width: 5rem; margin: 0.1rem">Hapus</button>
-                            @endif
+                            @endif --}}
                         </td>
                         @endif
                     </tr>
