@@ -18,20 +18,14 @@ class KelasController extends Controller
          $this->middleware('permission:edit_kelas', ['only' => ['edit','update']]);
          $this->middleware('permission:delete_kelas', ['only' => ['destroy']]);
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
         $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
 
-        if ($tahun_ajaran) {
-            $classes = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)->where('tahun_ajaran_id', $tahun_ajaran->id)->get();
-        }else{
-            $classes = [];    
-        }
+        $classes = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)->when($tahun_ajaran, function ($query) use($tahun_ajaran) {
+            $query->where('tahun_ajaran_id', $tahun_ajaran->id);
+        })->get(); 
 
         return view('kelas.index', [
             'classes' => $classes 
@@ -39,22 +33,11 @@ class KelasController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('kelas.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreKelasRequest  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreKelasRequest $request)
     {   
         $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
@@ -68,23 +51,11 @@ class KelasController extends Controller
         return TahunAjaran::redirectWithTahunAjaran('kelas.index', $request, 'Kelas Berhasil Ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Kelas  $kelas
-     * @return \Illuminate\Http\Response
-     */
     public function show(Kelas $kelas)
     {
-        //
+        abort(404);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Kelas  $kelas
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Kelas $kelas, $id)
     {
         $kelas = Kelas::findOrFail($id);
@@ -92,18 +63,11 @@ class KelasController extends Controller
             return view('kelas.update', [
                 'kelas' => $kelas
             ]);
-        }else{
-            abort(403);
         }
+
+        abort(403);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateKelasRequest  $request
-     * @param  \App\Models\Kelas  $kelas
-     * @return \Illuminate\Http\Response
-     */
     public function update(UpdateKelasRequest $request, Kelas $kelas, $id)
     {
         $kelas = Kelas::findOrFail($id);
@@ -113,17 +77,11 @@ class KelasController extends Controller
             ]);
     
             return TahunAjaran::redirectWithTahunAjaran('kelas.index', $request, 'Kelas Berhasil Diupdate');
-        }else{
-            abort(403);
         }
+
+        abort(403);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Kelas  $kelas
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Request $request, $id)
     {
         $kelas = Kelas::findOrFail($id);
@@ -140,8 +98,8 @@ class KelasController extends Controller
             $kelas->delete();
     
             return TahunAjaran::redirectWithTahunAjaran('kelas.index', $request, 'Kelas Berhasil Dihapus');
-        }else{
-            abort(403);
         }
+
+        abort(403);
     }
 }

@@ -10,6 +10,14 @@ use App\Http\Requests\UpdateWaktuPelajaranRequest;
 
 class WaktuPelajaranController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:view_waktu_pelajaran|add_waktu_pelajaran|edit_waktu_pelajaran|delete_waktu_pelajaran', ['only' => ['index','store']]);
+         $this->middleware('permission:add_waktu_pelajaran', ['only' => ['create','store']]);
+         $this->middleware('permission:edit_waktu_pelajaran', ['only' => ['edit','update']]);
+         $this->middleware('permission:delete_waktu_pelajaran', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $jams = WaktuPelajaran::get_wapel();
@@ -18,6 +26,10 @@ class WaktuPelajaranController extends Controller
         $waktu_istirahats = WaktuIstirahat::where('sekolah_id', \Auth::user()->sekolah_id)->get();
 
         return view('jamPelajaran.index', compact('jams', 'jam_pelajaran_for_istirahat', 'waktu_istirahats', 'japel'));
+    }
+
+    public function create(){
+        abort(404);
     }
 
     public function store(StoreWaktuPelajaranRequest $request)
@@ -42,6 +54,14 @@ class WaktuPelajaranController extends Controller
         }
 
         return TahunAjaran::redirectWithTahunAjaranManual(route('jam-pelajaran.index'), $request,  'Perubahan Tersimpan');
+    }
+
+    public function edit(){
+        abort(404);
+    }
+
+    public function update(){
+        abort(404);
     }
 
     public function destroy(WaktuPelajaran $waktuPelajaran, $id)

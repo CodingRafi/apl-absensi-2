@@ -64,7 +64,7 @@ class MapelController extends Controller
      */
     public function show(Mapel $mapel)
     {
-        //
+        abort(404);
     }
 
     /**

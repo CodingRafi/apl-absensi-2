@@ -47,35 +47,47 @@ class KompetensiController extends Controller
 
     public function show(Kompetensi $kompetensi)
     {
-        //
+        abort(404);
     }
 
     public function edit(Kompetensi $kompetensi)
     {
-        return view('kompetensi.update', [
-            'kompetensi' => $kompetensi
-        ]);
+        if ($kompetensi->sekolah_id == \Auth::user()->sekolah->id) {
+            return view('kompetensi.update', [
+                'kompetensi' => $kompetensi
+            ]);
+        }
+
+        abort(403);
     }
 
     public function update(UpdateKompetensiRequest $request, Kompetensi $kompetensi)
     {
-        $kompetensi->update([
-            'kompetensi' => $request->kompetensi,
-            'bidang' => $request->bidang,
-            'program' => $request->program,
-        ]);
+        if ($kompetensi->sekolah_id == \Auth::user()->sekolah->id) {
+            $kompetensi->update([
+                'kompetensi' => $request->kompetensi,
+                'bidang' => $request->bidang,
+                'program' => $request->program,
+            ]);
+    
+            return TahunAjaran::redirectWithTahunAjaran('kompetensi.index', $request, 'Berhasil Mengupdate Kompetensi');
+        }
 
-        return TahunAjaran::redirectWithTahunAjaran('kompetensi.index', $request, 'Berhasil Mengupdate Kompetensi');
+        abort(403);
     }
 
     public function destroy(Request $request, $id)
     {
         $kompetensi = Kompetensi::findOrFail($id);
-        foreach ($kompetensi->siswa as $key => $siswa) {
-            Siswa::deleteSiswa($siswa->id);
+        if ($kompetensi->sekolah_id == \Auth::user()->sekolah->id) {
+            foreach ($kompetensi->siswa as $key => $siswa) {
+                Siswa::deleteSiswa($siswa->id);
+            }
+    
+            $kompetensi->delete();
+            return TahunAjaran::redirectWithTahunAjaran('kompetensi.index', $request, 'Berhasil meghapus Kompetensi');
         }
 
-        $kompetensi->delete();
-        return TahunAjaran::redirectWithTahunAjaran('kompetensi.index', $request, 'Berhasil meghapus Kompetensi');
+        abort(403);
     }
 }

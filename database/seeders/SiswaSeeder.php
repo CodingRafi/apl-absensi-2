@@ -24,7 +24,7 @@ class SiswaSeeder extends Seeder
             'kompetensi_id' => 1,
             'tempat_lahir' => 'asd',
             'nik' => '123',
-            'agama' => 'islam',
+            'ref_agama_id' => 1,
             'jalan' => '24',
             'kelurahan' => 'ase',
             'kecamatan' => 'asda',

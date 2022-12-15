@@ -67,7 +67,6 @@
                 </thead>
                 <tbody>
                     @foreach ($users as $user)
-                    {{-- @dd($user) --}}
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>
@@ -93,7 +92,7 @@
                         <td>{{ $user->jk }}</td>
                         <td>{{ $user->tempat_lahir }}</td>
                         <td>{{ $user->tanggal_lahir }}</td>
-                        <td>{{ $user->agama }}</td>
+                        <td>{{ $user->ref_agama ? $user->ref_agama->nama : '' }}</td>
                         @if ($user->rfid)
                         <td>{{ $user->rfid->rfid_number }}</td>
                         @else
@@ -112,9 +111,9 @@
                                 <button class="btn btn-sm btn-warning text-white font-weight-bold" style="width: 5rem; margin: 0.1rem;">Edit</button>
                             </form>
                             @endif
-                            @if (auth()->user()->can('delete_user'))
+                            @if (auth()->user()->can('delete_users'))
                             <button type="submit" class="btn btn-sm btn-danger font-weight-bold"
-                                onclick="deleteData('{{ route('user.destroy', [$user->id]) }}')" style="width: 5rem; margin: 0.1rem">Hapus</button>
+                                onclick="deleteData('{{ route('users.destroy', [$user->id]) }}')" style="width: 5rem; margin: 0.1rem">Hapus</button>
                             @endif
                         </td>
                         @endif

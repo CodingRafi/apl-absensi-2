@@ -4,16 +4,16 @@
 <div class="card">
     <div class="card-body">
         <h4 class="card-title">Create Tahun Ajaran</h4>
-        <form action="/tahun-ajaran" method="POST">
+        <form action="{{ route('tahun-ajaran.store') }}" method="POST">
             @csrf
             <div class="mb-3">
                 <label for="tahun_awal" class="form-label">Tahun Awal</label>
-                <input type="number" min="1900" max="2099" step="1" value="2021" class="form-control" id="tahun_awal"
+                <input type="number" min="1900" max="2099" step="1" value="{{ date('Y', strtotime(now())) }}" class="form-control" id="tahun_awal"
                     name="tahun_awal">
             </div>
             <div class="mb-3">
                 <label for="tahun_akhir" class="form-label">Tahun Akhir</label>
-                <input type="number" min="1900" max="2099" step="1" value="2021" class="form-control" id="tahun_akhir"
+                <input type="number" min="1900" max="2099" step="1" value="{{ date('Y', strtotime(now())) + 1}}" class="form-control" id="tahun_akhir"
                     name="tahun_akhir">
             </div>
             <div class="mb-3">

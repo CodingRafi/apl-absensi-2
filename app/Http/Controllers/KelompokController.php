@@ -10,6 +10,13 @@ use App\Http\Requests\UpdateKelompokRequest;
 
 class KelompokController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:view_kelompok|add_kelompok|edit_kelompok|delete_kelompok', ['only' => ['index','store']]);
+         $this->middleware('permission:add_kelompok', ['only' => ['create','store']]);
+         $this->middleware('permission:edit_kelompok', ['only' => ['edit','update']]);
+         $this->middleware('permission:delete_kelompok', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -39,6 +46,10 @@ class KelompokController extends Controller
         $kelompok->user()->sync($request->gurus);
 
         return redirect()->route('kelompok.index')->with('msg_success', 'Berhasil menambah kelompok');
+    }
+
+    public function show(){
+        abort(404);
     }
 
     public function edit(Kelompok $kelompok)

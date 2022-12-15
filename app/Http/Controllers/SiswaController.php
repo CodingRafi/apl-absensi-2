@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Siswa;
 use App\Models\Rfid;
 use App\Models\Kelas;
+use App\Models\ref_agama;
 use App\Models\Kompetensi;
 use App\Models\TahunAjaran;
 use App\Models\JedaPresensi;
@@ -62,9 +63,11 @@ class SiswaController extends Controller
         $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
         $classes = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)->where('tahun_ajaran_id', $tahun_ajaran->id)->get();
         $kompetensis = Kompetensi::where('sekolah_id', \Auth::user()->sekolah_id)->get();
+        $agamas = ref_agama::all();
         return view('siswa.create',[
             'classes' => $classes,
-            'kompetensis' => $kompetensis
+            'kompetensis' => $kompetensis,
+            'agamas' => $agamas
         ]);
     }
 
@@ -84,7 +87,7 @@ class SiswaController extends Controller
             'nik' => $request->nik,
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
-            'agama' => $request->agama,
+            'ref_agama_id' => $request->ref_agama_id,
             'jk' => $request->jk,
             'kelas_id' => $request->kelas_id,
             'jalan' => $request->jalan,

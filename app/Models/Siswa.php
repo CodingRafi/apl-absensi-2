@@ -43,6 +43,10 @@ class Siswa extends Authenticatable
         return $this->hasMany(Presensi::class);
     }
 
+    public function ref_agama(){
+        return $this->belongsTo(ref_agama::class);
+    }
+    
     public function scopeFilter($query, array $filter){
         $query->when($filter['idk'] ?? false, function($query, $filter){
             return $query->where('kelas.id', $filter);
@@ -107,7 +111,6 @@ class Siswa extends Authenticatable
         }else{
             return $date;
         }
-
     }
 
     public static function deleteSiswa($id){

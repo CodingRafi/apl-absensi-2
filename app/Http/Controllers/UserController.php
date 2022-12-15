@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Siswa;
 use App\Models\Mapel;
 use App\Models\Rfid;
+use App\Models\ref_agama;
 use App\Models\TahunAjaran;
 use App\Models\JedaPresensi;
 use Illuminate\Http\Request;
@@ -28,14 +29,9 @@ class UserController extends Controller
     
     public function index(Request $request, $role)
     {   
-        $users_query = User::filter(request(['search']))->where('sekolah_id', \Auth::user()->sekolah_id)->get();
-        $users = [];
-
-        foreach ($users_query as $key => $user) {
-            if($user->hasRole($role)){
-                $users[] = $user;
-            }
-        }
+        $users = User::filter(request(['search']))->where('sekolah_id', \Auth::user()->sekolah_id)->with("roles")->whereHas("roles", function($q) use($role) {
+            $q->whereIn("name", [$role]);
+        })->get();
 
         return view('users.index', [
             'users' => $users,
@@ -47,9 +43,11 @@ class UserController extends Controller
     {   
         $roleQuery = Role::where('name', $role)->first();
         $mapels = Mapel::where('sekolah_id', \Auth::user()->sekolah_id)->get();
+        $agamas = ref_agama::all();
         return view('users.create', [
             'role' => $role,
-            'mapels' => $mapels
+            'mapels' => $mapels,
+            'agamas' => $agamas
         ]);
     }
 
@@ -63,7 +61,7 @@ class UserController extends Controller
             'jk' => 'required', 
             'tempat_lahir' => 'required', 
             'tanggal_lahir' => 'required', 
-            'agama' => 'required', 
+            'ref_agama_id' => 'required', 
             'jalan' => 'required', 
             'kelurahan' => 'required', 
             'kecamatan' => 'required', 
@@ -80,7 +78,7 @@ class UserController extends Controller
             'jk' => $request->jk, 
             'tempat_lahir' => $request->tempat_lahir, 
             'tanggal_lahir' => $request->tanggal_lahir, 
-            'agama' => $request->agama, 
+            'ref_agama_id' => $request->ref_agama_id, 
             'jalan' => $request->jalan, 
             'kelurahan' => $request->kelurahan, 
             'kecamatan' => $request->kecamatan,
@@ -93,7 +91,7 @@ class UserController extends Controller
         }
 
         $user = User::create($data);
-
+        
         $user->assignRole($request->role);
         if($request->role == 'guru'){
             $user->mapel()->attach($request->mapel);
@@ -111,10 +109,12 @@ class UserController extends Controller
         $role = $user->getRoleNames()[0];
         $roleQuery = Role::where('name', $role)->first();
         $mapels = Mapel::where('sekolah_id', \Auth::user()->sekolah_id)->get();
+        $agamas = ref_agama::all();
         return view('users.update', [
             'user' => $user,
             'role' => $role,
-            'mapels' => $mapels
+            'mapels' => $mapels,
+            'agamas' => $agamas
         ]);
     }
 
@@ -133,7 +133,7 @@ class UserController extends Controller
             'jk' => 'required', 
             'tempat_lahir' => 'required', 
             'tanggal_lahir' => 'required', 
-            'agama' => 'required', 
+            'ref_agama_id' => 'required', 
             'jalan' => 'required', 
             'kelurahan' => 'required', 
             'kecamatan' => 'required', 
@@ -236,37 +236,36 @@ class UserController extends Controller
 
         foreach ($users as $key => $user) {
             if (array_key_exists("email",$user) && array_key_exists("nip",$user)) {     
-                if($user['name'] != null && $user['email'] != null && $user['nip'] != null){
-                    $cekUser = User::where('email', $user['email'])->orWhere('nip', $user['nip'])->first();
-                    
-                    if ($cekUser) {
-                        $gagal++;
-                    }else{
-                        $user = User::create([
-                            'name' => $user['name'],
-                            'email' => $user['email'],
-                            'nip' => $user['nip'],
-                            'jk' => ($user['jk'] == 'L' || $user['jk'] == 'P') ? strtoupper($user['jk']) : null,
-                            'tempat_lahir' => $user['tempat_lahir'],
-                            'tanggal_lahir' => Siswa::filterDate($user['tanggal_lahir']),
-                            'agama' => $user['agama'],
-                            'jalan' => $user['jalan'],
-                            'kelurahan' => $user['kelurahan'],
-                            'kecamatan' => $user['kecamatan'],
-                            'password' => \Hash::make('12345678'),
-                            'sekolah_id' => \Auth::user()->sekolah_id
-                        ]);
-        
-                        $user->assignRole($role);
-                        $berhasil++;
-                    }
+                $cekUser = User::where('email', $user['email'])->orWhere('nip', $user['nip'])->first();
+                
+                if ($cekUser) {
+                    $gagal++;
+                }else{
+                    $agama = ref_agama::where('nama', 'LIKE', '%' . $user['agama'] . '%')->first();
+                    $user = User::create([
+                        'name' => $user['name'],
+                        'email' => $user['email'],
+                        'nip' => $user['nip'],
+                        'jk' => ($user['jk'] == 'L' || $user['jk'] == 'P') ? strtoupper($user['jk']) : null,
+                        'tempat_lahir' => $user['tempat_lahir'],
+                        'tanggal_lahir' => Siswa::filterDate($user['tanggal_lahir']),
+                        'agama' => $agama ? $agama->id : '',
+                        'jalan' => $user['jalan'],
+                        'kelurahan' => $user['kelurahan'],
+                        'kecamatan' => $user['kecamatan'],
+                        'password' => \Hash::make('12345678'),
+                        'sekolah_id' => \Auth::user()->sekolah_id
+                    ]);
+    
+                    $user->assignRole($role);
+                    $berhasil++;
                 }
             }else{
                 return TahunAjaran::redirectWithTahunAjaranManual('/import/users/' . $role, $request, 'kolom tidak valid');
             }
         }
 
-        return TahunAjaran::redirectWithTahunAjaranManual('/users/' . $role, $request,  'Berhasil mengimport ' . $berhasil . ','. $gagal . ' Gagal');
+        return TahunAjaran::redirectWithTahunAjaranManual('/users/' . $role, $request,  'Berhasil ' . $berhasil . ','. 'Gagal '. $gagal );
     }
 
     public function export(Request $request, $role){
@@ -282,7 +281,7 @@ class UserController extends Controller
                     'jk' => $user->jk,
                     'tempat_lahir' => $user->tempat_lahir,
                     'tanggal_lahir' => $user->tanggal_lahir,
-                    'agama' => $user->agama,
+                    'agama' => $user->ref_agama? $user->ref_agama->nama : '',
                     'jalan' => $user->jalan,
                     'kelurahan' => $user->kelurahan,
                     'kecamatan' => $user->kecamatan,
@@ -304,7 +303,6 @@ class UserController extends Controller
     }
 
     public function storeYayasan(Request $request){
-    // dd($yayasan);
         $validatedData = $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
@@ -316,7 +314,6 @@ class UserController extends Controller
 
         $user = User::create($validatedData);
         $user->assignRole('yayasan');
-
 
         return TahunAjaran::redirectWithTahunAjaranManual('/', $request, 'Berhasil menambahkan yayasan');
     }

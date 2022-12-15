@@ -100,9 +100,14 @@
           @enderror
         </div>
         <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Agama</label>
-          <input type="text" class="form-control @error('agama') is-invalid @enderror" placeholder="Masukan Agama" name="agama" value="{{ old('agama') }}" style=" font-size: 15px; height: 6.5vh;" required>
-          @error('agama')
+          <label for="agama_id" class="form-label">Agama</label>
+          <select class="form-control @error('agama_id') is-invalid @enderror" id="agama_id" name="ref_agama_id" value="{{ old('agama_id') }}" style=" font-size: 15px; height: 6.5vh;" required>
+            <option value="">Pilih Agama</option>
+            @foreach ($agamas as $agama)
+            <option value="{{ $agama->id }}">{{ $agama->nama }}</option>
+            @endforeach
+          </select>
+          @error('agama_id')
             <div class="invalid-feedback">
               {{ $message }}
             </div>
