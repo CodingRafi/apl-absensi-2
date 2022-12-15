@@ -6,8 +6,7 @@
         @can('add_status_kehadiran')
         <div class="title d-flex justify-content-between">
             <h4 class="card-title">Status Kehadiran</h4>
-            <button type="button" class="btn btn-sm text-white float-right" data-bs-toggle="modal" data-bs-target="#tambah-status_kehadiran"
-                style="height: fit-content; background-color: #3bae9c;border-radius: 5px;font-weight: 500;">
+            <button type="button" class="btn btn-sm text-white float-right" data-bs-toggle="modal" data-bs-target="#tambah-status_kehadiran" style="height: fit-content; background-color: #3bae9c;border-radius: 5px;font-weight: 500;">
                 Tambah Status Kehadiran
             </button>
         </div>
@@ -17,18 +16,18 @@
         <table class="table align-middle">
             <thead>
                 <tr>
-                    <th scope="col" class="text-center">No</th>
-                    <th scope="col" class="text-center">Nama</th>
-                    <th scope="col" class="text-center">Color</th>
+                    <th scope="col">No</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Color</th>
                     @can('edit_status_kehadiran', 'hapus_status_kehadiran')
-                    <th scope="col" class="text-center">Options</th>
+                    <th scope="col">Options</th>
                     @endcan
                 </tr>
             </thead>
             <tbody>
                 @foreach ($status_kehadirans as $status_kehadiran)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
+                        <th scope="row">{{ $loop->iteration }}</th>
                         <td>{{ $status_kehadiran->nama }}</td>
                         <td><div style="margin:auto;width: 1rem;height: 1rem;background-color: {{ $status_kehadiran->color }}"></div></td>
                         <td>
