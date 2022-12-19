@@ -141,6 +141,7 @@
   <form action="" class="form-delete" method="POST">
     @csrf
     @method('delete')
+    @stack('other_delete')
   </form>
 
 

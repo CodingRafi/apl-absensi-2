@@ -25,8 +25,7 @@ class UpdateAgendaRequest extends FormRequest
     {
         return [
             'hari' => 'required',
-            'jam_awal' => 'required',
-            'jam_akhir' => 'required',
+            'waktu_pelajaran_id' => 'required',
         ];
     }
 }

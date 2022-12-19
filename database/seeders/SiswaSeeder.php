@@ -20,6 +20,7 @@ class SiswaSeeder extends Seeder
             'nisn' => '2345',
             'nipd' => '234567',
             'jk' => 'L',
+            'email' => 'asd@gmail.com',
             'kelas_id' => 1,
             'kompetensi_id' => 1,
             'tempat_lahir' => 'asd',
@@ -28,6 +29,8 @@ class SiswaSeeder extends Seeder
             'jalan' => '24',
             'kelurahan' => 'ase',
             'kecamatan' => 'asda',
+            'kota_kab' => 'asda',
+            'provinsi' => 'asda',
             'sekolah_id' => 1,
         ]);
     }

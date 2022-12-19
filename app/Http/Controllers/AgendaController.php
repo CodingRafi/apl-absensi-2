@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Models\User;
 use App\Models\Kelas;
 use App\Models\Mapel;
@@ -65,8 +66,8 @@ class AgendaController extends Controller
         $jam_pelajarans = WaktuPelajaran::where('sekolah_id', \Auth::user()->sekolah_id)->get();
 
         if ($role == 'siswa') {
-            $data = Kelas::findOFail($id);
-            $gurus = User::role('guru')->get();
+            $data = Kelas::findOrFail($id);
+            $gurus = User::select('users.*')->role('guru')->join('sekolahs', 'sekolahs.id', 'users.sekolah_id')->where('users.sekolah_id', Auth::user()->sekolah_id)->get();
         }elseif($role == 'guru'){
             $data = User::findOrFail($id);
             $classes = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)->where('tahun_ajaran_id', $tahun_ajaran->id)->get();
@@ -95,33 +96,37 @@ class AgendaController extends Controller
 
         if ($request->role == 'siswa' || $request->role == 'guru') {
             $request->validate([
-                'mapel_id' => 'required',
-                'kelas_id' => 'required'
+                'mapel_id' => 'required'
             ]);
-
+            
             $data = [
                 'mapel_id' => $request->mapel_id,
                 'tahun_ajaran_id' => $tahun_ajaran->id,
                 'hari' => $request->hari,
                 'waktu_pelajaran_id' => $request->waktu_pelajaran_id,
             ];
-
+            
             if ($request->role == 'siswa') {
-                dd('ok');
+                $request->validate(['user_id' => 'required']);
+                $data += [
+                    'user_id' => $request->user_id,
+                    'kelas_id' => $request->id,
+                ];
             }else{
+                $request->validate(['kelas_id' => 'required']);
                 $data += [
                     'user_id' => $request->id,
                     'kelas_id' => $request->kelas_id,
                 ];
             }
 
-            Agenda::create($data);
+            $agenda = Agenda::create($data);
     
-            $agenda = Agenda::where('kelas_id', $request->id)
-                            ->where('user_id', $request->user_id)
+            $agenda_check = Agenda::where('kelas_id', $agenda->kelas_id)
+                            ->where('user_id', $agenda->user_id)
                             ->count();
     
-            if ($agenda == 1) {
+            if ($agenda_check == 1) {
                 AbsensiPelajaran::create([
                     'tahun_ajaran_id' => $tahun_ajaran->id,
                     'kelas_id' => $request->id,
@@ -151,6 +156,7 @@ class AgendaController extends Controller
      */
     public function show($role, $id)
     {
+        $this->check_user($id, $role);
         $agendas = Agenda::get_agenda($id, $role);
         $data = ($role == 'siswa') ? Kelas::findOrFail($id) : User::findOrFail($id);
 
@@ -170,35 +176,19 @@ class AgendaController extends Controller
     public function edit(Request $request, $role, $id)
     {
         $agenda = Agenda::findOrFail($id);
-        $returnData = ['agenda' => $agenda, 'role' => $role];
+        $jam_pelajarans = WaktuPelajaran::where('sekolah_id', \Auth::user()->sekolah_id)->get();
+        $return = ['agenda' => $agenda, 'role' => $role, 'jam_pelajarans' => $jam_pelajarans];
 
         if ($role == 'siswa') {
-            $user_query = User::where('sekolah_id', \Auth::user()->sekolah_id)->get();
-            $gurus = [];
-    
-            foreach ($user_query as $key => $user) {
-                if($user->hasRole('guru')){
-                    $gurus[] = $user;
-                }
-            }
-
-            if (!$agenda->user_id) {
-                $user_query_mapel = User::select('users.*')->join('mapel_user', 'users.id', 'mapel_user.user_id')->where('users.sekolah_id', \Auth::user()->sekolah_id)->where('mapel_user.mapel_id', $agenda->mapel_id)->first();
-
-                if ($user_query_mapel) {
-                    $returnData += ['user_query_mapel' => $user_query_mapel];
-                }
-            }
-            
-            $returnData += ['gurus' => $gurus];
+            $gurus = User::select('users.*')->role('guru')->join('sekolahs', 'sekolahs.id', 'users.sekolah_id')->where('users.sekolah_id', Auth::user()->sekolah_id)->get();
+            $return += ['gurus' => $gurus];
         }elseif($role == 'guru'){
             $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
             $classes = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)->where('tahun_ajaran_id', $tahun_ajaran->id)->get();
-
-            $returnData += ['classes' => $classes];
+            $return += ['classes' => $classes];
         }
 
-        return view('agenda.update', $returnData);
+        return view('agenda.update', $return);
     }
 
     /**
@@ -208,27 +198,26 @@ class AgendaController extends Controller
      * @param  \App\Models\Agenda  $agenda
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAgendaRequest $request, Agenda $agenda)
+    public function update(UpdateAgendaRequest $request, Agenda $agenda, $id)
     {
-        $updateData = [
+        $agenda = Agenda::findOrFail($id);
+        $data = [
             'hari' => $request->hari,
-            'jam_awal' => $request->jam_awal,
-            'jam_akhir' => $request->jam_akhir,
+            'waktu_pelajaran_id' => $request->waktu_pelajaran_id,
         ];
 
         $mapel_old = $agenda->mapel;
 
-        
         if ($request->role == 'siswa') {            
             $absensi_pelajaran = AbsensiPelajaran::where('kelas_id', $agenda->kelas_id)->where('mapel_id', $mapel_old->id)->first();
-            $updateData += ['user_id' => $request->user_id,'mapel_id' => $request->mapel_id];
+            $data += ['user_id' => $request->user_id,'mapel_id' => $request->mapel_id];
         } elseif($request->role == 'guru') {
-            $updateData += ['kelas_id' => $request->kelas_id,'mapel_id' => $request->mapel_id];
+            $data += ['kelas_id' => $request->kelas_id,'mapel_id' => $request->mapel_id];
         }else{
-            $updateData += ['other' => $request->other];
+            $data += ['other' => $request->other];
         }
 
-        $agenda->update($updateData);
+        $agenda->update($data);
         
         if ($request->role == 'siswa') {
             if ($mapel_old->id != $request->mapel_id) {
@@ -244,9 +233,9 @@ class AgendaController extends Controller
         }
 
         if ($request->role == 'siswa') {
-            return TahunAjaran::redirectWithTahunAjaran('/agenda/'. $request->role . '/' . $agenda->kelas_id, $request, 'Jadwal Berhasil Diupdate');
+            return TahunAjaran::redirectWithTahunAjaranManual(route('agenda.show', ['role' => $request->role, 'id' => $agenda->kelas_id]), $request, 'Jadwal Berhasil Diupdate');
         }else{
-            return TahunAjaran::redirectWithTahunAjaran('/agenda/'. $request->role . '/' . $agenda->user_id, $request, 'Jadwal Berhasil Diupdate');
+            return TahunAjaran::redirectWithTahunAjaranManual(route('agenda.show', ['role' => $request->role, 'id' => $agenda->user_id]), $request, 'Jadwal Berhasil Diupdate');
         }
     }
 
@@ -264,8 +253,10 @@ class AgendaController extends Controller
             $agendas = Agenda::where('kelas_id', $agenda->kelas_id)->where('user_id', $agenda->user_id)->where('kelas_id', $agenda->kelas_id)->count();
             if ($agendas-1 < 1) {
                 $absensi_pelajaran = AbsensiPelajaran::where('kelas_id', $agenda->kelas_id)->where('user_id', $agenda->user_id)->where('kelas_id', $agenda->kelas_id)->first();
-                foreach ($absensi_pelajaran->presensi as $key => $presensi) {
-                    $presensi->delete();
+                if (count($absensi_pelajaran->presensi) > 0) {
+                    foreach ($absensi_pelajaran->presensi as $key => $presensi) {
+                        $presensi->delete();
+                    }
                 }
     
                 $absensi_pelajaran->delete();
@@ -275,15 +266,17 @@ class AgendaController extends Controller
         $agenda->delete();
 
         if ($request->role == 'siswa') {
-            return TahunAjaran::redirectWithTahunAjaran('/agenda/'. $request->role . '/' . $agenda->kelas_id, $request, 'Jadwal Berhasil Diupdate');
+            return TahunAjaran::redirectWithTahunAjaranManual(route('agenda.show', ['role' => $request->role, 'id' => $agenda->kelas_id]), $request, 'Jadwal Berhasil Dihapus');
         }else{
-            return TahunAjaran::redirectWithTahunAjaran('/agenda/'. $request->role . '/' . $agenda->user_id, $request, 'Jadwal Berhasil Diupdate');
+            return TahunAjaran::redirectWithTahunAjaranManual(route('agenda.show', ['role' => $request->role, 'id' => $agenda->user_id]), $request, 'Jadwal Berhasil Dihapus');
         }
     }
 
     public function get_mapel($id){
         $user = User::findOrFail($id);
-        return $user->mapel;
+        return response()->json([
+            'data' => $user->mapel
+        ], 200);
     }
 
     public function show_guru(Request $request){

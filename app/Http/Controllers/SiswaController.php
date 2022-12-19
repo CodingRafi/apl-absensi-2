@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Carbon\Carbon;
 use App\Models\Siswa;
 use App\Models\Rfid;
@@ -9,10 +10,12 @@ use App\Models\Kelas;
 use App\Models\ref_agama;
 use App\Models\Kompetensi;
 use App\Models\TahunAjaran;
+use App\Exports\SiswaExport;
 use App\Models\JedaPresensi;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Rap2hpoutre\FastExcel\FastExcel;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreSiswaRequest;
 use App\Http\Requests\UpdateSiswaRequest;
@@ -50,8 +53,8 @@ class SiswaController extends Controller
                         ->get();
                         
         $kelas_filter = Kelas::when($tahun_ajaran, function ($q) use ($tahun_ajaran) {
-            return $q->where('tahun_ajaran_id', $tahun_ajaran->id)->get();
-        });
+            return $q->where('tahun_ajaran_id', $tahun_ajaran->id);
+        })->where('kelas.sekolah_id', Auth::user()->sekolah_id)->get();
 
         return view('siswa.index',[
             'siswas' => $siswas,
@@ -100,6 +103,8 @@ class SiswaController extends Controller
             'jalan' => $request->jalan,
             'kelurahan' => $request->kelurahan,
             'kecamatan' => $request->kecamatan,
+            'kota_kab' => $request->kota_kab,
+            'provinsi' => $request->provinsi,
             'sekolah_id' => \Auth::user()->sekolah_id,
         ];
 
@@ -150,11 +155,13 @@ class SiswaController extends Controller
             $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
             $classes = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)->where('tahun_ajaran_id', $tahun_ajaran->id)->get();
             $kompetensis = Kompetensi::where('sekolah_id', \Auth::user()->sekolah_id)->get();
+            $agamas = ref_agama::all();
     
             return view('siswa.update', [
                 'classes' => $classes,
                 'kompetensis' => $kompetensis,
-                'siswa' => $siswa
+                'siswa' => $siswa,
+                'agamas' => $agamas,
             ]);
         }else{
             abort(403);
@@ -170,31 +177,33 @@ class SiswaController extends Controller
      */
     public function update(Request $request, Siswa $siswa)
     {
-        $request->validate([
-            'name' => 'required',
-            'nisn' => ['required', Rule::unique('siswas')->ignore($siswa->id)],
-            'nipd' => ['required', Rule::unique('siswas')->ignore($siswa->id)],
-            'nik' => ['required', Rule::unique('siswas')->ignore($siswa->id)],
-            'jk' => 'required',
-            'tempat_lahir' => 'required',
-            'tanggal_lahir' => 'required',
-            'kelas_id' => 'required',
-            'agama' => 'required',
-            'jalan' => 'required',
-            'kelurahan' => 'required',
-            'kecamatan' => 'required',
-            'profil' => 'mimes:png,jpg,jpeg|max:5024',
-            'email' => [Rule::unique('siswas')->ignore($siswa->id), Rule::unique('users')]
-        ]);
-
-        $rfid = $siswa->rfid;
-        if ($rfid) {
-            $request->validate([
-                'rfid_number' => [Rule::unique('rfids')->ignore($rfid->id)],
-            ]);
-        }
-
         if ($siswa->sekolah_id == \Auth::user()->sekolah_id) {
+            $request->validate([
+                'name' => 'required',
+                'nisn' => ['required', Rule::unique('siswas')->ignore($siswa->id)],
+                'nipd' => ['required', Rule::unique('siswas')->ignore($siswa->id)],
+                'nik' => ['required', Rule::unique('siswas')->ignore($siswa->id)],
+                'jk' => 'required',
+                'tempat_lahir' => 'required',
+                'tanggal_lahir' => 'required',
+                'kelas_id' => 'required',
+                'ref_agama_id' => 'required',
+                'jalan' => 'required',
+                'kelurahan' => 'required',
+                'kecamatan' => 'required',
+                'kota_kab' => 'required',
+                'provinsi' => 'required',
+                'profil' => 'mimes:png,jpg,jpeg|max:5024',
+                'email' => [Rule::unique('siswas')->ignore($siswa->id), Rule::unique('users')]
+            ]);
+    
+            $rfid = $siswa->rfid;
+            if ($rfid) {
+                $request->validate([
+                    'rfid_number' => [Rule::unique('rfids')->ignore($rfid->id)],
+                ]);
+            }
+
             $data = [
                 'name' => $request->name,
                 'nisn' => $request->nisn,
@@ -208,6 +217,8 @@ class SiswaController extends Controller
                 'jalan' => $request->jalan,
                 'kelurahan' => $request->kelurahan,
                 'kecamatan' => $request->kecamatan,
+                'kota_kab' => $request->kota_kab,
+                'provinsi' => $request->provinsi,
             ];
 
             if ($request->email) {
@@ -299,6 +310,8 @@ class SiswaController extends Controller
                             'jalan' => $siswa['jalan'],
                             'kelurahan' => $siswa['kelurahan'],
                             'kecamatan' => $siswa['kecamatan'],
+                            'kota_kab' => $siswa['kota_kab'],
+                            'provinsi' => $siswa['provinsi'],
                             'sekolah_id' => \Auth::user()->sekolah_id,
                             'kelas_id' => $request->kelas_id,
                         ];
@@ -326,13 +339,7 @@ class SiswaController extends Controller
 
     public function export(Request $request){
         $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
-
-        if (\Auth::user()->sekolah->tingkat == 'smk') {
-            $siswas = Siswa::filter(request(['idk', 'idj', 'search']))->select('siswas.name', 'siswas.nisn', 'siswas.nipd', 'kelas.nama as Kelas', 'kompetensis.kompetensi as Jurusan', 'siswas.jk', 'siswas.tempat_lahir', 'siswas.tanggal_lahir', 'siswas.nik', 'siswas.agama', 'siswas.jalan', 'siswas.kelurahan', 'siswas.kecamatan', 'rfids.rfid_number', 'rfids.status as status_rfid', 'siswas.email')->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')->leftJoin('rfids', 'rfids.siswa_id', 'siswas.id')->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->get();
-        }else{
-            $siswas = Siswa::filter(request(['idk', 'idj', 'search']))->select('siswas.name', 'siswas.nisn', 'siswas.nipd', 'kelas.nama as Kelas', 'siswas.jk', 'siswas.tempat_lahir', 'siswas.tanggal_lahir', 'siswas.nik', 'siswas.agama', 'siswas.email', 'siswas.jalan', 'siswas.kelurahan', 'siswas.kecamatan', 'rfids.rfid_number', 'rfids.status as status_rfid')->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')->leftJoin('rfids', 'rfids.siswa_id', 'siswas.id')->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->get();
-        }
-
-        return (new FastExcel($siswas))->download('file.xlsx');
+        
+        return Excel::download(new SiswaExport($tahun_ajaran, Auth::user()->sekolah->tingkat), 'siswa.xlsx');
     }
 }

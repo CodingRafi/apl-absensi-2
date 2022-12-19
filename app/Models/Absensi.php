@@ -47,8 +47,6 @@ class Absensi extends Model
                 $absensis[] = [];
             }
         }
-
-        // dd($absensis);
         return $absensis;
     }
 }

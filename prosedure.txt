@@ -1,0 +1,24 @@
+CREATE PROCEDURE delete_siswa(IN id INT, IN id_sekolah INT) 
+BEGIN
+
+IF (SELECT sekolahs.id FROM sekolahs INNER JOIN siswas ON siswas.sekolah_id = sekolahs.id WHERE siswas.id = id) = id_sekolah THEN
+	IF EXISTS(SELECT * FROM rfids WHERE rfids.user_id = id) 
+    THEN
+    	DELETE FROM rfids WHERE id = (SELECT * FROM rfids WHERE rfids.user_id = id);
+    END IF;
+    
+    loop_absensi: LOOP
+     	SELECT 'oke';
+    END LOOP loop_absensi;
+    
+END IF;
+
+END$$
+
+
+
+
+
+
+
+DROP TRIGGER IF EXISTS `delete_agama`;CREATE DEFINER=`root`@`localhost` TRIGGER `delete_agama` BEFORE DELETE ON `ref_agamas` FOR EACH ROW UPDATE users SET `ref_agama_id` = null WHERE users.ref_agama_id = (SELECT deleted.id FROM deleted)

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Models\Absensi;
+use App\Models\StatusKehadiran;
 use App\Models\User;
 use App\Models\TahunAjaran;
 use App\Models\Kelas;
@@ -35,35 +37,36 @@ class AbsensiController extends Controller
      */
     public function index(Request $request, $role)
     {
+        //! date 
         $now = Carbon::now();
         $month = request('idb') ?? $now->month;
         $year = $now->year;
         $date=[];
-        
         for($d=0; $d<=32; $d++)
         {
-            $time=mktime(24, 0, 0, $month, $d, $year);  
-            if (date('m', $time)==$month)       
-            $date[]=date('Y-m-d', $time);
-            // $date[]=date('Y-m-d-D', $time);
+            $time=mktime(24, 0, 0, $month, $d, $year);
+            $date[] = date('Y-m-d', $time);
         }
 
+        //! Absensi 
         $absensis = [];
+        $status_kehadiran = StatusKehadiran::all();
         
         if($role == 'siswa'){
             $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
-            if($tahun_ajaran){
-            $kelas_filter = Kelas::where('tahun_ajaran_id', $tahun_ajaran->id)->get();
+            $kelas_filter = Kelas::where('tahun_ajaran_id', $tahun_ajaran->id)->where('sekolah_id', Auth::user()->sekolah_id)->get();
             $kompetensis = Kompetensi::where('sekolah_id', \Auth::user()->sekolah_id)->get();
-            $siswas = Siswa::filter(request(['idk', 'idj', 'search']))->select('siswas.*', 'kelas.nama as kelas', 'kompetensis.kompetensi as jurusan')->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->get();
+            $siswas = Siswa::filter(request(['idk', 'idj', 'search']))
+                            ->select('siswas.*', 'kelas.nama as kelas', 'kompetensis.kompetensi as jurusan')
+                            ->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')
+                            ->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')
+                            ->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')
+                            ->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)
+                            ->where('kelas.sekolah_id', Auth::user()->sekolah_id)
+                            ->get();
+
             foreach ($siswas as $key => $siswa) {
                 $absensis[] = Absensi::get_absensi($siswa, $date, $role);
-            }
-            }else{
-                $kelas_filter = [];
-                $kompetensis = [];
-                $absensis = [];
-                $siswas = [];
             }
             
             return view('absensi', [
@@ -72,18 +75,11 @@ class AbsensiController extends Controller
                 'kompetensis' => $kompetensis,
                 'kelas_filter' => $kelas_filter,
                 'absensis' => $absensis,
-                'siswas' => $siswas
+                'siswas' => $siswas,
+                'status_kehadiran' => $status_kehadiran,
             ]);
         }else{
-            $users_query = User::filter(request(['search']))->where('sekolah_id', \Auth::user()->sekolah_id)->get();
-            $users = [];
-    
-            foreach ($users_query as $key => $user) {
-                if($user->hasRole($role)){
-                    $users[] = $user;
-                }
-            }
-
+            $users = User::role($role)->where('sekolah_id', \Auth::user()->sekolah->id)->get();
             foreach ($users as $key => $user) {
                 $absensis[] = Absensi::get_absensi($user, $date, $role);
             }
@@ -92,7 +88,8 @@ class AbsensiController extends Controller
                 'role' => $role,
                 'date' => $date,
                 'users' => $users,
-                'absensis' => $absensis
+                'absensis' => $absensis,
+                'status_kehadiran' => $status_kehadiran,
             ]);
         }
     }
@@ -104,7 +101,7 @@ class AbsensiController extends Controller
      */
     public function create()
     {
-        //
+        abort(404);
     }
 
     /**
