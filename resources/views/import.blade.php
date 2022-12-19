@@ -4,7 +4,7 @@
 <div class="card">
     <div class="card-body">
         <h4 style="display: inline">Import</h4>
-        <form action="/siswa" method="get" style="display: inline">
+        <form action="{{ route('users.siswa.index') }}" method="get" style="display: inline">
             @if (request('tahun_awal'))
             <input type="hidden" name="tahun_awal" value="{{ request('tahun_awal') }}">
             @endif

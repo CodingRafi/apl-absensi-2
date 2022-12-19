@@ -19,7 +19,8 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained();
             $table->foreignId('siswa_id')->nullable()->constrained();
             $table->foreignId('kelas_id')->nullable()->constrained();
-            $table->enum('kehadiran', ['hadir', 'sakit', 'izin', 'alpha']);
+            $table->foreignId('status_kehadiran_id')->nullable()->constrained();
+            $table->foreignId('tahun_ajaran_id')->constrained();
             $table->timestamp('presensi_masuk')->nullable();
             $table->timestamp('presensi_pulang')->nullable();
             $table->timestamps();

@@ -4,11 +4,11 @@
 <div class="card">
   <div class="card-body">
     <h4 class="card-title float-left">Update Data Siswa</h4>
-    <form action="/siswa" method="get">
+    <form action="{{ route('users.siswa.index') }}" method="get">
       @include('mypartials.tahunajaran')
       <button class="btn btn-sm btn-danger float-right text-white" type="submit" style="border-radius: 5px;font-weight: 500;">Kembali</button>
     </form>
-    <form class="mt-5" action="/siswa/{{ $siswa->id }}" method="POST" enctype="multipart/form-data">
+    <form class="mt-5" action="{{ route('users.siswa.update', [$siswa->id]) }}" method="POST" enctype="multipart/form-data">
       @csrf
       @method('patch')
       @include('mypartials.tahunajaran')
@@ -87,12 +87,17 @@
           @enderror
       </div>
       <div class="mb-3">
-        <label for="agama" class="form-label">Agama</label>
-        <input type="text" class="form-control @error('agama') is-invalid @enderror" placeholder="Masukan Agama" name="agama" id="agama" value="{{ $siswa->agama, old('agama') }}" style=" font-size: 15px; height: 6.5vh;">
-        @error('agama')
-        <div class="invalid-feedback">
-          {{ $message }}
-        </div>
+        <label for="agama_id" class="form-label">Agama</label>
+        <select class="form-select @error('agama_id') is-invalid @enderror" id="agama_id" name="ref_agama_id" style=" font-size: 15px; height: 6.5vh;" required>
+          <option value="">Pilih Agama</option>
+          @foreach ($agamas as $agama)
+          <option value="{{ $agama->id }}" selected {{ $siswa->agama_id, old('agama_id') == $agama->id ? 'selected' : '' }}>{{ $agama->nama }}</option>
+          @endforeach
+        </select>
+        @error('agama_id')
+          <div class="invalid-feedback">
+            {{ $message }}
+          </div>
         @enderror
       </div>
       <div class="mb-3">
@@ -165,6 +170,24 @@
         <label for="kecamatan" class="form-label">Kecamatan</label>
         <input type="text" class="form-control @error('kecamatan') is-invalid @enderror" placeholder="Masukan Kecamatan" name="kecamatan" id="kecamatan" value="{{ $siswa->kecamatan, old('kecamatan') }}" style=" font-size: 15px; height: 6.5vh;">
         @error('kecamatan')
+        <div class="invalid-feedback">
+          {{ $message }}
+        </div>
+        @enderror
+      </div>
+      <div class="mb-3">
+        <label for="kota_kab" class="form-label">Kota/Kabupaten</label>
+        <input type="text" class="form-control @error('kota_kab') is-invalid @enderror" placeholder="Masukan kota_kab" name="kota_kab" id="kota_kab" value="{{ $siswa->kota_kab, old('kota_kab') }}" style=" font-size: 15px; height: 6.5vh;">
+        @error('kota_kab')
+        <div class="invalid-feedback">
+          {{ $message }}
+        </div>
+        @enderror
+      </div>
+      <div class="mb-3">
+        <label for="provinsi" class="form-label">Provinsi</label>
+        <input type="text" class="form-control @error('provinsi') is-invalid @enderror" placeholder="Masukan provinsi" name="provinsi" id="provinsi" value="{{ $siswa->provinsi, old('provinsi') }}" style=" font-size: 15px; height: 6.5vh;">
+        @error('provinsi')
         <div class="invalid-feedback">
           {{ $message }}
         </div>

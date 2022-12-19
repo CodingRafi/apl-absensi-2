@@ -81,6 +81,8 @@ Route::group(['middleware' => ['auth:web,websiswa']], function() {
         Route::get('create/{role}/{id}', [AgendaController::class, 'create'])->name('create');
         Route::post('/', [AgendaController::class, 'store'])->name('store');
         Route::get('{role}/{id}/edit', [AgendaController::class, 'edit'])->name('edit');
+        Route::patch('/{id}', [AgendaController::class, 'update'])->name('update');
+        Route::delete('/{id}', [AgendaController::class, 'destroy'])->name('destroy');
     });
     // Route::get('/create-agenda', [AgendaController::class, 'create']);
     // Route::resource('agenda', AgendaController::class);

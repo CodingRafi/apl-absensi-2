@@ -23,7 +23,8 @@
                         <tr>
                             <th scope="col" rowspan="2" style="vertical-align: middle;">Jam Ke</th>
                             <th scope="col" rowspan="2" style="vertical-align: middle;">Waktu</th>
-                            <th scope="col" rowspan="2" style="vertical-align: middle;">kegiatan</th>
+                            <th scope="col" rowspan="2" style="vertical-align: middle;">Kegiatan</th>
+                            <th scope="col" rowspan="2" style="vertical-align: middle;">Option</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,6 +33,14 @@
                             <th class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;">{{ $agenda->waktu_pelajaran->jam_ke }}</th>
                             <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;">{{ date('H.i', strtotime($agenda->waktu_pelajaran->jam_awal)) }} - {{ date('H.i', strtotime($agenda->waktu_pelajaran->jam_akhir)) }}</td>
                             <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;">{{ ($role != 'siswa' && $role != 'guru') ? $agenda->other : (($role == 'guru') ? ($agenda->mapel->nama . ' (' . $agenda->kelas->nama . ')') : ($agenda->mapel->nama . ' (' . $agenda->user->name . ')')) }}</td>
+                            <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;">
+                                <a href="{{ route('agenda.edit', ['role' => $role, 'id' => $agenda->id]) }}">Edit</a>
+                                @push('other_delete')
+                                    <input type="hidden" name="role" value="{{ $role }}">
+                                @endpush
+                                <button type="submit" class="btn btn-sm btn-danger"
+                                onclick="deleteData('{{ route('agenda.destroy', [$agenda->id]) }}')" style="width: 5rem; margin: 0.1rem; border-radius: 5px; font-weight: 500;">Hapus</button>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

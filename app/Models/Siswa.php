@@ -117,10 +117,10 @@ class Siswa extends Authenticatable
         $siswa = Siswa::findOrFail($id);
         if ($siswa->sekolah_id == \Auth::user()->sekolah->id) {
             if ($siswa->rfid) {
-                $siswa->rfid->delete();
+                $siswa->rfid->delete(); 
             }
             foreach ($siswa->absensi as $key => $absensi) {
-                $absensi->delete();
+                $absensi->delete(); 
             }
             $siswa->delete();
         }else{

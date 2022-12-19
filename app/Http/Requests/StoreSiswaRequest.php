@@ -38,6 +38,8 @@ class StoreSiswaRequest extends FormRequest
             'jalan' => 'required',
             'kelurahan' => 'required',
             'kecamatan' => 'required',
+            'kota_kab' => 'required',
+            'provinsi' => 'required',
             'profil' => 'mimes:png,jpg,jpeg|max:5024',
             'rfid_number' => 'unique:rfids'
         ];

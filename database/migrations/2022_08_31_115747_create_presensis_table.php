@@ -17,9 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('absensi_pelajaran_id')->constrained();
             $table->foreignId('siswa_id')->constrained();
-            $table->foreignId('absensi_id')->constrained();
-            $table->date('tgl_kehadiran');
-            $table->enum('kehadiran', ['hadir', 'sakit', 'izin', 'alpha']);
+            $table->foreignId('status_kehadiran_id')->nullable()->constrained();
+            $table->timestamp('presensi_masuk')->nullable();
             $table->timestamps();
         });
     }

@@ -29,8 +29,10 @@ return new class extends Migration
             $table->string('nik');
             $table->foreignId('ref_agama_id')->contrained();
             $table->string('jalan');
-            $table->string('kelurahan');
             $table->string('kecamatan');
+            $table->string('kelurahan');
+            $table->string('kota_kab');
+            $table->string('provinsi');
             $table->foreignId('sekolah_id')->constrained();
             $table->timestamps();
         });

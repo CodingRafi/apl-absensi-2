@@ -346,11 +346,6 @@
                             <td rowspan="2" style="vertical-align: middle;">{{ $users[$key]->name }}</td>
                             @endif
                             @foreach ($absensi as $k => $sigleAbsensi)
-                            {{-- @dd($sigleAbsensi) --}}
-                            {{-- @dd($sigleAbsensi['presensi_pulang']) --}} 
-                            {{-- @dd(explode('-', $date[0])) --}}
-                            {{-- @dd(date("D", mktime(0, 0, 0, explode('-', $date[0])[1], $k, explode('-', $date[0])[0]))) --}}
-                            {{-- @dd($absensi) --}}
                                 @if ($sigleAbsensi)
                                     @if ($sigleAbsensi->kehadiran == 'hadir')
                                         <td class="bg-success text-white cell-table" data-toggle="modal"

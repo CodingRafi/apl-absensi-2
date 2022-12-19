@@ -28,6 +28,8 @@ return new class extends Migration
             $table->string('jalan')->nullable();
             $table->string('kelurahan')->nullable();
             $table->string('kecamatan')->nullable();
+            $table->string('kota_kab')->nullable();
+            $table->string('provinsi')->nullable();
             $table->foreignId('sekolah_id')->nullable();
             $table->rememberToken();
             $table->timestamps();

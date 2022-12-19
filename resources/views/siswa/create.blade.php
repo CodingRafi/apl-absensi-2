@@ -6,7 +6,8 @@
     <h4 class="card-title float-left">Create Data Siswa</h4>
     <form action="{{ route('users.siswa.index') }}" method="get">
       @include('mypartials.tahunajaran')
-      <button class="btn btn-sm btn-danger float-right text-white" type="submit" style="border-radius: 5px;font-weight: 500;">Kembali</button>
+      <button class="btn btn-sm btn-danger float-right text-white" type="submit"
+        style="border-radius: 5px;font-weight: 500;">Kembali</button>
     </form>
     <form class="mt-5" action="{{ route('users.siswa.store') }}" method="POST" enctype="multipart/form-data">
       @csrf
@@ -22,7 +23,7 @@
         @enderror
       </div>
       <div class="mb-3">
-        <label for="nipd" class="form-label">NIPD</label> 
+        <label for="nipd" class="form-label">NIPD</label>
         <input type="number" class="form-control @error('nipd') is-invalid @enderror" placeholder="Masukan NIPD"
           name="nipd" id="nipd" value="{{ old('nipd') }}" style=" font-size: 15px; height: 6.5vh;" required>
         @error('nipd')
@@ -64,7 +65,8 @@
       </div>
       <div class="mb-3">
         <label for="agama_id" class="form-label">Agama</label>
-        <select class="form-select @error('agama_id') is-invalid @enderror" id="agama_id" name="ref_agama_id" style=" font-size: 15px; height: 6.5vh;" required>
+        <select class="form-select @error('agama_id') is-invalid @enderror" id="agama_id" name="ref_agama_id"
+          style=" font-size: 15px; height: 6.5vh;" required>
           <option value="">Pilih Agama</option>
           @foreach ($agamas as $agama)
           @if (old('ref_agama_id') == $agama->id)
@@ -75,14 +77,15 @@
           @endforeach
         </select>
         @error('agama_id')
-          <div class="invalid-feedback">
-            {{ $message }}
-          </div>
+        <div class="invalid-feedback">
+          {{ $message }}
+        </div>
         @enderror
       </div>
       <div class="mb-3">
         <label for="jk" class="form-label">Jenis Kelamin</label>
-        <select class="form-select @error('jk') is-invalid @enderror" aria-label="Default select example" name="jk" id="jk" style=" font-size: 15px; height: 6.5vh;" required>
+        <select class="form-select @error('jk') is-invalid @enderror" aria-label="Default select example" name="jk"
+          id="jk" style=" font-size: 15px; height: 6.5vh;" required>
           <option value="L">Laki-laki</option>
           <option value="P">Perempuan</option>
         </select>
@@ -135,7 +138,8 @@
       <div class="mb-3">
         <label for="kelurahan" class="form-label">Kelurahan</label>
         <input type="text" class="form-control @error('kelurahan') is-invalid @enderror" placeholder="Masukan Kelurahan"
-          name="kelurahan" id="kelurahan" value="{{ old('kelurahan') }}" style=" font-size: 15px; height: 6.5vh;" required>
+          name="kelurahan" id="kelurahan" value="{{ old('kelurahan') }}" style=" font-size: 15px; height: 6.5vh;"
+          required>
         @error('kelurahan')
         <div class="invalid-feedback">
           {{ $message }}
@@ -145,8 +149,31 @@
       <div class="mb-3">
         <label for="kecamatan" class="form-label">Kecamatan</label>
         <input type="text" class="form-control @error('kecamatan') is-invalid @enderror" placeholder="Masukan Kecamatan"
-          name="kecamatan" id="kecamatan" value="{{ old('kecamatan') }}" style=" font-size: 15px; height: 6.5vh;" required>
+          name="kecamatan" id="kecamatan" value="{{ old('kecamatan') }}" style=" font-size: 15px; height: 6.5vh;"
+          required>
         @error('kecamatan')
+        <div class="invalid-feedback">
+          {{ $message }}
+        </div>
+        @enderror
+      </div>
+      <div class="mb-3">
+        <label for="kota_kab" class="form-label">Kota/Kabupaten</label>
+        <input type="text" class="form-control @error('kota_kab') is-invalid @enderror" placeholder="Masukan kota_kab"
+          name="kota_kab" id="kota_kab" value="{{ old('kota_kab') }}" style=" font-size: 15px; height: 6.5vh;"
+          required>
+        @error('kota_kab')
+        <div class="invalid-feedback">
+          {{ $message }}
+        </div>
+        @enderror
+      </div>
+      <div class="mb-3">
+        <label for="provinsi" class="form-label">Provinsi</label>
+        <input type="text" class="form-control @error('provinsi') is-invalid @enderror" placeholder="Masukan provinsi"
+          name="provinsi" id="provinsi" value="{{ old('provinsi') }}" style=" font-size: 15px; height: 6.5vh;"
+          required>
+        @error('provinsi')
         <div class="invalid-feedback">
           {{ $message }}
         </div>
@@ -164,7 +191,8 @@
       </div>
       <div class="mb-3">
         <label for="password" class="form-label">Password</label>
-        <input type="text" class="form-control" value="*123456*" name="password" id="password" style=" font-size: 15px; height: 6.5vh;" disabled>
+        <input type="text" class="form-control" value="*123456*" name="password" id="password"
+          style=" font-size: 15px; height: 6.5vh;" disabled>
       </div>
       <div class="mb-3">
         <label for="tempat_lahir" class="form-label">Tempat Lahir</label>

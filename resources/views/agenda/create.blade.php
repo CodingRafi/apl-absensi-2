@@ -38,7 +38,8 @@
             </div>
             <div class="mb-3 div-mapel" style="display: none;">
                 <label for="mapel" class="form-label">Mata Pelajaran</label>
-                <select class="form-select select-mapel @error('mapel_id') is-invalid @enderror" name="mapel_id" style=" font-size: 15px; height: 6.5vh;" id="mapel">
+                <select class="form-select select-mapel @error('mapel_id') is-invalid @enderror" name="mapel_id"
+                    style=" font-size: 15px; height: 6.5vh;" id="mapel">
                     <option value="">Pilih Mapel</option>
                 </select>
                 @error('mapel_id')
@@ -48,11 +49,12 @@
                 @enderror
             </div>
             @endif
-            
+
             @if ($role == 'guru')
             <div class="mb-3 div-mapel">
                 <label for="mapel" class="form-label">Mata Pelajaran</label>
-                <select class="form-select select-mapel @error('mapel_id') is-invalid @enderror" name="mapel_id" style=" font-size: 15px; height: 6.5vh;" id="mapel">
+                <select class="form-select select-mapel @error('mapel_id') is-invalid @enderror" name="mapel_id"
+                    style=" font-size: 15px; height: 6.5vh;" id="mapel">
                     <option value="">Pilih Mapel</option>
                     @foreach ($data->mapel as $mapel)
                     <option value="{{ $mapel->id }}">{{ $mapel->nama }}</option>
@@ -88,12 +90,9 @@
                 <select class="form-select @error('hari') is-invalid @enderror" name="hari" value="{{ old('hari') }}"
                     style=" font-size: 15px; height: 6.5vh;" id="hari">
                     <option value="">Pilih Hari</option>
-                    <option value="senin">Senin</option>
-                    <option value="selasa">Selasa</option>
-                    <option value="rabu">Rabu</option>
-                    <option value="kamis">Kamis</option>
-                    <option value="jumat">Jumat</option>
-                    <option value="sabtu">Sabtu</option>
+                    @foreach (config('services.hari.value') as $hari)
+                    <option value="{{ $hari }}">{{ $hari }}</option>
+                    @endforeach
                 </select>
                 @error('hari')
                 <div class="invalid-feedback">
@@ -104,15 +103,14 @@
 
             <div class="mb-3">
                 <label for="waktu_pelajaran" class="form-label">Jam Pelajaran</label>
-                <select class="form-select select-guru @error('waktu_pelajaran_id') is-invalid @enderror"
+                <select class="form-select @error('waktu_pelajaran_id') is-invalid @enderror"
                     name="waktu_pelajaran_id" value="{{ old('waktu_pelajaran_id') }}"
                     style=" font-size: 15px; height: 6.5vh;" id="waktu_pelajaran">
                     <option value="">Pilih Jam Pelajaran</option>
-                    @if ($jam_pelajarans)
                     @foreach ($jam_pelajarans as $jam)
-                    <option value="{{ $jam->id }}">({{ $jam->jam_ke }}) {{ $jam->jam_awal }} - {{ $jam->jam_akhir }}</option>
+                    <option value="{{ $jam->id }}">({{ $jam->jam_ke }}) {{ $jam->jam_awal }} - {{ $jam->jam_akhir }}
+                    </option>
                     @endforeach
-                    @endif
                 </select>
                 @error('waktu_pelajaran_id')
                 <div class="invalid-feedback">
@@ -138,25 +136,19 @@
 @if ($role == 'siswa')
 @section('tambahjs')
 <script>
-    const selectGuru = document.querySelector('.select-guru');
-        selectGuru.addEventListener('change', function(e){
-            if (e.target.value != '') {
-                $.ajax('/get-mapel/' + e.target.value,  
-                    {
-                        success: function (data, status, xhr) {
-                            document.querySelector('.div-mapel').style.display = 'block';
-                            const select_mapel = document.querySelector('.select-mapel');
-                            select_mapel.innerHTML = '';
-        
-                            data.forEach(e => {
-                                select_mapel.innerHTML += `<option value="${e.id}">${e.nama}</option>`
-                            });
-                    }
+    $('.select-guru').on('change', function(e){
+        if (e.target.value != '') {
+            $.get('/get-mapel/' + e.target.value, function(response){
+                $('.div-mapel').css('display', 'block');
+                $('.select-mapel').empty();
+                response.data.forEach(e => {
+                    $('.select-mapel').append(`<option value="${e.id}">${e.nama}</option>`)
                 });
-            }else{
-                document.querySelector('.div-mapel').style.display = 'none';
-            }
-        })
+            })
+        }else{
+            $('.div-mapel').css('display', 'none');
+        }
+    })
 </script>
 @endsection
 @endif
