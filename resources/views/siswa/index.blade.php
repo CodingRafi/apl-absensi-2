@@ -193,12 +193,8 @@
                             </form>
                             @endif
                             @if (auth()->user()->can('delete_siswa'))
-                            <form action="{{ route('users.siswa.destroy', [$student->id]) }}" method="post">
-                                @csrf
-                                @method('delete')
-                                @include('mypartials.tahunajaran')
-                                <button type="submit" class="btn btn-sm btn-danger" style="width: 5rem; margin: 0.1rem;border-radius: 5px; font-weight: 500;" onclick="return confirm('apakah anda yakin ingin menghapus user ini?')">Hapus</button>
-                            </form>
+                            <button type="submit" class="btn btn-sm btn-danger"
+                                onclick="deleteData('{{ route('users.siswa.destroy', [$student->id]) }}')" style="width: 5rem; margin: 0.1rem; border-radius: 5px; font-weight: 500;">Hapus</button>
                             @endif
                         </td>
                         @endif

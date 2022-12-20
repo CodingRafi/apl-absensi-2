@@ -42,13 +42,12 @@
                 </button>
                 <ul class="dropdown-menu ml-1" aria-labelledby="dropdownMenuButton1">
                     @foreach ($tahun_ajarans as $tahun_ajaran)
-                    <li class="
-                    ">
+                    <li>
                         <form action="" method="get">
                             <input type="hidden" name="tahun_awal" value="{{ $tahun_ajaran->tahun_awal }}">
                             <input type="hidden" name="tahun_akhir" value="{{ $tahun_ajaran->tahun_akhir }}">
                             <input type="hidden" name="semester" value="{{ $tahun_ajaran->semester }}">
-                            <button type="submit" class="dropdown-item">{{ $tahun_ajaran->tahun_awal }}/{{ $tahun_ajaran->tahun_akhir }} Semester {{ $tahun_ajaran->semester }}</button>
+                            <button type="submit" class="dropdown-item text-dark">{{ $tahun_ajaran->tahun_awal }}/{{ $tahun_ajaran->tahun_akhir }} Semester {{ $tahun_ajaran->semester }}</button>
                         </form>
                     </li>
                     @endforeach
