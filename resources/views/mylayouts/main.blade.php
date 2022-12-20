@@ -181,7 +181,7 @@
               confirmButtonColor: '#3085d6',
               cancelButtonColor: '#d33',
               confirmButtonText: 'Hapus',
-              cancelButtonText: 'Kembali'
+              cancelButtonText: 'Batal'
 
           }).then((result) => {
               if (result.isConfirmed) {

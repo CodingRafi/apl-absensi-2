@@ -99,7 +99,7 @@
       </div>
       <div class="mb-3">
         <label for="agama_id" class="form-label">Agama</label>
-        <select class="form-control @error('agama_id') is-invalid @enderror" id="agama_id" name="ref_agama_id" value="{{ old('agama_id') }}" style=" font-size: 15px; height: 6.5vh;" required>
+        <select class="form-select @error('agama_id') is-invalid @enderror" id="agama_id" name="ref_agama_id" value="{{ old('agama_id') }}" style=" font-size: 15px; height: 6.5vh;" required>
           <option value="">Pilih Agama</option>
           @foreach ($agamas as $agama)
           <option value="{{ $agama->id }}">{{ $agama->nama }}</option>
@@ -113,7 +113,7 @@
       </div>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Jenis Kelamin</label>
-        <select class="form-control @error('jk') is-invalid @enderror" aria-label="Default select example" name="jk" value="{{ old('jk') }}" style=" font-size: 15px; height: 6.5vh;" required>
+        <select class="form-select @error('jk') is-invalid @enderror" aria-label="Default select example" name="jk" value="{{ old('jk') }}" style=" font-size: 15px; height: 6.5vh;" required>
           <option value="L">Laki-laki</option>
           <option value="P">Perempuan</option>
         </select>

@@ -29,10 +29,10 @@
                     </div>
                 </div>
                 <div class="container" style="height: 65vh;overflow: auto;">
-                    <div id="accordionIcon" class="accordion mt-3 accordion-without-arrow">
+                    <div id="accordionIcon" class="accordion accordion-flush mt-3 accordion-without-arrow">
                         @foreach ($roles as $key => $role)
                             @if ($role->name != 'super_admin')
-                            <div class="accordion-item card mb-3">
+                            <div class="accordion-item">
                                 <h2 class="accordion-header text-body d-flex justify-content-between" id="accordionIconOne">
                                     <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
                                         data-bs-target="#accordionIcon-{{ $loop->iteration }}"
@@ -47,7 +47,7 @@
                                         <div class="container-fluid">
                                             <div class="row">
                                                 <div class="col-md-10">
-                                                    <h5 class="card-header ps-0">Hak akses untuk role {{ $role->name }}</h5>
+                                                    <h5 class="card-title ps-0">Hak akses untuk role {{ $role->name }}</h5>
                                                 </div>
                                                 <div class="col-md-2">
                                                     @can('edit_roles')
