@@ -17,16 +17,6 @@
             min-height: 10rem !important;
         }
 
-        /* .fstAll {
-            display: none !important;
-        } */
-
-        /* .fstsearch{
-          border: 1px solid rgb(205, 205, 205);
-          margin: 0.5rem;
-          width: 54rem;
-        } */
-
         .nama-koleksi {
             font-size: 16px;
         }
@@ -148,6 +138,15 @@
         @enderror
       </div>
       <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Kecamatan</label>
+        <input type="text" class="form-control @error('kecamatan') is-invalid @enderror" placeholder="Masukan Kecamatan" name="kecamatan" value="{{ old('kecamatan') }}" style=" font-size: 15px; height: 6.5vh;" required>
+        @error('kecamatan')
+          <div class="invalid-feedback">
+            {{ $message }}
+          </div>
+        @enderror
+      </div>
+      <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Kelurahan</label>
         <input type="text" class="form-control @error('kelurahan') is-invalid @enderror" placeholder="Masukan Kelurahan" name="kelurahan" value="{{ old('kelurahan') }}" style=" font-size: 15px; height: 6.5vh;" required>
         @error('kelurahan')
@@ -157,9 +156,18 @@
         @enderror
       </div>
       <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Kecamatan</label>
-        <input type="text" class="form-control @error('kecamatan') is-invalid @enderror" placeholder="Masukan Kecamatan" name="kecamatan" value="{{ old('kecamatan') }}" style=" font-size: 15px; height: 6.5vh;" required>
-        @error('kecamatan')
+        <label for="exampleInputEmail1" class="form-label">Kota/Kabupaten</label>
+        <input type="text" class="form-control @error('kota_kab') is-invalid @enderror" placeholder="Masukan Kota/Kabupaten" name="kota_kab" value="{{ old('kota_kab') }}" style=" font-size: 15px; height: 6.5vh;" required>
+        @error('kota_kab')
+          <div class="invalid-feedback">
+            {{ $message }}
+          </div>
+        @enderror
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Provinsi</label>
+        <input type="text" class="form-control @error('provinsi') is-invalid @enderror" placeholder="Masukan provinsi" name="provinsi" value="{{ old('provinsi') }}" style=" font-size: 15px; height: 6.5vh;" required>
+        @error('provinsi')
           <div class="invalid-feedback">
             {{ $message }}
           </div>
