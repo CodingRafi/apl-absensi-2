@@ -67,7 +67,7 @@ class AgendaController extends Controller
 
         if ($role == 'siswa') {
             $data = Kelas::findOrFail($id);
-            $gurus = User::select('users.*')->role('guru')->join('sekolahs', 'sekolahs.id', 'users.sekolah_id')->where('users.sekolah_id', Auth::user()->sekolah_id)->get();
+            $gurus = User::select('users.*')->role('guru')->where('users.sekolah_id', Auth::user()->sekolah_id)->get();
         }elseif($role == 'guru'){
             $data = User::findOrFail($id);
             $classes = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)->where('tahun_ajaran_id', $tahun_ajaran->id)->get();

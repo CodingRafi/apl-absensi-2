@@ -19,7 +19,7 @@ class UserController extends Controller
 {
     function __construct()
     {
-         $this->middleware('permission:view_users|add_users|edit_users|delete_users', ['only' => ['index','store']]);
+         $this->middleware('permission:view_users', ['only' => ['index','show']]);
          $this->middleware('permission:add_users', ['only' => ['create','store']]);
          $this->middleware('permission:edit_users', ['only' => ['edit','update']]);
          $this->middleware('permission:delete_users', ['only' => ['destroy']]);
@@ -30,11 +30,9 @@ class UserController extends Controller
     public function index(Request $request, $role)
     {   
         $users = User::filter(request(['search']))
+                    ->role($role) 
                     ->where('sekolah_id', \Auth::user()->sekolah_id)
-                    ->with("roles")
-                    ->whereHas("roles", function($q) use($role) {
-                        $q->whereIn("name", [$role]);
-                    })->get();
+                    ->get();
 
         return view('users.index', [
             'users' => $users,
@@ -44,7 +42,6 @@ class UserController extends Controller
 
     public function create(Request $request, $role)
     {   
-        $roleQuery = Role::where('name', $role)->first();
         $mapels = Mapel::where('sekolah_id', \Auth::user()->sekolah_id)->get();
         $agamas = ref_agama::all();
         return view('users.create', [
@@ -68,6 +65,8 @@ class UserController extends Controller
             'jalan' => 'required', 
             'kelurahan' => 'required', 
             'kecamatan' => 'required', 
+            'kota_kab' => 'required', 
+            'provinsi' => 'required', 
             'role' => 'required',
             'rfid_number' => 'unique:rfids',
             'profil' => 'mimes:png,jpg,jpeg|file|max:5024'
@@ -85,6 +84,8 @@ class UserController extends Controller
             'jalan' => $request->jalan, 
             'kelurahan' => $request->kelurahan, 
             'kecamatan' => $request->kecamatan,
+            'kota_kab' => $request->kota_kab,
+            'provinsi' => $request->provinsi,
             'sekolah_id' => \Auth::user()->sekolah_id,
             'email' => $request->email
         ];
@@ -107,14 +108,20 @@ class UserController extends Controller
         return TahunAjaran::redirectWithTahunAjaranManual('/users/' . $request->role, $request,  'Berhasil menambahkan ' . $request->role);
     }
 
-    public function edit(User $user)
-    {
-        $role = $user->getRoleNames()[0];
-        $roleQuery = Role::where('name', $role)->first();
+    
+    public function show($role, $id){
+        $this->check_user($id, $role);
+        dd($role);
+    }
+
+    public function edit($role, $id)
+    {   
+        $this->check_user($id, $role);
+        $data = User::findOrFail($id);
         $mapels = Mapel::where('sekolah_id', \Auth::user()->sekolah_id)->get();
         $agamas = ref_agama::all();
         return view('users.update', [
-            'user' => $user,
+            'data' => $data,
             'role' => $role,
             'mapels' => $mapels,
             'agamas' => $agamas
@@ -140,6 +147,8 @@ class UserController extends Controller
             'jalan' => 'required', 
             'kelurahan' => 'required', 
             'kecamatan' => 'required', 
+            'kota_kab' => 'required', 
+            'provinsi' => 'required', 
             'role' => 'required',
             'profil' => 'mimes:png,jpg,jpeg|file|max:5024',
             'email' => ['required', Rule::unique('users')->ignore($user->id), Rule::unique('siswas')]
@@ -254,8 +263,10 @@ class UserController extends Controller
                         'tanggal_lahir' => Siswa::filterDate($user['tanggal_lahir']),
                         'agama' => $agama ? $agama->id : '',
                         'jalan' => $user['jalan'],
-                        'kelurahan' => $user['kelurahan'],
                         'kecamatan' => $user['kecamatan'],
+                        'kelurahan' => $user['kelurahan'],
+                        'kota_kab' => $user['kota_kab'],
+                        'provinsi' => $user['provinsi'],
                         'password' => \Hash::make('12345678'),
                         'sekolah_id' => \Auth::user()->sekolah_id
                     ]);
@@ -288,6 +299,8 @@ class UserController extends Controller
                     'jalan' => $user->jalan,
                     'kelurahan' => $user->kelurahan,
                     'kecamatan' => $user->kecamatan,
+                    'kota_kab' => $user->kota_kab,
+                    'provinsi' => $user->provinsi,
                 ];
             }
         }

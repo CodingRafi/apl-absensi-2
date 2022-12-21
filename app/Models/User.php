@@ -63,20 +63,6 @@ class User extends Authenticatable
         return $this->belongsTo(ref_agama::class);
     }
 
-    public static function getUserRole($role, $sekolah){
-        $roles = Role::all();
-        $users = \App\Models\User::with('roles')->get();
-        $userRole = [];
-
-        foreach ($users as $key => $user) {
-            if ($user->hasRole($role) && $user->sekolah == $sekolah) {
-                $userRole[] = $user;
-            }
-        }
-
-        return $userRole;
-    }
-
     public function scopeFilter($query, array $filter){
         $query->when($filter['search'] ?? false, function($query, $filter){
             return $query->where('users.name', 'like', '%' . $filter . '%')
