@@ -81,7 +81,7 @@
             <div class="mb-3">
                 <label for="waktu_pelajaran" class="form-label">Jam Pelajaran</label>
                 <select class="form-select select-guru @error('waktu_pelajaran_id') is-invalid @enderror"
-                    name="waktu_pelajaran_id" value="{{ old('waktu_pelajaran_id') }}"
+                    name="waktu_pelajaran_id" value="{{ isset($data) ? $data->waktu_pelajaran_id : old('waktu_pelajaran_id') }}"
                     style=" font-size: 15px; height: 6.5vh;" id="waktu_pelajaran">
                     <option value="">Pilih Jam Pelajaran</option>
                     @foreach ($jam_pelajarans as $jam)

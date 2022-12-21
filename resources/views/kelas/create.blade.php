@@ -9,7 +9,7 @@
             @include('mypartials.tahunajaran')
             <div class="mb-3">
                 <label for="nama" class="form-label">Nama Kelas</label>
-                <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ old('nama') }}" style=" font-size: 15px; height: 6.5vh;" required>
+                <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ isset($data) ? $data->nama : old('nama') }}" style=" font-size: 15px; height: 6.5vh;" required>
                 @error('nama')
                     <div class="invalid-feedback">
                         {{ $message }}

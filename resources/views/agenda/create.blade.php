@@ -22,7 +22,7 @@
             <div class="mb-3">
                 <label for="guru" class="form-label">Guru</label>
                 <select class="form-select select-guru @error('user_id') is-invalid @enderror" name="user_id"
-                    value="{{ old('user_id') }}" style=" font-size: 15px; height: 6.5vh;" id="guru">
+                    value="{{ isset($data) ? $data->user_id : old('user_id') }}" style=" font-size: 15px; height: 6.5vh;" id="guru">
                     <option value="">Pilih Guru</option>
                     @if ($gurus)
                     @foreach ($gurus as $guru)
@@ -69,7 +69,7 @@
             <div class="mb-3">
                 <label for="kelas" class="form-label">Kelas</label>
                 <select class="form-select select-guru @error('kelas_id') is-invalid @enderror" name="kelas_id"
-                    value="{{ old('kelas_id') }}" style=" font-size: 15px; height: 6.5vh;" id="kelas">
+                    value="{{ isset($data) ? $data->kelas_id : old('kelas_id') }}" style=" font-size: 15px; height: 6.5vh;" id="kelas">
                     <option value="">Pilih Kelas</option>
                     @if ($classes)
                     @foreach ($classes as $kelas)
@@ -87,7 +87,7 @@
 
             <div class="mb-3">
                 <label for="hari" class="form-label">Hari</label>
-                <select class="form-select @error('hari') is-invalid @enderror" name="hari" value="{{ old('hari') }}"
+                <select class="form-select @error('hari') is-invalid @enderror" name="hari" value="{{ isset($data) ? $data->hari : old('hari') }}"
                     style=" font-size: 15px; height: 6.5vh;" id="hari">
                     <option value="">Pilih Hari</option>
                     @foreach (config('services.hari.value') as $hari)
@@ -104,7 +104,7 @@
             <div class="mb-3">
                 <label for="waktu_pelajaran" class="form-label">Jam Pelajaran</label>
                 <select class="form-select @error('waktu_pelajaran_id') is-invalid @enderror"
-                    name="waktu_pelajaran_id" value="{{ old('waktu_pelajaran_id') }}"
+                    name="waktu_pelajaran_id" value="{{ isset($data) ? $data->waktu_pelajaran_id : old('waktu_pelajaran_id') }}"
                     style=" font-size: 15px; height: 6.5vh;" id="waktu_pelajaran">
                     <option value="">Pilih Jam Pelajaran</option>
                     @foreach ($jam_pelajarans as $jam)

@@ -34,7 +34,7 @@
                 @csrf
                 <div class="mt-3 mb-3">
                     <label for="nama" class="form-label">Nama Kelompok</label>
-                    <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" id="nama" placeholder="Masukan nama kelompok" value="{{ old('nama') }}">
+                    <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" id="nama" placeholder="Masukan nama kelompok" value="{{ isset($data) ? $data->nama : old('nama') }}">
                     @error('nama')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -43,7 +43,7 @@
                 </div>
                 <div class="mt-3 mb-3">
                     <label for="jam_masuk" class="form-label">Jam Masuk</label>
-                    <input type="time" class="form-control @error('jam_masuk') is-invalid @enderror" name="jam_masuk" id="jam_masuk" value="{{ old('jam_masuk') }}">
+                    <input type="time" class="form-control @error('jam_masuk') is-invalid @enderror" name="jam_masuk" id="jam_masuk" value="{{ isset($data) ? $data->jam_masuk : old('jam_masuk') }}">
                     @error('jam_masuk')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -52,7 +52,7 @@
                 </div>
                 <div class="mt-3 mb-3">
                     <label for="jam_pulang" class="form-label">Jam Pulang</label>
-                    <input type="time" class="form-control @error('jam_pulang') is-invalid @enderror" name="jam_pulang" id="jam_pulang" value="{{ old('jam_pulang') }}">
+                    <input type="time" class="form-control @error('jam_pulang') is-invalid @enderror" name="jam_pulang" id="jam_pulang" value="{{ isset($data) ? $data->jam_pulang : old('jam_pulang') }}">
                     @error('jam_pulang')
                     <div class="invalid-feedback">
                         {{ $message }}

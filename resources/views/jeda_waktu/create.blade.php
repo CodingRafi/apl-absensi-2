@@ -9,7 +9,7 @@
             @include('mypartials.tahunajaran')
             <div class="mb-3">
                 <label for="nama" class="form-label">Nama</label>
-                <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ old('nama') }}" required>
+                <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ isset($data) ? $data->nama : old('nama') }}" required>
                 @error('nama')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -18,7 +18,7 @@
             </div>
             <div class="mb-3">
                 <label for="jam_masuk" class="form-label">Jam Masuk</label>
-                <input type="time" class="form-control @error('jam_masuk') is-invalid @enderror" id="jam_masuk" name="jam_masuk" value="{{ old('jam_masuk') }}" required>
+                <input type="time" class="form-control @error('jam_masuk') is-invalid @enderror" id="jam_masuk" name="jam_masuk" value="{{ isset($data) ? $data->jam_masuk : old('jam_masuk') }}" required>
                 @error('jam_masuk')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -27,7 +27,7 @@
             </div>
             <div class="mb-3">
                 <label for="jam_pulang" class="form-label">Jam Pulang</label>
-                <input type="time" class="form-control @error('jam_pulang') is-invalid @enderror" id="jam_pulang" name="jam_pulang" value="{{ old('jam_pulang') }}" required>
+                <input type="time" class="form-control @error('jam_pulang') is-invalid @enderror" id="jam_pulang" name="jam_pulang" value="{{ isset($data) ? $data->jam_pulang : old('jam_pulang') }}" required>
                 @error('jam_pulang')
                     <div class="invalid-feedback">
                         {{ $message }}
