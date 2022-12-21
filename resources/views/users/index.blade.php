@@ -110,7 +110,7 @@
                                 <button class="btn btn-sm btn-info text-white" style="width: 5rem; margin: 0.1rem;border-radius: 5px;font-weight: 500;">Show</button>
                             </form>
                             @if (auth()->user()->can('edit_users'))
-                            <form action="{{ route('users.edit', [$user->id]) }}" method="get">
+                            <form action="{{ route('users.edit', ['role' => $role, 'id' => $user->id]) }}" method="get">
                                 @include('mypartials.tahunajaran')
                                 <button class="btn btn-sm btn-warning text-white" style="width: 5rem; margin: 0.1rem;border-radius: 5px;font-weight: 500;">Edit</button>
                             </form>

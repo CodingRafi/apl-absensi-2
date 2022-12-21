@@ -110,17 +110,18 @@ class UserController extends Controller
 
     
     public function show($role, $id){
+        $this->check_user($id, $role);
         dd($role);
     }
 
-    public function edit(User $user)
-    {
-        $role = $user->getRoleNames()[0];
-        $roleQuery = Role::where('name', $role)->first();
+    public function edit($role, $id)
+    {   
+        $this->check_user($id, $role);
+        $data = User::findOrFail($id);
         $mapels = Mapel::where('sekolah_id', \Auth::user()->sekolah_id)->get();
         $agamas = ref_agama::all();
         return view('users.update', [
-            'user' => $user,
+            'data' => $data,
             'role' => $role,
             'mapels' => $mapels,
             'agamas' => $agamas

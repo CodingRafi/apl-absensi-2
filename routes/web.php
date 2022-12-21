@@ -61,10 +61,10 @@ Route::group(['middleware' => ['auth:web,websiswa']], function() {
         Route::resource('siswa', SiswaController::class);
         Route::get('{role}', [UserController::class, 'index'])->name('index');
         Route::get('create/{role}', [UserController::class, 'create'])->name('user_create');
+        Route::get('{role}/{id}/edit', [UserController::class, 'edit'])->name('edit');
         Route::get('{role}/{id}', [UserController::class, 'show'])->name('shows');
     });
 
-    Route::resource('users', UserController::class)->except(['index', 'create']);
     
     // Export dan Import User
     Route::get('/import/users/{role}', [UserController::class, 'import']);
