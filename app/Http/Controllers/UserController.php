@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Models\User;
 use App\Models\Siswa;
 use App\Models\Mapel;
@@ -42,13 +43,10 @@ class UserController extends Controller
 
     public function create(Request $request, $role)
     {   
+        $provinsis = DB::table('ref_provinsis')->get();
         $mapels = Mapel::where('sekolah_id', \Auth::user()->sekolah_id)->get();
         $agamas = ref_agama::all();
-        return view('users.create', [
-            'role' => $role,
-            'mapels' => $mapels,
-            'agamas' => $agamas
-        ]);
+        return view('users.create', compact('role', 'mapels', 'agamas', 'provinsis'));
     }
 
     public function store(Request $request)

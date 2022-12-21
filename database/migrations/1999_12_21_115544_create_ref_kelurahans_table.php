@@ -13,8 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        // $prosedure = "DROP PROCEDURE IF EXISTS `get_posts_by_userid`;
-        //                 ";
+        Schema::create('ref_kelurahans', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('nama');
+            $table->foreignId('ref_kecamatan_id')->contrained();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -24,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('ref_kelurahans');
     }
 };

@@ -7,33 +7,24 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migdarations.
+     * Run the migrations.
      *
      * @return void
      */
     public function up()
     {
-        Schema::create('siswas', function (Blueprint $table) {
+        Schema::create('profile_users', function (Blueprint $table) {
             $table->id();
-            $table->string('profil')->default('/img/profil.png');
-            $table->string('name');
-            $table->string('nisn')->unique();
-            $table->string('nipd')->unique();
-            $table->string('email')->nullable()->unique();
-            $table->string('password')->default('$2a$12$EJoe7nRx6rAnP6nwwVGzrOvKIyMVS6svFk5/vZMCvufgr2IMBQtuS');
+            $table->string('nip')->unique()->nullable();
             $table->enum('jk', ['L', 'P'])->nullable();
-            $table->string('tempat_lahir');
+            $table->string('tempat_lahir')->nullable();
             $table->date('tanggal_lahir')->nullable();
-            $table->foreignId('kelas_id')->constrained();
-            $table->foreignId('kompetensi_id')->nullable()->constrained();
-            $table->string('nik');
-            $table->foreignId('ref_agama_id')->contrained();
+            $table->foreignId('ref_agama_id')->nullable()->constrained();
             $table->foreignId('ref_provinsi_id')->nullable()->constrained();
             $table->foreignId('ref_kabupaten_id')->nullable()->constrained();
             $table->foreignId('ref_kecamatan_id')->nullable()->constrained();
             $table->foreignId('ref_kelurahan_id')->nullable()->constrained();
             $table->string('jalan')->nullable();
-            $table->foreignId('sekolah_id')->constrained();
             $table->timestamps();
         });
     }
@@ -45,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('siswas');
+        Schema::dropIfExists('profile_users');
     }
 };

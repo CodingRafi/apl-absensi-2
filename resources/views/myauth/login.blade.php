@@ -14,11 +14,12 @@
               <div class="container p-0">
                   <h1 class="mb-3" style="color: #263238;">Masuk</h1>
                   <div class="mb-3">
-                      <select class="form-select select-pilihan text-dark" aria-label="Default select example" style="width: 100%; height: 7vh; border: 1px solid rgb(205, 205, 205); border-radius: 5px">
+                      <select class="form-select select-pilihan text-dark" style="width: 100%; height: 7vh; border: 1px solid rgb(205, 205, 205); border-radius: 5px" name="role">
                           <option value="belum" selected>Masuk Sebagai</option>
                           @foreach ($roles as $role)
                           <option value="{{ $role->name }}" style="text-transform: capitalize;">{{ str_replace("_", " ", $role->name_long) }}</option>
-                          @endforeach              
+                          @endforeach            
+                          <option value="siswa">Siswa</option>
                       </select>
                   </div>
                   <div class="mb-3 div-email">

@@ -1,8 +1,6 @@
 @extends('mylayouts.main')
 
 @section('tambahcss')
-    <link rel="stylesheet" href="/css/fstdropdown.css">
-
     <style>
         .nav-pills .show>.nav-link {
             background-color: transparent !important;
@@ -11,10 +9,6 @@
         .dropdown-menu.show {
             top: .4rem !important;
             left: -8rem !important;
-        }
-
-        .fstdropdown>.fstlist {
-            min-height: 10rem !important;
         }
     </style>
 @endsection
@@ -81,11 +75,4 @@
             @endif
         </div>
     </div>
-@endsection
-
-@section('tambahjs')
-    <script src="/js/fstdropdown.js"></script>
-    <script>
-        setFstDropdown();
-    </script>
 @endsection

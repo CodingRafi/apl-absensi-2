@@ -8,16 +8,16 @@ use App\Http\Controllers\MapelController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\AbsensiController;
-use App\Http\Controllers\RefAgamaController;
-use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\KelompokController;
+use App\Http\Controllers\PresensiController;
+use App\Http\Controllers\RefAgamaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KompetensiController;
 use App\Http\Controllers\TahunAjaranController;
 use App\Http\Controllers\JedaPresensiController;
 use App\Http\Controllers\RegisteredUserController;
-use App\Http\Controllers\WaktuPelajaranController;
 use App\Http\Controllers\WaktuIstirahatController;
+use App\Http\Controllers\WaktuPelajaranController;
 use App\Http\Controllers\ConfigurasiUserController;
 use App\Http\Controllers\StatusKehadiranController;
 use App\Http\Controllers\AbsensiPelajaranController;
@@ -42,8 +42,8 @@ Route::middleware(['guest'])->group(function () {
 });
 
 
-Route::group(['middleware' => ['auth:web,websiswa']], function() {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::group(['middleware' => ['auth:web']], function() {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('roles', RoleController::class);
     
     Route::prefix('data-master')->group(function () {
@@ -61,10 +61,11 @@ Route::group(['middleware' => ['auth:web,websiswa']], function() {
         Route::resource('siswa', SiswaController::class);
         Route::get('{role}', [UserController::class, 'index'])->name('index');
         Route::get('create/{role}', [UserController::class, 'create'])->name('user_create');
+        Route::post('{role}', [UserController::class, 'store'])->name('store');
         Route::get('{role}/{id}/edit', [UserController::class, 'edit'])->name('edit');
         Route::get('{role}/{id}', [UserController::class, 'show'])->name('shows');
+        Route::patch('{role}/{id}', [UserController::class, 'update'])->name('update');
     });
-
     
     // Export dan Import User
     Route::get('/import/users/{role}', [UserController::class, 'import']);

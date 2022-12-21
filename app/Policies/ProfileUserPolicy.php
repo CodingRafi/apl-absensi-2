@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\ref_agama;
+use App\Models\profile_user;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class RefAgamaPolicy
+class ProfileUserPolicy
 {
     use HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class RefAgamaPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\ref_agama  $refAgama
+     * @param  \App\Models\profile_user  $profileUser
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, ref_agama $refAgama)
+    public function view(User $user, profile_user $profileUser)
     {
         //
     }
@@ -48,10 +48,10 @@ class RefAgamaPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\ref_agama  $refAgama
+     * @param  \App\Models\profile_user  $profileUser
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, ref_agama $refAgama)
+    public function update(User $user, profile_user $profileUser)
     {
         //
     }
@@ -60,10 +60,10 @@ class RefAgamaPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\ref_agama  $refAgama
+     * @param  \App\Models\profile_user  $profileUser
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, ref_agama $refAgama)
+    public function delete(User $user, profile_user $profileUser)
     {
         //
     }
@@ -72,10 +72,10 @@ class RefAgamaPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\ref_agama  $refAgama
+     * @param  \App\Models\profile_user  $profileUser
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, ref_agama $refAgama)
+    public function restore(User $user, profile_user $profileUser)
     {
         //
     }
@@ -84,10 +84,10 @@ class RefAgamaPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\ref_agama  $refAgama
+     * @param  \App\Models\profile_user  $profileUser
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, ref_agama $refAgama)
+    public function forceDelete(User $user, profile_user $profileUser)
     {
         //
     }

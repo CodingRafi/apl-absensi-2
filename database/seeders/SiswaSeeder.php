@@ -26,11 +26,6 @@ class SiswaSeeder extends Seeder
             'tempat_lahir' => 'asd',
             'nik' => '123',
             'ref_agama_id' => 1,
-            'jalan' => '24',
-            'kelurahan' => 'ase',
-            'kecamatan' => 'asda',
-            'kota_kab' => 'asda',
-            'provinsi' => 'asda',
             'sekolah_id' => 1,
         ]);
     }

@@ -20,16 +20,6 @@ return new class extends Migration
             $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
-            $table->string('nip')->unique()->nullable();
-            $table->enum('jk', ['L', 'P'])->nullable();
-            $table->string('tempat_lahir')->nullable();
-            $table->date('tanggal_lahir')->nullable();
-            $table->foreignId('ref_agama_id')->nullable()->constrained();
-            $table->string('jalan')->nullable();
-            $table->string('kelurahan')->nullable();
-            $table->string('kecamatan')->nullable();
-            $table->string('kota_kab')->nullable();
-            $table->string('provinsi')->nullable();
             $table->foreignId('sekolah_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
