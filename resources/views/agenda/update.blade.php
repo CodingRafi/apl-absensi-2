@@ -60,7 +60,7 @@
             @else
             <div class="mb-3">
                 <label for="other" class="form-label">Kegiatan</label>
-                <textarea class="form-control @error('other') is-invalid @enderror" id="other" rows="3" name="other">{{ $agenda->other, old('other') }}</textarea>
+                <textarea class="form-control @error('other') is-invalid @enderror" id="other" rows="3" name="other">{{ isset($data) ? $data->other : old('other') }}</textarea>
                 @error('other')
                 <div class="invalid-feedback">
                     {{ $message }}

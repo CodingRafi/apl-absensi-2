@@ -160,7 +160,7 @@ class SiswaController extends Controller
             return view('siswa.update', [
                 'classes' => $classes,
                 'kompetensis' => $kompetensis,
-                'siswa' => $siswa,
+                'data' => $siswa,
                 'agamas' => $agamas,
             ]);
         }else{
