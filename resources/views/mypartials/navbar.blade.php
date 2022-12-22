@@ -64,14 +64,14 @@
                     <span class="text-white badge text-user d-block" style="background-color:#3bae9ddc; border:1.5px solid #308b7d; font-weight: 600; display:flex;justify-content:center; width:fit-content !important; text-transform: capitalize; float: right"><i class="bi bi-info-circle mr-2"></i><span class="text-user" style="font-size: 12px; margin-top:1px; display: inline-block;">Masuk Sebagai {{ (Auth::user()->getTable() == 'users') ? str_replace("_", " ", Auth::user()->getRoleNames()->first())  : 'Siswa' }}</span>
                     </span>
                 </div>
-                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                <a class="nav-link dropdown-toggle profil" onclick="profil()" href="#" data-toggle="dropdown" id="profileDropdown">
                     @if (Auth::user()->profil != '/img/profil.png')
                     <img src="{{ asset('storage/' . Auth::user()->profil) }}" alt="profile" />
                     @else
                     <img src="/template/images/faces/defaultProfile.jpg" alt="profile" />
                     @endif
                 </a>
-                <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown" id="profil">
                     <form action="/user-settings" method="get">
                         @include('mypartials.tahunajaran')
                         <button class="dropdown-item" tabindex="-1" type="submit"

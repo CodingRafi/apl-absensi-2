@@ -72,12 +72,11 @@
     auth()->user()->can('view_kelas') || auth()->user()->can('view_mapel') ||
     auth()->user()->can('view_status_kehadiran') || auth()->user()->can('view_agama'))
     <li class="nav-item" style="transition: none;">
-      <a class="nav-link {{ Request::is('data-master*') ? 'active' : '' }}" data-toggle="collapse" href="#data-master"
-        aria-expanded="false" aria-controls="data-master" style="transition: none;">
+      <button class="nav-link dataMaster {{ Request::is('data-master*') ? 'active' : '' }}" onclick="dataMaster()" style="background-color: transparent; border: none;  width: 100%; transition: none;">
         <i class="bi bi-collection-fill mr-4"></i>
         <span class="menu-title">Data Master</span>
         <i class="menu-arrow"></i>
-      </a>
+      </button>
       <div class="collapse" id="data-master">
         <ul class="nav flex-column sub-menu">
           @if (auth()->user()->can('view_tahun_ajaran'))
@@ -153,12 +152,12 @@
 
     @if (auth()->user()->can('view_users'))
     <li class="nav-item" style="transition: none;">
-      <a class="nav-link {{ Request::is('users*') ? 'active' : '' }}{{ Request::is('siswa') ? 'active' : '' }}"
-        data-toggle="collapse" href="#data-user" aria-expanded="false" aria-controls="data-user" style="transition: none;">
+      <button class="nav-link dataUser {{ Request::is('users*') ? 'active' : '' }}{{ Request::is('siswa') ? 'active' : '' }}"
+      onclick="dataUser()" style="background-color: transparent; border: none;  width: 100%; transition: none;">
         <i class="bi bi-people-fill mr-4"></i>
         <span class="menu-title">Data User</span>
         <i class="menu-arrow"></i>
-      </a>
+      </button>
       <div class="collapse" id="data-user">
         <ul class="nav flex-column sub-menu">
           @if (auth()->user()->can('view_users'))
@@ -184,12 +183,11 @@
 
     @if (auth()->user()->can('view_agenda'))
     <li class="nav-item" style="transition: none;">
-      <a class="nav-link {{ Request::is('agenda*') ? 'active' : '' }}" data-toggle="collapse" href="#data-agenda"
-        aria-expanded="false" aria-controls="data-agenda" style="transition: none;">
+      <button class="nav-link jadwal{{ Request::is('agenda*') ? 'active' : '' }}" onclick="jadwal()" style="background-color: transparent; border: none;  width: 100%; transition: none;">
         <i class="bi bi-calendar-week mr-4"></i>
         <span class="menu-title">Jadwal</span>
         <i class="menu-arrow"></i>
-      </a>
+      </button>
       <div class="collapse" id="data-agenda">
         <ul class="nav flex-column sub-menu">
           @foreach ($roles as $role)
@@ -222,12 +220,11 @@
 
     @if (auth()->user()->can('view_absensi'))
     <li class="nav-item" style="transition: none;">
-      <a class="nav-link {{ Request::is('absensi*') ? 'active' : '' }}" data-toggle="collapse" href="#absensi"
-        aria-expanded="false" aria-controls="absensi" style="transition: none;">
+      <button class="nav-link absensi {{ Request::is('absensi*') ? 'active' : '' }}" onclick="absensi()" style="background-color: transparent; border: none;  width: 100%; transition: none;">
         <i class="bi bi-journal-check mr-4"></i>
         <span class="menu-title">Absensi</span>
         <i class="menu-arrow"></i>
-      </a>
+      </button>
       <div class="collapse" id="absensi">
         <ul class="nav flex-column sub-menu">
           @foreach ($roles as $role)
