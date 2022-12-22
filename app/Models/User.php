@@ -63,15 +63,32 @@ class User extends Authenticatable
         return $this->belongsTo(ref_agama::class);
     }
 
-    public function profil_user(){
+    public function profile_user(){
         return $this->hasOne(profile_user::class);
     }
 
-    public function scopeFilter($query, array $filter){
+    public function profile_siswa(){
+        return $this->hasOne(profile_siswa::class);
+    }
+
+    public function scopeFilterUser($query, array $filter){
         $query->when($filter['search'] ?? false, function($query, $filter){
-            return $query->where('users.name', 'like', '%' . $filter . '%')
+            return $query->where('profile_users.name', 'like', '%' . $filter . '%')
                         ->orWhere('users.email', 'like', '%' . $filter . '%')
                         ->orWhere('users.nip', 'like', '%' . $filter . '%');
+        });
+    }
+
+    public function scopeFilterSiswa($query, array $filter){
+        $query->when($filter['search'] ?? false, function($query, $filter){
+            return $query->where('profile_siswas.name', 'like', '%' . $filter . '%');
+        });
+
+        $query->when($filter['kelas'] ?? false, function($query, $filter){
+            return $query->where('kelas.id', $filter);
+        });
+        $query->when($filter['jurusan'] ?? false, function($query, $filter){
+            return $query->where('kompetensis.id', $filter);
         });
     }
 }

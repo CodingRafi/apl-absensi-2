@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('nip')->unique()->nullable();
             $table->string('nipd')->unique()->nullable();
-            $table->string('password');
+            $table->string('password')->default('$2a$12$xe6Cjkp24m/CqF.m9C2y2.AivndWosItFUk.1d8Pqb7WCt6Vxk8wS');
             $table->foreignId('sekolah_id')->nullable();
             $table->rememberToken();
             $table->timestamps();

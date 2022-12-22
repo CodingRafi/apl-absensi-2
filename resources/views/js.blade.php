@@ -1,3 +1,5 @@
+<script>
+$('.between-input-item-select').select2();
 $.ajaxSetup({
     headers: {
         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -15,7 +17,6 @@ function stop_loading(){
 $(document).ajaxStop(function(){
     stop_loading();
 });
-
 
 $(document).on('change', '#ref_provinsi_id', function() {
     kabupaten_list(this);
@@ -81,6 +82,10 @@ function kabupaten_list(el, value = null) {
                     })
                 );
             });
+
+            if (value !== null && value !== "") {
+                kabupaten.val(value);
+            }
 
             provinsi.removeAttr("disabled");
             kabupaten.removeAttr("disabled");
@@ -241,3 +246,4 @@ function kelurahan_list(el, value = null) {
         },
     });
 }
+</script>

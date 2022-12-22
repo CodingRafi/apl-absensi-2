@@ -22,17 +22,4 @@ class Rfid extends Model
     public function siswa(){
         return $this->belongsTo(Siswa::class);
     }
-
-    public static function createRfid($number_rfid, $user_id, $status){
-        
-    }
-
-    public static function updateRfid($request){
-        $rfid = Rfid::where('id', $request->id_rfid)->first();
-        
-        $rfid->update([
-            'rfid_number' => $request->rfid_number,
-            'status' => ($request->status_rfid   == 'on') ? 'aktif' : 'tidak'
-        ]);
-    }
 }
