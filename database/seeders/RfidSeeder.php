@@ -20,11 +20,5 @@ class RfidSeeder extends Seeder
             'user_id' => '5',
             'status' => 'aktif'
         ]); 
-
-        Rfid::create([
-            'rfid_number' => "298818123",
-            'siswa_id' => '5',
-            'status' => 'aktif'
-        ]); 
     }
 }

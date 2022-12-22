@@ -1,22 +1,16 @@
 @extends('mylayouts.main')
 
 @section('tambahcss')
-    <link rel="stylesheet" href="/css/fstdropdown.css">
+<style>
+    .nav-pills .show>.nav-link {
+        background-color: transparent !important;
+    }
 
-    <style>
-        .nav-pills .show>.nav-link {
-            background-color: transparent !important;
-        }
-
-        .dropdown-menu.show {
-            top: .4rem !important;
-            left: -8rem !important;
-        }
-
-        .fstdropdown>.fstlist {
-            min-height: 10rem !important;
-        }
-    </style>
+    .dropdown-menu.show {
+        top: .4rem !important;
+        left: -8rem !important;
+    }
+</style>
 @endsection
 
 @section('container')
@@ -35,14 +29,14 @@
             <div class="alert alert-primary" role="alert">
                 Tidak ada guru
             </div>
-            @endif
+            <div class="d-flex justify-content-center"><button class="btn text-white"
+                    style="background-color: #3bae9c; min-width: 6vw;">Simpan</button></div>
+        </form>
+        @else
+        <div class="alert alert-primary" role="alert">
+            Tidak ada guru
         </div>
+        @endif
     </div>
-@endsection
-
-@section('tambahjs')
-    <script src="/js/fstdropdown.js"></script>
-    <script>
-        setFstDropdown();
-    </script>
+</div>
 @endsection

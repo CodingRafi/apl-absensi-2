@@ -15,13 +15,9 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function check_user($id, $role){
-        if ($role != 'siswa') {
-            $data = User::findOrFail($id);
-            if (!$data->hasRole($role)) {
-                return abort(403);
-            }
-        }else{
-            $data = Siswa::findOrFail($id);
+        $data = User::findOrFail($id);
+        if (!$data->hasRole($role)) {
+            return abort(403);
         }
 
         if ($data->sekolah->id != \Auth::user()->sekolah->id) {

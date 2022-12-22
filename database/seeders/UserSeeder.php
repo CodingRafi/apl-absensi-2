@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
             ],
             'admin' => [
                 'name_long' => 'Admin',
-                'permission' => ['1', '2', '3', '4', '5', '6', '18', '19', '20', '21', '22', '23', '24', '25', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '16', '49', '50', '51', '52', '54', '55', '56', '66', '67', '68', '69']
+                'permission' => ['1', '2', '3', '4', '5', '6', '18', '19', '20', '21', '22', '23', '24', '25', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '16', '49', '50', '51', '52', '54', '55', '56', '66', '67']
             ],
             'guru' => [
                 'name_long' => 'Guru',
@@ -36,6 +36,10 @@ class UserSeeder extends Seeder
             ],
             'karyawan' => [
                 'name_long' => 'Karyawan',
+                'permission' => []
+            ],
+            'siswa' => [
+                'name_long' => 'Siswa',
                 'permission' => []
             ]
         ];
@@ -56,14 +60,12 @@ class UserSeeder extends Seeder
 
         // User Super Admin
         $super_admin = User::create([
-            'name' => 'Super Admin',
             'email' => 'super_admin@gmail.com',
             'password' => bcrypt('password'),
         ])->assignRole('super_admin');
 
         // User Admin SMK TB
         $adminsmk = User::create([
-            'name' => 'Admin SMK',
             'email' => 'adminsmk@gmail.com',
             'password' => bcrypt('password'),
             'sekolah_id' => 1
@@ -71,7 +73,6 @@ class UserSeeder extends Seeder
 
         // User Yayasan SMK TB
         $yayasan = User::create([
-            'name' => 'Yayasan',
             'email' => 'yayasan@gmail.com',
             'password' => bcrypt('password'),
             'sekolah_id' => 1

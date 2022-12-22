@@ -90,34 +90,27 @@
                     </table>
                 </div>
             </div>
-            <div class="mt-3 role">
-                <span class="roles" style="min-width: 10vw; font-weight: bold">Role tersedia :</span>
-                <div class="table-responsive table-borderless">
-                    <table>
-                        @foreach ($roles as $role)
-                        @if ($role->name != 'super_admin')
-                        <tr>
-                            <td>- {{ $role->name }}</td>
-                        </tr>
-                        @endif
-                        @endforeach
-                    </table>
-                </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                  Role Tersedia :
+                </button>
+              </h2>
+              <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+              </div>
             </div>
-            <div class="mt-3 tahun_ajaran">
-                <span class="tahun_ajarans" style="min-width: 10vw; font-weight: bold">Tahun ajaran tersedia :</span>
-                <div class="table-responsive table-borderless">
-                    <table>
-                        @foreach ($tahun_ajarans as $tahun_ajaran)
-                        <tr>
-                            <td>- {{ $tahun_ajaran->tahun_awal }}/{{ $tahun_ajaran->tahun_akhir }} Semester {{
-                                $tahun_ajaran->semester }}</td>
-                        </tr>
-                        @endforeach
-                    </table>
-                </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                  Tahun Ajaran Tersedia
+                </button>
+              </h2>
+              <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+              </div>
             </div>
-        </div>
+          </div>
     </div>
 </div> --}}
 
@@ -303,7 +296,7 @@
     @endif
 </div>
 
-@if (!Auth::user()->nisn && !Auth::user()->nipd)
+@if (!Auth::user()->hasRole('siswa'))
 
 @if (auth()->user()->can('view_users') || auth()->user()->can('view_mapel') || auth()->user()->can('view_kelas'))
 <div class="container-fluid p-0">
@@ -325,13 +318,9 @@
                                 @foreach ($users as $key => $user)
                                 <tr>
                                     <td>{{ $key }}</td>
-                                    <td style="width: 5%">{{ count($user) }}</td>
+                                    <td style="width: 5%">{{ $user }}</td>
                                 </tr>
                                 @endforeach
-                                <tr>
-                                    <td>Siswa</td>
-                                    <td>{{ $siswas }}</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -442,8 +431,8 @@
 </div>
 @endif
 
-@elseif(Auth::user()->nisn && Auth::user()->nipd)
-
+@else
+{{-- Siswa --}}
 @endif
 @endif
 @endsection

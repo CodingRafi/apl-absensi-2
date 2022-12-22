@@ -8,6 +8,8 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Siswa;
+use App\Models\User;
+use Hash, Session;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -30,16 +32,46 @@ class AuthenticatedSessionController extends Controller
     public function store(Request $request)
     {   
         $request->validate([
+            'role' => 'required',
             'login' => 'required',
             'password' => 'required'
         ]);
 
-        if (Auth::guard('web')->attempt(['email' => $request->login, 'password' => $request->password]) || Auth::guard('web')->attempt(['nip' => $request->login, 'password' => $request->password]) || Auth::guard('websiswa')->attempt(['nipd' => $request->login, 'password' => $request->password])) {
-            $request->session()->regenerate();
-    
-            return redirect()->intended(RouteServiceProvider::HOME);     
+        $role = $request->role;
+
+        if ($role == 'siswa') {
+            $siswa = DB::table('siswas')->where('nipd', $request->nipd)->first();
+            if (Auth::guard('websiswa')->attempt(['nipd' => $request->login, 'password' => $request->password])) {
+                $request->session()->regenerate();
+                return redirect()->intended(RouteServiceProvider::HOME);    
+            }else{
+                return redirect()->back()->with('msg_error', 'Login Failed');
+            }
+        }elseif($role == 'super_admin' || $role == 'yayasan' || $role == 'admin'){
+            $user = User::where('email', $request->login)->first();
+            if ($user && $user->hasRole($role)) {
+                if (Auth::attempt(['email' => $request->login, 'password' => $request->password])) {
+                    $request->session()->regenerate();
+                    return redirect()->intended(RouteServiceProvider::HOME);    
+                }else{
+                    return redirect()->back()->with('msg_error', 'Login Failed');
+                }
+            }else{
+                return redirect()->back()->with('msg_error', 'Login Failed');
+            }
         }else{
-            return redirect()->back()->with('msg_error', 'Login Failed');
+            $user = User::where('nip', $request->login)->first();
+            if ($user && $user->hasRole($role)) {
+                if (Auth::attempt(['email' => $request->login, 'password' => $request->password])) {
+                    $request->session()->regenerate();
+                    return redirect()->intended(RouteServiceProvider::HOME);    
+                }else{
+                    return redirect()->back()->with('msg_error', 'Login Failed');
+                }
+            } else {
+                return redirect()->back()->with('msg_error', 'Login Failed');
+            }
+            
         }
     }
 

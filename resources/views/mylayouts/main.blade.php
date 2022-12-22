@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="/template/vendors/feather/feather.css">
   <link rel="stylesheet" href="/template/vendors/ti-icons/css/themify-icons.css">
   <link rel="stylesheet" href="/template/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="{{ asset('css/fstdropdown.css') }}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
   <!-- endinject -->
 
@@ -87,20 +88,37 @@
         width: 5px;
       }
     }
-    
+
     .swal2-icon.swal2-warning.swal2-icon-show {
-    animation: swal2-animate-error-icon .5s;
-    margin-top: 50px;
-    margin-bottom: 10px !important;
+      animation: swal2-animate-error-icon .5s;
+      margin-top: 50px;
+      margin-bottom: 10px !important;
     }
 
     .swal2-modal .swal2-title {
-    font-size: 25px;
-    line-height: 1;
-    font-weight: 600 !important;
-    color: #1F1F1F;
-    font-weight: initial;
-    margin-bottom: 0;
+      font-size: 25px;
+      line-height: 1;
+      font-weight: 600 !important;
+      color: #1F1F1F;
+      font-weight: initial;
+      margin-bottom: 0;
+    }
+
+    .fstdropdown>.fstlist {
+      min-height: 10rem !important;
+    }
+
+    .fstdiv.open .fstdropdown.open .fstsearch .fstsearchinput {
+      border-color: rgb(183, 183, 183);
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+      margin-top: -14px;
+      margin-left: -16px;
+    }
+
+    .select2-container {
+      width: 100%;
     }
   </style>
 
@@ -145,32 +163,30 @@
   </form>
 
 
-  <!-- container-scroller -->
+  {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> --}}
+  {{-- <script src="/template/vendors/chart.js/Chart.min.js"></script> --}}
 
-  <!-- plugins:js -->
-  <script src="/template/vendors/js/vendor.bundle.base.js"></script>
-  <!-- endinject -->
-  <!-- Plugin js for this page -->
-  <script src="/template/vendors/chart.js/Chart.min.js"></script>
-
-  <!-- End plugin js for this page -->
-  <!-- inject:js -->
-  <script src="/template/js/off-canvas.js"></script>
-  <script src="/template/js/hoverable-collapse.js"></script>
-  <script src="/template/js/template.js"></script>
-  <script src="/template/js/settings.js"></script>
-  <script src="/template/js/todolist.js"></script>
+  {{-- <script src="/template/js/off-canvas.js"></script> --}}
+  {{-- <script src="/template/js/hoverable-collapse.js"></script> --}}
+  {{-- <script src="/template/js/template.js"></script> --}}
+  {{-- <script src="/template/js/settings.js"></script> --}}
+  {{-- <script src="/template/js/todolist.js"></script> --}}
   <!-- endinject -->
   <!-- Custom js for this page-->
   {{-- <script src="/template/js/dashboard.js"></script> --}}
-  <script src="/template/js/Chart.roundedBarCharts.js"></script>
-  <script src="/template/js/chart.js"></script>
+  {{-- <script src="/template/js/Chart.roundedBarCharts.js"></script>
+  <script src="/template/js/chart.js"></script> --}}
   <!-- End custom js for this page-->
 
   {{-- ajax --}}
-  <script src="https://code.jquery.com/jquery-3.6.1.min.js"
-    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+  {{-- <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script> --}}
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="{{ asset('js/fstdropdown.js') }}"></script>
+  <script>
+    setFstDropdown();
+  </script>
   <script>
     function deleteData(url){
           Swal.fire({
@@ -190,6 +206,10 @@
           })
       }
   </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js">
+  </script>
+  <script src="{{ asset('js/wilayah.js') }}"></script>
 
   @include('mypartials.js')
   @yield('tambahjs')

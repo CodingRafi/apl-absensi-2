@@ -15,24 +15,6 @@ return new class extends Migration
     {
         Schema::create('siswas', function (Blueprint $table) {
             $table->id();
-            $table->string('profil')->default('/img/profil.png');
-            $table->string('name');
-            $table->string('nisn')->unique();
-            $table->string('nipd')->unique();
-            $table->string('email')->nullable()->unique();
-            $table->string('password')->default('$2a$12$EJoe7nRx6rAnP6nwwVGzrOvKIyMVS6svFk5/vZMCvufgr2IMBQtuS');
-            $table->enum('jk', ['L', 'P'])->nullable();
-            $table->string('tempat_lahir');
-            $table->date('tanggal_lahir')->nullable();
-            $table->foreignId('kelas_id')->constrained();
-            $table->foreignId('kompetensi_id')->nullable()->constrained();
-            $table->string('nik');
-            $table->foreignId('ref_agama_id')->contrained();
-            $table->string('jalan');
-            $table->string('kecamatan');
-            $table->string('kelurahan');
-            $table->string('kota_kab');
-            $table->string('provinsi');
             $table->foreignId('sekolah_id')->constrained();
             $table->timestamps();
         });

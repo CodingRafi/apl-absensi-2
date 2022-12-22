@@ -1,13 +1,5 @@
 @extends('mylayouts.main')
 
-@section('tambahcss')
-<link rel="stylesheet" href="{{ asset('css/fstdropdown.css') }}">
-<style>
-    .fstdiv.open .fstdropdown.open .fstsearch .fstsearchinput{
-        border-color: rgb(183, 183, 183);
-    }
-</style>
-@endsection
 @section('container')
     <div class="container-xxl flex-grow-1 container-p-y">
 
@@ -62,12 +54,4 @@
             </div>
         </div>
         <!-- / Content -->
-
-        <div class="content-backdrop fade"></div>
-@endsection
-@section('tambahjs')
-<script src="{{ asset('js/fstdropdown.js') }}"></script>
-    <script>
-        setFstDropdown();
-    </script>
 @endsection
