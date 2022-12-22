@@ -38,7 +38,7 @@ class AbsensiPelajaranController extends Controller
      */
     public function create()
     {
-        //
+        abort(404);
     }
 
     /**
@@ -49,7 +49,7 @@ class AbsensiPelajaranController extends Controller
      */
     public function store(StoreAbsensiPelajaranRequest $request)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -60,7 +60,7 @@ class AbsensiPelajaranController extends Controller
      */
     public function show(AbsensiPelajaran $absensiPelajaran)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -71,7 +71,7 @@ class AbsensiPelajaranController extends Controller
      */
     public function edit(AbsensiPelajaran $absensiPelajaran)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -83,7 +83,7 @@ class AbsensiPelajaranController extends Controller
      */
     public function update(UpdateAbsensiPelajaranRequest $request, AbsensiPelajaran $absensiPelajaran)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -94,6 +94,6 @@ class AbsensiPelajaranController extends Controller
      */
     public function destroy(AbsensiPelajaran $absensiPelajaran)
     {
-        //
+        abort(404);
     }
 }

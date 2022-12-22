@@ -79,7 +79,7 @@ class JedaPresensiController extends Controller
      */
     public function show(JedaPresensi $jedaPresensi)
     {
-        //
+        abort(404);
     }
 
     /**

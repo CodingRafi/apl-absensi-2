@@ -7,8 +7,8 @@
             <h4 class="card-title m-0">Create Jadwal</h4>
             <form action="{{ route('agenda.show', ['role' => $role, 'id' => $data->id]) }}" method="get">
                 @include('mypartials.tahunajaran')
-                <button class="btn btn-sm btn-danger font-weight-bold float-right text-white"
-                    type="submit">Kembali</button>
+                <button class="btn btn-sm btn-danger float-right text-white"
+                    type="submit" style="border-radius: 5px; font-weight: 500;">Kembali</button>
             </form>
         </div>
 
@@ -19,7 +19,7 @@
             <input type="hidden" name="id" value="{{ $data->id }}">
 
             @if ($role == 'siswa')
-            <div class="mb-3">
+            <div class="mt-3 mb-3">
                 <label for="guru" class="form-label">Guru</label>
                 <select class="form-select select-guru @error('user_id') is-invalid @enderror" name="user_id"
                     value="{{ isset($data) ? $data->user_id : old('user_id') }}" style=" font-size: 15px; height: 6.5vh;" id="guru">

@@ -204,7 +204,7 @@ class AbsensiController extends Controller
      */
     public function show(Absensi $absensi)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -268,7 +268,7 @@ class AbsensiController extends Controller
      */
     public function destroy(Absensi $absensi)
     {
-        //
+        abort(404);
     }
 
     public function export(Request $request){

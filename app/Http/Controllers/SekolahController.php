@@ -39,7 +39,7 @@ class SekolahController extends Controller
      */
     public function create()
     {
-        //
+        abort(404);
     }
 
     /**
@@ -61,7 +61,7 @@ class SekolahController extends Controller
      */
     public function show(Sekolah $sekolah)
     {
-        //
+        abort(404);
     }
 
     /**

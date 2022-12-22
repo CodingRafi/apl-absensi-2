@@ -270,8 +270,8 @@
                     @if (!$yayasan)
                     <form action="/create-yayasan" method="get">
                         @include('mypartials.tahunajaran')
-                        <button type="submit" class="btn btn-sm text-white font-weight-bold p-0"
-                            style="background-color: #369488; min-width: 5rem; height: 1.4rem;">Tambah</button>
+                        <button type="submit" class="btn btn-sm text-white p-0"
+                            style="background-color: #369488; min-width: 5rem; height: 1.5rem; font-weight: 500; border-radius: 5px;">Tambah</button>
                     </form>
                     @endif
                 </div>

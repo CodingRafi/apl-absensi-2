@@ -98,6 +98,6 @@ class RefAgamaController extends Controller
      */
     public function destroy(ref_agama $ref_agama)
     {
-        //
+        abort(404);
     }
 }

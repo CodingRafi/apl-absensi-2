@@ -62,7 +62,7 @@ class KelasController extends Controller
         $kelas = Kelas::findOrFail($id);
         if ($kelas->sekolah_id == \Auth::user()->sekolah->id) {
             return view('kelas.update', [
-                'kelas' => $kelas
+                'data' => $kelas
             ]);
         }
 

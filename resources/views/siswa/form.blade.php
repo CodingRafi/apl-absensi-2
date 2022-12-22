@@ -148,7 +148,7 @@
     </div>
     <div class="mb-3">
       <label for="kota_kab" class="form-label">Kota/Kabupaten</label>
-      <input type="text" class="form-control @error('kota_kab') is-invalid @enderror" placeholder="Masukan kota_kab"
+      <input type="text" class="form-control @error('kota_kab') is-invalid @enderror" placeholder="Masukan Kota/Kabupaten"
         name="kota_kab" id="kota_kab" value="{{ isset($data) ? $data->kota_kab : old('kota_kab') }}" style=" font-size: 15px; height: 6.5vh;"
         required>
       @error('kota_kab')

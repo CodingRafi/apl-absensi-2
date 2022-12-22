@@ -77,7 +77,7 @@ class MapelController extends Controller
     {
         if ($mapel->sekolah_id == \Auth::user()->sekolah->id) {
             return view('mapel.update', [
-                'mapel' => $mapel
+                'data' => $mapel
             ]);
         }else{
             abort(403);

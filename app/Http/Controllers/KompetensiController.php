@@ -54,7 +54,7 @@ class KompetensiController extends Controller
     {
         if ($kompetensi->sekolah_id == \Auth::user()->sekolah->id) {
             return view('kompetensi.update', [
-                'kompetensi' => $kompetensi
+                'data' => $kompetensi
             ]);
         }
 

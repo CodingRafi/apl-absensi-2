@@ -7,18 +7,18 @@
         @if (auth()->user()->can('add_agenda'))
         <form action="{{ route('agenda.create', ['role' => $role, 'id' => (isset($data)) ? $data->id : $data->id]) }}" method="get">
             @include('mypartials.tahunajaran')
-            <button type="submit" class="btn btn-sm text-white font-weight-bold float-right" style="background-color: #3bae9c">Tambah</button>
+            <button type="submit" class="btn btn-sm text-white float-right" style="background-color: #3bae9c; border-radius: 5px; font-weight: 500;">Tambah</button>
         </form>
         @endif
         <form action="{{ route('agenda.index', [$role]) }}" method="get">
             @include('mypartials.tahunajaran')
-            <button type="submit" class="btn btn-sm text-white font-weight-bold float-right mr-2" style="background-color: red">Kembali</button>
+            <button type="submit" class="btn btn-sm text-white float-right mr-2" style="background-color: red; border-radius: 5px; font-weight: 500;">Kembali</button>
         </form>
 
         <div class="table-responsive">
             @foreach (config('services.hari.value') as $hari)
-                <h3 class="text-capitalize">{{ $hari }}</h3>
-                <table class="table text-center mt-3">
+                <h6 class="text-capitalize">{{ $hari }}</h6>
+                <table class="table text-center mb-5">
                     <thead class="thead-light">
                         <tr>
                             <th scope="col" rowspan="2" style="vertical-align: middle;">Jam Ke</th>
