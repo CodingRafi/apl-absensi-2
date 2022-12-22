@@ -117,10 +117,10 @@
                                     <td class="jam-akhir-istirahat-{{ $key+1 }}">{{ $waktu_istirahat->jam_akhir }}</td>
                                     <td>
                                         @include('mypartials.tahunajaran')
-                                        <button class="btn btn-sm text-white btn-warning edit-jam-istirahat" style="min-width: 5vw; margin: 2px;" type="button" data-loop="{{ $key+1 }}" data-jam-ke={{ $waktu_istirahat->waktu_pelajaran->id }} data-bs-toggle="modal" data-bs-target="#modalEditJamIst" data-id="{{ $waktu_istirahat->id }}">Edit</button>
+                                        <button class="btn btn-sm text-white btn-warning edit-jam-istirahat" style="min-width: 5vw; margin: 2px;border-radius: 5px;font-weight: 500;" type="button" data-loop="{{ $key+1 }}" data-jam-ke={{ $waktu_istirahat->waktu_pelajaran->id }} data-bs-toggle="modal" data-bs-target="#modalEditJamIst" data-id="{{ $waktu_istirahat->id }}">Edit</button>
                                         <form action="" method="get">
                                             @include('mypartials.tahunajaran')
-                                            <button class="btn btn-sm text-white btn-danger" style="min-width: 5vw; margin: 2px;">Hapus</button>
+                                            <button class="btn btn-sm text-white btn-danger" style="min-width: 5vw; margin: 2px;border-radius: 5px;font-weight: 500;">Hapus</button>
                                         </form>
                                     </td>
                                 </tr>

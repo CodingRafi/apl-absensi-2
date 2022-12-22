@@ -318,5 +318,6 @@ class AgendaController extends Controller
         //     'role' => 'guru',
         //     'users' => $users
         // ]);
+        abort(404);
     }
 }

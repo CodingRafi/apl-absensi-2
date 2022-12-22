@@ -77,18 +77,18 @@
 @section('container')
 
 @if (Auth::user()->hasRole('super_admin'))
-<div class="card">
-    <div class="card-body">
-        <div class="accordion accordion-flush" id="accordionFlushExample">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="flush-headingOne">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                  Sekolah Tersedia : {{ $sekolah }}
-                </button>
-              </h2>
-              <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
-              </div>
+{{-- <div class="containerSuper">
+    <div class="card" style="height: 15rem;overflow: auto;">
+        <div class="card-body super">
+            <div class="d-flex mt-3 jumlah_sekolah">
+                <span class="jumlah_sekolahs" style="min-width: 10vw; font-weight: bold">Jumlah Sekolah :</span>
+                <div class="table-responsive table-borderless">
+                    <table>
+                        <tr>
+                            <td>{{ $countSekolah }}</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
             <div class="accordion-item">
               <h2 class="accordion-header" id="flush-headingTwo">
@@ -112,7 +112,78 @@
             </div>
           </div>
     </div>
+</div> --}}
+
+<div class="card">
+    <div class="card-body">
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                  Sekolah Tersedia : {{ $countSekolah }}
+                </button>
+              </h2>
+              <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="table-responsive table-borderless">
+                        <table>
+                            @foreach ($sekolah as $s)
+                            <tr>
+                                <td>- {{ $s->nama }}</td>
+                            </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                  Role Tersedia : {{ $countRole }}
+                </button>
+              </h2>
+              <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="table-responsive table-borderless">
+                        <table>
+                            @foreach ($roles as $role)
+                            @if ($role->name != 'super_admin')
+                            <tr>
+                                <td>- {{ $role->name }}</td>
+                            </tr>
+                            @endif
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                  Tahun Ajaran Tersedia : {{ $countTahunAjaran }}
+                </button>
+              </h2>
+              <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="table-responsive table-borderless">
+                        <table>
+                            @foreach ($tahun_ajarans as $tahun_ajaran)
+                            <tr>
+                                <td>- {{ $tahun_ajaran->tahun_awal }}/{{ $tahun_ajaran->tahun_akhir }} Semester {{
+                                    $tahun_ajaran->semester }}</td>
+                            </tr>
+                            @endforeach
+                        </table>
+                    </div> 
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
 </div>
+
 @else
 <div class="row">
     <div class="col-md">
@@ -192,8 +263,8 @@
                     @if (!$yayasan)
                     <form action="/create-yayasan" method="get">
                         @include('mypartials.tahunajaran')
-                        <button type="submit" class="btn btn-sm text-white font-weight-bold p-0"
-                            style="background-color: #369488; min-width: 5rem; height: 1.4rem;">Tambah</button>
+                        <button type="submit" class="btn btn-sm text-white p-0"
+                            style="background-color: #369488; min-width: 5rem; height: 1.5rem; font-weight: 500; border-radius: 5px;">Tambah</button>
                     </form>
                     @endif
                 </div>

@@ -13,9 +13,9 @@
                             <div class="card-body">
                                 <div class="mb-3 row">
                                     <div class="col-md-12">
-                                        <label for="html5-text-input" class="form-label">Nama Role</label>
+                                        <label for="namaRole" class="form-label">Nama Role</label>
                                         <input class="form-control @error('name') is-invalid @enderror" type="text"
-                                            value="{{ $role->name, old('name') }}" id="html5-text-input"
+                                            value="{{ isset($data) ? $data->name : old('name') }}" id="namaRole"
                                             placeholder="Name Role" name="name" />
                                         @error('name')
                                             <div class="invalid-feedback d-block">
@@ -27,7 +27,7 @@
                                 <div class="row mb-3">
                                     <div class="col-md-12">
                                         <label for="hak_akses" class="form-label">Hak Akses</label>
-                                        <select class="fstdropdown-select @error('hak_akses') is-invalid @enderror" name="hak_akses" id="hak_akses" value="{{ old('hak_akses') }}" required multiple>
+                                        <select class="fstdropdown-select @error('hak_akses') is-invalid @enderror" name="hak_akses" id="hak_akses" value="{{ isset($data) ? $data->hak_akses : old('hak_akses') }}" required multiple>
                                             @foreach ($permissions as $permission)
                                             @if (in_array($permission->id, $rolePermissions))
                                             <option value="{{ $permission->id }}" selected>{{ str_replace('_', ' ', $permission->name) }}</option>

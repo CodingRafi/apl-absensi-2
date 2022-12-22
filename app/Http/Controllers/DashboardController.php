@@ -15,13 +15,19 @@ class DashboardController extends Controller
     public function index(Request $request){ 
         if (\Auth::user()->hasRole('super_admin')) {
             $roles = Role::all();
-            $sekolah = Sekolah::all()->count();
+            $sekolah = Sekolah::all();
             $tahun_ajarans = TahunAjaran::all();
+            $countRole = Role::all()->count() - 1;
+            $countSekolah = Sekolah::all()->count();
+            $countTahunAjaran = TahunAjaran::all()->count();
 
             return view('dashboard', [
                 'roles' => $roles,
                 'sekolah' => $sekolah,
-                'tahun_ajarans' => $tahun_ajarans
+                'tahun_ajarans' => $tahun_ajarans,
+                'countRole' => $countRole,
+                'countSekolah' => $countSekolah,
+                'countTahunAjaran' => $countTahunAjaran
             ]);
 
         }else if(\Auth::user()->hasRole('siswa')){

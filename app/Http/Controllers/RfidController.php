@@ -22,7 +22,7 @@ class RfidController extends Controller
      */
     public function index()
     {
-        //
+        abort(404);
     }
 
     /**
@@ -32,7 +32,7 @@ class RfidController extends Controller
      */
     public function create()
     {
-        //
+        abort(404);
     }
 
     /**
@@ -43,7 +43,7 @@ class RfidController extends Controller
      */
     public function store(StoreRfidRequest $request)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -54,7 +54,7 @@ class RfidController extends Controller
      */
     public function show(Rfid $rfid)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -65,7 +65,7 @@ class RfidController extends Controller
      */
     public function edit(Rfid $rfid)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -77,7 +77,7 @@ class RfidController extends Controller
      */
     public function update(UpdateRfidRequest $request, Rfid $rfid)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -88,6 +88,6 @@ class RfidController extends Controller
      */
     public function destroy(Rfid $rfid)
     {
-        //
+        abort(404);
     }
 }

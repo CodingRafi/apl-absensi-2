@@ -26,7 +26,7 @@
                             <td>
                                 <form action="{{ route('agenda.show', ['role' => 'siswa', 'id' => $kelas->id]) }}" method="get">
                                     @include('mypartials.tahunajaran')
-                                    <button type="submit" class="btn btn-sm text-white text-white" style="background-color: #3bae9c;border-radius: 5px; 500;">Show Jadwal</button>
+                                    <button type="submit" class="btn btn-sm text-white text-white" style="background-color: #3bae9c;border-radius: 5px; font-weight:500;">Show Jadwal</button>
                                 </form>
                             </td>
                         </tr>

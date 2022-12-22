@@ -33,7 +33,7 @@ class StatusKehadiranController extends Controller
      */
     public function create()
     {
-        //
+        abort(404);
     }
 
     /**
@@ -60,7 +60,7 @@ class StatusKehadiranController extends Controller
      */
     public function show(StatusKehadiran $statusKehadiran)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -99,6 +99,6 @@ class StatusKehadiranController extends Controller
      */
     public function destroy(StatusKehadiran $statusKehadiran)
     {
-        //
+        abort(404);
     }
 }

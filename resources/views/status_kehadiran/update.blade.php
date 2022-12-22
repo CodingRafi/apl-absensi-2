@@ -12,7 +12,7 @@
                         <div class="card-body">
                             <div class="mb-3">
                                 <label for="nama" class="form-label">Nama</label>
-                                <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ $statusKehadiran->nama, old('nama') }}">
+                                <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ isset($data) ? $data->nama : old('nama') }}">
                                 @error('nama')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -21,7 +21,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="color" class="form-label">color</label>
-                                <input type="color" class="form-control @error('color') is-invalid @enderror" id="color" name="color" value="{{ $statusKehadiran->color, old('color') }}">
+                                <input type="color" class="form-control @error('color') is-invalid @enderror" id="color" name="color" value="{{ isset($data) ? $data->color : old('color') }}">
                                 @error('color')
                                     <div class="invalid-feedback">
                                         {{ $message }}

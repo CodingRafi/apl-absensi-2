@@ -69,7 +69,7 @@ class RegisteredUserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        abort(404);
     }
 
     /**

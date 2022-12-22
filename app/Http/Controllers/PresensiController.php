@@ -67,7 +67,7 @@ class PresensiController extends Controller
      */
     public function create()
     {
-        //
+        abort(404);
     }
 
     /**
@@ -106,7 +106,7 @@ class PresensiController extends Controller
      */
     public function show(Presensi $presensi)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -117,7 +117,7 @@ class PresensiController extends Controller
      */
     public function edit(Presensi $presensi)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -146,7 +146,7 @@ class PresensiController extends Controller
      */
     public function destroy(Presensi $presensi)
     {
-        //
+        abort(404);
     }
 
     public function export(Request $request){
