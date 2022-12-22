@@ -49,17 +49,6 @@
                         <th scope="col">No</th>
                         <th scope="col">Profil</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        @if ($role == 'guru')
-                        <th scope="col">Mapel</th>
-                        @endif
-                        <th scope="col">NIP</th>
-                        <th scope="col">Jenis Kelamin</th>
-                        <th scope="col">Tempat Lahir</th>
-                        <th scope="col">Tanggal Lahir</th>
-                        <th scope="col">Agama</th>
-                        <th scope="col">Rfid</th>
-                        <th scope="col">Status Rfid</th>
                         @if (auth()->user()->can('edit_users') || auth()->user()->can('delete_users'))
                         <th scope="col">Action</th>
                         @endif
@@ -70,39 +59,9 @@
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>
-                            @if ($user->profil == '/img/profil.png')
-                            <img src="{{ $user->profil }}" alt="" style="object-fit: cover; border-radius: 50%">
-                            @else
-                            <img src="{{ asset('storage/' . $user->profil) }}" alt=""
-                                style="object-fit: cover; border-radius: 50%">
-                            @endif
+                            <img src="{{ $user->profil == '/img/profil.png' ? $user->profil : asset('storage/' . $user->profil) }}" alt="" style="object-fit: cover; border-radius: 50%">
                         </td>
                         <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
-                        @if ($role == 'guru')
-                        <td>
-                            @foreach ($user->mapel as $mapel)
-                                <div style="padding: 5px; border-bottom: 1.5px solid rgb(128, 128, 128)">
-                                    {{ $mapel->nama }}
-                                </div>
-                            @endforeach
-                        </td>
-                        @endif
-                        <td>{{ $user->nip }}</td>
-                        <td>{{ $user->jk }}</td>
-                        <td>{{ $user->tempat_lahir }}</td>
-                        <td>{{ $user->tanggal_lahir }}</td>
-                        <td>{{ $user->ref_agama ? $user->ref_agama->nama : '' }}</td>
-                        @if ($user->rfid)
-                        <td>{{ $user->rfid->rfid_number }}</td>
-                        @else
-                        <td></td>
-                        @endif
-                        @if ($user->rfid)
-                        <td>{{ $user->rfid->status }}</td>
-                        @else
-                        <td></td>
-                        @endif
                         @if (auth()->user()->can('edit_users') || auth()->user()->can('delete_users'))      
                         <td>
                             <form action="{{ route('users.shows', ['role' => $role, 'id' => $user->id]) }}" method="get">

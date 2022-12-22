@@ -52,13 +52,6 @@ class PermissionTableSeeder extends Seeder
             'edit_rfid',
             'delete_rfid',
 
-            'view_siswa',
-            'add_siswa',
-            'edit_siswa',
-            'delete_siswa',
-            'import_siswa',
-            'export_siswa',
-
             'view_mapel',
             'add_mapel',
             'edit_mapel',

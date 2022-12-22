@@ -23,20 +23,8 @@ class Rfid extends Model
         return $this->belongsTo(Siswa::class);
     }
 
-    public static function createRfid($number_rfid, $siswa_id, $user_id, $status){
-        if ($siswa_id != null) {
-            Rfid::create([
-                'rfid_number' => $number_rfid,
-                'siswa_id' => $siswa_id,
-                'status' => ($status == 'on') ? 'aktif' : 'tidak'
-            ]);
-        }else if($user_id != null){
-            Rfid::create([
-                'rfid_number' => $number_rfid,
-                'user_id' => $user_id,
-                'status' => ($status == 'on') ? 'aktif' : 'tidak'
-            ]);
-        }
+    public static function createRfid($number_rfid, $user_id, $status){
+        
     }
 
     public static function updateRfid($request){

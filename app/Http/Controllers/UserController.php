@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use DB;
+use DB, Hash, Auth;
 use App\Models\User;
 use App\Models\Siswa;
 use App\Models\Mapel;
 use App\Models\Rfid;
 use App\Models\ref_agama;
 use App\Models\TahunAjaran;
-use App\Models\JedaPresensi;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
 use Rap2hpoutre\FastExcel\FastExcel;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StoreUserRequest;
 
 class UserController extends Controller
 {
@@ -49,61 +49,39 @@ class UserController extends Controller
         return view('users.create', compact('role', 'mapels', 'agamas', 'provinsis'));
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-            'email' => ['required', Rule::unique('users'), Rule::unique('siswas')],
-            'password' => 'required', 
-            'nip' => 'required|unique:users', 
-            'jk' => 'required', 
-            'tempat_lahir' => 'required', 
-            'tanggal_lahir' => 'required', 
-            'ref_agama_id' => 'required', 
-            'jalan' => 'required', 
-            'kelurahan' => 'required', 
-            'kecamatan' => 'required', 
-            'kota_kab' => 'required', 
-            'provinsi' => 'required', 
-            'role' => 'required',
-            'rfid_number' => 'unique:rfids',
-            'profil' => 'mimes:png,jpg,jpeg|file|max:5024'
-        ]);
-        
+    public function store(StoreUserRequest $request)
+    {   
         $data = [
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => \Hash::make($request->password), 
-            'nip' => $request->nip, 
-            'jk' => $request->jk, 
-            'tempat_lahir' => $request->tempat_lahir, 
-            'tanggal_lahir' => $request->tanggal_lahir, 
-            'ref_agama_id' => $request->ref_agama_id, 
-            'jalan' => $request->jalan, 
-            'kelurahan' => $request->kelurahan, 
-            'kecamatan' => $request->kecamatan,
-            'kota_kab' => $request->kota_kab,
-            'provinsi' => $request->provinsi,
-            'sekolah_id' => \Auth::user()->sekolah_id,
+            'profil' => isset($data['profil']) ? $data['profil'] : '/img/profil.png',
+            'password' => Hash::make($request->password),
+            'sekolah_id' => Auth::user()->sekolah_id,
             'email' => $request->email
         ];
 
-        if($request->profil){
-            $data += ['profil' => $request->file('profil')->store('profil')];
+        if ($request->role == 'siswa') {
+            $data += ['nipd' => $request->nipd];
+        }else{
+            $data += ['nip' => $request->nip];
         }
-
-        $user = User::create($data);
         
+        $user = User::create($data);
         $user->assignRole($request->role);
-        if($request->role == 'guru'){
-            $user->mapel()->attach($request->mapel);
+
+        if ($request->role == 'siswa') {
+            app('App\Http\Controllers\ProfileSiswaController')->store($user, $request);
+        }else{
+            app('App\Http\Controllers\ProfileUserController')->store($user, $request);
         }
 
         if ($request->rfid_number) {
-            Rfid::createRfid($request->rfid_number, null, $user->id, $request->status_rfid);
+            Rfid::create([
+                'rfid_number' => $number_rfid,
+                'user_id' => $user_id,
+                'status' => ($status == 'on') ? 'aktif' : 'tidak'
+            ]);
         }
 
-        return TahunAjaran::redirectWithTahunAjaranManual('/users/' . $request->role, $request,  'Berhasil menambahkan ' . $request->role);
+        return TahunAjaran::redirectWithTahunAjaranManual(route('users.index', [$request->role]), $request,  'Berhasil menambahkan ' . $request->role);
     }
 
     
@@ -115,15 +93,15 @@ class UserController extends Controller
     public function edit($role, $id)
     {   
         $this->check_user($id, $role);
-        $data = User::findOrFail($id);
+        if ($role == 'siswa') {
+            $data = User::join('profile_siswas', 'profile_siswas.user_id', 'users.id')->where('users.id', $id)->get();
+        }else{
+            $data = User::select('users.id as id_user', 'users.*', 'profile_users.*')->join('profile_users', 'profile_users.user_id', 'users.id')->where('users.id', $id)->first();
+        }
+        $provinsis = DB::table('ref_provinsis')->get();
         $mapels = Mapel::where('sekolah_id', \Auth::user()->sekolah_id)->get();
         $agamas = ref_agama::all();
-        return view('users.update', [
-            'data' => $data,
-            'role' => $role,
-            'mapels' => $mapels,
-            'agamas' => $agamas
-        ]);
+        return view('users.update', compact('data', 'role', 'mapels', 'agamas', 'provinsis'));
     }
 
     /**

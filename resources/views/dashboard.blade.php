@@ -247,13 +247,9 @@
                                 @foreach ($users as $key => $user)
                                 <tr>
                                     <td>{{ $key }}</td>
-                                    <td style="width: 5%">{{ count($user) }}</td>
+                                    <td style="width: 5%">{{ $user }}</td>
                                 </tr>
                                 @endforeach
-                                <tr>
-                                    <td>Siswa</td>
-                                    <td>{{ $siswas }}</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>

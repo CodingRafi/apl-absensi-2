@@ -63,6 +63,10 @@ class User extends Authenticatable
         return $this->belongsTo(ref_agama::class);
     }
 
+    public function profil_user(){
+        return $this->hasOne(profile_user::class);
+    }
+
     public function scopeFilter($query, array $filter){
         $query->when($filter['search'] ?? false, function($query, $filter){
             return $query->where('users.name', 'like', '%' . $filter . '%')

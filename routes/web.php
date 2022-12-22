@@ -15,6 +15,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KompetensiController;
 use App\Http\Controllers\TahunAjaranController;
 use App\Http\Controllers\JedaPresensiController;
+use App\Http\Controllers\RefKabupatenController;
+use App\Http\Controllers\RefKecamatanController;
+use App\Http\Controllers\RefKelurahanController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\WaktuIstirahatController;
 use App\Http\Controllers\WaktuPelajaranController;
@@ -42,7 +45,7 @@ Route::middleware(['guest'])->group(function () {
 });
 
 
-Route::group(['middleware' => ['auth:web']], function() {
+Route::group(['middleware' => ['auth']], function() {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('roles', RoleController::class);
     
@@ -55,10 +58,13 @@ Route::group(['middleware' => ['auth:web']], function() {
         Route::resource('agama', RefAgamaController::class);
         Route::resource('status-kehadiran', StatusKehadiranController::class);
         Route::resource('tahun-ajaran', TahunAjaranController::class);
+        Route::post('kabupaten', [RefKabupatenController::class, 'index'])->name('kabupaten_list');
+        Route::post('kecamatan', [RefKecamatanController::class, 'index'])->name('kecamatan_list');
+        Route::post('kelurahan', [RefKelurahanController::class, 'index'])->name('kelurahan_list');
     });
         
     Route::name('users.')->prefix('users')->group(function () {
-        Route::resource('siswa', SiswaController::class);
+        // Route::resource('siswa', SiswaController::class);
         Route::get('{role}', [UserController::class, 'index'])->name('index');
         Route::get('create/{role}', [UserController::class, 'create'])->name('user_create');
         Route::post('{role}', [UserController::class, 'store'])->name('store');

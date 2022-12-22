@@ -19,7 +19,6 @@
                           @foreach ($roles as $role)
                           <option value="{{ $role->name }}" style="text-transform: capitalize;">{{ str_replace("_", " ", $role->name_long) }}</option>
                           @endforeach            
-                          <option value="siswa">Siswa</option>
                       </select>
                   </div>
                   <div class="mb-3 div-email">

@@ -136,7 +136,7 @@
     @endif
     <div class="mb-3">
         <label for="ref_provinsi_id" class="form-label">Provinsi</label>
-        <select class="between-input-item-select form-control" name="ref_provinsi_id">
+        <select class="between-input-item-select form-control" name="ref_provinsi_id" id="ref_provinsi_id">
             <option value="">Pilih Provinsi</option>
             @foreach ($provinsis as $provinsi)
             @if (isset($data) ? ($data->ref_provinsi_id == $provinsi->id ? 'selected' : '') : (old('ref_provinsi_id') == $provinsi->id ? 'selected' : ''))
@@ -164,22 +164,22 @@
         @enderror
     </div>
     <div class="mb-3">
-        <label for="ref_kelurahan_id" class="form-label">Kelurahan</label>
-        <select class="between-input-item-select form-select" name="ref_kelurahan_id" id="ref_kelurahan_id">
-            <option value="">Pilih Kelurahan</option>
+        <label for="ref_kecamatan_id" class="form-label">Kecamatan</label>
+        <select class="between-input-item-select form-select" name="ref_kecamatan_id" id="ref_kecamatan_id">
+            <option value="">Pilih Kecamatan</option>
         </select>
-        @error('ref_kelurahan_id')
+        @error('ref_kecamatan_id')
         <div class="invalid-feedback">
             {{ $message }}
         </div>
         @enderror
     </div>
     <div class="mb-3">
-        <label for="ref_kecamatan_id" class="form-label">Kecamatan</label>
-        <select class="between-input-item-select form-select" name="ref_kecamatan_id" id="ref_kecamatan_id">
-            <option value="">Pilih Kecamatan</option>
+        <label for="ref_kelurahan_id" class="form-label">Kelurahan</label>
+        <select class="between-input-item-select form-select" name="ref_kelurahan_id" id="ref_kelurahan_id">
+            <option value="">Pilih Kelurahan</option>
         </select>
-        @error('ref_kecamatan_id')
+        @error('ref_kelurahan_id')
         <div class="invalid-feedback">
             {{ $message }}
         </div>
