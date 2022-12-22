@@ -18,7 +18,7 @@ class CheckRoleExistOrNotMiddleware
     public function handle(Request $request, Closure $next)
     {
         $check = Role::where('name', $request->role)->first();
-        if (!$check) {
+        if (!$check || $request->role == 'super_admin' || $request->role == 'admin' || $request->role == 'yayasan') {
             abort(404);
         }
 
