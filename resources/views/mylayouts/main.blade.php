@@ -51,8 +51,13 @@
 
   <link rel="shortcut icon" href="/template/images/favicon.png" />
 
+  {{--
   <link href='/fullcalendar/lib/main.css' rel='stylesheet' />
-  <script src='/fullcalendar/lib/main.js'></script>
+  <script src='/fullcalendar/lib/main.js'></script> --}}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js">
+  </script>
 
   <style>
     body.sidebar-icon-only .nav-item span {
@@ -207,10 +212,6 @@
           })
       }
   </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js">
-  </script>
-  <script src="{{ asset('js/wilayah.js') }}"></script>
 
   @include('mypartials.js')
   @yield('tambahjs')

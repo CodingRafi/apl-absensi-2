@@ -12,9 +12,12 @@ use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
-use Rap2hpoutre\FastExcel\FastExcel;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\UsersExport;
+use App\Imports\UsersImport;
 
 class UserController extends Controller
 {
@@ -30,78 +33,164 @@ class UserController extends Controller
     
     public function index(Request $request, $role)
     {   
-        $users = User::filter(request(['search']))
+        $users = User::select('users.*')
+                    ->when($role == 'siswa', function($q) use($role, $request){
+                        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+                        $q->join('profile_siswas', 'profile_siswas.user_id', 'users.id')
+                            ->join('kelas', 'profile_siswas.kelas_id', 'kelas.id')
+                            ->join('kompetensis', 'profile_siswas.kompetensi_id', 'kompetensis.id')
+                            ->join('tahun_ajarans', 'tahun_ajarans.id', 'profile_siswas.tahun_ajaran_id')
+                            ->where('profile_siswas.tahun_ajaran_id', $tahun_ajaran->id)
+                            ->filterSiswa(request(['kelas', 'jurusan', 'search']));
+                    })
+                    ->when($role != 'siswa', function($q) use($role){
+                        $q->join('profile_users', 'profile_users.user_id', 'users.id')
+                            ->filterUser(request(['search']));
+                    })
                     ->role($role) 
-                    ->where('sekolah_id', \Auth::user()->sekolah_id)
+                    ->where('users.sekolah_id', \Auth::user()->sekolah_id)
                     ->get();
-
-        return view('users.index', [
+        $data = [
             'users' => $users,
             'role' => $role
-        ]);
+        ];
+
+        if ($role == 'siswa') {
+            $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+            if (Auth::user()->sekolah->tingkat == 'smk' || Auth::user()->sekolah->tingkat == 'sma') {
+                $data += ['kompetensis' => DB::table('kompetensis')->where('sekolah_id', Auth::user()->sekolah_id)->get()];
+            }
+            $data += ['kelas' => DB::table('kelas')->where('sekolah_id', Auth::user()->sekolah_id)->where('tahun_ajaran_id', $tahun_ajaran->id)->get()];
+        }
+
+        return view('users.index', $data);
     }
 
     public function create(Request $request, $role)
     {   
         $provinsis = DB::table('ref_provinsis')->get();
-        $mapels = Mapel::where('sekolah_id', \Auth::user()->sekolah_id)->get();
         $agamas = ref_agama::all();
-        return view('users.create', compact('role', 'mapels', 'agamas', 'provinsis'));
+        $data = [
+            'provinsis' => $provinsis,
+            'agamas' => $agamas,
+            'role' => $role,
+        ];
+        
+        if ($role == 'guru') {
+            $data += ['mapels' => DB::table('mapels')->where('sekolah_id', \Auth::user()->sekolah_id)->get()];
+        }
+        
+        if ($role == 'siswa') {
+            $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+            if (Auth::user()->sekolah->tingkat == 'smk' || Auth::user()->sekolah->tingkat == 'sma') {
+                $data += ['kompetensis' => DB::table('kompetensis')->where('sekolah_id', Auth::user()->sekolah_id)->get()];
+            }
+            $data += ['kelas' => DB::table('kelas')->where('kelas.sekolah_id', Auth::user()->sekolah_id)
+                                                    ->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->get()];
+        }
+
+        return view('users.create', $data);
     }
 
-    public function store(StoreUserRequest $request)
+    public function store(StoreUserRequest $request, $role)
     {   
         $data = [
             'profil' => isset($data['profil']) ? $data['profil'] : '/img/profil.png',
-            'password' => Hash::make($request->password),
             'sekolah_id' => Auth::user()->sekolah_id,
             'email' => $request->email
         ];
-
-        if ($request->role == 'siswa') {
+        if ($role == 'siswa') {
+            $request->validate([
+                'nipd' => 'required|unique:users',
+                'nisn' => 'required|unique:profile_siswas'
+            ]);
             $data += ['nipd' => $request->nipd];
         }else{
+            $request->validate([
+                'nip' => 'required|unique:users'
+            ]);
             $data += ['nip' => $request->nip];
         }
         
         $user = User::create($data);
-        $user->assignRole($request->role);
+        $user->assignRole($role);
 
-        if ($request->role == 'siswa') {
+        if ($role == 'siswa') {
             app('App\Http\Controllers\ProfileSiswaController')->store($user, $request);
         }else{
-            app('App\Http\Controllers\ProfileUserController')->store($user, $request);
+            app('App\Http\Controllers\ProfileUserController')->store($user, $request, $role);
         }
 
         if ($request->rfid_number) {
             Rfid::create([
                 'rfid_number' => $number_rfid,
-                'user_id' => $user_id,
+                'user_id' => $user->id,
                 'status' => ($status == 'on') ? 'aktif' : 'tidak'
             ]);
         }
 
-        return TahunAjaran::redirectWithTahunAjaranManual(route('users.index', [$request->role]), $request,  'Berhasil menambahkan ' . $request->role);
+        return TahunAjaran::redirectWithTahunAjaranManual(route('users.index', [$role]), $request,  'Berhasil menambahkan ' . $role);
     }
 
     
     public function show($role, $id){
         $this->check_user($id, $role);
-        dd($role);
+        $user = User::when($role == 'siswa', function ($q) use($role) {
+                            return $q->select('users.email', 'users.profil', 'users.nipd', 'profile_siswas.nisn', 'profile_siswas.nik','profile_siswas.jk', 'profile_siswas.jalan', 'profile_siswas.name', 'profile_siswas.tempat_lahir', 'profile_siswas.tanggal_lahir', 'ref_provinsis.nama as provinsi', 'ref_kabupatens.nama as kabupaten', 'ref_kecamatans.nama as kecamatan', 'ref_kelurahans.nama as kelurahan', 'ref_agamas.nama as agama', 'kelas.nama as kelas', 'kompetensis.kompetensi')
+                                    ->join('profile_siswas', 'profile_siswas.user_id', 'users.id')
+                                    ->join('kelas', 'profile_siswas.kelas_id', 'kelas.id')
+                                    ->join('kompetensis', 'profile_siswas.kompetensi_id', 'kompetensis.id')
+                                    ->join('ref_agamas', 'profile_siswas.ref_agama_id', 'ref_agamas.id')
+                                    ->join('ref_provinsis', 'profile_siswas.ref_provinsi_id', 'ref_provinsis.id')
+                                    ->join('ref_kabupatens', 'profile_siswas.ref_kabupaten_id', 'ref_kabupatens.id')
+                                    ->join('ref_kecamatans', 'profile_siswas.ref_kecamatan_id', 'ref_kecamatans.id')
+                                    ->join('ref_kelurahans', 'profile_siswas.ref_kelurahan_id', 'ref_kelurahans.id');
+                        })->when($role != 'siswa', function($q) use($role){
+                            return $q->select('users.email', 'users.profil', 'users.nip', 'profile_users.*','profile_users.jk', 'profile_users.tempat_lahir', 'profile_users.tanggal_lahir', 'profile_users.jalan', 'profile_users.name', 'ref_provinsis.nama as provinsi', 'ref_kabupatens.nama as kabupaten', 'ref_kecamatans.nama as kecamatan', 'ref_kelurahans.nama as kelurahan', 'ref_agamas.nama as agama')
+                                    ->join('profile_users', 'profile_users.user_id', 'users.id')
+                                    ->join('ref_agamas', 'profile_users.ref_agama_id', 'ref_agamas.id')
+                                    ->join('ref_provinsis', 'profile_users.ref_provinsi_id', 'ref_provinsis.id')
+                                    ->join('ref_kabupatens', 'profile_users.ref_kabupaten_id', 'ref_kabupatens.id')
+                                    ->join('ref_kecamatans', 'profile_users.ref_kecamatan_id', 'ref_kecamatans.id')
+                                    ->join('ref_kelurahans', 'profile_users.ref_kelurahan_id', 'ref_kelurahans.id');
+                        })->where('users.id', $id)->first();
+        // dd($user);
+        return view('users.show', compact('user', 'role'));
     }
 
-    public function edit($role, $id)
+    public function edit(Request $request, $role, $id)
     {   
         $this->check_user($id, $role);
-        if ($role == 'siswa') {
-            $data = User::join('profile_siswas', 'profile_siswas.user_id', 'users.id')->where('users.id', $id)->get();
-        }else{
-            $data = User::select('users.id as id_user', 'users.*', 'profile_users.*')->join('profile_users', 'profile_users.user_id', 'users.id')->where('users.id', $id)->first();
-        }
+
+        $user = User::when($role == 'siswa', function ($q) use($role) {
+                    return $q->select('users.*', 'profile_siswas.*', 'users.id as id')->join('profile_siswas', 'profile_siswas.user_id', 'users.id');
+                })->when($role != 'siswa', function($q) use($role){
+                    return $q->select('users.*', 'profile_users.*','users.id as id')
+                            ->join('profile_users', 'profile_users.user_id', 'users.id');
+                })->where('users.id', $id)->first();
+
         $provinsis = DB::table('ref_provinsis')->get();
-        $mapels = Mapel::where('sekolah_id', \Auth::user()->sekolah_id)->get();
         $agamas = ref_agama::all();
-        return view('users.update', compact('data', 'role', 'mapels', 'agamas', 'provinsis'));
+        $data = [
+            'provinsis' => $provinsis,
+            'agamas' => $agamas,
+            'role' => $role,
+            'data' => $user
+        ];
+        
+        if ($role == 'guru') {
+            $data += ['mapels' => DB::table('mapels')->where('sekolah_id', \Auth::user()->sekolah_id)->get()];
+        }
+        
+        if ($role == 'siswa') {
+            $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+            if (Auth::user()->sekolah->tingkat == 'smk' || Auth::user()->sekolah->tingkat == 'sma') {
+                $data += ['kompetensis' => DB::table('kompetensis')->where('sekolah_id', Auth::user()->sekolah_id)->get()];
+            }
+            $data += ['kelas' => DB::table('kelas')->where('kelas.sekolah_id', Auth::user()->sekolah_id)
+                                                    ->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->get()];
+        }
+        return view('users.update', $data);
     }
 
     /**
@@ -111,51 +200,64 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, $role, $id)
     {
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'nip' => ['required', Rule::unique('users')->ignore($user->id)], 
-            'jk' => 'required', 
-            'tempat_lahir' => 'required', 
-            'tanggal_lahir' => 'required', 
-            'ref_agama_id' => 'required', 
-            'jalan' => 'required', 
-            'kelurahan' => 'required', 
-            'kecamatan' => 'required', 
-            'kota_kab' => 'required', 
-            'provinsi' => 'required', 
-            'role' => 'required',
-            'profil' => 'mimes:png,jpg,jpeg|file|max:5024',
-            'email' => ['required', Rule::unique('users')->ignore($user->id), Rule::unique('siswas')]
-        ]);
+        $user = User::findOrFail($id);
 
-        $rfid = $user->rfid;
-        if ($rfid) {
-            $request->validate([
-                'rfid_number' => [Rule::unique('rfids')->ignore($rfid->id)],
-            ]);
-        }
+        if ($request->rfid_number) {
+            $rfid = $user->rfid;
+            if ($rfid) {
+                $request->validate([
+                    'rfid_number' => [Rule::unique('rfids')->ignore($rfid->id)],
+                ]);
 
-        if ($request->file('profil')) {
-            if($user->profil != '/img/profil'){
-                Storage::delete($user->profil);
+                $rfid->update([
+                    'rfid_number' => $request->rfid_number,
+                    'status' => ($request->status_rfid   == 'on') ? 'aktif' : 'tidak'
+                ]);
+            }else{
+                Rfid::create([
+                    'rfid_number' => $request->rfid_number,
+                    'user_id' => $user->id,
+                    'status' => ($request->status_rfid == 'on') ? 'aktif' : 'tidak'
+                ]);
             }
-            $validatedData['profil'] = $request->file('profil')->store('profil');
         }
 
-        $user->update($validatedData);
-        if($request->role == 'guru'){
-            $user->mapel()->sync($request->mapel);
+        $data = [
+            'sekolah_id' => Auth::user()->sekolah_id,
+            'email' => $request->email
+        ];
+        
+        if ($role == 'siswa') {
+            $request->validate([
+                'nipd' => ['required', Rule::unique('users')->ignore($user->id)], 
+                'nisn' => ['required', Rule::unique('profile_siswas')->ignore($user->profile_siswa->id)], 
+            ]);
+            $data += ['nipd' => $request->nipd];
+        }else{
+            $request->validate([
+                'nip' => ['required', Rule::unique('users')->ignore($user->id)], 
+            ]);
+            $data += ['nip' => $request->nip];
         }
         
-        if($request->id_rfid){
-            Rfid::updateRfid($request);
-        }else if($request->rfid_number){
-            Rfid::createRfid($request->rfid_number, null, $user->id, $request->status_rfid ?? 'tidak');
+        if ($request->file('profil')) {
+            if($user->profil != '/img/profil.png'){
+                Storage::delete($user->profil);
+            }
+            $data['profil'] = $request->file('profil')->store('profil');
+        }
+        
+        $user->update($data);
+
+        if ($role == 'siswa') {
+            app('App\Http\Controllers\ProfileSiswaController')->update($user, $request);
+        }else{
+            app('App\Http\Controllers\ProfileUserController')->update($user, $request, $role);
         }
 
-        return TahunAjaran::redirectWithTahunAjaranManual('/users/' . $request->role, $request,  'Berhasil mengupdate ' . $request->role);
+        return TahunAjaran::redirectWithTahunAjaranManual(route('users.index', [$role]), $request,  'Berhasil mengupdate ' . $role);
     }
 
     /**
@@ -209,79 +311,18 @@ class UserController extends Controller
     }
 
     public function import($role){
-        $roleQuery = Role::where('name', $role)->first();
-        $jedas = JedaPresensi::where('role_id', $roleQuery->id)->get();
         return view('users.import',[
-            'role' => $role,
-            'jedas' => $jedas
+            'role' => $role
         ]);
     }
 
-    public function saveimport(Request $request, $role){
-        $users = (new FastExcel)->import($request->file);
-        $berhasil = 0;
-        $gagal = 0;
-
-        foreach ($users as $key => $user) {
-            if (array_key_exists("email",$user) && array_key_exists("nip",$user)) {     
-                $cekUser = User::where('email', $user['email'])->orWhere('nip', $user['nip'])->first();
-                
-                if ($cekUser) {
-                    $gagal++;
-                }else{
-                    $agama = ref_agama::where('nama', 'LIKE', '%' . $user['agama'] . '%')->first();
-                    $user = User::create([
-                        'name' => $user['name'],
-                        'email' => $user['email'],
-                        'nip' => $user['nip'],
-                        'jk' => ($user['jk'] == 'L' || $user['jk'] == 'P') ? strtoupper($user['jk']) : null,
-                        'tempat_lahir' => $user['tempat_lahir'],
-                        'tanggal_lahir' => Siswa::filterDate($user['tanggal_lahir']),
-                        'agama' => $agama ? $agama->id : '',
-                        'jalan' => $user['jalan'],
-                        'kecamatan' => $user['kecamatan'],
-                        'kelurahan' => $user['kelurahan'],
-                        'kota_kab' => $user['kota_kab'],
-                        'provinsi' => $user['provinsi'],
-                        'password' => \Hash::make('12345678'),
-                        'sekolah_id' => \Auth::user()->sekolah_id
-                    ]);
-    
-                    $user->assignRole($role);
-                    $berhasil++;
-                }
-            }else{
-                return TahunAjaran::redirectWithTahunAjaranManual('/import/users/' . $role, $request, 'kolom tidak valid');
-            }
-        }
-
-        return TahunAjaran::redirectWithTahunAjaranManual('/users/' . $role, $request,  'Berhasil ' . $berhasil . ','. 'Gagal '. $gagal );
+    public function store_import(Request $request, $role){
+        $excel = Excel::import(new UsersImport($role, $request), $request->file('file'));
+        return TahunAjaran::redirectWithTahunAjaranManual(route('users.index', [$role]), $request,  'Berhasil mengimport ' . $role);
     }
 
     public function export(Request $request, $role){
-        $users_query = User::filter(request(['search']))->where('sekolah_id', \Auth::user()->sekolah_id)->get();
-        $users = [];
-        
-        foreach ($users_query as $key => $user) {
-            if($user->hasRole($role)){
-                $users[] = [
-                    'name' => $user->name,
-                    'email' => $user->email,
-                    'nip' => $user->nip,
-                    'jk' => $user->jk,
-                    'tempat_lahir' => $user->tempat_lahir,
-                    'tanggal_lahir' => $user->tanggal_lahir,
-                    'agama' => $user->ref_agama? $user->ref_agama->nama : '',
-                    'jalan' => $user->jalan,
-                    'kelurahan' => $user->kelurahan,
-                    'kecamatan' => $user->kecamatan,
-                    'kota_kab' => $user->kota_kab,
-                    'provinsi' => $user->provinsi,
-                ];
-            }
-        }
-
-        return (new FastExcel(collect($users)))->download('file.xlsx');
+        return Excel::download(new UsersExport($role, $request), $role.'.xlsx');
     }
 
     public function createYayasan(){

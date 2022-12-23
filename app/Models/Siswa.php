@@ -47,10 +47,13 @@ class Siswa extends Authenticatable
         return $this->belongsTo(ref_agama::class);
     }
     
-    public function scopeFilter($query, array $filter){
+    public function scopeFilterUser($query, array $filter){
         $query->when($filter['idk'] ?? false, function($query, $filter){
             return $query->where('kelas.id', $filter);
         });
+    }
+
+    public function scopeFilterSiswa($query, array $filter){
         $query->when($filter['idj'] ?? false, function($query, $filter){
             return $query->where('kompetensis.id', $filter);
         });

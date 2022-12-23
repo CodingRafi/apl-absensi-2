@@ -63,35 +63,35 @@ Route::group(['middleware' => ['auth']], function() {
         Route::post('kelurahan', [RefKelurahanController::class, 'index'])->name('kelurahan_list');
     });
         
-    Route::name('users.')->prefix('users')->group(function () {
-        // Route::resource('siswa', SiswaController::class);
-        Route::get('{role}', [UserController::class, 'index'])->name('index');
-        Route::get('create/{role}', [UserController::class, 'create'])->name('user_create');
-        Route::post('{role}', [UserController::class, 'store'])->name('store');
-        Route::get('{role}/{id}/edit', [UserController::class, 'edit'])->name('edit');
-        Route::get('{role}/{id}', [UserController::class, 'show'])->name('shows');
-        Route::patch('{role}/{id}', [UserController::class, 'update'])->name('update');
+    Route::middleware(['check_role'])->group(function () {
+        Route::name('users.')->prefix('users')->group(function () {
+            // Route::resource('siswa', SiswaController::class);
+            Route::get('{role}', [UserController::class, 'index'])->name('index');
+            Route::get('{role}/create', [UserController::class, 'create'])->name('create');
+            Route::post('{role}', [UserController::class, 'store'])->name('store');
+            Route::get('{role}/{id}/edit', [UserController::class, 'edit'])->name('edit');
+            Route::get('{role}/{id}', [UserController::class, 'show'])->name('shows');
+            Route::patch('{role}/{id}', [UserController::class, 'update'])->name('update');
+        });
+
+        // Export dan Import User
+        Route::get('/import/users/{role}', [UserController::class, 'import']);
+        Route::post('/import/users/{role}', [UserController::class, 'store_import']);
+        Route::get('/export/users/{role}', [UserController::class, 'export']);
+        
+        Route::name('agenda.')->prefix('agenda')->group(function () {
+            Route::get('{role}', [AgendaController::class, 'index'])->name('index');
+            Route::get('{role}/{id}', [AgendaController::class, 'show'])->name('show');
+            Route::get('create/{role}/{id}', [AgendaController::class, 'create'])->name('create');
+            Route::post('/', [AgendaController::class, 'store'])->name('store');
+            Route::get('{role}/{id}/edit', [AgendaController::class, 'edit'])->name('edit');
+            Route::patch('/{id}', [AgendaController::class, 'update'])->name('update');
+            Route::delete('/{id}', [AgendaController::class, 'destroy'])->name('destroy');
+        });
     });
     
-    // Export dan Import User
-    Route::get('/import/users/{role}', [UserController::class, 'import']);
-    Route::post('/import/users/{role}', [UserController::class, 'saveimport']);
-    Route::get('/export/users/{role}', [UserController::class, 'export']);
-    
-    // Export dan Import Siswa
-    Route::get('/import/siswa', [SiswaController::class, 'import'])->name('import.siswa');
-    Route::post('/import/siswa', [SiswaController::class, 'saveimport'])->name('save.import.siswa');
-    Route::get('/export', [SiswaController::class, 'export']);
-    
-    Route::name('agenda.')->prefix('agenda')->group(function () {
-        Route::get('{role}', [AgendaController::class, 'index'])->name('index');
-        Route::get('{role}/{id}', [AgendaController::class, 'show'])->name('show');
-        Route::get('create/{role}/{id}', [AgendaController::class, 'create'])->name('create');
-        Route::post('/', [AgendaController::class, 'store'])->name('store');
-        Route::get('{role}/{id}/edit', [AgendaController::class, 'edit'])->name('edit');
-        Route::patch('/{id}', [AgendaController::class, 'update'])->name('update');
-        Route::delete('/{id}', [AgendaController::class, 'destroy'])->name('destroy');
-    });
+
+
     // Route::get('/create-agenda', [AgendaController::class, 'create']);
     // Route::resource('agenda', AgendaController::class);
     Route::get('edit-sekolah', [App\Http\Controllers\SekolahController::class, 'edit']);
