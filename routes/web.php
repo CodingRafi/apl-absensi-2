@@ -76,7 +76,7 @@ Route::group(['middleware' => ['auth']], function() {
 
         // Export dan Import User
         Route::get('/import/users/{role}', [UserController::class, 'import']);
-        Route::post('/import/users/{role}', [UserController::class, 'saveimport']);
+        Route::post('/import/users/{role}', [UserController::class, 'store_import']);
         Route::get('/export/users/{role}', [UserController::class, 'export']);
         
         Route::name('agenda.')->prefix('agenda')->group(function () {

@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('siswas', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('sekolah_id')->constrained();
-            $table->timestamps();
-        });
+        // Schema::create('siswas', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->foreignId('sekolah_id')->constrained();
+        //     $table->timestamps();
+        // });
     }
 
     /**
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('siswas');
+        // Schema::dropIfExists('siswas');
     }
 };

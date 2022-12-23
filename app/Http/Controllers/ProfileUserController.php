@@ -8,9 +8,9 @@ use App\Http\Requests\Updateprofile_userRequest;
 
 class ProfileUserController extends Controller
 {
-    public function store($user, $request)
+    public function store($user, $request, $role)
     {
-        if($request->role == 'guru'){
+        if($role == 'guru'){
             $user->mapel()->attach($request->mapel);
         }
 
@@ -29,8 +29,8 @@ class ProfileUserController extends Controller
         ]);
     }
 
-    public function update($user, $request){
-        if($request->role == 'guru'){
+    public function update($user, $request, $role){
+        if($role == 'guru'){
             $user->mapel()->sync($request->mapel);
         }
 

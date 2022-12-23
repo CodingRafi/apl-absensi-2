@@ -37,7 +37,6 @@ class UpdateUserRequest extends FormRequest
             'ref_kecamatan_id' => 'required', 
             'ref_kelurahan_id' => 'required', 
             'jalan' => 'required',  
-            'role' => 'required',
             'profil' => 'mimes:png,jpg,jpeg|file|max:5024',
             'email' => ['required', Rule::unique('users')->ignore($this->id)]
         ];

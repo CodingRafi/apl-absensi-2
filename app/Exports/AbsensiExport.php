@@ -26,7 +26,7 @@ class AbsensiExport implements FromView
     * @return \Illuminate\Support\Collection
     */
 
-    function __construct($role, $absensis, $siswas = null, $users = null, $date) {
+    public function __construct($role, $absensis, $siswas = null, $users = null, $date) {
         $this->role = $role;
         $this->absensis = $absensis;
         $this->siswas = $siswas;

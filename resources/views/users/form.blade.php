@@ -19,8 +19,7 @@
     @if (isset($data))
     @method('patch')
     @endif
-    @csrf
-    <input type="hidden" name="role" value="{{ $role }}">
+    @csrf   
     <div class="mb-3">
         <label for="name" class="form-label">Nama Lengkap</label>
         <input type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Masukan Nama"

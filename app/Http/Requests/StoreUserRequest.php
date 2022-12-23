@@ -35,7 +35,6 @@ class StoreUserRequest extends FormRequest
             'ref_kecamatan_id' => 'required', 
             'ref_kelurahan_id' => 'required', 
             'jalan' => 'required', 
-            'role' => 'required',
             'rfid_number' => 'unique:rfids',
             'profil' => 'mimes:png,jpg,jpeg|file|max:5024'
         ];

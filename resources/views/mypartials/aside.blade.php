@@ -204,15 +204,6 @@
           </li>
           @endif
           @endforeach
-          <li class="nav-item" style="transition: none;">
-            <form action="/agenda/siswa" method="get">
-              @include('mypartials.tahunajaran')
-              <button class="nav-link"
-                style="background-color: #3bae9c; border: none; border-radius: 10px; min-width: 150px; transition: none;">Jadwal
-                Siswa
-              </button>
-            </form>
-          </li>
         </ul>
       </div>
     </li>
@@ -241,15 +232,6 @@
           </li>
           @endif
           @endforeach
-          <li class="nav-item" style="transition: none;">
-            <form action="/absensi/siswa" method="get">
-              @include('mypartials.tahunajaran')
-              <button class="nav-link {{ Request::is('/absensi*') ? 'active' : '' }}"
-                style="background-color: #3bae9c; border: none; border-radius: 10px; min-width: 150px; transition: none;">
-                Absensi Siswa
-              </button>
-            </form>
-          </li>
         </ul>
       </div>
     </li>

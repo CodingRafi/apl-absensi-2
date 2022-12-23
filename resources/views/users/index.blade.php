@@ -75,6 +75,15 @@
             <li class="nav-item">
                 <form action="/export/users/{{ $role }}" method="get">
                     @include('mypartials.tahunajaran')
+                    @if (request('kelas'))
+                        <input type="hidden" name="kelas" value="{{ request('kelas') }}">
+                    @endif
+                    @if (request('jurusan'))
+                        <input type="hidden" name="jurusan" value="{{ request('jurusan') }}">
+                    @endif
+                    @if (request('search'))
+                        <input type="hidden" name="search" value="{{ request('search') }}">
+                    @endif
                     <button type="submit" class="btn btn-sm text-white px-3"
                         style="background-color: #3bae9c;border-radius: 5px;font-weight: 500;">Export</button>
                 </form>
