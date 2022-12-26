@@ -59,7 +59,7 @@
             <li class="nav-item nav-profile dropdown">
                 <div class="mr-3">
                     <div class="d-flex justify-content-end">
-                        <b class="d-block">{{ Auth::user()->name }}</b>
+                        <b class="d-block">{{ Auth::user()->hasRole('siswa') ? (Auth::user()->profile_siswa ? Auth::user()->profile_siswa->name : '') : (Auth::user()->profile_user ? Auth::user()->profile_user->name : '') }}</b>
                     </div>
                     <span class="text-white badge text-user d-block" style="background-color:#3bae9ddc; border:1.5px solid #308b7d; font-weight: 600; display:flex;justify-content:center; width:fit-content !important; text-transform: capitalize; float: right"><i class="bi bi-info-circle mr-2"></i><span class="text-user" style="font-size: 12px; margin-top:1px; display: inline-block;">Masuk Sebagai {{ (Auth::user()->getTable() == 'users') ? str_replace("_", " ", Auth::user()->getRoleNames()->first())  : 'Siswa' }}</span>
                     </span>

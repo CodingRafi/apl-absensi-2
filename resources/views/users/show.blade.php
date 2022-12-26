@@ -17,6 +17,11 @@
                         <td class="col-lg-9">{{ $user->name }}</td>
                     </tr>
                     <tr class="row">
+                        <td class="col-lg-2" style="font-weight: 600;">Email</td>
+                        <td class="col-lg-1">:</td>
+                        <td class="col-lg-9">{{ $user->email }}</td>
+                    </tr>
+                    <tr class="row">
                         <td class="col-lg-2" style="font-weight: 600;">Jenis Kelamin</td>
                         <td class="col-lg-1">:</td>
                         <td class="col-lg-9">{{ $user->jk == 'L' ? 'Laki-Laki' : 'Perempuan' }}</td>

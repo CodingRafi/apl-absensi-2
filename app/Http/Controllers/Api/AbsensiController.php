@@ -27,6 +27,9 @@ class AbsensiController extends Controller
                 if ($rfid->status == 'aktif') {
                     $role = $rfid->user->getRoleNames()[0];
                     $agendas = $this->agenda('asc', $role, $rfid, $now);
+                    return response()->json([
+                        'data' => $rfid->user
+                    ], 200);
                     if (count($agendas) > 0) {
                         $hour = strtotime($now);
                         $tahun_ajaran = TahunAjaran::where('status', 'aktif')->first();
@@ -68,7 +71,6 @@ class AbsensiController extends Controller
                             if(!$absensi){
                                 $now = Carbon::now();  
                                 $timeUser = $agendas[0]->waktu_pelajaran->jam_awal;
-
                                 
                                 if (date('H', $hour) < explode(':', $timeUser)[0]) {
                                     $absensi12 = Absensi::create([
