@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('absensi_pelajarans', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
             $table->foreignId('kelas_id')->constrained();
             $table->foreignId('user_id')->nullable()->constrained();
             $table->foreignId('mapel_id')->constrained();

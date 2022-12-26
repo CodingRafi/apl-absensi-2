@@ -35,7 +35,7 @@
                         @foreach ($users as $user)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->profile_user->name }}</td>
                                 <td>
                                     <form action="{{ route('agenda.show', ['role' => $role, 'id' => $user->id]) }}" method="get">
                                         @include('mypartials.tahunajaran')

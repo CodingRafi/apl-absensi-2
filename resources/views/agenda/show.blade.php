@@ -5,7 +5,7 @@
     <div class="card-body">
         <h4 class="card-title float-left">Jadwal {{ ($role == 'siswa') ? $data->nama : $data->name}}</h4>
         @if (auth()->user()->can('add_agenda'))
-        <form action="{{ route('agenda.create', ['role' => $role, 'id' => (isset($data)) ? $data->id : $data->id]) }}" method="get">
+        <form action="{{ route('agenda.create', ['role' => $role, 'id' => $data->id]) }}" method="get">
             @include('mypartials.tahunajaran')
             <button type="submit" class="btn btn-sm text-white float-right" style="background-color: #3bae9c; border-radius: 5px; font-weight: 500;">Tambah</button>
         </form>

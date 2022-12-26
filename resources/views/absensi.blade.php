@@ -1,30 +1,31 @@
 @extends('mylayouts.main')
 
 @section('tambahcss')
-    <style>
-        @media (max-width: 647px) {
-            .kelas, .jurusan{
-                width: 33vw;
-            }
-        }
+<style>
+    @media (max-width: 647px) {
 
-        @media (max-width: 647px) {
-            .bulan{
-                width: 22vw;
-            }
+        .kelas,
+        .jurusan {
+            width: 33vw;
         }
+    }
 
-        @media (max-width: 647px) {
-            .search{
-                width: 32vw;
-            }
+    @media (max-width: 647px) {
+        .bulan {
+            width: 22vw;
         }
-    </style>
+    }
+
+    @media (max-width: 647px) {
+        .search {
+            width: 32vw;
+        }
+    }
+</style>
 @endsection
 
 @section('container')
 <div class="card">
-    <input type="hidden" name="" value="{{ $role }}" class="role">
     <div class="card-body">
         <h4 class="card-title float-left">Absensi {{ $role }}</h4>
         <ul class="nav float-right mb-4" style="gap: 1rem;">
@@ -38,194 +39,21 @@
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
                             style="max-height: 50vh;overflow: auto;">
+                            @foreach (config('services.bulan') as $key => $bulan)
                             <li>
                                 <form action="" method="get">
                                     @include('mypartials.tahunajaran')
-                                    @if (request('idk'))
-                                        <input type="hidden" name="idk" value="{{ request('idk') }}">
+                                    @if (request('kelas'))
+                                    <input type="hidden" name="kelas" value="{{ request('kelas') }}">
                                     @endif
-                                    @if (request('idj'))
-                                        <input type="hidden" name="idj" value="{{ request('idj') }}">
+                                    @if (request('jurusan'))
+                                    <input type="hidden" name="jurusan" value="{{ request('jurusan') }}">
                                     @endif
-                                    <input type="hidden" name="idb" value="1">
-                                    <button type="submit" class="dropdown-item">Januari</button>
-                                </form>
-                            </li>
-                            <li>
-                                <form action="" method="get">
-                                    @include('mypartials.tahunajaran')
-                                    @if (request('idk'))
-                                        <input type="hidden" name="idk" value="{{ request('idk') }}">
+                                    @if (request('search'))
+                                    <input type="hidden" name="search" value="{{ request('search') }}">
                                     @endif
-                                    @if (request('idj'))
-                                        <input type="hidden" name="idj" value="{{ request('idj') }}">
-                                    @endif
-                                    <input type="hidden" name="idb" value="2">
-                                    <button type="submit" class="dropdown-item">Februari</button>
-                                </form>
-                            </li>
-                            <li>
-                                <form action="" method="get">
-                                    @include('mypartials.tahunajaran')
-                                    @if (request('idk'))
-                                        <input type="hidden" name="idk" value="{{ request('idk') }}">
-                                    @endif
-                                    @if (request('idj'))
-                                        <input type="hidden" name="idj" value="{{ request('idj') }}">
-                                    @endif
-                                    <input type="hidden" name="idb" value="3">
-                                    <button type="submit" class="dropdown-item">Maret</button>
-                                </form>
-                            </li>
-                            <li>
-                                <form action="" method="get">
-                                    @include('mypartials.tahunajaran')
-                                    @if (request('idk'))
-                                        <input type="hidden" name="idk" value="{{ request('idk') }}">
-                                    @endif
-                                    @if (request('idj'))
-                                        <input type="hidden" name="idj" value="{{ request('idj') }}">
-                                    @endif
-                                    <input type="hidden" name="idb" value="4">
-                                    <button type="submit" class="dropdown-item">April</button>
-                                </form>
-                            </li>
-                            <li>
-                                <form action="" method="get">
-                                    @include('mypartials.tahunajaran')
-                                    @if (request('idk'))
-                                        <input type="hidden" name="idk" value="{{ request('idk') }}">
-                                    @endif
-                                    @if (request('idj'))
-                                        <input type="hidden" name="idj" value="{{ request('idj') }}">
-                                    @endif
-                                    <input type="hidden" name="idb" value="5">
-                                    <button type="submit" class="dropdown-item">Mei</button>
-                                </form>
-                            </li>
-                            <li>
-                                <form action="" method="get">
-                                    @include('mypartials.tahunajaran')
-                                    @if (request('idk'))
-                                        <input type="hidden" name="idk" value="{{ request('idk') }}">
-                                    @endif
-                                    @if (request('idj'))
-                                        <input type="hidden" name="idj" value="{{ request('idj') }}">
-                                    @endif
-                                    <input type="hidden" name="idb" value="6">
-                                    <button type="submit" class="dropdown-item">Juni</button>
-                                </form>
-                            </li>
-                            <li>
-                                <form action="" method="get">
-                                    @include('mypartials.tahunajaran')
-                                    @if (request('idk'))
-                                        <input type="hidden" name="idk" value="{{ request('idk') }}">
-                                    @endif
-                                    @if (request('idj'))
-                                        <input type="hidden" name="idj" value="{{ request('idj') }}">
-                                    @endif
-                                    <input type="hidden" name="idb" value="7">
-                                    <button type="submit" class="dropdown-item">Juli</button>
-                                </form>
-                            </li>
-                            <li>
-                                <form action="" method="get">
-                                    @include('mypartials.tahunajaran')
-                                    @if (request('idk'))
-                                        <input type="hidden" name="idk" value="{{ request('idk') }}">
-                                    @endif
-                                    @if (request('idj'))
-                                        <input type="hidden" name="idj" value="{{ request('idj') }}">
-                                    @endif
-                                    <input type="hidden" name="idb" value="8">
-                                    <button type="submit" class="dropdown-item">Agustus</button>
-                                </form>
-                            </li>
-                            <li>
-                                <form action="" method="get">
-                                    @include('mypartials.tahunajaran')
-                                    @if (request('idk'))
-                                        <input type="hidden" name="idk" value="{{ request('idk') }}">
-                                    @endif
-                                    @if (request('idj'))
-                                        <input type="hidden" name="idj" value="{{ request('idj') }}">
-                                    @endif
-                                    <input type="hidden" name="idb" value="9">
-                                    <button type="submit" class="dropdown-item">September</button>
-                                </form>
-                            </li>
-                            <li>
-                                <form action="" method="get">
-                                    @include('mypartials.tahunajaran')
-                                    @if (request('idk'))
-                                        <input type="hidden" name="idk" value="{{ request('idk') }}">
-                                    @endif
-                                    @if (request('idj'))
-                                        <input type="hidden" name="idj" value="{{ request('idj') }}">
-                                    @endif
-                                    <input type="hidden" name="idb" value="10">
-                                    <button type="submit" class="dropdown-item">Oktober</button>
-                                </form>
-                            </li>
-                            <li>
-                                <form action="" method="get">
-                                    @include('mypartials.tahunajaran')
-                                    @if (request('idk'))
-                                        <input type="hidden" name="idk" value="{{ request('idk') }}">
-                                    @endif
-                                    @if (request('idj'))
-                                        <input type="hidden" name="idj" value="{{ request('idj') }}">
-                                    @endif
-                                    <input type="hidden" name="idb" value="11">
-                                    <button type="submit" class="dropdown-item">November</button>
-                                </form>
-                            </li>
-                            <li>
-                                <form action="" method="get">
-                                    @include('mypartials.tahunajaran')
-                                    @if (request('idk'))
-                                        <input type="hidden" name="idk" value="{{ request('idk') }}">
-                                    @endif
-                                    @if (request('idj'))
-                                        <input type="hidden" name="idj" value="{{ request('idj') }}">
-                                    @endif
-                                    <input type="hidden" name="idb" value="12">
-                                    <button type="submit" class="dropdown-item">Desember</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </li>
-            @if ($role == 'siswa')
-            <li class="nav-item">
-                <div class="input-group input-group-sm">
-                    <form action="" method="get" style="display: flex; gap:5px;">
-                        @include('mypartials.tahunajaran')
-                        <input type="text" class="form-control search" placeholder="Search" name="s_siswa" style="height: 1.9rem">
-                        <button type="submit" class="btn" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 2.5rem; padding: 0.1rem"><i class="bi bi-search"></i></button>
-                    </form>
-                </div>
-            </li>
-            @if (count($kelas_filter) > 0)       
-            <li class="nav-item">
-                <div class="input-group">
-                    <div class="dropdown">
-                        <button class="btn dropdown-toggle kelas" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; min-width: 5rem; padding: 0.1rem">
-                            Kelas
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            @foreach ($kelas_filter as $kelas)
-                            <li>
-                                <form action="" method="get">
-                                    @include('mypartials.tahunajaran')
-                                    @if (request('idb'))
-                                        <input type="hidden" name="idb" value="{{ request('idb') }}">
-                                    @endif
-                                    <input type="hidden" name="idk" value="{{ $kelas->id }}">
-                                    <button type="submit" class="dropdown-item">{{ $kelas->nama }}</button>
+                                    <input type="hidden" name="bulan" value="{{ $key+1 }}">
+                                    <button type="submit" class="dropdown-item">{{ $bulan }}</button>
                                 </form>
                             </li>
                             @endforeach
@@ -233,13 +61,70 @@
                     </div>
                 </div>
             </li>
-            @endif
+            <li class="nav-item">
+                <div class="input-group input-group-sm">
+                    <form action="" method="get" style="display: flex; gap: 5px">
+                        @include('mypartials.tahunajaran')
+                        @if (request('bulan'))
+                        <input type="hidden" name="bulan" value="{{ request('bulan') }}">
+                        @endif
+                        @if (request('kelas'))
+                        <input type="hidden" name="kelas" value="{{ request('kelas') }}">
+                        @endif
+                        @if (request('jurusan') && Auth::user()->sekolah->tingkat == 'smk' ||
+                        Auth::user()->sekolah->tingkat == 'sma')
+                        <input type="hidden" name="jurusan" value="{{ request('jurusan') }}">
+                        @endif 
+                        @if (request('search'))
+                        <input type="text" class="form-control search" placeholder="Search" style="height: 1.9rem;"
+                            name="search">
+                        @endif
+                        <button type="submit" class="btn"
+                            style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 2.5rem; padding: 0.1rem"><i
+                                class="bi bi-search"></i></button>
+                    </form>
+                </div>
+            </li>
+            @if ($role == 'siswa')
+            <li class="nav-item">
+                <div class="input-group">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle kelas" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false"
+                            style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; min-width: 5rem; padding: 0.1rem">
+                            Kelas
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            @foreach ($kelas as $row)
+                            <li>
+                                <form action="" method="get">
+                                    @include('mypartials.tahunajaran')
+                                    @if (request('bulan'))
+                                    <input type="hidden" name="bulan" value="{{ request('bulan') }}">
+                                    @endif
+                                    @if (request('jurusan') && Auth::user()->sekolah->tingkat == 'smk' ||
+                                    Auth::user()->sekolah->tingkat == 'sma')
+                                    <input type="hidden" name="jurusan" value="{{ request('jurusan') }}">
+                                    @endif 
+                                    @if (request('search'))
+                                    <input type="hidden" name="search" value="{{ request('search') }}">
+                                    @endif
+                                    <input type="hidden" name="kelas" value="{{ $row->id }}">
+                                    <button type="submit" class="dropdown-item">{{ $row->nama }}</button>
+                                </form>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </li>
             @if ( Auth::user()->sekolah->tingkat == 'smk' )
             <li class="nav-item">
                 <div class="input-group">
                     <div class="dropdown">
                         <button class="btn dropdown-toggle jurusan" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; min-width: 6rem; padding: 0.1rem">
+                            data-bs-toggle="dropdown" aria-expanded="false"
+                            style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; min-width: 6rem; padding: 0.1rem">
                             Jurusan
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -247,9 +132,15 @@
                             <li>
                                 <form action="" method="get">
                                     @include('mypartials.tahunajaran')
-                                    <input type="hidden" name="idj" value="{{ $kompetensi->id }}">
-                                    @if (request('idb'))
-                                        <input type="hidden" name="idb" value="{{ request('idb') }}">
+                                    <input type="hidden" name="jurusan" value="{{ $kompetensi->id }}">
+                                    @if (request('bulan'))
+                                    <input type="hidden" name="bulan" value="{{ request('bulan') }}">
+                                    @endif
+                                    @if (request('kelas'))
+                                    <input type="hidden" name="kelas" value="{{ request('kelas') }}">
+                                    @endif
+                                    @if (request('search'))
+                                    <input type="hidden" name="search" value="{{ request('search') }}">
                                     @endif
                                     <button type="submit" class="dropdown-item">{{ $kompetensi->kompetensi }}</button>
                                 </form>
@@ -260,61 +151,35 @@
                 </div>
             </li>
             @endif
-            @else
-            <li class="nav-item">
-                <div class="input-group input-group-sm">
-                    <form action="" method="get" style="display: flex; gap: 5px">
-                        @include('mypartials.tahunajaran')
-                        <input type="text" class="form-control search" placeholder="Search" style="height: 1.9rem;" name="s_user">
-                        <button type="submit" class="btn" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 2.5rem; padding: 0.1rem"><i class="bi bi-search"></i></button>
-                    </form>
-                </div>
-            </li>
             @endif
             <li class="nav-item">
                 <form action="/export/absensi" method="get">
                     @include('mypartials.tahunajaran')
-                    @if (request('idk'))
-                        <input type="hidden" name="idk" value="{{ request('idk') }}">
+                    @if (request('kelas'))
+                    <input type="hidden" name="kelas" value="{{ request('kelas') }}">
                     @endif
-                    @if (request('idb'))
-                        <input type="hidden" name="idb" value="{{ request('idb') }}">
+                    @if (request('bulan'))
+                    <input type="hidden" name="bulan" value="{{ request('bulan') }}">
                     @endif
-                    @if (request('idj'))
-                        <input type="hidden" name="idj" value="{{ request('idj') }}">
+                    @if (request('jurusan'))
+                    <input type="hidden" name="jurusan" value="{{ request('jurusan') }}">
                     @endif
                     @if (request('search'))
-                        <input type="hidden" name="search" value="{{ request('search') }}">
+                    <input type="hidden" name="search" value="{{ request('search') }}">
                     @endif
                     <input type="hidden" name="role" value="{{ $role }}">
                     <button type="submit" class="btn btn-sm text-white px-3"
-                    style="background-color: #3bae9c;border-radius: 5px;font-weight: 500;">Export</button>
+                        style="background-color: #3bae9c;border-radius: 5px;font-weight: 500;">Export</button>
                 </form>
             </li>
         </ul>
         <ul class="nav mb-4 justify-content-end" style="gap: 1rem; clear: right !important;">
-            <li class="nav-item">
-                <span class="badge badge-pill badge-success" style="color: rgba(0, 0, 0, 0)">1</span>
-                Hadir
+            @foreach ($status_kehadiran as $status)
+            <li class="nav-item d-flex align-items-center" style="gap: .3rem">
+                <span class="d-inline-block" style="background-color: {{ $status->color }};width: 1rem;height:1rem;"></span>
+                {{ $status->nama }}
             </li>
-            <li class="nav-item">
-                <span class="badge badge-pill"
-                    style="background: rgba(226, 138, 7, 1); color: rgba(0, 0, 0, 0)">1</span>
-                Sakit
-            </li>
-            <li class="nav-item">
-                <span class="badge badge-pill"
-                    style="background: rgba(243, 248, 10, 1); color: rgba(0, 0, 0, 0)">1</span>
-                Izin
-            </li>
-            <li class="nav-item">
-                <span class="badge badge-pill badge-danger" style="color: rgba(0, 0, 0, 0)">1</span>
-                Alpha
-            </li>
-            <li class="nav-item">
-                <span class="badge badge-pill badge-secondary" style="color: rgba(0, 0, 0, 0)">1</span>
-                Libur
-            </li>
+            @endforeach
         </ul>
         @if(session()->has('message'))
         <div class="alert alert-success" role="alert"></div>
@@ -328,106 +193,66 @@
                     <tr>
                         <th scope="col" rowspan="2" style="vertical-align: middle;">No</th>
                         <th scope="col" rowspan="2" style="vertical-align: middle;">Nama</th>
-                        <th scope="col" colspan="{{ count($date) }}">{{ date("F", mktime(0, 0, 0, explode('-', $date[0])[1], 10)) }}</th>
+                        <th scope="col" colspan="{{ count($date) }}">{{ date("F", mktime(0, 0, 0, explode('-',
+                            $date[0])[1], 10)) }}</th>
                     </tr>
                     <tr>
-                            @foreach ($date as $dt)
-                            <th scope="col">{{ explode('-', $dt)[2] }}</th>
-                            @endforeach
+                        @foreach ($date as $dt)
+                        <th scope="col">{{ explode('-', $dt)[2] }}</th>
+                        @endforeach
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($absensis as $key => $absensi) 
+                    @foreach ($absensis as $key => $absensi)
+                    
                     <tr>
                         <th scope="row" rowspan="2" style="vertical-align: middle;">{{ $loop->iteration }}</th>
-                            @if ($role == 'siswa')
-                            <td rowspan="2" style="vertical-align: middle;">{{ $siswas[$key]->name }}</td>
+                        <td rowspan="2" style="vertical-align: middle;">{{ $absensi['user']->name }}</td>
+                        @foreach ($absensi['absensis'] as $k => $row)
+                            @if (strtolower(date("D", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-',
+                            $date[0])[0]))) == 'sun')
+                            <td class="bg-secondary" style="height: 2rem;"></td>
                             @else
-                            <td rowspan="2" style="vertical-align: middle;">{{ $users[$key]->name }}</td>
+                                @if ($row && $row->presensi_masuk)
+                                    @foreach ($status_kehadiran as $status)
+                                        @if ($status->id == $row->status_kehadiran_id)
+                                        <td class="text-white cell-table" style="cursor: pointer;background: {{ $status->color }}" data-presensi="masuk" data-id="{{ $row->id }}">{{ explode(':', explode(' ',$row->presensi_masuk)[1])[0] }}:{{
+                                            explode(':', explode(' ',$row->presensi_masuk)[1])[1] }}
+                                        </td>
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;"></td>
+                                @endif
                             @endif
-                            @foreach ($absensi as $k => $sigleAbsensi)
-                                @if ($sigleAbsensi)
-                                    @if ($sigleAbsensi->kehadiran == 'hadir')
-                                        <td class="bg-success text-white cell-table" data-toggle="modal"
-                                        data-target="#ubah-absen" data-kehadiran="hadir" style="cursor: pointer;" data-bool-absen="true" data-presensi="masuk" data-id="{{ $sigleAbsensi->id }}" data-jam="{{ explode(':', explode(' ',$sigleAbsensi->presensi_masuk)[1])[0] }}" data-menit="{{ explode(':', explode(' ',$sigleAbsensi->presensi_masuk)[1])[1] }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}">{{ explode(':', explode(' ',$sigleAbsensi->presensi_masuk)[1])[0] }}:{{ explode(':', explode(' ',$sigleAbsensi->presensi_masuk)[1])[1] }}
+                        @endforeach
+                    </tr>
+                    <tr>
+                        @foreach ($absensi['absensis'] as $k => $row)
+                            @if (strtolower(date("D", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-',
+                            $date[0])[0]))) == 'sun')
+                                <td class="bg-secondary" style="height: 2rem;"></td>
+                            @else
+                                @if ($row && $row->presensi_pulang)
+                                    @foreach ($status_kehadiran as $status)
+                                        @if ($status->id == $row->status_kehadiran_id)
+                                        <td class="text-white cell-table" data-toggle="modal" data-target="#ubah-absen"
+                                            data-kehadiran="hadir" style="cursor: pointer;background: {{ $status->color }}" data-bool-absen="true" data-presensi="masuk"
+                                            data-id="{{ $row->id }}"
+                                            data-jam="{{ explode(':', explode(' ',$row->presensi_pulang)[1])[0] }}"
+                                            data-menit="{{ explode(':', explode(' ',$row->presensi_pulang)[1])[1] }}"
+                                            data-date="{{ date(" Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-',
+                                            $date[0])[0])) }}">{{ explode(':', explode(' ',$row->presensi_pulang)[1])[0] }}:{{
+                                            explode(':', explode(' ',$row->presensi_pulang)[1])[1] }}
                                         </td>
-                                    @elseif($sigleAbsensi->kehadiran == 'sakit')
-                                        <td class="cell-table" data-toggle="modal"
-                                        data-target="#ubah-absen" data-bool-absen="true" data-kehadiran="sakit" style="cursor: pointer;border: 1px solid grey;background-color: #E28A07;" data-presensi="masuk" data-id="{{ $sigleAbsensi->id }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}">
-                                        </td>
-                                    @elseif($sigleAbsensi->kehadiran == 'izin')
-                                        <td class="cell-table bg-warning" data-toggle="modal" data-kehadiran="izin"
-                                        data-target="#ubah-absen" data-bool-absen="true" style="cursor: pointer;border: 1px solid grey;" data-kehadiran="izin" data-presensi="masuk" data-id="{{ $sigleAbsensi->id }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}">
-                                        </td>
-                                    @else
-                                        <td class="cell-table bg-danger" data-toggle="modal" data-kehadiran="alpha"
-                                        data-target="#ubah-absen" data-bool-absen="true" style="cursor: pointer;border: 1px solid grey;" data-kehadiran="alpha" data-presensi="masuk" data-id="{{ $sigleAbsensi->id }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}">
-                                        </td>
-                                    @endif
-                                @else
-                                    @if (strtolower(date("D", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0]))) == 'sun')
-                                        <td class="bg-secondary" style="height: 2rem;"></td>
-                                    @else
-                                    {{-- @dd($siswas[2]->rfid) --}}
-                                        @if ($role == 'siswa')
-                                            <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;" data-toggle="modal"
-                                            data-target="#ubah-absen" style="cursor: pointer;" data-bool-absen="false" data-presensi="masuk" data-siswa-id="{{ $siswas[$key]->id }}" data-kelas-id="{{ $siswas[$key]->kelas_id }}" data-rfid="{{ ($siswas[$key]->rfid) ? $siswas[$key]->rfid->id : '' }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}"></td>
-                                        @else
-                                            @if ($users[$key]->rfid)      
-                                                <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;" data-toggle="modal"
-                                                data-target="#ubah-absen" style="cursor: pointer;"data-presensi="masuk" data-user-id="{{ $users[$key]->id }}" data-rfid="{{ $users[$key]->rfid->id }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}"></td>
-                                            @else
-                                              <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;"></td>  
-                                            @endif
                                         @endif
-                                    @endif
-                                @endif
-                            @endforeach
-                        </tr>
-                        <tr>
-                            @foreach ($absensi as $k => $sigleAbsensi)
-
-                            {{-- @dd('oke') --}}
-                            {{-- @dd($sigleAbsensi) --}}
-                            {{-- @dd($sigleAbsensi['presensi_pulang'])  --}}
-                            {{-- @dd($sigleAbsensi->presensi_pulang != null) --}}
-                                @if ($sigleAbsensi && $sigleAbsensi->presensi_pulang)
-                                    @if ($sigleAbsensi->kehadiran == 'hadir')
-                                        <td class="bg-success text-white cell-table" data-toggle="modal"
-                                        data-target="#ubah-absen" data-kehadiran="hadir" style="cursor: pointer;" data-bool-absen="true" data-presensi="pulang"  data-id="{{ $sigleAbsensi->id }}" data-jam="{{ explode(':', explode(' ',$sigleAbsensi->presensi_pulang)[1])[0] }}" data-menit="{{ explode(':', explode(' ',$sigleAbsensi->presensi_pulang)[1])[1] }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}">{{ explode(':', explode(' ',$sigleAbsensi->presensi_pulang)[1])[0] }}:{{ explode(':', explode(' ',$sigleAbsensi->presensi_pulang)[1])[1] }}
-                                        </td>
-                                    @elseif($sigleAbsensi->kehadiran == 'sakit')
-                                        <td class="cell-table" data-toggle="modal"
-                                        data-target="#ubah-absen" data-bool-absen="true" style="cursor: pointer;border: 1px solid grey;background-color: #E28A07;" data-kehadiran="sakit" data-presensi="pulang" data-id="{{ $sigleAbsensi->id }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}">
-                                        </td>
-                                    @elseif($sigleAbsensi->kehadiran == 'izin')
-                                        <td class="cell-table bg-warning" data-toggle="modal"
-                                        data-target="#ubah-absen" data-bool-absen="true" style="cursor: pointer;border: 1px solid grey;" data-kehadiran="izin" data-presensi="pulang" data-id="{{ $sigleAbsensi->id }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}">
-                                        </td>
-                                    @else
-                                        <td class="cell-table bg-danger" data-toggle="modal"
-                                        data-target="#ubah-absen" data-bool-absen="true" style="cursor: pointer;border: 1px solid grey;" data-kehadiran="alpha" data-presensi="pulang" data-id="{{ $sigleAbsensi->id }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}">
-                                        </td>
-                                    @endif
+                                    @endforeach
                                 @else
-                                    @if (strtolower(date("D", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0]))) == 'sun')
-                                        <td class="bg-secondary" style="height: 2rem;"></td>
-                                    @else
-                                        @if ($role == 'siswa')
-                                            <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;" data-toggle="modal"
-                                            data-target="#ubah-absen" style="cursor: pointer;" data-bool-absen="false" data-presensi="keluar" data-siswa-id="{{ $siswas[$key]->id }}" data-kelas-id="{{ $siswas[$key]->kelas_id }}" data-rfid="{{ ($siswas[$key]->rfid) ? $siswas[$key]->rfid->id : '' }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}"></td>
-                                        @else
-                                            @if ($users[$key]->rfid)    
-                                                <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;" data-toggle="modal"
-                                                data-target="#ubah-absen" style="cursor: pointer;" data-presensi="pulang" data-user-id="{{ $users[$key]->id }}" data-rfid="{{ $users[$key]->rfid->id }}" data-date="{{ date("Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-', $date[0])[0])) }}"></td>
-                                            @else
-                                               <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;"></td> 
-                                            @endif
-                                        @endif
-                                    @endif
+                                    <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;"></td>
                                 @endif
-                            @endforeach
-                        </tr>
+                            @endif
+                        @endforeach
+                    </tr>
                     @endforeach
                 </tbody>
             </table>
@@ -446,24 +271,16 @@
             <div class="modal-body">
                 <form action="/absensi" method="post" class="form-presensi">
                     @csrf
-                    <input type="hidden" name="presensi" class="presensi" disabled>
-                    <input type="hidden" name="table" class="table" value="{{ $role }}">
-                    <input type="hidden" name="siswa_id" class="siswa_id" disabled>
                     <input type="hidden" name="user_id" class="user_id" disabled>
-                    <input type="hidden" name="kelas_id" class="kelas_id" disabled>
-                    <input type="hidden" name="rfid_id" class="rfid_id" disabled>
-                    <input type="hidden" name="date" class="date" disabled>
-                    <input type="hidden" name="id" class="id" disabled>
                     <div class="card-body">
                         <div class="form-group row">
                             <label for="bidang" class="col-sm-2 col-form-label">Keterangan</label>
                             <div class="col-sm-10">
-                                <select class="form-control text-dark select-kehadiran" name="kehadiran" required>
+                                <select class="form-control text-dark select-kehadiran" name="waktu_pelajaran_id" required>
                                     <option value="" selected>Pilih keterangan</option>
-                                    <option value="hadir">Hadir</option>
-                                    <option value="sakit">Sakit</option>
-                                    <option value="izin">Izin</option>
-                                    <option value="alpha">Alpha</option>
+                                    @foreach ($status_kehadiran as $status)
+                                    <option value="{{ $status->id }}">{{ $status->nama }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -473,7 +290,8 @@
                                 <input type="time" name="waktu" id="" class="input-time form-control">
                             </div>
                         </div>
-                        <button type="submit" class="btn text-white float-right" style="background-color: #3bae9c">Simpan
+                        <button type="submit" class="btn text-white float-right"
+                            style="background-color: #3bae9c">Simpan
                         </button>
                     </div>
                 </form>

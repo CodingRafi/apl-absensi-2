@@ -24,226 +24,111 @@ class AbsensiController extends Controller
 
         if (strtolower($now->isoFormat('dddd')) != 'minggu') {
             if ($rfid) {
-                $absensi = Absensi::where('rfid_id', $rfid->id)->whereDate('presensi_masuk', Carbon::today())->first();
                 if ($rfid->status == 'aktif') {
-                    if($absensi && $absensi->presensi_pulang === null){
-                        $user;
-                        $date = strtotime($now);
+                    $role = $rfid->user->getRoleNames()[0];
+                    $agendas = $this->agenda('asc', $role, $rfid, $now);
+                    if (count($agendas) > 0) {
+                        $hour = strtotime($now);
+                        $tahun_ajaran = TahunAjaran::where('status', 'aktif')->first();
+                        $absensi = Absensi::select('absensis.*')
+                                    ->join('users', 'users.id', 'absensis.user_id')
+                                    ->join('rfids', 'rfids.user_id', 'users.id')
+                                    ->where('rfids.id', $rfid->id)
+                                    ->whereDate('presensi_masuk', Carbon::today())
+                                    ->first();
                         
-                        if($absensi->siswa){
-                            $agendas = Agenda::where('kelas_id', $absensi->rfid->siswa->kelas->id)->where('hari', strtolower($now->isoFormat('dddd')))->orderBy('jam_awal', 'desc')->get();
+                        if($absensi && $absensi->presensi_pulang === null){
+                            $agendas = $this->agenda('desc', $role, $rfid, $now);
+                            $timeUser = $agendas[0]->jam_akhir;
+                            if (date('H', $hour) > explode(':', $timeUser)[0]) {
+                                $absensi->update([
+                                    'presensi_pulang' => Carbon::now()
+                                ]);
+                                return response()->json([
+                                    'message' => 'Hati hati dijalan',
+                                    'kode_respon' => '2',
+                                    'user' => ($role == 'siswa' ? $rfid->user->profile_siswa : $rfid->user->profile_user)
+                                ], 200);
+                            }else if(date('i', $hour) >= explode(':', $timeUser)[1] && date('H', $hour) == explode(':', $timeUser)[0]){
+                                $absensi->update([
+                                    'presensi_pulang' => Carbon::now()
+                                ]);
+                                return response()->json([
+                                    'message' => 'Hati hati dijalan',
+                                    'kode_respon' => '2',
+                                    'user' => ($role == 'siswa' ? $rfid->user->profile_siswa : $rfid->user->profile_user)
+                                ], 200);
+                            }else{
+                                return response()->json([
+                                    'message' => 'Belom Pulang',
+                                    'kode_respon' => '5'
+                                ], 200);
+                            }
+                        }else{
+                            if(!$absensi){
+                                $now = Carbon::now();  
+                                $timeUser = $agendas[0]->waktu_pelajaran->jam_awal;
 
-                            if (count($agendas) > 0) {
-                                $user = $absensi->siswa;
-                                $timeUser = $agendas[0]->jam_akhir;
-        
-                                if (date('H', $date) > explode(':', $timeUser)[0]) {
-                                    $absensi->update([
-                                        'presensi_pulang' => Carbon::now()
+                                
+                                if (date('H', $hour) < explode(':', $timeUser)[0]) {
+                                    $absensi12 = Absensi::create([
+                                        'user_id' => $rfid->user->id,
+                                        'presensi_masuk' => $now,
+                                        'tahun_ajaran_id' => $tahun_ajaran->id,
+                                        'status_kehadiran_id' => 1
                                     ]);
-                                }else if(date('i', $date) >= explode(':', $timeUser)[1] && date('H', $date) == explode(':', $timeUser)[0]){
-                                    $absensi->update([
-                                        'presensi_pulang' => Carbon::now()
-                                    ]);
-                                }else{
+                                    
                                     return response()->json([
-                                        'message' => 'Belom Pulang',
-                                        'kode_respon' => '5'
+                                        'message' => 'Berhasil absen masuk',
+                                        'agendas' => $agendas,
+                                        'hari' => strtolower($now->isoFormat('dddd')),
+                                        'kode_respon' => '1',
+                                        'user' => ($role == 'siswa' ? $rfid->user->profile_siswa : $rfid->user->profile_user)
                                     ], 200);
-                                }
-                            } else {
-                                return response()->json([
-                                    'message' => 'anda tidak memiliki agenda',
-                                    'kode_respon' => '6',
-                                ], 200);
-                            }
-                        }else{  
-                            $agendas = Agenda::where('user_id', $absensi->rfid->user->id)->where('hari', strtolower($now->isoFormat('dddd')))->orderBy('jam_awal', 'desc')->get();
-                            if (count($agendas) > 0) {
-                                $user = $absensi->user; 
-                                $timeUser = $agendas[0]->jam_akhir;
-        
-                                if (date('H', $date) > explode(':', $timeUser)[0]
-                                ) {
-                                    $absensi->update([
-                                        'presensi_pulang' => Carbon::now()
+                                }else if(date('i', $hour) <= explode(':', $timeUser)[1] && date('H', $hour) == explode(':', $timeUser)[0]){
+                                    Absensi::create([
+                                        'user_id' => $rfid->user->id,
+                                        'presensi_masuk' => $now,
+                                        'tahun_ajaran_id' => $tahun_ajaran->id,
+                                        'status_kehadiran_id' => 1
                                     ]);
-                                }else if(date('H', $date) == explode(':', $timeUser)[0] && date('i', $date) >= explode(':', $timeUser)[1]){
-                                    $absensi->update([
-                                        'presensi_pulang' => Carbon::now()
-                                    ]);
-                                }else{
+                
                                     return response()->json([
-                                        'message' => 'Belom Pulang',
-                                        'kode_respon' => '5'
+                                        'message' => 'Berhasil absen masuk',
+                                        'agendas' => $agendas,
+                                        'hari' => strtolower($now->isoFormat('dddd')),
+                                        'kode_respon' => '1',
+                                        'user' => ($role == 'siswa' ? $rfid->user->profile_siswa : $rfid->user->profile_user)
                                     ], 200);
-                                }
-                            } else {
-                                return response()->json([
-                                    'message' => 'anda tidak memiliki agenda',
-                                    'kode_respon' => '6',
-                                ], 200);
-                            }
-                            
-                        }
-            
-                        return response()->json([
-                            'message' => 'Hati hati dijalan',
-                            'kode_respon' => '2',
-                            'user' => $user
-                        ], 200);
-                    }else{
-                        if(!$absensi){
-                            $now = Carbon::now();
-                            if ($rfid->siswa != '') {
-                                $agendas = Agenda::select('users.name as guru', 'mapels.nama as mapel', 'agendas.*', 'kelas.nama as nama_kelas')->leftJoin('kelas', 'kelas.id', 'agendas.kelas_id')->leftJoin('mapels', 'mapels.id', 'agendas.mapel_id')->leftJoin('users', 'users.id', 'agendas.user_id')->where('kelas_id', $rfid->siswa->kelas->id)->where('hari', strtolower($now->isoFormat('dddd')))->orderBy('jam_awal', 'asc')->get();
-    
-                                if (count($agendas) > 0) {
-                                    $date = strtotime($now);
-                                    $timeUser = $agendas[0]->jam_awal;
-        
-                                    if (date('H', $date) < explode(':', $timeUser)[0]) {
-                                        Absensi::create([
-                                            'rfid_id' => $rfid->id,
-                                            'siswa_id' => $rfid->siswa->id,
-                                            'kelas_id' => $rfid->siswa->kelas->id,
-                                            'presensi_masuk' => $now
-                                        ]);
-                    
-                                        return response()->json([
-                                            'message' => 'Berhasil absen masuk',
-                                            'agendas' => $agendas,
-                                            'hari' => strtolower($now->isoFormat('dddd')),
-                                            'kode_respon' => '1',
-                                            'siswa' => $rfid->siswa,
-                                            'kelas' => $rfid->siswa->kelas,
-                                            'kompetensi' => $rfid->siswa->kompetensi,
-                                        ], 200);
-                                    }else if(date('i', $date) <= explode(':', $timeUser)[1] && date('H', $date) == explode(':', $timeUser)[0]){
-                                        Absensi::create([
-                                            'rfid_id' => $rfid->id,
-                                            'siswa_id' => $rfid->siswa->id,
-                                            'kelas_id' => $rfid->siswa->kelas->id,
-                                            'presensi_masuk' => $now
-                                        ]);
-                    
-                                        $agendas = Agenda::select('users.name as guru', 'mapels.nama as mapel', 'agendas.*', 'kelas.nama as nama_kelas')->leftJoin('kelas', 'kelas.id', 'agendas.kelas_id')->leftJoin('mapels', 'mapels.id', 'agendas.mapel_id')->leftJoin('users', 'users.id', 'agendas.user_id')->where('kelas_id', $rfid->siswa->kelas->id)->where('hari', strtolower($now->isoFormat('dddd')))->get();
-                    
-                                        return response()->json([
-                                            'message' => 'Berhasil absen masuk',
-                                            'agendas' => $agendas,
-                                            'hari' => strtolower($now->isoFormat('dddd')),
-                                            'kode_respon' => '1',
-                                            'siswa' => $rfid->siswa,
-                                            'kelas' => $rfid->siswa->kelas,
-                                            'kompetensi' => $rfid->siswa->kompetensi,
-                                        ], 200);
-                                    } else {
-                                        return response()->json([
-                                            'message' => 'Maaf anda sudah terlambat. Silahkan lapor ke guru piket',
-                                            'kode_respon' => '4'
-                                        ], 200);
-                                    }
-                                }else{
+                                }else {
                                     return response()->json([
-                                        'message' => 'anda tidak memiliki agenda',
-                                        'kode_respon' => '6',
+                                        'message' => 'Maaf anda sudah terlambat. Silahkan lapor ke guru piket',
+                                        'kode_respon' => '4'
                                     ], 200);
                                 }
                             }else{
-                                $agendas = Agenda::where('user_id', $rfid->user->id)->where('hari', strtolower($now->isoFormat('dddd')))->orderBy('jam_awal', 'asc')->get();
-                                if (count($agendas) > 0) {
-                                    $date = strtotime($now);
-                                    $timeUser = $agendas[0]->jam_awal;
-                                    // date('i', $date) <= explode(':', $timeUser)[1]
-                                    if (date('H', $date) < explode(':', $timeUser)[0]) {
-                                        Absensi::create([
-                                            'rfid_id' => $rfid->id,
-                                            'user_id' => $rfid->user->id,
-                                            'presensi_masuk' => $now
-                                        ]);
-                                        
-                                        if ($rfid->user->hasRole('guru')) {
-                                            $agendas = Agenda::select('kelas.nama as nama_kelas', 'mapels.nama as mapel', 'agendas.*', 'kelas.nama as nama_kelas')->leftJoin('kelas', 'kelas.id', 'agendas.kelas_id')->leftJoin('mapels', 'mapels.id', 'agendas.mapel_id')->leftJoin('users', 'users.id', 'agendas.user_id')->where('agendas.user_id', $rfid->user->id)->where('hari', strtolower($now->isoFormat('dddd')))->get();
-                    
-                                            return response()->json([
-                                                'message' => 'Berhasil absen masuk',
-                                                'agendas' => $agendas,
-                                                'hari' => strtolower($now->isoFormat('dddd')),
-                                                'kode_respon' => '1',
-                                                'user' => $rfid->user
-                                            ], 200);
-                                            return $rfid->user->mapel;
-                                        }else{
-                                            return response()->json([
-                                                'message' => 'Berhasil absen masuk',
-                                                'kode_respon' => '1',
-                                                'user' => $rfid->user,
-                                                'agendas' => $agendas,
-                                                'hari' => strtolower($now->isoFormat('dddd')),
-                                                'role' => 'user'
-                                            ], 200);
-                                        }
-                                    }else if(date('H', $date) == explode(':', $timeUser)[0] && date('i', $date) <= explode(':', $timeUser)[1]){
-                                        Absensi::create([
-                                            'rfid_id' => $rfid->id,
-                                            'user_id' => $rfid->user->id,
-                                            'presensi_masuk' => $now
-                                        ]);
-                                        
-                                        if ($rfid->user->hasRole('guru')) {
-                                            $agendas = Agenda::select('kelas.nama as nama_kelas', 'mapels.nama as mapel', 'agendas.*', 'kelas.nama as nama_kelas')->leftJoin('kelas', 'kelas.id', 'agendas.kelas_id')->leftJoin('mapels', 'mapels.id', 'agendas.mapel_id')->leftJoin('users', 'users.id', 'agendas.user_id')->where('agendas.user_id', $rfid->user->id)->where('hari', strtolower($now->isoFormat('dddd')))->get();
-                    
-                                            return response()->json([
-                                                'message' => 'Berhasil absen masuk',
-                                                'agendas' => $agendas,
-                                                'hari' => strtolower($now->isoFormat('dddd')),
-                                                'kode_respon' => '1',
-                                                'user' => $rfid->user,
-                                                'role' => 'guru'
-                                            ], 200);
-                                            return $rfid->user->mapel;
-                                        }else{
-                                            return response()->json([
-                                                'message' => 'Berhasil absen masuk',
-                                                'kode_respon' => '1',
-                                                'user' => $rfid->user,
-                                                'agendas' => $agendas,
-                                                'hari' => strtolower($now->isoFormat('dddd')),
-                                                'role' => 'user'
-                                            ], 200);
-                                        }
-                                    }else{
-                                        return response()->json([
-                                            'message' => 'Maaf anda sudah terlambat. Silahkan lapor ke guru piket',
-                                            'kode_respon' => '4'
-                                        ], 200);
-                                    }
-                                } else {
-                                    return response()->json([
-                                        'message' => 'anda tidak memiliki agenda',
-                                        'kode_respon' => '6',
-                                    ], 200);
-                                }
-                                
+                                return response()->json([
+                                    'message' => 'hari ini sudah absen masuk ataupun pulang',
+                                    'kode_respon' => '3'
+                                ], 200);
                             }
-                        }else{
-                            return response()->json([
-                                'message' => 'hari ini sudah absen masuk ataupun pulang',
-                                'kode_respon' => '3'
-                            ], 200);
                         }
+                    }else{
+                        return response()->json([
+                            'message' => 'anda tidak memiliki agenda',
+                            'kode_respon' => '6',
+                        ], 200);
                     }
                 }else{
                     return response()->json([
-                        'message' => 'Rfid sudah tidak aktif',
-                        'kode_respon' => 7
+                        'message' => 'Rfid tidak aktif',
+                        'kode_respon' => '7'
                     ], 200);
                 }
             }else{
                 return response()->json([
                     'message' => 'Rfid tidak ditemukan',
-                    'kode_respon' => 8
+                    'kode_respon' => '8'
                 ], 200);
             }
         }else{
@@ -252,7 +137,22 @@ class AbsensiController extends Controller
                 'kode_respon' => 9
             ], 200);
         }
+    }
 
-
+    private function agenda($orderBy = 'asc', $role, $rfid, $now){
+        return Agenda::select('agendas.*')
+                ->when($role == 'siswa', function($q) use($role, $rfid){
+                    $q->join('users', 'agendas.user_id', 'users.id')
+                    ->join('profile_siswas', 'profile_siswas.user_id', 'users.id')
+                    ->join('kelas', 'kelas.id', 'profile_siswas.kelas_id')
+                    ->where('kelas.id', $rfid->profile_siswa->kelas->id);
+                })
+                ->when($role != 'siswa', function($q) {
+                    $q->join('users', 'agendas.user_id', 'users.id');
+                })
+                ->join('waktu_pelajarans', 'waktu_pelajarans.id', 'agendas.waktu_pelajaran_id')
+                ->where('hari', strtolower($now->isoFormat('dddd')))
+                ->orderBy('waktu_pelajarans.jam_ke', 'asc')
+                ->get();
     }
 }
