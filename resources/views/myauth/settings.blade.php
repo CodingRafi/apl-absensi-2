@@ -148,7 +148,7 @@
                         <button type="submit" class="btn" style=" min-width: 10rem; background-color: white; color:#3bae9c; margin: 2%; text-align:center">Ubah Password</button>
                     </form>
                     @endif
-                    <form action="/" method="get">
+                    <form action="/dashboard" method="get">
                         @include('mypartials.tahunajaran')
                         <button type="submit" class="btn" style=" min-width: 10rem; background-color: red; color:#ffffff; margin: 2%; text-align:center">Kembali</button>
                     </form>

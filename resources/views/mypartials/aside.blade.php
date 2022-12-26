@@ -71,22 +71,34 @@
     </li>
     @endif
 
+    @php
+      $dataMaster =
+      request()->is('data-master*') ||
+      request()->is('tahun-ajaran*') ||
+      request()->is('kompetensi*') ||
+      request()->is('kelas*') ||
+      request()->is('mapel*') ||
+      request()->is('status-kehadiran*') ||
+      request()->is('agama*') ||
+      request()->is('jam-pelajaran*');
+    @endphp
+
     @if (auth()->user()->can('view_tahun_ajaran') || auth()->user()->can('view_kompetensi') ||
     auth()->user()->can('view_kelas') || auth()->user()->can('view_mapel') ||
     auth()->user()->can('view_status_kehadiran') || auth()->user()->can('view_agama'))
     <li class="nav-item" style="transition: none;">
-      <a class="nav-link {{ Request::is('data-master*') ? 'active' : '' }}" data-toggle="collapse" aria-expanded="false" aria-controls="data-master" style="background-color: transparent; border: none;  width: 100%; transition: none; cursor: pointer;">
+      <a class="nav-link @if ($dataMaster) active @endif" data-toggle="collapse" aria-expanded="false" aria-controls="data-master" style="background-color: transparent; border: none;  width: 100%; transition: none; cursor: pointer;">
         <i class="bi bi-collection-fill mr-4"></i>
         <span class="menu-title">Data Master</span>
         <i class="menu-arrow"></i>
       </a>
-      <div class="collapse" id="data-master">
+      <div class="collapse @if ($dataMaster) show @endif" id="data-master">
         <ul class="nav flex-column sub-menu">
           @if (auth()->user()->can('view_tahun_ajaran'))
           <li class="nav-item" style="transition: none;">
             <form action="{{ route('tahun-ajaran.index') }}">
               @include('mypartials.tahunajaran')
-              <button class="nav-link {{ Request::is('tahun-ajaran') ? 'active' : '' }}"
+              <button class="nav-link @if (request()->is('tahun-ajaran*')) active @endif"
                 style="background-color: #3bae9c; border: none; min-width: 150px;text-transform: capitalize; transition: none;">Tahun
                 Ajaran</button>
             </form>
@@ -97,7 +109,7 @@
           <li class="nav-item" style="transition: none;">
             <form action="{{ route('kompetensi.index') }}" method="get">
               @include('mypartials.tahunajaran')
-              <button class="nav-link {{ Request::is('kompetensi') ? 'active' : '' }}"
+              <button class="nav-link @if (request()->is('kompetensi*')) active @endif"
                 style="background-color: #3bae9c; border: none; min-width: 150px;text-transform: capitalize; transition: none;">Kompetensi</button>
             </form>
           </li>
@@ -106,7 +118,7 @@
           <li class="nav-item" style="transition: none;">
             <form action="{{ route('kelas.index') }}" method="get">
               @include('mypartials.tahunajaran')
-              <button class="nav-link {{ Request::is('kelas') ? 'active' : '' }}"
+              <button class="nav-link @if (request()->is('kelas*')) active @endif"
                 style="background-color: #3bae9c; border: none; min-width: 150px;text-transform: capitalize; transition: none;">Kelas</button>
             </form>
           </li>
@@ -115,7 +127,7 @@
           <li class="nav-item" style="transition: none;">
             <form action="{{ route('mapel.index') }}" method="get">
               @include('mypartials.tahunajaran')
-              <button class="nav-link {{ Request::is('mapel') ? 'active' : '' }}"
+              <button class="nav-link @if (request()->is('mapel*')) active @endif"
                 style="background-color: #3bae9c; border: none; min-width: 150px;text-transform: capitalize; transition: none;">Mapel</button>
             </form>
           </li>
@@ -124,7 +136,7 @@
           <li class="nav-item" style="transition: none;">
             <form action="{{ route('status-kehadiran.index') }}" method="get">
               @include('mypartials.tahunajaran')
-              <button class="nav-link {{ Request::is('status-kehadiran') ? 'active' : '' }}"
+              <button class="nav-link @if (request()->is('status-kehadiran*')) active @endif"
                 style="background-color: #3bae9c; border: none; min-width: 150px;text-transform: capitalize; transition: none;">Status
                 kehadiran</button>
             </form>
@@ -134,7 +146,7 @@
           <li class="nav-item" style="transition: none;">
             <form action="{{ route('agama.index') }}" method="get">
               @include('mypartials.tahunajaran')
-              <button class="nav-link {{ Request::is('agama') ? 'active' : '' }}"
+              <button class="nav-link @if (request()->is('agama*')) active @endif"
                 style="background-color: #3bae9c; border: none; min-width: 150px;text-transform: capitalize; transition: none;">Agama</button>
             </form>
           </li>
@@ -143,7 +155,7 @@
           <li class="nav-item" style="transition: none;">
             <form action="{{ route('jam-pelajaran.index') }}" method="get">
               @include('mypartials.tahunajaran')
-              <button class="nav-link {{ Request::is('jam-pelajaran') ? 'active' : '' }}"
+              <button class="nav-link @if (request()->is('jam-pelajaran*')) active @endif"
                 style="background-color: #3bae9c; border: none; min-width: 150px;text-transform: capitalize; transition: none;">Jam Pelajaran</button>
             </form>
           </li>
@@ -152,15 +164,21 @@
       </div>
     </li>
     @endif
+    
+    @php
+      $dataUser =
+      request()->is('users*') ||
+      request()->is('siswa*');
+    @endphp
 
     @if (auth()->user()->can('view_users'))
     <li class="nav-item" style="transition: none;">
-      <a class="nav-link {{ Request::is('users*') ? 'active' : '' }}{{ Request::is('siswa') ? 'active' : '' }}" data-toggle="collapse" aria-expanded="false" aria-controls="data-user" style="background-color: transparent; border: none;  width: 100%; transition: none; cursor: pointer;">
+      <a class="nav-link @if ($dataUser) active @endif" data-toggle="collapse" aria-expanded="false" aria-controls="data-user" style="background-color: transparent; border: none;  width: 100%; transition: none; cursor: pointer;">
         <i class="bi bi-people-fill mr-4"></i>
         <span class="menu-title">Data User</span>
         <i class="menu-arrow"></i>
       </a>
-      <div class="collapse" id="data-user">
+      <div class="collapse @if ($dataUser) show @endif" id="data-user">
         <ul class="nav flex-column sub-menu">
           @if (auth()->user()->can('view_users'))
           @foreach ($roles as $role)
@@ -183,21 +201,27 @@
     </li>
     @endif
 
+    @php
+      $jadwal =
+      request()->is('agenda*') ||
+      request()->is('/*');
+    @endphp
+
     @if (auth()->user()->can('view_agenda'))
     <li class="nav-item" style="transition: none;">
-      <a class="nav-link {{ Request::is('agenda*') ? 'active' : '' }}" data-toggle="collapse" aria-expanded="false" aria-controls="data-agenda" style="background-color: transparent; border: none;  width: 100%; transition: none; cursor: pointer;">
+      <a class="nav-link @if ($jadwal) active @endif" data-toggle="collapse" aria-expanded="false" aria-controls="data-agenda" style="background-color: transparent; border: none;  width: 100%; transition: none; cursor: pointer;">
         <i class="bi bi-calendar-week mr-4"></i>
         <span class="menu-title">Jadwal</span>
         <i class="menu-arrow"></i>
       </a>
-      <div class="collapse" id="data-agenda">
+      <div class="collapse @if ($jadwal) show @endif" id="data-agenda">
         <ul class="nav flex-column sub-menu">
           @foreach ($roles as $role)
           @if ($role->name != 'yayasan' && $role->name != 'admin' && $role->name != 'super_admin')
           <li class="nav-item" style="transition: none;">
             <form action="/agenda/{{ $role->name }}" method="get">
               @include('mypartials.tahunajaran')
-              <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"
+              <button class="nav-link @if (request()->is('/')) active @endif"
                 style="background-color: #3bae9c; border: none; border-radius: 10px; min-width: 150px;text-transform: capitalize; transition: none;">Jadwal
                 {{
                 str_replace("_", " ", $role->name) }}
@@ -211,21 +235,27 @@
     </li>
     @endif
 
+    @php
+      $absensi =
+      request()->is('absensi*') ||
+      request()->is('/*');
+    @endphp
+
     @if (auth()->user()->can('view_absensi'))
     <li class="nav-item" style="transition: none;">
-      <a class="nav-link {{ Request::is('absensi*') ? 'active' : '' }}" data-toggle="collapse" aria-expanded="false" aria-controls="absensi" style="background-color: transparent; border: none;  width: 100%; transition: none; cursor: pointer;">
+      <a class="nav-link @if ($absensi) active @endif" data-toggle="collapse" aria-expanded="false" aria-controls="absensi" style="background-color: transparent; border: none;  width: 100%; transition: none; cursor: pointer;">
         <i class="bi bi-journal-check mr-4"></i>
         <span class="menu-title">Absensi</span>
         <i class="menu-arrow"></i>
       </a>
-      <div class="collapse" id="absensi">
+      <div class="collapse @if ($absensi) show @endif" id="absensi">
         <ul class="nav flex-column sub-menu">
           @foreach ($roles as $role)
           @if ($role->name != 'yayasan' && $role->name != 'admin' && $role->name != 'super_admin')
           <li class="nav-item" style="transition: none;">
             <form action="/absensi/{{ $role->name }}" method="get">
               @include('mypartials.tahunajaran')
-              <button class="nav-link {{ Request::is('/') ? 'active' : '' }}"
+              <button class="nav-link @if (request()->is('/*')) active @endif"
                 style="background-color: #3bae9c; border: none; border-radius: 10px; min-width: 150px;text-transform: capitalize; transition: none;">Absensi
                 {{
                 str_replace("_", " ", $role->name) }}
