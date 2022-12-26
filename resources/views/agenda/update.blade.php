@@ -12,20 +12,20 @@
 
             @if ($role == 'siswa')
             <div class="mb-3">
-                <label for="kompetensi" class="form-label">Guru</label>
+                <label for="guru" class="form-label">Guru</label>
                 <select class="form-select select-guru" name="user_id" required>
                     <option value="">Pilih Guru</option>
                     @foreach ($gurus as $guru)
                     @if ($guru->id == $agenda->user_id)
-                    <option value="{{ $guru->id }}" selected>{{ $guru->name }}</option>
+                    <option value="{{ $guru->id }}" selected>{{ $guru->profile_user->name }}</option>
                     @elseif(isset($user_query_mapel))
                     @if ($guru->id == $user_query_mapel->id)
                     <option value="{{ $user_query_mapel->id }}" selected>{{ $user_query_mapel->name }}</option>
                     @else
-                    <option value="{{ $guru->id }}">{{ $guru->name }}</option>
+                    <option value="{{ $guru->id }}">{{ $guru->profile_user->name }}</option>
                     @endif
                     @else
-                    <option value="{{ $guru->id }}">{{ $guru->name }}</option>
+                    <option value="{{ $guru->id }}">{{ $guru->profile_user->name }}</option>
                     @endif
                     @endforeach
                 </select>

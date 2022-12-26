@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
+use Auth, DB;
 use App\Models\Absensi;
 use App\Models\StatusKehadiran;
 use App\Models\User;
@@ -39,59 +39,59 @@ class AbsensiController extends Controller
     {
         //! date 
         $now = Carbon::now();
-        $month = request('idb') ?? $now->month;
-        $year = $now->year;
-        $date=[];
-        for($d=0; $d<=32; $d++)
-        {
-            $time=mktime(24, 0, 0, $month, $d, $year);
-            $date[] = date('Y-m-d', $time);
+        $month = $now->year . '-' . ((int) request('bulan') ?? $now->month);
+        $start = Carbon::parse($month)->startOfMonth();
+        $end = Carbon::parse($month)->endOfMonth();
+
+        $date = [];
+        while ($start->lte($end)) {
+            $date[] = Carbon::parse($start->copy())->format('Y-m-d');
+            $start->addDay();
         }
 
         //! Absensi 
         $absensis = [];
         $status_kehadiran = StatusKehadiran::all();
+        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
         
-        if($role == 'siswa'){
-            $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
-            $kelas_filter = Kelas::where('tahun_ajaran_id', $tahun_ajaran->id)->where('sekolah_id', Auth::user()->sekolah_id)->get();
-            $kompetensis = Kompetensi::where('sekolah_id', \Auth::user()->sekolah_id)->get();
-            $siswas = Siswa::filter(request(['idk', 'idj', 'search']))
-                            ->select('siswas.*', 'kelas.nama as kelas', 'kompetensis.kompetensi as jurusan')
-                            ->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')
-                            ->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')
-                            ->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')
-                            ->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)
-                            ->where('kelas.sekolah_id', Auth::user()->sekolah_id)
-                            ->get();
-
-            foreach ($siswas as $key => $siswa) {
-                $absensis[] = Absensi::get_absensi($siswa, $date, $role);
-            }
+        $users = User::select('users.*')
+            ->when($role == 'siswa', function($q) use($role, $request){
+                $q->join('profile_siswas', 'profile_siswas.user_id', 'users.id')
+                ->join('kelas', 'profile_siswas.kelas_id', 'kelas.id')
+                ->join('kompetensis', 'profile_siswas.kompetensi_id', 'kompetensis.id')
+                ->join('tahun_ajarans', 'tahun_ajarans.id', 'profile_siswas.tahun_ajaran_id')
+                ->where('profile_siswas.tahun_ajaran_id', $tahun_ajaran->id)
+                ->filterSiswa(request(['kelas', 'jurusan', 'search']));
+            })
+            ->when($role != 'siswa', function($q) use($role){
+                $q->join('profile_users', 'profile_users.user_id', 'users.id')
+                ->filterUser(request(['search']));
+            })
+            ->role($role) 
+            ->where('users.sekolah_id', \Auth::user()->sekolah_id)
+            ->get();
             
-            return view('absensi', [
-                'role' => $role,
-                'date' => $date,
-                'kompetensis' => $kompetensis,
-                'kelas_filter' => $kelas_filter,
-                'absensis' => $absensis,
-                'siswas' => $siswas,
-                'status_kehadiran' => $status_kehadiran,
-            ]);
-        }else{
-            $users = User::role($role)->where('sekolah_id', \Auth::user()->sekolah->id)->get();
-            foreach ($users as $key => $user) {
-                $absensis[] = Absensi::get_absensi($user, $date, $role);
-            }
 
-            return view('absensi', [
-                'role' => $role,
-                'date' => $date,
-                'users' => $users,
-                'absensis' => $absensis,
-                'status_kehadiran' => $status_kehadiran,
-            ]);
+        $return = [
+            'role' => $role,
+            'date' => $date,
+            'users' => $users,
+            'status_kehadiran' => $status_kehadiran,
+        ];
+        
+        if ($role == 'siswa') {
+            if (Auth::user()->sekolah->tingkat == 'smk' || Auth::user()->sekolah->tingkat == 'sma') {
+                $return += ['kompetensis' => DB::table('kompetensis')->where('sekolah_id', Auth::user()->sekolah_id)->get()];
+            }
+            $return += ['kelas' => DB::table('kelas')->where('sekolah_id', Auth::user()->sekolah_id)->where('tahun_ajaran_id', $tahun_ajaran->id)->get()];
         }
+        foreach ($users as $key => $user) {
+            $absensis[] = Absensi::get_absensi($user, $date, $role);
+        }
+
+        $return += ['absensis' => $absensis];
+
+        return view('absensi', $return);
     }
 
     /**

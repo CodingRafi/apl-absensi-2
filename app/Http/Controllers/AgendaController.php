@@ -64,24 +64,23 @@ class AgendaController extends Controller
     {
         $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
         $jam_pelajarans = WaktuPelajaran::where('sekolah_id', \Auth::user()->sekolah_id)->get();
+        $return = ['role' => $role, 'jam_pelajarans' => $jam_pelajarans];
 
         if ($role == 'siswa') {
             $data = Kelas::findOrFail($id);
             $gurus = User::select('users.*')->role('guru')->where('users.sekolah_id', Auth::user()->sekolah_id)->get();
+            $return += ['gurus' => $gurus];
         }elseif($role == 'guru'){
             $data = User::findOrFail($id);
-            $classes = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)->where('tahun_ajaran_id', $tahun_ajaran->id)->get();
+            $kelas = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)->where('tahun_ajaran_id', $tahun_ajaran->id)->get();
+            $return += ['kelas' => $kelas];
         }else{
             $data = User::findOrFail($id);
         }
 
-        return view('agenda.create', [
-            'role' => $role,
-            'gurus' => isset($gurus) ? $gurus : [],
-            'jam_pelajarans' => $jam_pelajarans,
-            'classes' => isset($classes) ? $classes : [],
-            'data' => $data
-        ]);
+        $return += ['data' => $data];
+
+        return view('agenda.create', $return);
     }
 
     /**
@@ -121,20 +120,6 @@ class AgendaController extends Controller
             }
 
             $agenda = Agenda::create($data);
-    
-            $agenda_check = Agenda::where('kelas_id', $agenda->kelas_id)
-                            ->where('user_id', $agenda->user_id)
-                            ->count();
-    
-            if ($agenda_check == 1) {
-                AbsensiPelajaran::create([
-                    'tahun_ajaran_id' => $tahun_ajaran->id,
-                    'kelas_id' => $request->id,
-                    'user_id' => $request->user_id,
-                    'mapel_id' => $request->mapel_id,
-                    'sekolah_id' => \Auth::user()->sekolah_id
-                ]);
-            }
         }else{
             Agenda::create([
                 'user_id' => $request->id,
@@ -156,7 +141,7 @@ class AgendaController extends Controller
      */
     public function show($role, $id)
     {
-        $this->check_user($id, $role);
+        $this->check_user($id, ($role == 'siswa' ? 'kelas' : $role));
         $agendas = Agenda::get_agenda($id, $role);
         $data = ($role == 'siswa') ? Kelas::findOrFail($id) : User::findOrFail($id);
 
@@ -248,20 +233,6 @@ class AgendaController extends Controller
     public function destroy(Request $request, $id)
     {
         $agenda = Agenda::findOrFail($id);
-        
-        if ($request->role == 'siswa' || $request->role == 'guru') {
-            $agendas = Agenda::where('kelas_id', $agenda->kelas_id)->where('user_id', $agenda->user_id)->where('kelas_id', $agenda->kelas_id)->count();
-            if ($agendas-1 < 1) {
-                $absensi_pelajaran = AbsensiPelajaran::where('kelas_id', $agenda->kelas_id)->where('user_id', $agenda->user_id)->where('kelas_id', $agenda->kelas_id)->first();
-                if (count($absensi_pelajaran->presensi) > 0) {
-                    foreach ($absensi_pelajaran->presensi as $key => $presensi) {
-                        $presensi->delete();
-                    }
-                }
-    
-                $absensi_pelajaran->delete();
-            }
-        }
         
         $agenda->delete();
 

@@ -4,13 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\Siswa as Authenticatable;
 use Carbon\Carbon;
-use Spatie\Permission\Traits\HasRoles;
 
-class Siswa extends Authenticatable
+class Siswa extends Model
 {
-    use HasFactory,HasRoles;
+    use HasFactory;
 
     protected $guarded = ['id'];
 

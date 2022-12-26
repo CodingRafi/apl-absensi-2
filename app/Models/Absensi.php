@@ -32,21 +32,15 @@ class Absensi extends Model
     }
 
     public static function get_absensi($user, $dates, $role){
-        $absensis = [];
+        $data = [
+            'user' => ($role == 'siswa' ? $user->profile_siswa->select('profile_siswas.name')->first() : $user->profile_user->select('profile_users.name')->first()),
+            'absensis' => []
+        ];
         foreach ($dates as $key => $date) {
             \DB::enableQueryLog();
-            if ($role == 'siswa') {
-                $query = Absensi::where('siswa_id', $user->id)->whereDate('presensi_masuk', '=', $date)->first();
-            } else {
-                $query = Absensi::where('user_id', $user->id)->whereDate('presensi_masuk', '=', $date)->first();
-            }
-
-            if($query){
-                $absensis[] = $query;
-            }else{
-                $absensis[] = [];
-            }
+            $query = Absensi::where('user_id', $user->id)->whereDate('presensi_masuk', '=', $date)->first();
+            $query ? $data['absensis'][] = $query : $data['absensis'][] = [];
         }
-        return $absensis;
+        return $data;
     }
 }

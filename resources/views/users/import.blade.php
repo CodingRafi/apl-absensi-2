@@ -31,6 +31,26 @@
                 <label for="formFile" class="form-label">Pilih File</label>
                 <input class="form-control" type="file" id="formFile" style="height: 37px" name="file" required>
             </div>
+            @if ($role == 'siswa')
+                <div class="mb-3 mt-4">
+                    <label for="formFile" class="form-label">Kelas</label>
+                    <select class="form-select" name="kelas_id">
+                        @foreach ($kelas as $row)
+                            <option value="{{ $row->id }}">{{ $row->nama }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                @if ( Auth::user()->sekolah->tingkat == 'smk' )     
+                <div class="mb-3 mt-4">
+                    <label for="formFile" class="form-label">Jurusan</label>
+                    <select class="form-select" name="kompetensi_id">
+                        @foreach ($kompetensis as $kompetensi)
+                            <option value="{{ $kompetensi->id }}">{{ $kompetensi->kompetensi }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                @endif
+            @endif
             <button class="btn btn-sm text-white font-weight-bold px-3" style="background-color: #3bae9c" type="submit">Import</button>
         </form>
     </div>

@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use Auth, Hash, DB;
 use App\Models\User;
+use App\Models\TahunAjaran;
 use App\Models\profile_user;
 use App\Models\profile_siswa;
 use Illuminate\Support\Collection;  
@@ -54,6 +55,7 @@ class UsersImport implements ToCollection, WithHeadingRow
             $kabupaten = DB::table('ref_kabupatens')->where('nama', 'LIKE', '%'. $row['kotakabupaten'] .'%')->first();
             $kecamatan = DB::table('ref_kecamatans')->where('nama', 'LIKE', '%'. $row['kecamatan'] .'%')->first();
             $kelurahan = DB::table('ref_kelurahans')->where('nama', 'LIKE', '%'. $row['kelurahan'] .'%')->first();
+            
             $data_user = [
                 'email' => $row['email'],
                 'sekolah_id' => Auth::user()->sekolah_id,
@@ -70,23 +72,24 @@ class UsersImport implements ToCollection, WithHeadingRow
             $user->assignRole($this->role);
 
             if ($this->role == 'siswa') {
+                $tahun_ajaran = TahunAjaran::getTahunAjaran($this->request);
                 profile_siswa::create([
                     'user_id' => $user->id,
                     'name' => $row['nama_lengkap'],
                     'nisn' => $row['nisn'],
                     'nipd' => $row['nipd'],
                     'nik' => $row['nik'],
-                    'kelas_id' => $request->kelas_id,
-                    'kompetensi_id' => $request->kompetensi_id,
-                    'jk' => $request->jk,
-                    'tempat_lahir' => $request->tempat_lahir,
-                    'tanggal_lahir' => $request->tanggal_lahir,
-                    'ref_agama_id' => $request->ref_agama_id,
-                    'ref_provinsi_id' => $request->ref_provinsi_id,
-                    'ref_kabupaten_id' => $request->ref_kabupaten_id,
-                    'ref_kecamatan_id' => $request->ref_kecamatan_id,
-                    'ref_kelurahan_id' => $request->ref_kelurahan_id,
-                    'jalan' => $request->jalan,
+                    'kelas_id' => $this->request->kelas_id,
+                    'kompetensi_id' => $this->request->kompetensi_id,
+                    'jk' => (preg_match("/". $row['jenis_kelamin'] ."/i", 'perempuan') ? 'P' : 'L'),
+                    'tempat_lahir' => $row['tempat_lahir'],
+                    'tanggal_lahir' => $row['tanggal_lahir'],
+                    'ref_agama_id' => $agama ? $agama->id : '',
+                    'ref_provinsi_id' => $provinsi ? $provinsi->id : '',
+                    'ref_kabupaten_id' => $kabupaten ? $kabupaten->id : '',
+                    'ref_kecamatan_id' => $kecamatan ? $kecamatan->id : '',
+                    'ref_kelurahan_id' => $kelurahan ? $kelurahan->id : '',
+                    'jalan' => $row['jalan'],
                     'tahun_ajaran_id' => $tahun_ajaran->id
                 ]);
             }else{

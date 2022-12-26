@@ -12,7 +12,7 @@
             </form>
         </div>
 
-        <form action="{{ route('agenda.store') }}" method="POST">
+        <form action="{{ route('agenda.store', [$role]) }}" method="POST">
             @csrf
             @include('mypartials.tahunajaran')
             <input type="hidden" name="role" value="{{ $role }}">
@@ -24,11 +24,9 @@
                 <select class="form-select select-guru @error('user_id') is-invalid @enderror" name="user_id"
                     value="{{ isset($data) ? $data->user_id : old('user_id') }}" style=" font-size: 15px; height: 6.5vh;" id="guru">
                     <option value="">Pilih Guru</option>
-                    @if ($gurus)
                     @foreach ($gurus as $guru)
-                    <option value="{{ $guru->id }}">{{ $guru->name }}</option>
+                    <option value="{{ $guru->id }}">{{ $guru->profile_user->name }}</option>
                     @endforeach
-                    @endif
                 </select>
                 @error('user_id')
                 <div class="invalid-feedback">
@@ -71,9 +69,9 @@
                 <select class="form-select select-guru @error('kelas_id') is-invalid @enderror" name="kelas_id"
                     value="{{ isset($data) ? $data->kelas_id : old('kelas_id') }}" style=" font-size: 15px; height: 6.5vh;" id="kelas">
                     <option value="">Pilih Kelas</option>
-                    @if ($classes)
-                    @foreach ($classes as $kelas)
-                    <option value="{{ $kelas->id }}">{{ $kelas->nama }}</option>
+                    @if ($kelas)
+                    @foreach ($kelas as $row)
+                    <option value="{{ $row->id }}">{{ $row->nama }}</option>
                     @endforeach
                     @endif
                 </select>

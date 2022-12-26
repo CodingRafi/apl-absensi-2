@@ -81,12 +81,19 @@ Route::group(['middleware' => ['auth']], function() {
         
         Route::name('agenda.')->prefix('agenda')->group(function () {
             Route::get('{role}', [AgendaController::class, 'index'])->name('index');
-            Route::get('{role}/{id}', [AgendaController::class, 'show'])->name('show');
+            Route::post('{role}', [AgendaController::class, 'store'])->name('store');
             Route::get('create/{role}/{id}', [AgendaController::class, 'create'])->name('create');
-            Route::post('/', [AgendaController::class, 'store'])->name('store');
+            Route::get('{role}/{id}', [AgendaController::class, 'show'])->name('show');
             Route::get('{role}/{id}/edit', [AgendaController::class, 'edit'])->name('edit');
             Route::patch('/{id}', [AgendaController::class, 'update'])->name('update');
             Route::delete('/{id}', [AgendaController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('absensi')->name('absensi.')->group(function () {
+            Route::get('{role}', [AbsensiController::class, 'index']);
+            Route::post('{id}', [AbsensiController::class, 'update']);
+            Route::get('/export/absensi', [AbsensiController::class, 'export']);
+            Route::resource('absensi', AbsensiController::class);
         });
     });
     
@@ -103,14 +110,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/presensi/{id}', [PresensiController::class, 'index']);
     Route::post('/presensi/{id}', [PresensiController::class, 'update']);
     Route::get('/presensi-export', [PresensiController::class, 'export']);
-    Route::post('/absensi/{id}', [AbsensiController::class, 'update']);
     Route::resource('presensi', PresensiController::class);
     Route::get('/agenda-guru', [AgendaController::class, 'show_guru']);
-    Route::get('/absensi/{role}', [AbsensiController::class, 'index']);
     Route::get('get-mapel/{id}', [AgendaController::class, 'get_mapel']);
-    Route::get('/export/absensi', [AbsensiController::class, 'export']);
     Route::get('/show-absensi', [AbsensiController::class, 'showAbsensi']);
-    Route::resource('absensi', AbsensiController::class);
     Route::resource('kelompok', KelompokController::class);
     Route::get('/user-settings', [ConfigurasiUserController::class, 'index']);
     Route::get('/edit-profile', [ConfigurasiUserController::class, 'editProfil']);

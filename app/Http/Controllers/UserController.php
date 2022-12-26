@@ -310,10 +310,17 @@ class UserController extends Controller
         return TahunAjaran::redirectWithTahunAjaranManual('/users/' . $user->getRoleNames()[0], $request, 'Berhasil menghapus ' . $user->getRoleNames()[0]);
     }
 
-    public function import($role){
-        return view('users.import',[
-            'role' => $role
-        ]);
+    public function import(Request $request, $role){
+        $data = ['role' => $role];
+        if ($role == 'siswa') {
+            $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+            if (Auth::user()->sekolah->tingkat == 'smk' || Auth::user()->sekolah->tingkat == 'sma') {
+                $data += ['kompetensis' => DB::table('kompetensis')->where('sekolah_id', Auth::user()->sekolah_id)->get()];
+            }
+            $data += ['kelas' => DB::table('kelas')->where('kelas.sekolah_id', Auth::user()->sekolah_id)
+                                                    ->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->get()];
+        }
+        return view('users.import',$data);
     }
 
     public function store_import(Request $request, $role){
