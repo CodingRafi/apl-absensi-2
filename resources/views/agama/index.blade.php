@@ -29,7 +29,7 @@
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>{{ $agama->nama }}</td>
                         <td>
-                            <a href="{{ route('agama.edit', [$agama->id]) }}" class="btn btn-sm btn-warning" style="border-radius: 5px; font-weight: 500;">Edit</a>
+                            <a href="{{ route('agama.edit', [$agama->id]) }}" class="btn btn-sm btn-warning text-white" style="border-radius: 5px; font-weight: 500;">Edit</a>
                             @if (auth()->user()->can('delete_agama'))
                             <button type="submit" class="btn btn-sm btn-danger font-weight-bold"
                                 onclick="deleteData('{{ route('agama.destroy', [$agama->id]) }}')" style="border-radius: 5px; font-weight: 500;">Hapus</button>
