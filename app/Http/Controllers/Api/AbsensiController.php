@@ -27,9 +27,6 @@ class AbsensiController extends Controller
                 if ($rfid->status == 'aktif') {
                     $role = $rfid->user->getRoleNames()[0];
                     $agendas = $this->agenda('asc', $role, $rfid, $now);
-                    return response()->json([
-                        'data' => $rfid->user
-                    ], 200);
                     if (count($agendas) > 0) {
                         $hour = strtotime($now);
                         $tahun_ajaran = TahunAjaran::where('status', 'aktif')->first();
@@ -154,7 +151,7 @@ class AbsensiController extends Controller
                 })
                 ->join('waktu_pelajarans', 'waktu_pelajarans.id', 'agendas.waktu_pelajaran_id')
                 ->where('hari', strtolower($now->isoFormat('dddd')))
-                ->orderBy('waktu_pelajarans.jam_ke', 'asc')
+                ->orderBy('waktu_pelajarans.jam_ke', $orderBy)
                 ->get();
     }
 }

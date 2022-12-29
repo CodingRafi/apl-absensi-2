@@ -74,7 +74,7 @@
                         @if (request('jurusan') && Auth::user()->sekolah->tingkat == 'smk' ||
                         Auth::user()->sekolah->tingkat == 'sma')
                         <input type="hidden" name="jurusan" value="{{ request('jurusan') }}">
-                        @endif 
+                        @endif
                         @if (request('search'))
                         <input type="text" class="form-control search" placeholder="Search" style="height: 1.9rem;"
                             name="search">
@@ -105,7 +105,7 @@
                                     @if (request('jurusan') && Auth::user()->sekolah->tingkat == 'smk' ||
                                     Auth::user()->sekolah->tingkat == 'sma')
                                     <input type="hidden" name="jurusan" value="{{ request('jurusan') }}">
-                                    @endif 
+                                    @endif
                                     @if (request('search'))
                                     <input type="hidden" name="search" value="{{ request('search') }}">
                                     @endif
@@ -176,7 +176,8 @@
         <ul class="nav mb-4 justify-content-end" style="gap: 1rem; clear: right !important;">
             @foreach ($status_kehadiran as $status)
             <li class="nav-item d-flex align-items-center" style="gap: .3rem">
-                <span class="d-inline-block" style="background-color: {{ $status->color }};width: 1rem;height:1rem;"></span>
+                <span class="d-inline-block"
+                    style="background-color: {{ $status->color }};width: 1rem;height:1rem;"></span>
                 {{ $status->nama }}
             </li>
             @endforeach
@@ -204,53 +205,56 @@
                 </thead>
                 <tbody>
                     @foreach ($absensis as $key => $absensi)
-                    
                     <tr>
                         <th scope="row" rowspan="2" style="vertical-align: middle;">{{ $loop->iteration }}</th>
                         <td rowspan="2" style="vertical-align: middle;">{{ $absensi['user']->name }}</td>
                         @foreach ($absensi['absensis'] as $k => $row)
-                            @if (strtolower(date("D", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-',
-                            $date[0])[0]))) == 'sun')
-                            <td class="bg-secondary" style="height: 2rem;"></td>
-                            @else
-                                @if ($row && $row->presensi_masuk)
-                                    @foreach ($status_kehadiran as $status)
-                                        @if ($status->id == $row->status_kehadiran_id)
-                                        <td class="text-white cell-table" style="cursor: pointer;background: {{ $status->color }}" data-presensi="masuk" data-id="{{ $row->id }}">{{ explode(':', explode(' ',$row->presensi_masuk)[1])[0] }}:{{
-                                            explode(':', explode(' ',$row->presensi_masuk)[1])[1] }}
-                                        </td>
-                                        @endif
-                                    @endforeach
-                                @else
-                                    <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;"></td>
-                                @endif
-                            @endif
+                        @if (strtolower(date("D", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-',
+                        $date[0])[0]))) == 'sun')
+                        <td class="bg-secondary" style="height: 2rem;"></td>
+                        @else
+                        @if ($row && $row->presensi_masuk)
+                        @foreach ($status_kehadiran as $status)
+                        @if ($status->id == $row->status_kehadiran_id)
+                        <td class="text-white cell-table" style="cursor: pointer;background: {{ $status->color }}"
+                            data-presensi="masuk"
+                            onclick="edit(this, {{ $absensi['user']->id }}, '{{ $date[$k] }}', {{ $row->id }})">{{
+                            explode(':', explode(' ',$row->presensi_masuk)[1])[0] }}:{{
+                            explode(':', explode(' ',$row->presensi_masuk)[1])[1] }}
+                        </td>
+                        @endif
+                        @endforeach
+                        @else
+                        <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;"
+                            onclick="edit(this, {{ $absensi['user']->id }}, '{{ $date[$k] }}')" data-presensi="masuk">
+                        </td>
+                        @endif
+                        @endif
                         @endforeach
                     </tr>
                     <tr>
                         @foreach ($absensi['absensis'] as $k => $row)
-                            @if (strtolower(date("D", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-',
-                            $date[0])[0]))) == 'sun')
-                                <td class="bg-secondary" style="height: 2rem;"></td>
-                            @else
-                                @if ($row && $row->presensi_pulang)
-                                    @foreach ($status_kehadiran as $status)
-                                        @if ($status->id == $row->status_kehadiran_id)
-                                        <td class="text-white cell-table" data-toggle="modal" data-target="#ubah-absen"
-                                            data-kehadiran="hadir" style="cursor: pointer;background: {{ $status->color }}" data-bool-absen="true" data-presensi="masuk"
-                                            data-id="{{ $row->id }}"
-                                            data-jam="{{ explode(':', explode(' ',$row->presensi_pulang)[1])[0] }}"
-                                            data-menit="{{ explode(':', explode(' ',$row->presensi_pulang)[1])[1] }}"
-                                            data-date="{{ date(" Y-m-d", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-',
-                                            $date[0])[0])) }}">{{ explode(':', explode(' ',$row->presensi_pulang)[1])[0] }}:{{
-                                            explode(':', explode(' ',$row->presensi_pulang)[1])[1] }}
-                                        </td>
-                                        @endif
-                                    @endforeach
-                                @else
-                                    <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;"></td>
-                                @endif
-                            @endif
+                        @if (strtolower(date("D", mktime(0, 0, 0, explode('-', $date[0])[1], $k+1, explode('-',
+                        $date[0])[0]))) == 'sun')
+                        <td class="bg-secondary" style="height: 2rem;"></td>
+                        @else
+                        @if ($row && $row->presensi_pulang)
+                        @foreach ($status_kehadiran as $status)
+                        @if ($status->id == $row->status_kehadiran_id)
+                        <td class="text-white cell-table" style="cursor: pointer;background: {{ $status->color }}"
+                            data-presensi="pulang"
+                            onclick="edit(this, {{ $absensi['user']->id }}, '{{ $date[$k] }}', {{ $row->id }})">{{
+                            explode(':', explode(' ',$row->presensi_pulang)[1])[0] }}:{{
+                            explode(':', explode(' ',$row->presensi_pulang)[1])[1] }}
+                        </td>
+                        @endif
+                        @endforeach
+                        @else
+                        <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;"
+                            onclick="edit(this, {{ $absensi['user']->id }}, '{{ $date[$k] }}')" data-presensi="pulang">
+                        </td>
+                        @endif
+                        @endif
                         @endforeach
                     </tr>
                     @endforeach
@@ -259,7 +263,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="ubah-absen">
+<div class="modal fade" id="edit-absensi">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -268,27 +272,26 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form action="/absensi" method="post" class="form-presensi">
+            <div class="modal-body" style="padding: 15px;">
+                <form action="{{ route("absensi.store_update", [$role]) }}" method="post" class="form-presensi">
                     @csrf
-                    <input type="hidden" name="user_id" class="user_id" disabled>
+                    <input type="hidden" name="user_id" class="user_id">
+                    <input type="hidden" name="date" class="date">
+                    <input type="hidden" name="presensi" class="presensi">
                     <div class="card-body">
-                        <div class="form-group row">
-                            <label for="bidang" class="col-sm-2 col-form-label">Keterangan</label>
-                            <div class="col-sm-10">
-                                <select class="form-control text-dark select-kehadiran" name="waktu_pelajaran_id" required>
-                                    <option value="" selected>Pilih keterangan</option>
-                                    @foreach ($status_kehadiran as $status)
-                                    <option value="{{ $status->id }}">{{ $status->nama }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                        <div class="mb-3">
+                            <label for="keterangan" class="form-label">Keterangan</label>
+                            <select class="form-control text-dark select-kehadiran" name="status_kahadiran_id" required
+                                id="keterangan">
+                                <option value="" selected>Pilih keterangan</option>
+                                @foreach ($status_kehadiran as $status)
+                                <option value="{{ $status->id }}">{{ $status->nama }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="form-group row form-group-time" style="display: none;">
-                            <label for="bidang" class="col-sm-2 col-form-label">Waktu</label>
-                            <div class="col-sm-10">
-                                <input type="time" name="waktu" id="" class="input-time form-control">
-                            </div>
+                        <div class="mb-3">
+                            <label for="waktu" class="form-label">Waktu</label>
+                            <input type="time" name="waktu" class="form-control" id="waktu">
                         </div>
                         <button type="submit" class="btn text-white float-right"
                             style="background-color: #3bae9c">Simpan
@@ -303,69 +306,36 @@
 
 @section('tambahjs')
 <script>
-    const cellTable = document.querySelectorAll('.cell-table');
-    const modalTitle = document.querySelector('.modal-title');
-    const input_presensi = document.querySelector('.presensi');
-    const siswa_id = document.querySelector('.siswa_id');
-    const user_id = document.querySelector('.user_id');
-    const kelas_id = document.querySelector('.kelas_id');
-    const rfid_id = document.querySelector('.rfid_id');
-    const date = document.querySelector('.date');
-    const role = document.querySelector('.role');
-    const id = document.querySelector('.id');
-    const select = document.querySelector('.select-kehadiran');
-    const formGroup = document.querySelector('.form-group-time');
-    const inputTime = document.querySelector('.input-time');
-    const formPresensi = document.querySelector('.form-presensi');
-    
-    cellTable.forEach(e => {
-        e.addEventListener('click', function(e){
-            modalTitle.innerHTML = 'Presensi ' + e.target.getAttribute('data-presensi');
+    function edit(el, user_id, date, id = null){
+        $('.form-presensi input[name="_method"]').remove();
+        $('.form-presensi input[name="date"]').val(date)
+        $('.form-presensi input[name="user_id"]').val(user_id)
+        $('.form-presensi input[name="presensi"]').val($(el).attr('data-presensi'))
+        if (id) {
+            // $('<input>').attr('type','hidden').attr('name', '_method').val('patch').appendTo('.form-presensi');
+            $.get('/absensi/{{ $role }}/' + id, function(response){
+                $('.form-presensi select option').each((i,e)=>{
+                    if ($(e).attr('value') == response.data.status_kehadiran_id) {
+                        $(e).attr('selected', 'selected')
+                    }
+                })
 
-            if (e.target.getAttribute('data-bool-absen') == 'true') {
-                formPresensi.setAttribute('action', '');
-                formPresensi.setAttribute('action', '/absensi/' + e.target.getAttribute('data-id'));
-                select.value = '';
-                select.value = e.target.getAttribute('data-kehadiran');
-                input_presensi.removeAttribute('disabled');
-                input_presensi.value = e.target.getAttribute('data-presensi');
-                date.removeAttribute('disabled');
-                date.value = e.target.getAttribute('data-date');
-                if (e.target.getAttribute('data-kehadiran') == 'hadir') {
-                    formGroup.style.display = 'block';
-                    inputTime.value = '00:00';
-                    inputTime.value = e.target.getAttribute('data-jam') + ':' + e.target.getAttribute('data-menit')
-                }
-            }else{
-                formPresensi.setAttribute('action', '');
-                formPresensi.setAttribute('action', '/absensi');
-                if (role.value == 'siswa') {
-                    siswa_id.removeAttribute('disabled');
-                    siswa_id.value = e.target.getAttribute('data-siswa-id');
-                    kelas_id.removeAttribute('disabled');
-                    kelas_id.value = e.target.getAttribute('data-kelas-id');
+                if ($(el).attr('data-presensi') == 'masuk') {
+                    $('.form-presensi input[name="waktu"]').val(response.data.presensi_masuk.split(' ')[1])
                 }else{
-                    user_id.removeAttribute('disabled');
-                    user_id.value = e.target.getAttribute('data-user-id');
+                    $('.form-presensi input[name="waktu"]').val(response.data.presensi_pulang.split(' ')[1])
                 }
-                rfid_id.removeAttribute('disabled');
-                rfid_id.value = e.target.getAttribute('data-rfid');
-                input_presensi.removeAttribute('disabled');
-                input_presensi.value = e.target.getAttribute('data-presensi');
-                date.removeAttribute('disabled');
-                date.value = e.target.getAttribute('data-date');
-            }
-        })
-    });
 
-    select.addEventListener('change', function(e){
-        if(e.target.value == 'hadir'){
-            formGroup.style.display = 'block';
-            inputTime.required = true;
+                $('#edit-absensi').modal('show');
+            })
         }else{
-            formGroup.style.display = 'none';
-            inputTime.required = false;
+            $('#edit-absensi').modal('show');
         }
-    })
+    }
+
+    $('#edit-absensi .close').on('click', function(){
+        $('#edit-absensi form')[0].reset();
+        $('#edit-absensi').modal('hide')
+    });
 </script>
 @endsection

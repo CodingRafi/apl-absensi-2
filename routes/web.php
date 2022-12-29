@@ -91,9 +91,10 @@ Route::group(['middleware' => ['auth']], function() {
 
         Route::prefix('absensi')->name('absensi.')->group(function () {
             Route::get('{role}', [AbsensiController::class, 'index']);
-            Route::post('{id}', [AbsensiController::class, 'update']);
+            Route::get('{role}/{id}', [AbsensiController::class, 'show'])->name('show');
+            Route::post('{role}/store', [AbsensiController::class, 'store_update'])->name('store_update');
             Route::get('/export/absensi', [AbsensiController::class, 'export']);
-            Route::resource('absensi', AbsensiController::class);
+            // Route::resource('absensi', AbsensiController::class);
         });
     });
     
