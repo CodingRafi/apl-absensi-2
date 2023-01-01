@@ -31,7 +31,7 @@ class Absensi extends Model
         return $this->hasOne(Presensi::class);
     }
 
-    public static function get_absensi($user, $dates, $role){
+    public static function get_absensi($user, $dates, $role, $tahun_ajaran){
         $user = User::where('users.id', $user->id)
                     ->when($role == 'siswa', function($q) use($role) {
                         $q->select('users.id', 'profile_siswas.name')
@@ -39,15 +39,16 @@ class Absensi extends Model
                     })->when($role != 'siswa', function($q) use($role){
                         $q->select('users.id', 'profile_users.name')
                             ->join('profile_users', 'profile_users.user_id', 'users.id');
-                    })
+                    }) 
                     ->first();
         $data = [
             'user' => $user,
             'absensis' => []
         ];
+
         foreach ($dates as $key => $date) {
             \DB::enableQueryLog();
-            $query = Absensi::where('user_id', $user->id)->whereDate('presensi_masuk', '=', $date)->first();
+            $query = Absensi::where('user_id', $user->id)->where('tahun_ajaran_id', $tahun_ajaran->id)->whereDate('presensi_masuk', '=', $date)->first();
             $query ? $data['absensis'][] = $query : $data['absensis'][] = [];
         }
         return $data;

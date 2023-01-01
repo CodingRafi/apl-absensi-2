@@ -19,37 +19,26 @@ class AbsensiExport implements FromView
 {
     protected $role;
     protected $absensis;
-    protected $siswas;
-    protected $users;
     protected $date;
+    protected $status_kehadiran;
     /**
     * @return \Illuminate\Support\Collection
     */
 
-    public function __construct($role, $absensis, $siswas = null, $users = null, $date) {
+    public function __construct($role, $absensis, $date, $status_kehadiran) {
         $this->role = $role;
         $this->absensis = $absensis;
-        $this->siswas = $siswas;
-        $this->users = $users;
         $this->date = $date;
+        $this->status_kehadiran = $status_kehadiran;
     }
 
     public function view(): View
     {
-        if($this->role == 'siswa'){
-            return view('exportAbsensi', [
-                'role' => $this->role,
-                'absensis' => $this->absensis,
-                'siswas' => $this->siswas,
-                'date' => $this->date,
-            ]);
-        }else{
-            return view('exportAbsensi', [
-                'role' => $this->role,
-                'users' => $this->users,
-                'absensis' => $this->absensis,
-                'date' => $this->date,
-            ]);
-        }
+        return view('absensi.export', [
+            'role' => $this->role,
+            'absensis' => $this->absensis,
+            'date' => $this->date,
+            'status_kehadiran' => $this->status_kehadiran,
+        ]);
     }
 }

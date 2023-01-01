@@ -17,12 +17,16 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('kepala_sekolah')->nullable();
+            $table->string('npsn');
+            $table->string('logo')->default('/img/tutwuri.png');
+            $table->foreignId('ref_provinsi_id')->constrained();
+            $table->foreignId('ref_kabupaten_id')->constrained();
+            $table->foreignId('ref_kecamatan_id')->constrained();
+            $table->foreignId('ref_kelurahan_id')->constrained();
+            $table->text('jalan');
+            $table->enum('tingkat', ['sd', 'smp', 'smk', 'sma']);
             $table->string('instagram')->nullable();
             $table->string('youtube')->nullable();
-            $table->string('npsn');
-            $table->string('alamat');
-            $table->string('logo')->default('/img/tutwuri.png');
-            $table->enum('tingkat', ['sd', 'smp', 'smk', 'sma']);
             $table->timestamps();
         });
     }

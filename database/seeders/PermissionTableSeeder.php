@@ -66,6 +66,7 @@ class PermissionTableSeeder extends Seeder
             'add_absensi',
             'edit_absensi',
             'delete_absensi',
+            'export_absensi',
             
             'show_jadwal_user',
 

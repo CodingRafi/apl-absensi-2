@@ -1,96 +1,56 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <style>
-      th{
-        font-weight: 600;
-      }
-    </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
 
-    <title>Email</title>
-  </head>
-  <body>
-    <div class="container-fluid d-flex justify-content-center align-items-center" style="height: 100vh; background-color: #f2f2f2">
-      <div class="card col-lg-8 m-auto">
-        <div class="card-body">
-          <div class="1">
-            <div class="table-responsive table-borderless">
-              <table>
-                <tr>
-                  <th class="col-4">Nama Sekolah</th>
-                  <td class="col-1">:</td>
-                  <td class="col-7">{{ $sekolah->nama }}</td>
-                </tr>
-                <tr>
-                  <th class="col-4">NPSN</th>
-                  <td class="col-1">:</td>
-                  <td class="col-7">{{ $sekolah->npsn }}</td>
-                </tr>
-              </table>
-           </div>
-         </div>
-          <hr>
-          <div class="2 mb-4">
-            <div class="title"><h5>User admin sekolah</h5></div>
-            <div class="table-responsive table-borderless">
-              <table>
-                <tr>
-                  <th class="col-4">Nama Admin Sekolah</th>
-                  <td class="col-1">:</td>
-                  <td class="col-7">{{ $user->name }}</td>
-                </tr>
-                <tr>
-                  <th class="col-4">Email</th>
-                  <td class="col-1">:</td>
-                  <td class="col-7">{{ $user->email }}</td>
-                </tr>
-                <tr>
-                  <th class="col-4">Password</th>
-                  <td class="col-1">:</td>
-                  <td class="col-7">{{ $password }}</td>
-                </tr>
-              </table>
-           </div>
-          </div>
-          @if ($yayasan)    
-          <div class="3 mb-4">
-            <div class="title"><h5>User yayasan</h5></div>
-            <div class="table-responsive table-borderless">
-              <table>
-                <tr>
-                  <th class="col-4">Nama Yayasan</th>
-                  <td class="col-1">:</td>
-                  <td class="col-7">{{ $yayasan->name }}</td>
-                </tr>
-                <tr>
-                  <th class="col-4">Email</th>
-                  <td class="col-1">:</td>
-                  <td class="col-7">{{ $yayasan->email }}</td>
-                </tr>
-                <tr>
-                  <th class="col-4">Password</th>
-                  <td class="col-1">:</td>
-                  <td class="col-7">{{ $password_yayasan }}</td>
-                </tr>
-              </table>
-           </div>
-          </div>
-          @endif
-          <span class=""><i><a href="/">Clink here to login!</a></i></span>
-        </div>
-      </div>
-    </div>
+  <style>
+    *{
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+    }
+  </style>
 
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-  </body>
+  <title>Email</title>
+</head>
+
+<body>
+  <div class="container">
+      <span>Terima kasih telah mendaftar di {{ config('services.brand') }}</span>
+      <br>
+      <br>
+
+      <span>Berikut adalah akun akun yang terdaftar</span>
+      <br>
+      <br>
+
+      <span><strong>1. Admin Sekolah</strong></span>
+      <br>
+      <span>Email : {{ $user->email }}</span>
+      <br>
+      <span>Password: {{ $password }}</span>
+      <br>
+
+      @if ($yayasan)
+      <br>
+      <span><strong>2. Yayasan Sekolah</strong></span>
+      <br>
+      <span>Email : {{ $yayasan->email }}</span>
+      <br>
+      <span>Password: {{ $password_yayasan }}</span>
+      <br>
+      @endif
+  </div>
+</body>
+
 </html>
 
 {{-- nama sekolah

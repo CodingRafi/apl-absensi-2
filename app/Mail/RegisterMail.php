@@ -10,7 +10,6 @@ use Illuminate\Queue\SerializesModels;
 class RegisterMail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $sekolah;
     public $user;
     public $yayasan;
     public $password;
@@ -21,9 +20,8 @@ class RegisterMail extends Mailable
      *
      * @return void
      */
-    public function __construct($sekolah, $user, $yayasan, $password, $password_yayasan)
+    public function __construct($user, $yayasan, $password, $password_yayasan)
     {
-        $this->sekolah = $sekolah;
         $this->user = $user;
         $this->yayasan = $yayasan;
         $this->password = $password;

@@ -75,10 +75,8 @@
                         Auth::user()->sekolah->tingkat == 'sma')
                         <input type="hidden" name="jurusan" value="{{ request('jurusan') }}">
                         @endif
-                        @if (request('search'))
                         <input type="text" class="form-control search" placeholder="Search" style="height: 1.9rem;"
-                            name="search">
-                        @endif
+                            name="search" value="{{ request('search') ?? '' }}">
                         <button type="submit" class="btn"
                             style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 2.5rem; padding: 0.1rem"><i
                                 class="bi bi-search"></i></button>
@@ -153,7 +151,7 @@
             @endif
             @endif
             <li class="nav-item">
-                <form action="/export/absensi" method="get">
+                <form action="{{ route('absensi.export', [$role]) }}" method="get">
                     @include('mypartials.tahunajaran')
                     @if (request('kelas'))
                     <input type="hidden" name="kelas" value="{{ request('kelas') }}">
@@ -167,7 +165,6 @@
                     @if (request('search'))
                     <input type="hidden" name="search" value="{{ request('search') }}">
                     @endif
-                    <input type="hidden" name="role" value="{{ $role }}">
                     <button type="submit" class="btn btn-sm text-white px-3"
                         style="background-color: #3bae9c;border-radius: 5px;font-weight: 500;">Export</button>
                 </form>
