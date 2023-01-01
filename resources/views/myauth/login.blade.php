@@ -12,9 +12,9 @@
               @csrf
               <input type="hidden" class="role" name="role" id="">
               <div class="container p-0">
-                  <h1 class="mb-3" style="color: #263238;">Masuk</h1>
+                  <h3 class="mb-3" style="color: #263238;">Masuk</h3>
                   <div class="mb-3">
-                      <select class="form-select select-pilihan text-dark" style="width: 100%; height: 7vh; border: 1px solid rgb(205, 205, 205); border-radius: 5px" name="role">
+                      <select class="form-control form-control-sm select-pilihan text-dark" style="width: 100%; border-radius: 5px" name="role">
                           <option value="belum" selected>Masuk Sebagai</option>
                           @foreach ($roles as $role)
                           <option value="{{ $role->name }}" style="text-transform: capitalize;">{{ str_replace("_", " ", $role->name_long) }}</option>
@@ -23,19 +23,19 @@
                   </div>
                   <div class="mb-3 div-email">
                       <label for="email" class="form-label">Email</label>
-                      <input type="email" class="form-control input-email" id="email" placeholder="name@example.com" name="login" style="width: 100%; height: 7vh;" disabled>
+                      <input type="email" class="form-control form-control-sm input-email" id="email" placeholder="name@example.com" name="login" style="width: 100%;" disabled>
                   </div>
                   <div class="mb-3 div-nip" style="display: none;">
                       <label for="nip" class="form-label">NIP</label>
-                      <input type="number" class="form-control input-nip" id="nip" placeholder="NIP" name="login">
+                      <input type="number" class="form-control form-control-sm input-nip" id="nip" placeholder="NIP" name="login">
                   </div>
                   <div class="mb-3 div-nipd" style="display: none;">
                       <label for="nipd" class="form-label">NIPD</label>
-                      <input type="number" class="form-control input-nipd" id="nipd" placeholder="NIPD" name="login">
+                      <input type="number" class="form-control form-control-sm input-nipd" id="nipd" placeholder="NIPD" name="login">
                   </div>
                   <div class="mb-3 form-password-toggle">
                       <label class="form-label" for="password">Password</label>
-                      <input type="password" id="password" class="form-control input-password" name="password" style="width: 100%; height: 7vh; border: 1px solid rgb(205, 205, 205); border-radius: 5px" placeholder="&nbsp;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" disabled> 
+                      <input type="password" id="password" class="form-control form-control-sm input-password" name="password" style="width: 100%; border: 1px solid rgb(205, 205, 205); border-radius: 5px" placeholder="&nbsp;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" disabled> 
                   </div>
                   <div class="mb-3">
                       <div class="container p-0">
