@@ -58,7 +58,9 @@
                       </div>
                   </div>
               </div>
+              @if ($count_tahun_ajaran > 0)
               <a href="/register" class="d-flex justify-content-center mt-3"><i class="bi bi-arrow-left-circle mr-2"></i> Don't have an account? register now!</a>
+              @endif
           </form>
           </div>
         </div>

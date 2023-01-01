@@ -72,7 +72,7 @@ class SekolahController extends Controller
      */
     public function edit(Sekolah $sekolah)
     {
-        return view('sekolah.edit');
+       abort(404);
     }
 
     /**
@@ -137,7 +137,6 @@ class SekolahController extends Controller
                     }
                 }
             }
-    
             
             if (count($user->absensi) > 0) {
                 foreach ($user->absensi as $key => $absensi) {

@@ -49,14 +49,14 @@
     </symbol>
   </svg>
 
-  <link rel="shortcut icon" href="/template/images/favicon.png" />
+  <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}" type="image/png" />
 
   {{--
   <link href='/fullcalendar/lib/main.css' rel='stylesheet' />
   <script src='/fullcalendar/lib/main.js'></script> --}}
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js">
+  {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
+  {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> --}}
+  {{-- <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"> --}}
   </script>
 
   <style>
@@ -116,15 +116,6 @@
     .fstdiv.open .fstdropdown.open .fstsearch .fstsearchinput {
       border-color: rgb(183, 183, 183);
     }
-
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-      margin-top: -14px;
-      margin-left: -16px;
-    }
-
-    .select2-container {
-      width: 100%;
-    }
   </style>
 
   @yield('tambahcss')
@@ -168,25 +159,7 @@
   </form>
 
 
-  {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> --}}
-  {{-- <script src="/template/vendors/chart.js/Chart.min.js"></script> --}}
-
-  {{-- <script src="/template/js/off-canvas.js"></script> --}}
-  {{-- <script src="/template/js/hoverable-collapse.js"></script> --}}
-  {{-- <script src="/template/js/template.js"></script> --}}
-  {{-- <script src="/template/js/settings.js"></script> --}}
-  {{-- <script src="/template/js/todolist.js"></script> --}}
-  <!-- endinject -->
-  <!-- Custom js for this page-->
-  {{-- <script src="/template/js/dashboard.js"></script> --}}
-  {{-- <script src="/template/js/Chart.roundedBarCharts.js"></script>
-  <script src="/template/js/chart.js"></script> --}}
-  <!-- End custom js for this page-->
-
-  {{-- ajax --}}
-  {{-- <script src="https://code.jquery.com/jquery-3.6.1.min.js"
-    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script> --}}
+  @include('mypartials.js')
   <script src="{{ asset('js/script.js') }}"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="{{ asset('js/fstdropdown.js') }}"></script>
@@ -212,8 +185,6 @@
           })
       }
   </script>
-
-  @include('mypartials.js')
   @yield('tambahjs')
 </body>
 

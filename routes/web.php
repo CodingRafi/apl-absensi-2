@@ -44,11 +44,18 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/register', [App\Http\Controllers\User\SekolahController::class, 'store'])->name('register.store');
 });
 
+Route::prefix('data-master')->group(function () {
+    Route::post('kabupaten', [RefKabupatenController::class, 'index'])->name('kabupaten_list');
+    Route::post('kecamatan', [RefKecamatanController::class, 'index'])->name('kecamatan_list');
+    Route::post('kelurahan', [RefKelurahanController::class, 'index'])->name('kelurahan_list');
+});
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('roles', RoleController::class);
-    
+
+    Route::get('edit/sekolah', [App\Http\Controllers\User\SekolahController::class, 'edit'])->name('sekolah.edit.own');
+    Route::patch('update/sekolah', [App\Http\Controllers\User\SekolahController::class, 'update'])->name('sekolah.update.own');
     Route::prefix('data-master')->group(function () {
         Route::middleware(['auth.sma_smk'])->group(function () {
             Route::resource('kompetensi', KompetensiController::class);
@@ -58,9 +65,6 @@ Route::group(['middleware' => ['auth']], function() {
         Route::resource('agama', RefAgamaController::class);
         Route::resource('status-kehadiran', StatusKehadiranController::class);
         Route::resource('tahun-ajaran', TahunAjaranController::class);
-        Route::post('kabupaten', [RefKabupatenController::class, 'index'])->name('kabupaten_list');
-        Route::post('kecamatan', [RefKecamatanController::class, 'index'])->name('kecamatan_list');
-        Route::post('kelurahan', [RefKelurahanController::class, 'index'])->name('kelurahan_list');
     });
         
     Route::middleware(['check_role'])->group(function () {
@@ -91,9 +95,10 @@ Route::group(['middleware' => ['auth']], function() {
 
         Route::prefix('absensi')->name('absensi.')->group(function () {
             Route::get('{role}', [AbsensiController::class, 'index']);
-            Route::post('{id}', [AbsensiController::class, 'update']);
-            Route::get('/export/absensi', [AbsensiController::class, 'export']);
-            Route::resource('absensi', AbsensiController::class);
+            Route::get('{role}/{id}', [AbsensiController::class, 'show'])->name('show');
+            Route::post('{role}/store', [AbsensiController::class, 'store_update'])->name('store_update');
+            Route::get('/export/absensi/{role}', [AbsensiController::class, 'export'])->name('export');
+            // Route::resource('absensi', AbsensiController::class);
         });
     });
     
@@ -101,7 +106,6 @@ Route::group(['middleware' => ['auth']], function() {
 
     // Route::get('/create-agenda', [AgendaController::class, 'create']);
     // Route::resource('agenda', AgendaController::class);
-    Route::get('edit-sekolah', [App\Http\Controllers\SekolahController::class, 'edit']);
     Route::resource('sekolah', App\Http\Controllers\SekolahController::class);
     Route::resource('presensi-pelajaran', AbsensiPelajaranController::class);
     Route::resource('jam-pelajaran', WaktuPelajaranController::class);

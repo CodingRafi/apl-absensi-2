@@ -308,22 +308,3 @@
     </div>
     <button type="submit" class="btn text-white mt-3" style="background-color: #3bae9c">Simpan</button>
 </form>
-
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-@include('js')
-<script>
-    @if (isset($data) ? $data->ref_provinsi_id : old('ref_provinsi_id'))
-            kabupaten_list($('#ref_provinsi_id'), "{{ isset($data) ? $data->ref_kabupaten_id : old('ref_kabupaten_id') }}")
-                .then(function(d) {
-                    @if (isset($data) ? $data->ref_kecamatan_id : old('ref_kecamatan_id'))
-                        kecamatan_list($('#ref_kabupaten_id'), "{{ isset($data) ? $data->ref_kecamatan_id : old('ref_kecamatan_id') }}")
-                            .then(function(d) {
-                                @if (isset($data) ? $data->ref_kelurahan_id : old('ref_kelurahan_id'))
-                                    kelurahan_list($('#ref_kecamatan_id'), "{{ isset($data) ? $data->ref_kelurahan_id : old('ref_kelurahan_id') }}");
-                                @endif
-                            });
-                    @endif
-                });
-        @endif
-</script>

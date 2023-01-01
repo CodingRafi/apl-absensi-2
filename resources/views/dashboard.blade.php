@@ -192,7 +192,7 @@
                 <div class="title" style="display: flex; justify-content: space-between">
                     <h4 class="card-title" style="color: #369488; font-weight:600;">Profile Sekolah</h4>
                     @if (auth()->user()->can('edit_sekolah'))
-                    <form action="/edit-sekolah" method="get">
+                    <form action="{{ route('sekolah.edit.own') }}" method="get">
                         @include('mypartials.tahunajaran')
                         <button class="btn btn-warning btn-sm text-white" style="min-width: 5vw;font-weight: 500;border-radius: 5px;">Edit</button>
                     </form>

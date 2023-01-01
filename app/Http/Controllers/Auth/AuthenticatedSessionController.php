@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Siswa;
 use App\Models\User;
-use Hash, Session;
+use Hash, Session, DB;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -19,8 +19,8 @@ class AuthenticatedSessionController extends Controller
      * @return \Illuminate\View\View
      */
     public function create()
-    {
-        return view('myauth.login');
+    {   $count_tahun_ajaran = DB::table('tahun_ajarans')->count();
+        return view('myauth.login', compact('count_tahun_ajaran'));
     }
 
     /**

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\profile_user;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -20,7 +21,7 @@ class UserSeeder extends Seeder
         $roles = [
             'super_admin' => [
                 'name_long' => 'Super Admin',
-                'permission' => ['7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '58', '59', '60', '61', '62', '63', '64', '65']
+                'permission' => ['7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '58', '59', '60']
             ],
             'yayasan' => [
                 'name_long' => 'Yayasan',
@@ -64,6 +65,11 @@ class UserSeeder extends Seeder
             'password' => bcrypt('password'),
         ])->assignRole('super_admin');
 
+        profile_user::create([
+            'name' => 'Super Admin',
+            'user_id' => $super_admin->id
+        ]);
+
         // User Admin SMK TB
         $adminsmk = User::create([
             'email' => 'adminsmk@gmail.com',
@@ -71,11 +77,21 @@ class UserSeeder extends Seeder
             'sekolah_id' => 1
         ])->assignRole('admin');
 
+        profile_user::create([
+            'name' => 'Admin SMK',
+            'user_id' => $adminsmk->id
+        ]);
+
         // User Yayasan SMK TB
         $yayasan = User::create([
             'email' => 'yayasan@gmail.com',
             'password' => bcrypt('password'),
             'sekolah_id' => 1
         ])->assignRole('yayasan');
+
+        profile_user::create([
+            'name' => 'Yayasan SMK',
+            'user_id' => $yayasan->id
+        ]);
     }
 }
