@@ -29,7 +29,7 @@
                   <h3>Ubah Password</h3>
                   <form action="/user-settings" method="get">
                     @include('mypartials.tahunajaran')
-                    <button class="btn btn-sm btn-danger font-weight-bold" style="min-width: 5vw">Kembali</button>
+                    <button class="btn btn-sm btn-danger" style="min-width: 5vw; border-radius: 5px; font-weight: 500;">Kembali</button>
                 </form>
               </div>
               <!-- Session Status -->

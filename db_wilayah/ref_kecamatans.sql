@@ -7019,7 +7019,7 @@ INSERT INTO `ref_kecamatans` (`id`, `nama`, `ref_kabupaten_id`, `created_at`, `u
 (912513, 'Kembru', 9125, NULL, NULL),
 (912514, 'Bina', 9125, NULL, NULL),
 (912515, 'Sinak Barat', 9125, NULL, NULL),
-(912516, 'Mage\'abume', 9125, NULL, NULL),
+(912516, 'Mage abume', 9125, NULL, NULL),
 (912517, 'Yugumuak', 9125, NULL, NULL),
 (912518, 'Ilaga Utara', 9125, NULL, NULL),
 (912519, 'Mabugi', 9125, NULL, NULL),

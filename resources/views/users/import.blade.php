@@ -7,8 +7,8 @@
         <form action="/users/{{ $role }}" method="get" style="display: inline">
             @include('mypartials.tahunajaran')
             <button
-                class="nav-link {{ Request::is('dashboard') ? 'active' : '' }} btn btn-sm btn-danger float-right text-white font-weight-bold"
-                style="display: inline">Kembali</button>
+                class="nav-link {{ Request::is('dashboard') ? 'active' : '' }} btn btn-sm btn-danger float-right text-white"
+                style="display: inline; border-radius: 5px; font-weight: 500;">Kembali</button>
         </form>
         <form action="/import/users/{{ $role }}" method="post" enctype="multipart/form-data">
             @csrf
@@ -51,7 +51,7 @@
                 </div>
                 @endif
             @endif
-            <button class="btn btn-sm text-white font-weight-bold px-3" style="background-color: #3bae9c" type="submit">Import</button>
+            <button class="btn btn-sm text-white px-3" style="background-color: #3bae9c; border-radius: 5px; font-weight: 500;" type="submit">Import</button>
         </form>
     </div>
 </div>

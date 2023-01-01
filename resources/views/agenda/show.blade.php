@@ -16,29 +16,29 @@
         <div class="tab-content mt-3">
             @foreach (config('services.hari.value') as $hari)
             <div class="tab-pane" id="{{ $hari }}" role="tabpanel">
-                <div class="table-responsive">
-                    <table>
+                <div class="table table-responsive table-hover text-center"> 
+                    <table class="col-lg-12 table align-middle">
                         <thead>
                             <tr>
-                                <th scope="col" rowspan="2" style="vertical-align: middle;">Jam Ke</th>
-                                <th scope="col" rowspan="2" style="vertical-align: middle;">Waktu</th>
-                                <th scope="col" rowspan="2" style="vertical-align: middle;">Kegiatan</th>
-                                <th scope="col" rowspan="2" style="vertical-align: middle;">Option</th>
+                                <th rowspan="2">Jam Ke</th>
+                                <th rowspan="2">Waktu</th>
+                                <th rowspan="2">Kegiatan</th>
+                                <th rowspan="2">Option</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($agendas[$hari] as $agenda)
                             <tr>
-                                <th class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;">{{ $agenda->waktu_pelajaran->jam_ke }}</th>
-                                <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;">{{ date('H.i', strtotime($agenda->waktu_pelajaran->jam_awal)) }} - {{ date('H.i', strtotime($agenda->waktu_pelajaran->jam_akhir)) }}</td>
-                                <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;">{{ ($role != 'siswa' && $role != 'guru') ? $agenda->other : (($role == 'guru') ? ($agenda->mapel->nama . ' (' . $agenda->kelas->nama . ')') : ($agenda->mapel->nama . ' (' . $agenda->user->name . ')')) }}</td>
-                                <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;">
-                                    <a href="{{ route('agenda.edit', ['role' => $role, 'id' => $agenda->id]) }}" class="btn btn-warning btn-sm rounded">Edit</a>
+                                <th class="cell-table" style="cursor: pointer;">{{ $agenda->waktu_pelajaran->jam_ke }}</th>
+                                <td class="cell-table" style="cursor: pointer;">{{ date('H.i', strtotime($agenda->waktu_pelajaran->jam_awal)) }} - {{ date('H.i', strtotime($agenda->waktu_pelajaran->jam_akhir)) }}</td>
+                                <td class="cell-table" style="cursor: pointer;">{{ ($role != 'siswa' && $role != 'guru') ? $agenda->other : (($role == 'guru') ? ($agenda->mapel->nama . ' (' . $agenda->kelas->nama . ')') : ($agenda->mapel->nama . ' (' . $agenda->user->name . ')')) }}</td>
+                                <td class="cell-table" style="cursor: pointer;">
+                                    <a href="{{ route('agenda.edit', ['role' => $role, 'id' => $agenda->id]) }}" class="btn btn-warning btn-sm rounded" style="font-weight: 500;">Edit</a>
                                     @push('other_delete')
                                         <input type="hidden" name="role" value="{{ $role }}">
                                     @endpush
                                     <button type="submit" class="btn btn-sm btn-danger rounded"
-                                    onclick="deleteData('{{ route('agenda.destroy', [$agenda->id]) }}')">Hapus</button>
+                                    onclick="deleteData('{{ route('agenda.destroy', [$agenda->id]) }}')" style="font-weight: 500;">Hapus</button>
                                 </td>
                             </tr>
                             @endforeach
@@ -52,11 +52,15 @@
 </div>
 @endsection
 
-@push('js')
+@section('tambahjs')
     <script>
+        console.log($('#bologna-list a'))
         $('#bologna-list a').on('click', function (e) {
             e.preventDefault()
-            $(this).tab('show')
+            $('#bologna-list a').removeClass('active');
+            $('.tab-pane').removeClass('active');
+            $(this).addClass('active');
+            $(`.tab-pane${$(this).attr('href')}`).addClass('active');
         })
     </script>
-@endpush
+@endsection

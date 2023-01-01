@@ -1,3 +1,4 @@
+// open & close submenu sidebar
 var dropdown = document.getElementsByClassName("nav-link");
 var i;
 
@@ -12,3 +13,4 @@ for (i = 0; i < dropdown.length; i++) {
     }
   });
 }
+// end open & close submenu sidebar
