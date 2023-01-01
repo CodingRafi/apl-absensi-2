@@ -108,7 +108,7 @@ class SekolahController extends Controller
 
         $sekolah->update($data);
 
-        return redirect('/')->with('msg_success', 'Berhasil di update');
+        return redirect('/dashboard')->with('msg_success', 'Berhasil di update');
     }
 
     /**

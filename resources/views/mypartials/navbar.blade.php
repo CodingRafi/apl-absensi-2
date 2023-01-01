@@ -30,7 +30,10 @@
         </form>
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+        <button class="navbar-toggler navbar-toggler align-self-center minimize" type="button" data-toggle="minimize">
+            <span class="icon-menu"></span>
+        </button>
+        <button class="navbar-toggler navbar-toggler align-self-center maximize" type="button" data-toggle="minimize" style="display: none;">
             <span class="icon-menu"></span>
         </button>
         @if ( !Auth::user()->hasRole('super_admin') && !Auth::user()->nisn && !Auth::user()->nipd)  
