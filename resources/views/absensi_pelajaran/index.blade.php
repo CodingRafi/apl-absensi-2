@@ -37,6 +37,14 @@
                                     @include('mypartials.tahunajaran') 
                                     <button type="submit" class="btn btn-sm text-white font-weight-bold" style="margin: 0.1rem; background-color: #3bae9c">Tambah Presensi</button> 
                                 </form>
+                                <form action="{{ route('absensi-pelajaran.edit', [$absensi_pelajaran->id]) }}" method="get"> 
+                                    @include('mypartials.tahunajaran') 
+                                    <button type="submit" class="btn btn-sm btn-warning">Edit</button> 
+                                </form>
+                                <form action="{{ route('absensi-pelajaran.edit', [$absensi_pelajaran->id]) }}" method="get"> 
+                                    @include('mypartials.tahunajaran') 
+                                    <button type="submit" class="btn btn-sm btn-danger">Hapus</button> 
+                                </form>
                             </td> 
                         </tr> 
                         @endforeach

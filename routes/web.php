@@ -106,6 +106,7 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('/create', [AbsensiPelajaranController::class, 'create'])->name('create');
         Route::post('/', [AbsensiPelajaranController::class, 'store'])->name('store');
         Route::get('/{id}', [AbsensiPelajaranController::class, 'show'])->name('show');
+        Route::get('/{id}/edit', [AbsensiPelajaranController::class, 'edit'])->name('edit');
         Route::post('get-kelas', [AbsensiPelajaranController::class, 'get_kelas'])->name('get-kelas');
         Route::post('/store-update', [PresensiController::class, 'store_update'])->name('presensi.store_update');
         Route::get('/presensi/{id}', [PresensiController::class, 'show'])->name('presensi.show');
