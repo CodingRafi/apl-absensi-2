@@ -12,7 +12,7 @@ class MapelController extends Controller
 {
     function __construct()
     {
-         $this->middleware('permission:view_mapel|add_mapel|edit_mapel|delete_mapel', ['only' => ['index','store']]);
+         $this->middleware('permission:view_mapel|add_mapel|edit_mapel|delete_mapel', ['only' => ['index','show']]);
          $this->middleware('permission:add_mapel', ['only' => ['create','store']]);
          $this->middleware('permission:edit_mapel', ['only' => ['edit','update']]);
          $this->middleware('permission:delete_mapel', ['only' => ['destroy']]);

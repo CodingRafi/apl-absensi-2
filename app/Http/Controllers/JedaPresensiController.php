@@ -14,7 +14,7 @@ class JedaPresensiController extends Controller
     function __construct()
     {
         abort(403);
-        //  $this->middleware('permission:view_jeda_presensi|add_jeda_presensi|edit_jeda_presensi|delete_jeda_presensi', ['only' => ['index','store']]);
+        //  $this->middleware('permission:view_jeda_presensi|add_jeda_presensi|edit_jeda_presensi|delete_jeda_presensi', ['only' => ['index','show']]);
         //  $this->middleware('permission:add_jeda_presensi', ['only' => ['create','store']]);
         //  $this->middleware('permission:edit_jeda_presensi', ['only' => ['edit','update']]);
         //  $this->middleware('permission:delete_jeda_presensi', ['only' => ['destroy']]);

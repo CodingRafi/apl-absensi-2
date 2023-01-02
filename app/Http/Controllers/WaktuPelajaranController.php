@@ -12,7 +12,7 @@ class WaktuPelajaranController extends Controller
 {
     function __construct()
     {
-         $this->middleware('permission:view_waktu_pelajaran', ['only' => ['index','store']]);
+         $this->middleware('permission:view_waktu_pelajaran', ['only' => ['index','show']]);
          $this->middleware('permission:add_waktu_pelajaran', ['only' => ['create','store']]);
          $this->middleware('permission:edit_waktu_pelajaran', ['only' => ['edit','update']]);
          $this->middleware('permission:delete_waktu_pelajaran', ['only' => ['destroy']]);

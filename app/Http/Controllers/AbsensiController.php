@@ -24,26 +24,37 @@ class AbsensiController extends Controller
 {
     function __construct()
     {
-         $this->middleware('permission:view_absensi|add_absensi|edit_absensi|delete_absensi', ['only' => ['index','store']]);
+         $this->middleware('permission:view_absensi|add_absensi|edit_absensi|delete_absensi', ['only' => ['index','show']]);
          $this->middleware('permission:add_absensi', ['only' => ['create','store']]);
          $this->middleware('permission:edit_absensi', ['only' => ['edit','update']]);
          $this->middleware('permission:delete_absensi', ['only' => ['destroy']]);
          $this->middleware('permission:export_absensi', ['only' => ['export']]);
+         $this->middleware('permission:show_absensi', ['only' => ['show_absensi_user']]);
     }
 
-    private function get_absensi(Request $request, $role, $tahun_ajaran, $date){
+    private function get_absensi(Request $request, $role, $tahun_ajaran, $date, $id = null){
         $users = User::select('users.*')
-            ->when($role == 'siswa', function($q) use($role, $request, $tahun_ajaran){
+            ->when($role == 'siswa', function($q) use($role, $request, $tahun_ajaran, $id){
                 $q->join('profile_siswas', 'profile_siswas.user_id', 'users.id')
                 ->join('kelas', 'profile_siswas.kelas_id', 'kelas.id')
                 ->join('kompetensis', 'profile_siswas.kompetensi_id', 'kompetensis.id')
                 ->join('tahun_ajarans', 'tahun_ajarans.id', 'profile_siswas.tahun_ajaran_id')
                 ->where('profile_siswas.tahun_ajaran_id', $tahun_ajaran->id)
-                ->filterSiswa(request(['kelas', 'jurusan', 'search']));
+                ->when($id, function($q) use($id, $role) {
+                    $q->where('users.id', $id);
+                })
+                ->when(!$id, function($q){
+                    $q->filterSiswa(request(['kelas', 'jurusan', 'search']));
+                });
             })
-            ->when($role != 'siswa', function($q) use($role){
+            ->when($role != 'siswa', function($q) use($role, $id){
                 $q->join('profile_users', 'profile_users.user_id', 'users.id')
-                ->filterUser(request(['search']));
+                    ->when($id, function($q) use($id, $role) {
+                        $q->where('users.id', $id);
+                    })
+                    ->when(!$id, function($q){
+                        $q->filterUser(request(['search']));
+                    });
             })
             ->role($role) 
             ->where('users.sekolah_id', \Auth::user()->sekolah_id)
@@ -121,7 +132,7 @@ class AbsensiController extends Controller
             if($absensi){
                 if($request->kehadiran == $absensi->kehadiran){
                     $absensi->update([
-                        'presensi_pulang' => ($request->waktu) ? $request->date . ' ' . $request->waktu .  ':00' : $request->date . ' ' . explode(' ', Carbon::now())[1]
+                        'presensi_pulang' => ($request->waktu) ? $request->date . ' ' . date('H:i', strtotime($request->waktu)) .  ':00' : $request->date . ' ' . explode(' ', Carbon::now())[1]
                     ]);
                 }else{
                     return redirect()->back()->with('msg_error', 'Kehadiran tidak sesuai dengan presensi masuk');
@@ -191,61 +202,21 @@ class AbsensiController extends Controller
         return Excel::download(new AbsensiExport($role, $absensis, $date, $status_kehadiran), 'absensi.xlsx');
     }
 
-    public function showAbsensi(Request $request){
-        if (\Auth::user()->can('show_absensi') || \Auth::user()->getTable() == 'siswas') {
-            $now = Carbon::now();
-            $month = request('idb') ?? $now->month;
-            $year = $now->year;
-            $date=[];
-            $role;
+    public function show_absensi_user(Request $request){
+        $date = $this->getDate();
+        $role = Auth::user()->getRoleNames()[0];
+        $status_kehadiran = StatusKehadiran::all();
+        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
             
-            for($d=0; $d<=32; $d++)
-            {
-                $time=mktime(24, 0, 0, $month, $d, $year);  
-                if (date('m', $time)==$month)       
-                $date[]=date('Y-m-d', $time);
-                // $date[]=date('Y-m-d-D', $time);
-            }
+        $return = [
+            'date' => $date,
+            'status_kehadiran' => $status_kehadiran,
+        ];
 
-            $absensis = [];
-            
-            if( \Auth::user()->getTable() == 'siswas' ){
-                $role = 'siswa';
-                $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
-                if($tahun_ajaran){
-                    $siswas = Siswa::filter(request(['idk', 'idj', 'search']))->select('siswas.*', 'kelas.nama as kelas', 'kompetensis.kompetensi as jurusan')->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->where('siswas.id', \Auth::user()->id)->get();
-                    foreach ($siswas as $key => $siswa) {
-                        $absensis[] = Absensi::get_absensi($siswa, $date, $role);
-                    }
-                }else{
-                    $absensis = [];
-                    
-                    $siswas = [];
-                }
-                
-                return view('show_absensi', [
-                    'role' => $role,
-                    'date' => $date,
-                    'absensis' => $absensis,
-                    'siswas' => $siswas
-                ]);
-            }else{
-                $role = 'users';
-                $users = User::where('sekolah_id', \Auth::user()->sekolah_id)->where('id', \Auth::user()->id)->get();
+        $absensis = $this->get_absensi($request, $role, $tahun_ajaran, $date, Auth::user()->id);
+        
+        $return += ['absensis' => $absensis];
 
-                foreach ($users as $key => $user) {
-                    $absensis[] = Absensi::get_absensi($user, $date, $role);
-                }
-
-                return view('show_absensi', [
-                    'role' => $role,
-                    'date' => $date,
-                    'users' => $users,
-                    'absensis' => $absensis
-                ]);
-            }
-        }else{
-            abort(403);
-        }
+        return view('absensi.show', $return);
     }
 }

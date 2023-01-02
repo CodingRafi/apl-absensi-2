@@ -24,7 +24,7 @@ class SiswaController extends Controller
 {
     function __construct()
     {
-         $this->middleware('permission:view_siswa|add_siswa|edit_siswa|delete_siswa', ['only' => ['index','store']]);
+         $this->middleware('permission:view_siswa|add_siswa|edit_siswa|delete_siswa', ['only' => ['index','show']]);
          $this->middleware('permission:add_siswa', ['only' => ['create','store']]);
          $this->middleware('permission:edit_siswa', ['only' => ['edit','update']]);
          $this->middleware('permission:delete_siswa', ['only' => ['destroy']]);
