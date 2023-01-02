@@ -3,22 +3,22 @@
 namespace App\Http\Controllers;
 
 use Auth, DB;
-use App\Models\Absensi;
-use App\Models\StatusKehadiran;
+use Carbon\Carbon;
+use App\Models\Rfid;
 use App\Models\User;
-use App\Models\TahunAjaran;
 use App\Models\Kelas;
-use App\Models\Kompetensi;
 use App\Models\Siswa;
 use App\Models\Agenda;
-use App\Models\Rfid;
-use App\Exports\AbsensiExport;
-use App\Http\Requests\StoreAbsensiRequest;
-use App\Http\Requests\UpdateAbsensiRequest;
-use Carbon\Carbon;
+use App\Models\Absensi;
+use App\Models\Kompetensi;
+use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
+use App\Exports\AbsensiExport;
+use App\Models\StatusKehadiran;
 use Rap2hpoutre\FastExcel\FastExcel;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\StoreAbsensiRequest;
+use App\Http\Requests\UpdateAbsensiRequest;
 
 class AbsensiController extends Controller
 {

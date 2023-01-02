@@ -101,6 +101,8 @@ class PermissionTableSeeder extends Seeder
             'add_kelompok',
             'edit_kelompok',
             'delete_kelompok',
+
+            'export_absensi_pelajaran',
         ];
 
         foreach ($permissions as $permission) {

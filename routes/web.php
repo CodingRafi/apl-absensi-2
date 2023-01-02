@@ -110,6 +110,7 @@ Route::group(['middleware' => ['auth']], function() {
         Route::patch('/{id}', [AbsensiPelajaranController::class, 'update'])->name('update');
         Route::post('/', [AbsensiPelajaranController::class, 'store'])->name('store');
         Route::get('/{id}', [AbsensiPelajaranController::class, 'show'])->name('show');
+        Route::get('/{id}/export', [AbsensiPelajaranController::class, 'export'])->name('export');
         Route::get('/{id}/edit', [AbsensiPelajaranController::class, 'edit'])->name('edit');
         Route::post('get-kelas', [AbsensiPelajaranController::class, 'get_kelas'])->name('get-kelas');
         Route::post('/store-update', [PresensiController::class, 'store_update'])->name('presensi.store_update');

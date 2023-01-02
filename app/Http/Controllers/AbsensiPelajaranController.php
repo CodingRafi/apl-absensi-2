@@ -8,6 +8,8 @@ use App\Models\Presensi;
 use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
 use App\Models\AbsensiPelajaran;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\AbsensiPelajaranExport;
 use App\Http\Requests\StoreAbsensiPelajaranRequest;
 use App\Http\Requests\UpdateAbsensiPelajaranRequest;
 
@@ -20,6 +22,7 @@ class AbsensiPelajaranController extends Controller
          $this->middleware('permission:add_absensi_pelajaran', ['only' => ['create','store']]);
          $this->middleware('permission:edit_absensi_pelajaran', ['only' => ['edit','update']]);
          $this->middleware('permission:delete_absensi_pelajaran', ['only' => ['destroy']]);
+         $this->middleware('permission:export_absensi_pelajaran', ['only' => ['export']]);
     }
 
     public function get_presensi($tahun_ajaran, $date){
@@ -199,5 +202,21 @@ class AbsensiPelajaranController extends Controller
         return response()->json([
             'datas' => $kelas
         ], 200);
+    }
+
+    public function export(Request $request, $id){
+        $absensi_pelajaran = AbsensiPelajaran::where('absensi_pelajarans.id', $id) 
+                                                ->where('user_id', Auth::user()->id)
+                                                ->first();
+        
+        if (!$absensi_pelajaran) {
+            abort(403);
+        }
+
+        $status_kehadiran = DB::table('status_kehadirans')->get();
+        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+        $date = $this->getdate();
+        $absensis = $this->get_presensi($tahun_ajaran, $date);
+        return Excel::download(new AbsensiPelajaranExport($absensi_pelajaran, $absensis, $date, $status_kehadiran), 'absensi-pelajaran.xlsx');
     }
 }
