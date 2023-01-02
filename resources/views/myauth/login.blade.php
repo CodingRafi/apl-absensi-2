@@ -3,10 +3,10 @@
 @section('content')
 <div class="container-scroller">
   <div class="container-fluid page-body-wrapper full-page-wrapper p-0">
-    <div class="content-wrapper d-flex align-items-center auth px-0" style="background-image: url('/img/bgc.jpg'); background-size: cover; background-repeat: no-repeat">
+    <div class="content-wrapper d-flex align-items-center auth px-0">
       <div class="row w-100 mx-0">
         <div class="col-lg-6 mx-auto">
-          <div class="auth-form-light text-left py-5 px-4 px-sm-5" style="border-radius: 1rem; box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.276)">
+          <div class="auth-form-light text-left py-5 px-4 px-sm-5" style="border-radius: 10px; box-shadow: 0px 0px 5px rgba(116, 116, 116, 0.276)">
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
             <form action="/login" method="POST" style="width: 100%;">
               @csrf
@@ -14,7 +14,7 @@
               <div class="container p-0">
                   <h3 class="mb-3" style="color: #263238;">Masuk</h3>
                   <div class="mb-3">
-                      <select class="form-control form-control-sm select-pilihan text-dark" style="width: 100%; border-radius: 5px" name="role">
+                      <select class="form-control select-pilihan text-dark" style="width: 100%; border-radius: 5px" name="role">
                           <option value="belum" selected>Masuk Sebagai</option>
                           @foreach ($roles as $role)
                           <option value="{{ $role->name }}" style="text-transform: capitalize;">{{ str_replace("_", " ", $role->name_long) }}</option>
@@ -23,19 +23,19 @@
                   </div>
                   <div class="mb-3 div-email">
                       <label for="email" class="form-label">Email</label>
-                      <input type="email" class="form-control form-control-sm input-email" id="email" placeholder="name@example.com" name="login" style="width: 100%;" disabled>
+                      <input type="email" class="form-control input-email" id="email" placeholder="name@example.com" name="login" style="width: 100%;" disabled>
                   </div>
                   <div class="mb-3 div-nip" style="display: none;">
                       <label for="nip" class="form-label">NIP</label>
-                      <input type="number" class="form-control form-control-sm input-nip" id="nip" placeholder="NIP" name="login">
+                      <input type="number" class="form-control input-nip" id="nip" placeholder="NIP" name="login">
                   </div>
                   <div class="mb-3 div-nipd" style="display: none;">
                       <label for="nipd" class="form-label">NIPD</label>
-                      <input type="number" class="form-control form-control-sm input-nipd" id="nipd" placeholder="NIPD" name="login">
+                      <input type="number" class="form-control input-nipd" id="nipd" placeholder="NIPD" name="login">
                   </div>
                   <div class="mb-3 form-password-toggle">
                       <label class="form-label" for="password">Password</label>
-                      <input type="password" id="password" class="form-control form-control-sm input-password" name="password" style="width: 100%; border: 1px solid rgb(205, 205, 205); border-radius: 5px" placeholder="&nbsp;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" disabled> 
+                      <input type="password" id="password" class="form-control input-password" name="password" style="width: 100%; border: 1px solid rgb(205, 205, 205); border-radius: 5px" placeholder="&nbsp;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" disabled> 
                   </div>
                   <div class="mb-3">
                       <div class="container p-0">
@@ -59,7 +59,7 @@
                   </div>
               </div>
               @if ($count_tahun_ajaran > 0)
-              <a href="/register" class="d-flex justify-content-center mt-3"><i class="bi bi-arrow-left-circle mr-2"></i> Don't have an account? register now!</a>
+              <a href="/register" class="d-flex justify-content-center mt-3"><i class="bi bi-arrow-left-circle mr-2"></i> Tidak mempunyai akun? Daftar sekarang!</a>
               @endif
           </form>
           </div>
