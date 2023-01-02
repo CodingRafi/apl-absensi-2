@@ -45,7 +45,11 @@
                     <tr class="row">
                         <td class="col-lg-2" style="font-weight: 600;">Mata Pelajaran</td>
                         <td class="col-lg-1">:</td>
-                        <td class="col-lg-9">{{ $user->mapel }}</td>
+                        <td class="col-lg-9">
+                            @foreach ($user->mapel as $mapel)
+                                {{ $mapel->nama }},
+                            @endforeach
+                        </td>
                     </tr>
                     @endif
                     <tr class="row">
