@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DB;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Siswa;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -25,5 +26,20 @@ class Controller extends BaseController
                 return abort(403);
             }
         }
+    }
+
+    protected function getDate(){
+        $now = Carbon::now();
+        $month = $now->year . '-' . (int) (request('bulan') ?? $now->month);
+        $start = Carbon::parse($month)->startOfMonth();
+        $end = Carbon::parse($month)->endOfMonth();
+
+        $date = [];
+        while ($start->lte($end)) {
+            $date[] = Carbon::parse($start->copy())->format('Y-m-d');
+            $start->addDay();
+        }
+
+        return $date;
     }
 }

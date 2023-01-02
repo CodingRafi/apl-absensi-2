@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->foreignId('kelas_id')->constrained();
-            $table->foreignId('user_id')->nullable()->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->foreignId('mapel_id')->constrained();
             $table->foreignId('sekolah_id')->constrained();
             $table->foreignId('tahun_ajaran_id')->constrained();

@@ -24,8 +24,8 @@ class StoreAbsensiPelajaranRequest extends FormRequest
     public function rules()
     {
         return [
+            'nama' => 'required',
             'kelas_id' => 'required',
-            'user_id' => 'required',
             'mapel_id' => 'required',
         ];
     }
