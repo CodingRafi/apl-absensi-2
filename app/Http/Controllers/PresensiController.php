@@ -30,34 +30,7 @@ class PresensiController extends Controller
      */
     public function index(Request $request, $id)
     {
-        $now = Carbon::now();
-        $month = request('idb') ?? $now->month;
-        $year = $now->year;
-        $date=[];
-        
-        for($d=0; $d<=32; $d++)
-        {
-            $time=mktime(24, 0, 0, $month, $d, $year);  
-            if (date('m', $time)==$month)       
-            $date[]=date('Y-m-d', $time);
-        }
-
-        $presensis = [];
-
-        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
-
-        $siswas = Siswa::filter(request(['idk', 'idj', 'search']))->select('siswas.*', 'kelas.nama as kelas', 'kompetensis.kompetensi as jurusan')->leftJoin('kelas', 'kelas.id', 'siswas.kelas_id')->leftJoin('tahun_ajarans', 'kelas.tahun_ajaran_id', 'tahun_ajarans.id')->leftJoin('kompetensis', 'kompetensis.id', 'siswas.kompetensi_id')->where('kelas.tahun_ajaran_id', $tahun_ajaran->id)->get();
-
-        foreach ($siswas as $key => $siswa) {
-            $presensis[] = Presensi::get_presensi($siswa, $date);
-        }
-
-        return view('absensipelajaran.input', [
-            'date' => $date,
-            'presensis' => $presensis,
-            'siswas' => $siswas,
-            'id' => $id
-        ]);
+        abort(404);
     }
 
     /**
@@ -76,26 +49,31 @@ class PresensiController extends Controller
      * @param  \App\Http\Requests\StorePresensiRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePresensiRequest $request)
+    public function store_update(Request $request)
     {
-        $siswa = Siswa::findOrFail($request->siswa_id);
-
-        $query = Absensi::where('siswa_id', $siswa->id)->whereDate('presensi_masuk', '=', $request->date)->first();
-
-        if($query){
-            // dd($query);
+        $absensi = Presensi::where('user_id', $request->user_id)
+                            ->where('absensi_pelajaran_id', $request->absensi_pelajaran_id)
+                            ->whereDate('presensi_masuk', $request->date)->first();
+        if(!$absensi){
             Presensi::create([
+                'user_id' => $request->user_id,
                 'absensi_pelajaran_id' => $request->absensi_pelajaran_id,
-                'siswa_id' => $request->siswa_id,
-                'absensi_id' => $query->id,
-                'kehadiran' => $request->kehadiran,
-                'tgl_kehadiran' => $request->date
+                'status_kehadiran_id' => $request->status_kahadiran_id,
+                'presensi_masuk' => (($request->waktu) ? ($request->date . ' ' . $request->waktu .  ':00') : ($request->date . ' ' . explode(' ', Carbon::now())[1])),
             ]);
-
-            return redirect('/presensi/'. $request->absensi_pelajaran_id . '/' .'?idk=' . $request->idk)->with('msg_success', 'berhasil tersimpan');
         }else{
-            return redirect('/presensi/'. $request->absensi_pelajaran_id . '/' .'?idk=' . $request->idk)->with('msg_success', 'belum absensi masuk');
+            $update = ['status_kehadiran_id' => $request->status_kahadiran_id];
+            
+            if ($request->presensi == 'masuk') {
+                $update += ['presensi_masuk' => $request->date . ' ' . $request->waktu];
+            } else {
+                $update += ['presensi_pulang' => $request->date . ' ' . $request->waktu];
+            }
+
+            $absensi->update($update);
         }
+
+        return redirect()->back()->with('msg_success', 'Berhasil tersimpan');
     }
 
     /**
@@ -104,9 +82,12 @@ class PresensiController extends Controller
      * @param  \App\Models\Presensi  $presensi
      * @return \Illuminate\Http\Response
      */
-    public function show(Presensi $presensi)
+    public function show($id)
     {
-        abort(404);
+        $absensi = Presensi::findOrFail($id);
+        return response()->json([
+            'data' => $absensi
+        ], 200);
     }
 
     /**

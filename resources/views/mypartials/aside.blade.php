@@ -60,7 +60,7 @@
 
     @if (auth()->user()->can('view_presensi'))
     <li class="nav-item" style="transition: none;">
-      <form action="/presensi-pelajaran" method="get">
+      <form action="{{ route('absensi-pelajaran.index') }}" method="get">
         @include('mypartials.tahunajaran')
         <button class="nav-link {{ Request::is('presensi*') ? 'active' : '' }}"
           style="background-color: transparent; border: none;  width: 100%; transition: none;">

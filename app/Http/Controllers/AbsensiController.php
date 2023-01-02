@@ -30,21 +30,6 @@ class AbsensiController extends Controller
          $this->middleware('permission:delete_absensi', ['only' => ['destroy']]);
          $this->middleware('permission:export_absensi', ['only' => ['export']]);
     }
-    
-    private function getDate(){
-        $now = Carbon::now();
-        $month = $now->year . '-' . (int) (request('bulan') ?? $now->month);
-        $start = Carbon::parse($month)->startOfMonth();
-        $end = Carbon::parse($month)->endOfMonth();
-
-        $date = [];
-        while ($start->lte($end)) {
-            $date[] = Carbon::parse($start->copy())->format('Y-m-d');
-            $start->addDay();
-        }
-
-        return $date;
-    }
 
     private function get_absensi(Request $request, $role, $tahun_ajaran, $date){
         $users = User::select('users.*')

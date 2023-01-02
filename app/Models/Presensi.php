@@ -23,18 +23,29 @@ class Presensi extends Model
         return $this->belongsTo(Absensi::class);
     }
 
-    public static function get_presensi($siswa, $dates){
-        $presensi_siswa = [];
-        foreach ($dates as $key => $date) {
-            $query = Presensi::where('siswa_id', $siswa->id)->whereDate('tgl_kehadiran', '=', $date)->first();
+    public static function get_absensi($user, $dates, $tahun_ajaran){
+        $user = User::where('users.id', $user->id)
+                    ->select('users.id', 'profile_siswas.name')
+                    ->join('profile_siswas', 'profile_siswas.user_id', 'users.id')
+                    ->role('siswa')
+                    ->first();
 
-            if($query){
-                $presensi_siswa[] = $query;
-            }else{
-                $presensi_siswa[] = [];
-            }
+        $data = [
+            'user' => $user,
+            'absensis' => []
+        ];
+
+        foreach ($dates as $key => $date) {
+            \DB::enableQueryLog();
+            $query = Presensi::select('presensis.*')
+                                ->join('absensi_pelajarans', 'absensi_pelajarans.id', 'presensis.absensi_pelajaran_id')
+                                ->where('presensis.user_id', $user->id)
+                                ->where('absensi_pelajarans.tahun_ajaran_id', $tahun_ajaran->id)
+                                ->whereDate('presensis.presensi_masuk', '=', $date)
+                                ->first();
+            $query ? $data['absensis'][] = $query : $data['absensis'][] = [];
         }
 
-        return $presensi_siswa;
+        return $data;
     }
 }

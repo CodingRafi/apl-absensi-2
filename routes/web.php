@@ -98,8 +98,17 @@ Route::group(['middleware' => ['auth']], function() {
             Route::get('{role}/{id}', [AbsensiController::class, 'show'])->name('show');
             Route::post('{role}/store', [AbsensiController::class, 'store_update'])->name('store_update');
             Route::get('/export/absensi/{role}', [AbsensiController::class, 'export'])->name('export');
-            // Route::resource('absensi', AbsensiController::class);
         });
+    });
+
+    Route::prefix('absensi-pelajaran')->name('absensi-pelajaran.')->group(function () {
+        Route::get('/', [AbsensiPelajaranController::class, 'index'])->name('index');
+        Route::get('/create', [AbsensiPelajaranController::class, 'create'])->name('create');
+        Route::post('/', [AbsensiPelajaranController::class, 'store'])->name('store');
+        Route::get('/{id}', [AbsensiPelajaranController::class, 'show'])->name('show');
+        Route::post('get-kelas', [AbsensiPelajaranController::class, 'get_kelas'])->name('get-kelas');
+        Route::post('/store-update', [PresensiController::class, 'store_update'])->name('presensi.store_update');
+        Route::get('/presensi/{id}', [PresensiController::class, 'show'])->name('presensi.show');
     });
     
 
@@ -107,7 +116,6 @@ Route::group(['middleware' => ['auth']], function() {
     // Route::get('/create-agenda', [AgendaController::class, 'create']);
     // Route::resource('agenda', AgendaController::class);
     Route::resource('sekolah', App\Http\Controllers\SekolahController::class);
-    Route::resource('presensi-pelajaran', AbsensiPelajaranController::class);
     Route::resource('jam-pelajaran', WaktuPelajaranController::class);
     Route::resource('jam-istirahat', WaktuIstirahatController::class);
     // Route::resource('tenggat', JedaPresensiController::class);
