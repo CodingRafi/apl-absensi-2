@@ -35,16 +35,18 @@
                             <td> 
                                 <form action="{{ route('absensi-pelajaran.show', [$absensi_pelajaran->id]) }}" method="get"> 
                                     @include('mypartials.tahunajaran') 
-                                    <button type="submit" class="btn btn-sm text-white font-weight-bold" style="margin: 0.1rem; background-color: #3bae9c">Tambah Presensi</button> 
+                                    <button type="submit" class="btn btn-sm text-white mb-2" style="border-radius: 5px; font-weight: 500; background-color: #3bae9c">Tambah Presensi</button> 
                                 </form>
-                                <form action="{{ route('absensi-pelajaran.edit', [$absensi_pelajaran->id]) }}" method="get"> 
-                                    @include('mypartials.tahunajaran') 
-                                    <button type="submit" class="btn btn-sm btn-warning">Edit</button> 
-                                </form>
-                                <form action="{{ route('absensi-pelajaran.edit', [$absensi_pelajaran->id]) }}" method="get"> 
-                                    @include('mypartials.tahunajaran') 
-                                    <button type="submit" class="btn btn-sm btn-danger">Hapus</button> 
-                                </form>
+                                <div class="d-flex justify-content-center gap-3">
+                                    <form action="{{ route('absensi-pelajaran.edit', [$absensi_pelajaran->id]) }}" method="get">
+                                        @include('mypartials.tahunajaran')
+                                        <button type="submit" class="btn btn-sm btn-warning text-white" style="border-radius: 5px; font-weight: 500;">Edit</button>
+                                    </form>
+                                    <form action="{{ route('absensi-pelajaran.edit', [$absensi_pelajaran->id]) }}" method="get">
+                                        @include('mypartials.tahunajaran')
+                                        <button type="submit" class="btn btn-sm btn-danger text-white" style="border-radius: 5px; font-weight: 500;">Hapus</button>
+                                    </form>
+                                </div>
                             </td> 
                         </tr> 
                         @endforeach

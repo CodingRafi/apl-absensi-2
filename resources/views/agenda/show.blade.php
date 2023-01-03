@@ -3,6 +3,8 @@
 @section('container')
 <div class="card">
     <div class="card-header">
+        <a class="btn btn-sm text-white float-right mt-2" href="{{ route('agenda.create', ['role' => $role, 'id' => request('id')]) }}" style="background-color: #3bae9c; border-radius: 5px; font-weight: 500;">Create</a>
+
         <ul class="nav nav-tabs card-header-tabs" id="bologna-list" role="tablist">
             @foreach (config('services.hari.value') as $key => $hari)
             <li class="nav-item">
