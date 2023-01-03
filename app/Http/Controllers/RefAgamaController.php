@@ -10,7 +10,7 @@ class RefAgamaController extends Controller
 {
     function __construct()
     {
-         $this->middleware('permission:view_agama|add_agama|edit_agama|delete_agama', ['only' => ['index','store']]);
+         $this->middleware('permission:view_agama|add_agama|edit_agama|delete_agama', ['only' => ['index','show']]);
          $this->middleware('permission:add_agama', ['only' => ['create','store']]);
          $this->middleware('permission:edit_agama', ['only' => ['edit','update']]);
          $this->middleware('permission:delete_agama', ['only' => ['destroy']]);

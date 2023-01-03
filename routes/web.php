@@ -66,7 +66,10 @@ Route::group(['middleware' => ['auth']], function() {
         Route::resource('status-kehadiran', StatusKehadiranController::class);
         Route::resource('tahun-ajaran', TahunAjaranController::class);
     });
-        
+       
+    Route::get('/absensi/user', [AbsensiController::class, 'show_absensi_user'])->name('absensi.show.user');
+    Route::get('/jadwal/user', [AgendaController::class, 'show_agenda_user'])->name('agenda.show.user');
+
     Route::middleware(['check_role'])->group(function () {
         Route::name('users.')->prefix('users')->group(function () {
             // Route::resource('siswa', SiswaController::class);
@@ -104,8 +107,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::prefix('absensi-pelajaran')->name('absensi-pelajaran.')->group(function () {
         Route::get('/', [AbsensiPelajaranController::class, 'index'])->name('index');
         Route::get('/create', [AbsensiPelajaranController::class, 'create'])->name('create');
+        Route::patch('/{id}', [AbsensiPelajaranController::class, 'update'])->name('update');
         Route::post('/', [AbsensiPelajaranController::class, 'store'])->name('store');
         Route::get('/{id}', [AbsensiPelajaranController::class, 'show'])->name('show');
+        Route::get('/{id}/export', [AbsensiPelajaranController::class, 'export'])->name('export');
         Route::get('/{id}/edit', [AbsensiPelajaranController::class, 'edit'])->name('edit');
         Route::post('get-kelas', [AbsensiPelajaranController::class, 'get_kelas'])->name('get-kelas');
         Route::post('/store-update', [PresensiController::class, 'store_update'])->name('presensi.store_update');
@@ -115,19 +120,19 @@ Route::group(['middleware' => ['auth']], function() {
 
 
     // Route::get('/create-agenda', [AgendaController::class, 'create']);
+    Route::resource('kelompok', KelompokController::class);
     // Route::resource('agenda', AgendaController::class);
     Route::resource('sekolah', App\Http\Controllers\SekolahController::class);
     Route::resource('jam-pelajaran', WaktuPelajaranController::class);
     Route::resource('jam-istirahat', WaktuIstirahatController::class);
     // Route::resource('tenggat', JedaPresensiController::class);
-    Route::get('/presensi/{id}', [PresensiController::class, 'index']);
-    Route::post('/presensi/{id}', [PresensiController::class, 'update']);
-    Route::get('/presensi-export', [PresensiController::class, 'export']);
-    Route::resource('presensi', PresensiController::class);
-    Route::get('/agenda-guru', [AgendaController::class, 'show_guru']);
+    // Route::get('/presensi/{id}', [PresensiController::class, 'index']);
+    // Route::post('/presensi/{id}', [PresensiController::class, 'update']);
+    // Route::get('/presensi-export', [PresensiController::class, 'export']);
+    // Route::resource('presensi', PresensiController::class);
+    // Route::get('/agenda-guru', [AgendaController::class, 'show_guru']);
     Route::get('get-mapel/{id}', [AgendaController::class, 'get_mapel']);
-    Route::get('/show-absensi', [AbsensiController::class, 'showAbsensi']);
-    Route::resource('kelompok', KelompokController::class);
+    // Route::get('/show-absensi', [AbsensiController::class, 'showAbsensi']);
     Route::get('/user-settings', [ConfigurasiUserController::class, 'index']);
     Route::get('/edit-profile', [ConfigurasiUserController::class, 'editProfil']);
     Route::post('/simpan', [ConfigurasiUserController::class, 'saveProfil']);

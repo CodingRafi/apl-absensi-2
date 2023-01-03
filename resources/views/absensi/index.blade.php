@@ -276,7 +276,7 @@
                     <input type="hidden" name="date" class="date">
                     <input type="hidden" name="presensi" class="presensi">
                     <div class="card-body">
-                        <div class="mb-3">
+                        <div class="mb-3 div-keterangan">
                             <label for="keterangan" class="form-label">Keterangan</label>
                             <select class="form-control text-dark select-kehadiran" name="status_kahadiran_id" required
                                 id="keterangan">
@@ -286,7 +286,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3 ">
                             <label for="waktu" class="form-label">Waktu</label>
                             <input type="time" name="waktu" class="form-control" id="waktu">
                         </div>
@@ -304,10 +304,18 @@
 @section('tambahjs')
 <script>
     function edit(el, user_id, date, id = null){
+        let data_presensi = $(el).attr('data-presensi');
         $('.form-presensi input[name="_method"]').remove();
         $('.form-presensi input[name="date"]').val(date)
         $('.form-presensi input[name="user_id"]').val(user_id)
-        $('.form-presensi input[name="presensi"]').val($(el).attr('data-presensi'))
+        $('.form-presensi input[name="presensi"]').val(data_presensi)
+        
+        if (data_presensi == 'masuk') {
+            $('.div-keterangan').css('display', 'block');
+        }else{
+            $('.div-keterangan').css('display', 'none');
+        }
+
         if (id) {
             // $('<input>').attr('type','hidden').attr('name', '_method').val('patch').appendTo('.form-presensi');
             $.get('/absensi/{{ $role }}/' + id, function(response){

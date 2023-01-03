@@ -8,6 +8,8 @@ use App\Models\Presensi;
 use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
 use App\Models\AbsensiPelajaran;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\AbsensiPelajaranExport;
 use App\Http\Requests\StoreAbsensiPelajaranRequest;
 use App\Http\Requests\UpdateAbsensiPelajaranRequest;
 
@@ -20,6 +22,7 @@ class AbsensiPelajaranController extends Controller
          $this->middleware('permission:add_absensi_pelajaran', ['only' => ['create','store']]);
          $this->middleware('permission:edit_absensi_pelajaran', ['only' => ['edit','update']]);
          $this->middleware('permission:delete_absensi_pelajaran', ['only' => ['destroy']]);
+         $this->middleware('permission:export_absensi_pelajaran', ['only' => ['export']]);
     }
 
     public function get_presensi($tahun_ajaran, $date){
@@ -62,7 +65,7 @@ class AbsensiPelajaranController extends Controller
      */
     public function create(Request $request)
     {
-        return view('absensi_pelajaran.create');
+        return view('absensi_pelajaran.form');
     }
 
     /**
@@ -115,9 +118,10 @@ class AbsensiPelajaranController extends Controller
      * @param  \App\Models\AbsensiPelajaran  $absensiPelajaran
      * @return \Illuminate\Http\Response
      */
-    public function edit(AbsensiPelajaran $absensiPelajaran)
+    public function edit($id)
     {
-        abort(404);
+        $data = AbsensiPelajaran::findOrFail($id);
+        return view('absensi_pelajaran.form', compact('data'));
     }
 
     /**
@@ -127,9 +131,37 @@ class AbsensiPelajaranController extends Controller
      * @param  \App\Models\AbsensiPelajaran  $absensiPelajaran
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAbsensiPelajaranRequest $request, AbsensiPelajaran $absensiPelajaran)
+    public function update(Request $request, AbsensiPelajaran $absensiPelajaran, $id)
     {
-        abort(404);
+        $absensiPelajaran = AbsensiPelajaran::findOrFail($id);
+
+        if ($absensiPelajaran->nama == $request->nama && $absensiPelajaran->mapel_id == $request->mapel_id && $absensiPelajaran->kelas_id == $request->kelas_id) {
+            return redirect()->back()->with('msg_error', 'Tidak ada perubahan terdeteksi');
+        }
+
+        $check = AbsensiPelajaran::where('user_id', Auth::user()->id)
+                                    ->where('kelas_id', $request->kelas_id)
+                                    ->where('mapel_id', $request->mapel_id)
+                                    ->first();
+        if ($check) {
+            return redirect()->back()->with('msg_error', 'absensi pelajaran sudah ada');
+        }
+        
+        if ($absensiPelajaran->user_id != Auth::user()->id) {
+            abort(403);
+        }
+
+        if ($request->kelas_id != $absensiPelajaran->kelas_id || $request->mapel_id != $absensiPelajaran->mapel_id) {
+            $absensiPelajaran->presensi()->delete();
+        }
+
+        $absensiPelajaran->update([
+            'nama' => $request->nama,
+            'kelas_id' => $request->kelas_id,
+            'mapel_id' => $request->mapel_id,
+        ]);
+        
+        return redirect()->route('absensi-pelajaran.index')->with('msg_success', 'Berhasil terupdate');
     }
 
     /**
@@ -145,6 +177,11 @@ class AbsensiPelajaranController extends Controller
 
     public function get_kelas(Request $request){
         $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+
+        if ($request->method == 'update') {
+            
+        }
+
         $kelas = DB::table('agendas')
                             ->select('kelas.*')
                             ->join('kelas', 'kelas.id', 'agendas.kelas_id')
@@ -154,8 +191,10 @@ class AbsensiPelajaranController extends Controller
                                     ->where('absensi_pelajarans.user_id', Auth::user()->id);
                             })
                             ->where('agendas.tahun_ajaran_id', $tahun_ajaran->id)
-                            ->whereNull('absensi_pelajarans.kelas_id')
-                            ->whereNull('absensi_pelajarans.mapel_id')
+                            ->when($request->method != 'update', function($q) use($request) {
+                                $q->whereNull('absensi_pelajarans.kelas_id')
+                                    ->whereNull('absensi_pelajarans.mapel_id');
+                            })
                             ->where('kelas.sekolah_id', Auth::user()->sekolah_id)
                             ->distinct('agendas.kelas_id')
                             ->get();
@@ -163,5 +202,21 @@ class AbsensiPelajaranController extends Controller
         return response()->json([
             'datas' => $kelas
         ], 200);
+    }
+
+    public function export(Request $request, $id){
+        $absensi_pelajaran = AbsensiPelajaran::where('absensi_pelajarans.id', $id) 
+                                                ->where('user_id', Auth::user()->id)
+                                                ->first();
+        
+        if (!$absensi_pelajaran) {
+            abort(403);
+        }
+
+        $status_kehadiran = DB::table('status_kehadirans')->get();
+        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+        $date = $this->getdate();
+        $absensis = $this->get_presensi($tahun_ajaran, $date);
+        return Excel::download(new AbsensiPelajaranExport($absensi_pelajaran, $absensis, $date, $status_kehadiran), 'absensi-pelajaran.xlsx');
     }
 }

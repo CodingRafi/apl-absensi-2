@@ -13,7 +13,7 @@ class KompetensiController extends Controller
 {
     function __construct()
     {
-         $this->middleware('permission:view_kompetensi|add_kompetensi|edit_kompetensi|delete_kompetensi', ['only' => ['index','store']]);
+         $this->middleware('permission:view_kompetensi|add_kompetensi|edit_kompetensi|delete_kompetensi', ['only' => ['index','show']]);
          $this->middleware('permission:add_kompetensi', ['only' => ['create','store']]);
          $this->middleware('permission:edit_kompetensi', ['only' => ['edit','update']]);
          $this->middleware('permission:delete_kompetensi', ['only' => ['destroy']]);

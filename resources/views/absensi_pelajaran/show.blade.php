@@ -38,8 +38,9 @@
                     </div>
                 </div>
             </li>
+            @if (auth()->user()->can('export_absensi_pelajaran'))
             <li class="nav-item">
-                <form action="/presensi-export" method="get">
+                <form action="{{ route('absensi-pelajaran.export', [request('id')]) }}" method="get">
                     @include('mypartials.tahunajaran')
                     @if (request('search'))
                     <input type="hidden" name="search" value="{{ request('search') }}">
@@ -48,7 +49,6 @@
                         style="background-color: #3bae9c">Export</button>
                 </form>
             </li>
-            @if (auth()->user()->can('export_presensi'))
             @endif
         </ul>
         <div class="table-responsive">

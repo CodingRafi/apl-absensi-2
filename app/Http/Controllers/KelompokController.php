@@ -12,7 +12,7 @@ class KelompokController extends Controller
 {
     function __construct()
     {
-         $this->middleware('permission:view_kelompok|add_kelompok|edit_kelompok|delete_kelompok', ['only' => ['index','store']]);
+         $this->middleware('permission:view_kelompok|add_kelompok|edit_kelompok|delete_kelompok', ['only' => ['index','show']]);
          $this->middleware('permission:add_kelompok', ['only' => ['create','store']]);
          $this->middleware('permission:edit_kelompok', ['only' => ['edit','update']]);
          $this->middleware('permission:delete_kelompok', ['only' => ['destroy']]);

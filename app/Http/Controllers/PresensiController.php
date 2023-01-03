@@ -18,7 +18,7 @@ class PresensiController extends Controller
 {
     function __construct()
     {
-         $this->middleware('permission:view_presensi|add_presensi|edit_presensi|delete_presensi', ['only' => ['index','store']]);
+         $this->middleware('permission:view_presensi|add_presensi|edit_presensi|delete_presensi', ['only' => ['index','show']]);
          $this->middleware('permission:add_presensi', ['only' => ['create','store']]);
          $this->middleware('permission:edit_presensi', ['only' => ['edit','update']]);
          $this->middleware('permission:delete_presensi', ['only' => ['destroy']]);

@@ -95,7 +95,8 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <img src="{{ Auth::user()->sekolah->logo != '/img/tutwuri.png' ? asset('storage/' . Auth::user()->sekolah->logo) : Auth::user()->sekolah->logo }}" alt="" scale="1/1"
+                        <img src="{{ Auth::user()->sekolah->logo != '/img/tutwuri.png' ? asset('storage/' . Auth::user()->sekolah->logo) : Auth::user()->sekolah->logo }}"
+                            alt="" scale="1/1"
                             style="width: 10rem; height: 10rem; object-fit: cover; border-radius: 5px;">
                     </div>
                     <div class="col-md">
@@ -109,7 +110,8 @@
                                     style="color: red"></i></a>
                             @endif
                         </div> --}}
-                        <h3 style="font-family: 'Poppins', sans-serif;font-weight: 700;">{{ Auth::user()->sekolah->nama }}</h3>
+                        <h3 style="font-family: 'Poppins', sans-serif;font-weight: 700;">{{ Auth::user()->sekolah->nama
+                            }}</h3>
                         <table>
                             <tr>
                                 <th>Nama Sekolah</th>
@@ -145,7 +147,7 @@
             </div>
         </div>
     </div>
-    @if (auth()->user()->can('view_users') && !Auth::user()->hasRole('yayasan') )
+    @if (auth()->user()->can('view_users') && !Auth::user()->hasRole('yayasan'))
     <div class="col-md-4">
         <div class="card mb-3" style="height: 15rem;overflow: auto;">
             <div class="card-body">
@@ -187,73 +189,84 @@
     @endif
 </div>
 
-@if (!Auth::user()->hasRole('siswa'))
-    @if (auth()->user()->can('view_users') || auth()->user()->can('view_mapel'))
-    <div class="container-fluid p-0">
-        <div class="row">
-            @if (auth()->user()->can('view_users'))
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Data User</h4>
-                        <canvas id="user"></canvas>
-                    </div>
-                </div>
-            </div>
-            @endif
-            @if (auth()->user()->can('view_kompetensi'))
-            <div class="col-md-6">
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h4 class="card-title">Kompetensi</h4>
-                        <canvas id="kompetensi"></canvas>
-                    </div>
-                </div>
-            </div>
-            @endif
-        </div>
-    </div>
-
-    @if (auth()->user()->can('view_kelas'))
-    <div class="container-fluid p-0 mb-3">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card" style="min-height: 15rem;">
-                    <div class="card-body">
-                        <h4 class="card-title">Kelas</h4>
-                        <canvas id="kelas"></canvas>
-                    </div>
+@if (auth()->user()->can('view_users') || auth()->user()->can('view_kompetensi'))
+<div class="container-fluid p-0">
+    <div class="row">
+        @if (auth()->user()->can('view_users'))
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Data User</h4>
+                    <canvas id="user"></canvas>
                 </div>
             </div>
         </div>
-    </div>
-    @endif
-
-    @if (auth()->user()->can('view_mapel'))
-    <div class="container-fluid p-0 mb-3">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card" style="min-height: 15rem;">
-                    <div class="card-body">
-                        <h4 class="card-title">Mapel</h4>
-                        <canvas id="mapel"></canvas>
-                    </div>
+        @endif
+        @if (auth()->user()->can('view_kompetensi'))
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h4 class="card-title">Kompetensi</h4>
+                    <canvas id="kompetensi"></canvas>
                 </div>
             </div>
         </div>
+        @endif
     </div>
-    @endif
+</div>
 @endif
 
-@else
-{{-- Siswa --}}
+@if (auth()->user()->can('view_kelas'))
+<div class="container-fluid p-0 mb-3">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card" style="min-height: 15rem;">
+                <div class="card-body">
+                    <h4 class="card-title">Kelas</h4>
+                    <canvas id="kelas"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endif
+
+@if (auth()->user()->can('view_mapel'))
+<div class="container-fluid p-0 mb-3">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card" style="min-height: 15rem;">
+                <div class="card-body">
+                    <h4 class="card-title">Mapel</h4>
+                    <canvas id="mapel"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+@endif
+
+@if (auth()->user()->can('show_absensi'))
+<div class="container-fluid p-0 mb-3">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card" style="min-height: 15rem;">
+                <div class="card-body">
+                    <h4 class="card-title">Absensi</h4>
+                    <canvas id="absensi-user"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endif
 
 @endsection
 
 @section('tambahjs')
 <script src="{{ asset('template/vendors/chart.js/Chart.min.js') }}"></script>
+@if (auth()->user()->can('view_users'))
 {{-- !Data User --}}
 <script>
     const data = {
@@ -307,7 +320,9 @@
       options: options
     });
 </script>
+@endif
 
+@if (auth()->user()->can('view_kompetensi'))
 {{-- !Kompetensi --}}
 <script>
     const dataKompetensi = {
@@ -348,7 +363,9 @@
       options: optionKompetensi
     });
 </script>
+@endif
 
+@if (auth()->user()->can('view_mapel'))
 {{-- !Data Mapel --}}
 <script>
     const data_mapel = {
@@ -402,8 +419,10 @@
       options: options_mapel
     });
 </script>
+@endif
 
-{{-- !Data Mapel --}}
+@if (auth()->user()->can('view_kelas'))
+{{-- !Data Kelas --}}
 <script>
     const data_kelas = {
         labels: {!! json_encode($kelas['key']) !!},
@@ -456,4 +475,35 @@
       options: options_kelas
     });
 </script>
+@endif
+
+@if (auth()->user()->can('show_absensi'))
+<script>
+    const canvasAbsensiUser = document.getElementById("absensi-user").getContext('2d');
+
+    const data_absensi_user = {
+        labels: {!! json_encode(config('services.bulan')) !!},
+        datasets: {!! json_encode($absensis) !!}
+    };
+
+    const options_absensi_user = {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                },
+                scaleLabel: {
+                    display: false,
+                }
+            }]            
+        }  
+    };
+
+    new Chart(canvasAbsensiUser, {
+        type: 'line',
+        data: data_absensi_user,
+        options: options_absensi_user
+    });
+</script>
+@endif
 @endsection

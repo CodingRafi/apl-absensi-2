@@ -10,7 +10,7 @@ class RfidController extends Controller
 {
     function __construct()
     {
-         $this->middleware('permission:view_rfid|add_rfid|edit_rfid|delete_rfid', ['only' => ['index','store']]);
+         $this->middleware('permission:view_rfid|add_rfid|edit_rfid|delete_rfid', ['only' => ['index','show']]);
          $this->middleware('permission:add_rfid', ['only' => ['create','store']]);
          $this->middleware('permission:edit_rfid', ['only' => ['edit','update']]);
          $this->middleware('permission:delete_rfid', ['only' => ['destroy']]);

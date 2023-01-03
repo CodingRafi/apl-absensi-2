@@ -13,7 +13,7 @@ class KelasController extends Controller
 {
     function __construct()
     {
-         $this->middleware('permission:view_kelas|add_kelas|edit_kelas|delete_kelas', ['only' => ['index','store']]);
+         $this->middleware('permission:view_kelas|add_kelas|edit_kelas|delete_kelas', ['only' => ['index','show']]);
          $this->middleware('permission:add_kelas', ['only' => ['create','store']]);
          $this->middleware('permission:edit_kelas', ['only' => ['edit','update']]);
          $this->middleware('permission:delete_kelas', ['only' => ['destroy']]);

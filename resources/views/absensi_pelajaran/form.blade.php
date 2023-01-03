@@ -4,7 +4,7 @@
 <div class="card">
     <div class="card-body">
         <div style="display: flex; justify-content:space-between">
-            <h4 class="card-title m-0">Create Absensi Pelajaran</h4>
+            <h4 class="card-title m-0">{{ isset($data) ? 'Update' : 'Create' }} Absensi Pelajaran</h4>
             <form action="{{ route('absensi-pelajaran.index') }}" method="get">
                 @include('mypartials.tahunajaran')
                 <button class="btn btn-sm btn-danger float-right text-white" type="submit"
@@ -12,12 +12,13 @@
             </form>
         </div>
 
-        <form action="{{ route('absensi-pelajaran.store') }}" method="POST">
+        
+        <form action="{{ isset($data) ? route('absensi-pelajaran.update', $data->id) : route('absensi-pelajaran.store') }}" method="POST">
             @csrf
+            @if (isset($data))
+                @method('patch')
+            @endif
             @include('mypartials.tahunajaran')
-
-            <span id="request" data-tahun-awal="{{ request('tahun_awal') }}"
-                data-tahun-akhir="{{ request('tahun_akhir') }}" data-semester="{{ request('semester') }}"></span>
 
             <div class="mb-3">
                 <label for="nama" class="form-label">Nama</label>
@@ -38,7 +39,7 @@
                     style=" font-size: 15px; height: 6.5vh;" id="mapel">
                     <option value="">Pilih Mapel</option>
                     @foreach (Auth::user()->mapel as $mapel)
-                    <option value="{{ $mapel->id }}">{{ $mapel->nama }}</option>
+                    <option value="{{ $mapel->id }}" {{ isset($data) ? ($data->mapel_id == $mapel->id ? 'selected' : '') : '' }}>{{ $mapel->nama }}</option>
                     @endforeach
                 </select>
                 @error('mapel_id')
@@ -62,7 +63,7 @@
                 @enderror
             </div>
 
-            <button type="submit" class="btn text-white" style="background-color: #3bae9c">Simpan</button>
+            <button type="submit" class="btn text-white btn-simpan" style="background-color: #3bae9c" >Simpan</button>
         </form>
     </div>
 </div>
@@ -70,37 +71,50 @@
 
 @section('tambahjs')
 <script>
-    $('#mapel').on('change', function(){
-            $('.div-kelas select').empty();
-            $('.div-kelas select').append($("<option>", {
-                                                value: "",
-                                                text: "Pilih Kelas",
-                                            })
-                                        )
+    function get_kelas(value, method = 'create', val_selected = null){
+        $('.div-kelas select').empty();
+        $('.div-kelas select').append($("<option>", {
+                                            value: "",
+                                            text: "Pilih Kelas",
+                                        })
+                                    )
 
-            if (!$(this).val()) {
-                $('.div-kelas').css('display', 'none');
-            }else{
-                const request = $('#request');
-    
-                $.post('{{ route("absensi-pelajaran.get-kelas") }}', {
-                    mapel_id: $(this).val(),
-                    tahun_awal: request.attr('data-tahun-awal'),
-                    tahun_akhir: request.attr('data-tahun-akhir'),
-                    semester: request.attr('data-semester'),
-                }, function(response){
-                    $('.div-kelas').css('display', 'block');
-                    
-                    $.each(response.datas, function(i,e){
-                        $('.div-kelas select').append(
-                            $("<option>", {
-                                value: e.id,
-                                text: e.nama,
-                            })
-                        )
+        if (!value) {
+            $('.div-kelas').css('display', 'none');
+        }else{
+            start_loading();
+            $.post('{{ route("absensi-pelajaran.get-kelas") }}', {
+                        mapel_id: value,
+                        method: method,
+                        tahun_awal: '{{ request("tahun_awal") }}',
+                        tahun_akhir: '{{ request("tahun_akhir") }}',
+                        semester: '{{ request("semester") }}',
+                    }, function(response){
+                        $('.div-kelas').css('display', 'block');
+                        
+                        $.each(response.datas, function(i,e){
+                            $('.div-kelas select').append(`<option value="${e.id}">${e.nama}</option>`)
+                        })
+
+                        if (val_selected !== null && val_selected !== "") {
+                            $('.div-kelas select').val(val_selected);
+                        }
                     })
-                })
+            stop_loading()
+        }
+    }
+
+    $('#mapel').on('change', function(){get_kelas($(this).val())})
+
+    @if (isset($data) && $data->mapel_id)
+        get_kelas('{{ $data->mapel_id }}', 'update', '{{ $data->kelas_id }}')
+        console.log($('form select'))
+        $('form select').on('change', function(){
+            if (!$('.btn-simpan').attr('onclick')) {
+                $('.btn-simpan').attr('onclick', "return confirm('Apakah anda yakin? ini akan mereset presensi sebelumnya')");
             }
         })
+
+    @endif
 </script>
 @endsection
