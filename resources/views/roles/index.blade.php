@@ -18,7 +18,7 @@
                         <div class="col-md-10">
                             <h5 class="card-header" style="background-color: white">Users</h5>
                         </div>
-                        <div class="col-md-2 d-flex justify-content-center align-items-center">
+                        <div class="col-md-2 d-flex justify-content-end align-items-center">
                             @can('add_roles')
                                 <button type="button" class="btn btn-sm text-white tombol-buat-user" style="background-color: #3bae9c; border-radius: 5px; font-weight: 500;" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal">
@@ -37,7 +37,7 @@
                                     <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
                                         data-bs-target="#accordionIcon-{{ $loop->iteration }}"
                                         aria-controls="accordionIcon-{{ $loop->iteration }}" style="text-transform: capitalize;">
-                                        {{ $loop->iteration }}. Role {{ $role->name }}
+                                        {{ $loop->iteration - 1 }}. Role {{ $role->name }}
                                     </button>
                                 </h2>
 
