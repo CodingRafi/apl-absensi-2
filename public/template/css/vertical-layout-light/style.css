@@ -10480,7 +10480,7 @@ pre code {
 .tt-hint {
   display: block;
   width: 100%;
-  height: 2.875rem;
+  /* height: 2.875rem; */
   padding: 0.875rem 1.375rem;
   font-size: 0.875rem;
   font-weight: 400;
@@ -10636,7 +10636,7 @@ select.tt-hint:focus::-ms-value {
 }
 
 .form-control-sm {
-  height: 2.575rem;
+  /* height: 2.575rem; */
   padding: 0.5rem 0.81rem;
   font-size: 0.875rem;
   line-height: 1.5;
