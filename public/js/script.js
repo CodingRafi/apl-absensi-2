@@ -14,3 +14,23 @@ for (i = 0; i < dropdown.length; i++) {
   });
 }
 // end open & close submenu sidebar
+
+// open & close sidebar
+var btnCLose = document.querySelector(".minimize");
+var btnOpen  = document.querySelector(".maximize");
+var sidebar  = document.querySelector(".sidebar");
+var wrapper  = document.querySelector(".main-panel");
+  // (close sidebar)
+btnCLose.addEventListener("click", () => {
+  sidebar.style.width    = "0px";
+  wrapper.style.width    = "100%";
+  btnCLose.style.display = "none";
+  btnOpen.style.display  = "block";
+})
+  // (open sidebar)
+btnOpen.addEventListener("click", () => {
+  sidebar.style.width    = "290px";
+  btnCLose.style.display = "block";
+  btnOpen.style.display  = "none";
+})
+// end open & close sidebar
