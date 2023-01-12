@@ -15,8 +15,8 @@ class Kelas extends Model
         return $this->belongsTo(TahunAjaran::class);
     }
 
-    public function profile_siswa(){
-        return $this->hasMany(profile_siswa::class);
+    public function users(){
+        return $this->belongsToMany(User::class, 'user_kelas');
     }
 
     public function sekolah(){

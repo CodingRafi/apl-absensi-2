@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('kelas_id')->constrained();
             $table->foreignId('kompetensi_id')->constrained();
             $table->foreignId('ref_agama_id')->contrained();
             $table->foreignId('ref_provinsi_id')->constrained();

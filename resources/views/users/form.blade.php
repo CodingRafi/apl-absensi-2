@@ -20,6 +20,7 @@
     @method('patch')
     @endif
     @csrf   
+    @include('mypartials.tahunajaran')
     <div class="mb-3">
         <label for="name" class="form-label">Nama Lengkap</label>
         <input type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Masukan Nama"
@@ -82,7 +83,7 @@
     </div>
     @if (Auth::user()->sekolah->tingkat == 'smk' || Auth::user()->sekolah->tingkat == 'sma')
     <div class="mb-3">
-        <label for="kompetensi_id" class="form-label">Kelas</label>
+        <label for="kompetensi_id" class="form-label">Kompetensi</label>
         <select class="form-select @error('kompetensi_id') is-invalid @enderror" aria-label="Default select example" name="kompetensi_id"
             value="{{ old('kompetensi_id') }}" style=" font-size: 15px; height: 6.5vh;" id="kompetensi_id">
             <option value="">Pilih Kompetensi</option>

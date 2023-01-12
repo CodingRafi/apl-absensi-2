@@ -91,13 +91,17 @@ class DashboardController extends Controller
 
             if (auth()->user()->can('view_kelas')) {
                 //! Kelas
-                $kelas = $this->parseData(DB::table('kelas')
-                        ->select(DB::raw('count(profile_siswas.id) as jml'), 'kelas.nama as key')
-                        ->join('profile_siswas', 'profile_siswas.kelas_id', 'kelas.id')
-                        ->join('users', 'users.id', 'profile_siswas.user_id')
-                        ->where('users.sekolah_id', Auth::user()->sekolah_id)
-                        ->groupBy('kelas.id')
-                        ->get()->toArray());
+                // $kelas = $this->parseData(DB::table('kelas')
+                //         ->select(DB::raw('count(profile_siswas.id) as jml'), 'kelas.nama as key')
+                //         ->join('profile_siswas', 'profile_siswas.kelas_id', 'kelas.id')
+                //         ->join('users', 'users.id', 'profile_siswas.user_id')
+                //         ->where('users.sekolah_id', Auth::user()->sekolah_id)
+                //         ->groupBy('kelas.id')
+                //         ->get()->toArray());
+                $kelas = [
+                    'key' => [],
+                    'data' => []
+                ];
 
                 $return += ['kelas' => $kelas];
             }

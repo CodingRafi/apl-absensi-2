@@ -4,12 +4,12 @@
     <div class="container-xxl flex-grow-1 container-p-y">
 
             <div class="row">
-                <form action="{{ route('roles.update', $role->id) }}" method="POST">
+                <form action="{{ route('roles.update', $data->id) }}" method="POST">
                     @csrf
                     @method('patch')
                     <div class="col-xl-12">
                         <div class="card mb-4">
-                            <h5 class="card-title m-3">Edit Role {{ $role->name }}</h5>
+                            <h5 class="card-title m-3">Edit Role</h5>
                             <div class="card-body">
                                 <div class="mb-3 row">
                                     <div class="col-md-12">
@@ -26,17 +26,25 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-12">
-                                        <label for="hak_akses" class="form-label">Hak Akses</label>
-                                        <select class="fstdropdown-select @error('hak_akses') is-invalid @enderror" name="hak_akses" id="hak_akses" value="{{ isset($data) ? $data->hak_akses : old('hak_akses') }}" required multiple>
+                                        <label for="permission" class="form-label">Hak Akses</label>
+                                        <select class="fstdropdown-select @error('permission') is-invalid @enderror" name="permission[]" id="permission" multiple>
                                             @foreach ($permissions as $permission)
-                                            @if (in_array($permission->id, $rolePermissions))
-                                            <option value="{{ $permission->id }}" selected>{{ str_replace('_', ' ', $permission->name) }}</option>
+                                            @if (old('permission'))
+                                                @if (in_array($permission->id, old('permission')))
+                                                    <option value="{{ $permission->id }}" selected>{{ $permission->name }}</option>
+                                                @else
+                                                    <option value="{{ $permission->id }}">{{ $permission->name }}</option>
+                                                @endif       
                                             @else
-                                            <option value="{{ $permission->id }}">{{ str_replace('_', ' ', $permission->name) }}</option>
+                                                @if (in_array($permission->id, $rolePermissions))
+                                                    <option value="{{ $permission->id }}" selected>{{ $permission->name }}</option>
+                                                @else
+                                                    <option value="{{ $permission->id }}">{{ $permission->name }}</option>
+                                                @endif       
                                             @endif
                                             @endforeach
                                           </select>
-                                          @error('hak_akses')
+                                          @error('permission')
                                           <div class="invalid-feedback">
                                             {{ $message }}
                                           </div>

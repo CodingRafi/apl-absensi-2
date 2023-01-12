@@ -37,7 +37,8 @@ class UserController extends Controller
                     ->when($role == 'siswa', function($q) use($role, $request){
                         $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
                         $q->join('profile_siswas', 'profile_siswas.user_id', 'users.id')
-                            ->join('kelas', 'profile_siswas.kelas_id', 'kelas.id')
+                            // ->join('user_kelas', 'user_kelas.user_id', 'users.id')
+                            // ->join('kelas', 'user_kelas.kelas_id', 'kelas.id')
                             ->join('kompetensis', 'profile_siswas.kompetensi_id', 'kompetensis.id')
                             ->join('tahun_ajarans', 'tahun_ajarans.id', 'profile_siswas.tahun_ajaran_id')
                             ->where('profile_siswas.tahun_ajaran_id', $tahun_ajaran->id)
@@ -54,6 +55,9 @@ class UserController extends Controller
             'users' => $users,
             'role' => $role
         ];
+
+        $users = User::role('siswa');
+        
 
         if ($role == 'siswa') {
             $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
@@ -116,6 +120,8 @@ class UserController extends Controller
         $user->assignRole($role);
 
         if ($role == 'siswa') {
+            $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+            $user->kelas()->syncWithPivotValues([$request->kelas_id], ['tahun_ajaran_id' => $tahun_ajaran->id]);
             app('App\Http\Controllers\ProfileSiswaController')->store($user, $request);
         }else{
             app('App\Http\Controllers\ProfileUserController')->store($user, $request, $role);
@@ -138,7 +144,8 @@ class UserController extends Controller
         $user = User::when($role == 'siswa', function ($q) use($role) {
                             return $q->select('users.email', 'users.profil', 'users.nipd', 'profile_siswas.nisn', 'profile_siswas.nik','profile_siswas.jk', 'profile_siswas.jalan', 'profile_siswas.name', 'profile_siswas.tempat_lahir', 'profile_siswas.tanggal_lahir', 'ref_provinsis.nama as provinsi', 'ref_kabupatens.nama as kabupaten', 'ref_kecamatans.nama as kecamatan', 'ref_kelurahans.nama as kelurahan', 'ref_agamas.nama as agama', 'kelas.nama as kelas', 'kompetensis.kompetensi')
                                     ->join('profile_siswas', 'profile_siswas.user_id', 'users.id')
-                                    ->join('kelas', 'profile_siswas.kelas_id', 'kelas.id')
+                                    ->join('user_kelas', 'user_kelas.user_id', 'users.id')
+                                    ->join('kelas', 'user_kelas.kelas_id', 'kelas.id')
                                     ->join('kompetensis', 'profile_siswas.kompetensi_id', 'kompetensis.id')
                                     ->join('ref_agamas', 'profile_siswas.ref_agama_id', 'ref_agamas.id')
                                     ->join('ref_provinsis', 'profile_siswas.ref_provinsi_id', 'ref_provinsis.id')
@@ -161,13 +168,20 @@ class UserController extends Controller
     public function edit(Request $request, $role, $id)
     {   
         $this->check_user($id, $role);
-
-        $user = User::when($role == 'siswa', function ($q) use($role) {
-                    return $q->select('users.*', 'profile_siswas.*', 'users.id as id')->join('profile_siswas', 'profile_siswas.user_id', 'users.id');
+        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+        
+        $user = User::when($role == 'siswa', function ($q) use($role, $tahun_ajaran) {
+                    return $q->select('users.*', 'profile_siswas.*', 'users.id as id')
+                                ->join('profile_siswas', 'profile_siswas.user_id', 'users.id');
                 })->when($role != 'siswa', function($q) use($role){
-                    return $q->select('users.*', 'profile_users.*','users.id as id')
+                    return $q->select('users.*', 'profile_users.*', 'users.id as id')
                             ->join('profile_users', 'profile_users.user_id', 'users.id');
                 })->where('users.id', $id)->first();
+
+        if ($role == 'siswa') {
+            $kelas = $user->kelas()->where('user_kelas.tahun_ajaran_id', $tahun_ajaran->id)->first();
+            $user['kelas_id'] = ($kelas) ? $kelas->id : '';
+        }
 
         $provinsis = DB::table('ref_provinsis')->get();
         $agamas = ref_agama::all();
@@ -183,7 +197,6 @@ class UserController extends Controller
         }
         
         if ($role == 'siswa') {
-            $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
             if (Auth::user()->sekolah->tingkat == 'smk' || Auth::user()->sekolah->tingkat == 'sma') {
                 $data += ['kompetensis' => DB::table('kompetensis')->where('sekolah_id', Auth::user()->sekolah_id)->get()];
             }
@@ -203,6 +216,7 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, $role, $id)
     {
         $user = User::findOrFail($id);
+        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
 
         if ($request->rfid_number) {
             $rfid = $user->rfid;
@@ -252,6 +266,22 @@ class UserController extends Controller
         $user->update($data);
 
         if ($role == 'siswa') {
+            $kelas = $user->kelas()->where('user_kelas.tahun_ajaran_id', $tahun_ajaran->id)->first();
+            if ($kelas) {
+                $kelas->pivot->update([
+                    'kelas_id' =>$request->kelas_id
+                ]);
+            }else{
+                $request->validate([
+                    'kelas_id' => 'required'
+                ]);
+                
+                DB::table('user_kelas')->insert([
+                    'user_id' => $user->id,
+                    'kelas_id' => $request->kelas_id,
+                    'tahun_ajaran_id' => $tahun_ajaran->id
+                ]);
+            }
             app('App\Http\Controllers\ProfileSiswaController')->update($user, $request);
         }else{
             app('App\Http\Controllers\ProfileUserController')->update($user, $request, $role);

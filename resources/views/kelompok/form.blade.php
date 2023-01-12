@@ -1,8 +1,11 @@
-<form action="{{ (isset($data)) ? route('kelompok.update', [$kelompok->id]) : route('kelompok.store') }}" method="POST">
+<form action="{{ (isset($kelompok)) ? route('kelompok.update', [$kelompok->id]) : route('kelompok.store') }}" method="POST">
     @csrf
+    @if (isset($kelompok))
+        @method('patch')
+    @endif
     <div class="mt-3 mb-3">
         <label for="nama" class="form-label">Nama Kelompok</label>
-        <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" id="nama" placeholder="Masukan nama kelompok" value="{{ isset($data) ? $data->nama : old('nama') }}">
+        <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" id="nama" placeholder="Masukan nama kelompok" value="{{ isset($kelompok) ? $kelompok->nama : old('nama') }}">
         @error('nama')
         <div class="invalid-feedback">
             {{ $message }}
@@ -11,7 +14,7 @@
     </div>
     <div class="mt-3 mb-3">
         <label for="jam_masuk" class="form-label">Jam Masuk</label>
-        <input type="time" class="form-control @error('jam_masuk') is-invalid @enderror" name="jam_masuk" id="jam_masuk" value="{{ isset($data) ? $data->jam_masuk : old('jam_masuk') }}">
+        <input type="time" class="form-control @error('jam_masuk') is-invalid @enderror" name="jam_masuk" id="jam_masuk" value="{{ isset($kelompok) ? $kelompok->jam_masuk : old('jam_masuk') }}">
         @error('jam_masuk')
         <div class="invalid-feedback">
             {{ $message }}
@@ -20,18 +23,29 @@
     </div>
     <div class="mt-3 mb-3">
         <label for="jam_pulang" class="form-label">Jam Pulang</label>
-        <input type="time" class="form-control @error('jam_pulang') is-invalid @enderror" name="jam_pulang" id="jam_pulang" value="{{ isset($data) ? $data->jam_pulang : old('jam_pulang') }}">
+        <input type="time" class="form-control @error('jam_pulang') is-invalid @enderror" name="jam_pulang" id="jam_pulang" value="{{ isset($kelompok) ? $kelompok->jam_pulang : old('jam_pulang') }}">
         @error('jam_pulang')
         <div class="invalid-feedback">
             {{ $message }}
         </div>
         @enderror
     </div>
+    @dd($kelompok->user)
     <div class="mb-3">
         <label for="gurus" class="form-label">Guru</label>
         <select class="fstdropdown-select @error('gurus') is-invalid @enderror" name="gurus[]" id="gurus" style=" font-size: 15px; height: 6.5vh;" multiple>
             @foreach ($gurus as $guru)
-                <option value="{{ $guru->id }}">{{ $guru->name }}</option>
+                @if (isset($kelompok))
+                    @foreach ($kelompok->user as $user)
+                        @if ($user->id == $guru->id)
+                        <option value="{{ $guru->id }}" selected>{{ $guru->profile_user->name }}</option>
+                        @else
+                        <option value="{{ $guru->id }}">{{ $guru->profile_user->name }}</option>
+                        @endif
+                    @endforeach
+                @else
+                <option value="{{ $guru->id }}">{{ $guru->profile_user->name }}</option>
+                @endif
             @endforeach
         </select>
         @error('gurus')

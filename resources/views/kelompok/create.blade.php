@@ -23,13 +23,7 @@
                     <button class="btn btn-sm btn-danger text-white" style="min-width: 5vw;border-radius: 5px;font-weight: 500;">Kembali</button>
                 </form>
             </div>
-            @if (count($gurus) > 0)
             @include('kelompok.form')
-            @else
-            <div class="alert alert-primary" role="alert">
-                Tidak ada guru
-            </div>
-            @endif
         </div>
     </div>
 @endsection

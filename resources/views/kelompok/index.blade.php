@@ -31,7 +31,7 @@
                             <td>{{ $kelompok->jam_pulang }}</td>
                             <td>
                                 @foreach ($kelompok->user as $user)
-                                    {{ $user->name }}
+                                    {{ $user->profile_user->name }}
                                 @endforeach
                             </td>
                             <td>

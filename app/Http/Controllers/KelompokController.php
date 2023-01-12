@@ -72,7 +72,7 @@ class KelompokController extends Controller
             'jam_masuk' => $request->jam_masuk,
             'jam_pulang' => $request->jam_pulang,
         ]);
-
+        
         $kelompok->user()->sync($request->gurus);
 
         return redirect()->route('kelompok.index')->with('msg_success', 'Berhasil mengupdate kelompok');

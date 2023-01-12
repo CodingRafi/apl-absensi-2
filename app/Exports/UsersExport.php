@@ -21,12 +21,13 @@ class UsersExport implements FromView
     {   
         $role = $this->role;
         $request = $this->request;
+        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
 
-        $users = User::when($role == 'siswa', function($q) use($role, $request){
-            $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+        $users = User::when($role == 'siswa', function($q) use($role, $request, $tahun_ajaran){
             $q->select('users.email', 'users.profil', 'users.nipd', 'profile_siswas.nisn', 'profile_siswas.nik','profile_siswas.jk', 'profile_siswas.jalan', 'profile_siswas.name', 'profile_siswas.tempat_lahir', 'profile_siswas.tanggal_lahir', 'ref_provinsis.nama as provinsi', 'ref_kabupatens.nama as kabupaten', 'ref_kecamatans.nama as kecamatan', 'ref_kelurahans.nama as kelurahan', 'ref_agamas.nama as agama', 'kelas.nama as kelas', 'kompetensis.kompetensi')
                 ->join('profile_siswas', 'profile_siswas.user_id', 'users.id')
-                ->join('kelas', 'profile_siswas.kelas_id', 'kelas.id')
+                ->leftJoin('user_kelas', 'user_kelas.user_id', 'users.id')
+                ->join('kelas', 'user_kelas.kelas_id', 'kelas.id')
                 ->join('kompetensis', 'profile_siswas.kompetensi_id', 'kompetensis.id')
                 ->join('tahun_ajarans', 'tahun_ajarans.id', 'profile_siswas.tahun_ajaran_id')
                 ->join('ref_agamas', 'profile_siswas.ref_agama_id', 'ref_agamas.id')
@@ -50,6 +51,8 @@ class UsersExport implements FromView
         ->role($role) 
         ->where('users.sekolah_id', \Auth::user()->sekolah_id)
         ->get();
+
+        dd($users);
 
         return view('users.export', [
             'users' => $users,

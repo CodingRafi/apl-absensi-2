@@ -20,6 +20,14 @@ return new class extends Migration
             $table->foreignId('sekolah_id')->constrained();
             $table->timestamps();
         });
+
+        Schema::create('user_kelas', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('kelas_id')->constrained();
+            $table->foreignId('tahun_ajaran_id')->constrained();
+            $table->timestamps();
+        });
     }
 
     /**

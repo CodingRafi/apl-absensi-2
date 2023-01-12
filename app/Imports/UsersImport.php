@@ -73,13 +73,13 @@ class UsersImport implements ToCollection, WithHeadingRow
 
             if ($this->role == 'siswa') {
                 $tahun_ajaran = TahunAjaran::getTahunAjaran($this->request);
+                $user->kelas()->syncWithPivotValues([$this->request->kelas_id], ['tahun_ajaran_id' => $tahun_ajaran->id]);
                 profile_siswa::create([
                     'user_id' => $user->id,
                     'name' => $row['nama_lengkap'],
                     'nisn' => $row['nisn'],
                     'nipd' => $row['nipd'],
                     'nik' => $row['nik'],
-                    'kelas_id' => $this->request->kelas_id,
                     'kompetensi_id' => $this->request->kompetensi_id,
                     'jk' => (preg_match("/". $row['jenis_kelamin'] ."/i", 'perempuan') ? 'P' : 'L'),
                     'tempat_lahir' => $row['tempat_lahir'],
