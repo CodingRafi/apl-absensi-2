@@ -1,6 +1,6 @@
 <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <form action="/" method="get">
+        <form action="/dashboard" method="get">
             @include('mypartials.tahunajaran')
             <button class="navbar-brand brand-logo" href="/" style="width: 3rem; height: 3rem; border: none; border-radius: 50px; background: none">
                 @if (Auth::user()->sekolah)
