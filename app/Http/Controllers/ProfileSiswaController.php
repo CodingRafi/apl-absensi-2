@@ -11,7 +11,6 @@ class ProfileSiswaController extends Controller
 {
     public function store($user, $request)
     {
-        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
         profile_siswa::create([
             'user_id' => $user->id,
             'name' => $request->name,
@@ -29,7 +28,6 @@ class ProfileSiswaController extends Controller
             'ref_kecamatan_id' => $request->ref_kecamatan_id,
             'ref_kelurahan_id' => $request->ref_kelurahan_id,
             'jalan' => $request->jalan,
-            'tahun_ajaran_id' => $tahun_ajaran->id
         ]);
     }
 

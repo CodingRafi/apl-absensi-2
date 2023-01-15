@@ -62,7 +62,7 @@
   <div class="container-fluid page-body-wrapper full-page-wrapper p-0 ">
     <div class="content-wrapper d-flex align-items-center auth px-0">
       <div class="row w-100 mx-0">
-        <div class="col-lg-6 mx-auto">
+        <div class="col-md-8 mx-auto">
           <div class="auth-form-light text-left py-5 px-4 px-sm-5"
             style="border-radius: 10px; box-shadow: 0px 0px 5px rgba(116, 116, 116, 0.276)">
             <h3>Daftar</h3>
@@ -122,17 +122,36 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                  <label for="tingkat" class="form-label">Tingkat</label>
-                  <select name="tingkat" id="tingkat" class="text-dark form-control @error('tingkat') is-invalid @enderror"
+                  <label for="jenjang" class="form-label">Jenjang</label>
+                  <select name="jenjang" id="jenjang" class="text-dark form-control @error('jenjang') is-invalid @enderror"
                     style="border-radius: 5px;"
                     required>
-                    <option value="">Pilih Tingkat</option>
-                    <option value="sd" {{ old('tingkat')=='sd' ? 'selected' : '' }}>SD</option>
-                    <option value="smp" {{ old('tingkat')=='smp' ? 'selected' : '' }}>SMP</option>
-                    <option value="sma" {{ old('tingkat')=='sma' ? 'selected' : '' }}>SMA</option>
-                    <option value="smk" {{ old('tingkat')=='smk' ? 'selected' : '' }}>SMK</option>
+                    <option value="">Pilih Jenjang</option>
+                    <option value="sd" {{ old('jenjang')=='sd' ? 'selected' : '' }}>SD</option>
+                    <option value="smp" {{ old('jenjang')=='smp' ? 'selected' : '' }}>SMP</option>
+                    <option value="sma" {{ old('jenjang')=='sma' ? 'selected' : '' }}>SMA</option>
+                    <option value="smk" {{ old('jenjang')=='smk' ? 'selected' : '' }}>SMK</option>
                   </select>
-                  @error('tingkat')
+                  @error('jenjang')
+                    <div class="invalid-feedback">
+                      {{ $message }}
+                    </div>
+                  @enderror
+                </div>
+                <div class="mb-3">
+                  <label for="tingkat_id" class="form-label">Tingkat/Kelas</label>
+                  <select name="tingkat_id[]" id="tingkat_id" class="fstdropdown-select text-dark form-control @error('tingkat_id') is-invalid @enderror"
+                    style="border-radius: 5px;"
+                    required multiple>
+                    @foreach ($tingkats as $tingkat)
+                    @if (old('tingkat_id'))
+                    <option value="{{ $tingkat->id }}" {{ (in_array($tingkat->id, old('tingkat_id')) ? 'selected' : '') }}>{{ $tingkat->romawi }}</option>                        
+                    @else
+                    <option value="{{ $tingkat->id }}">{{ $tingkat->romawi }}</option>                        
+                    @endif
+                    @endforeach
+                  </select>
+                  @error('tingkat_id')
                     <div class="invalid-feedback">
                       {{ $message }}
                     </div>
@@ -223,10 +242,10 @@
               <div class="tab" id="admin" style="display: none;">
                 <h5>Data user admin sekolah</h5>
                 <div class="mb-3">
-                  <label for="nama" class="form-label">Nama admin sekolah</label>
-                  <input type="text" class="form-control @error('nama') is-invalid @enderror" placeholder="Nama" name="nama"
-                    style="border-radius: 5px; width: 100%" value="{{ old('nama') }}" required>
-                    @error('nama')
+                  <label for="name  " class="form-label">Nama admin sekolah</label>
+                  <input type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Nama" name="name"
+                    style="border-radius: 5px; width: 100%" value="{{ old('name') }}" required>
+                    @error('name')
                       <div class="invalid-feedback">
                         {{ $message }}
                       </div>

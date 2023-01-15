@@ -36,11 +36,11 @@
                     <label for="formFile" class="form-label">Kelas</label>
                     <select class="form-select" name="kelas_id">
                         @foreach ($kelas as $row)
-                            <option value="{{ $row->id }}">{{ $row->nama }}</option>
+                            <option value="{{ $row->id }}">{{ $row->romawi }} {{ $row->nama }}</option>
                         @endforeach
                     </select>
                 </div>
-                @if ( Auth::user()->sekolah->tingkat == 'smk' )     
+                @if (check_jenjang())     
                 <div class="mb-3 mt-4">
                     <label for="formFile" class="form-label">Jurusan</label>
                     <select class="form-select" name="kompetensi_id">

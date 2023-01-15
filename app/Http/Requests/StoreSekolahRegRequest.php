@@ -26,7 +26,8 @@ class StoreSekolahRegRequest extends FormRequest
         return [
             'nama_sekolah' => 'required',
             'npsn' => 'required',
-            'tingkat' => 'required',
+            'jenjang' => 'required',
+            'tingkat_id' => 'required',
             'ref_provinsi_id' => 'required',
             'ref_kabupaten_id' => 'required',
             'ref_kecamatan_id' => 'required',

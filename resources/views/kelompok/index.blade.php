@@ -7,7 +7,7 @@
                 <h4 class="card-title">Kelompok</h4>
                 <form action="{{ route('kelompok.create') }}" method="get">
                     @include('mypartials.tahunajaran')
-                    <button class="btn btn-sm text-white font-weight-bold" style="background-color: #3bae9c; min-width: 5vw;border-radius: 5px;">Create</button>
+                    <button class="btn btn-sm text-white font-weight-bold" style="background-color: #3bae9c; min-width: 5vw;border-radius: 5px;">Tambah</button>
                 </form>
             </div>
             <div class="table table-responsive table-hover text-center">

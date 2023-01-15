@@ -48,6 +48,7 @@ Route::prefix('data-master')->group(function () {
     Route::post('kabupaten', [RefKabupatenController::class, 'index'])->name('kabupaten_list');
     Route::post('kecamatan', [RefKecamatanController::class, 'index'])->name('kecamatan_list');
     Route::post('kelurahan', [RefKelurahanController::class, 'index'])->name('kelurahan_list');
+    Route::post('/get-data', [KelasController::class, 'get_data'])->name('kelas.get_data');
 });
 
 Route::group(['middleware' => ['auth']], function() {
@@ -61,6 +62,7 @@ Route::group(['middleware' => ['auth']], function() {
             Route::resource('kompetensi', KompetensiController::class);
         });
         Route::resource('kelas', KelasController::class);
+        Route::post('kelas/upgrade', [KelasController::class, 'upgrade'])->name('kelas.upgrade');
         Route::resource('mapel', MapelController::class);
         Route::resource('agama', RefAgamaController::class);
         Route::resource('status-kehadiran', StatusKehadiranController::class);
@@ -79,6 +81,7 @@ Route::group(['middleware' => ['auth']], function() {
             Route::get('{role}/{id}/edit', [UserController::class, 'edit'])->name('edit');
             Route::get('{role}/{id}', [UserController::class, 'show'])->name('shows');
             Route::patch('{role}/{id}', [UserController::class, 'update'])->name('update');
+            Route::delete('{role}/{id}', [UserController::class, 'destroy'])->name('destroy');
         });
 
         // Export dan Import User
@@ -117,22 +120,11 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('/presensi/{id}', [PresensiController::class, 'show'])->name('presensi.show');
     });
     
-
-
-    // Route::get('/create-agenda', [AgendaController::class, 'create']);
     Route::resource('kelompok', KelompokController::class);
-    // Route::resource('agenda', AgendaController::class);
     Route::resource('sekolah', App\Http\Controllers\SekolahController::class);
     Route::resource('jam-pelajaran', WaktuPelajaranController::class);
     Route::resource('jam-istirahat', WaktuIstirahatController::class);
-    // Route::resource('tenggat', JedaPresensiController::class);
-    // Route::get('/presensi/{id}', [PresensiController::class, 'index']);
-    // Route::post('/presensi/{id}', [PresensiController::class, 'update']);
-    // Route::get('/presensi-export', [PresensiController::class, 'export']);
-    // Route::resource('presensi', PresensiController::class);
-    // Route::get('/agenda-guru', [AgendaController::class, 'show_guru']);
     Route::get('get-mapel/{id}', [AgendaController::class, 'get_mapel']);
-    // Route::get('/show-absensi', [AbsensiController::class, 'showAbsensi']);
     Route::get('/user-settings', [ConfigurasiUserController::class, 'index']);
     Route::get('/edit-profile', [ConfigurasiUserController::class, 'editProfil']);
     Route::post('/simpan', [ConfigurasiUserController::class, 'saveProfil']);

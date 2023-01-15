@@ -15,6 +15,9 @@
                         @if (request('jurusan'))
                             <input type="hidden" name="jurusan" value="{{ request('jurusan') }}">
                         @endif
+                        @if (request('page'))
+                            <input type="hidden" name="page" value="{{ request('page') }}">
+                        @endif
                         <input type="text" class="form-control" placeholder="Search" style="height: 1.9rem;" name="search"
                             value="{{ request('search') }}">
                         <button type="submit" class="btn" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; width: 2.5rem; padding: 0.1rem"><i class="bi bi-search"></i></button>
@@ -22,7 +25,7 @@
                 </div>
             </li>
             @if ($role == 'siswa')
-            @if (Auth::user()->sekolah->tingkat == 'sma' || Auth::user()->sekolah->tingkat == 'smk')
+            @if (check_jenjang())
             <div class="dropdown">
                 <button class="btn dropdown-toggle jurusan" type="button" id="dropdownMenuButton1"
                     data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid rgb(205, 205, 205); height: 1.9rem; min-width: 6rem; padding: 0.1rem">
@@ -38,6 +41,9 @@
                             @endif
                             @if (request('search'))
                                 <input type="hidden" name="search" value="{{ request('search') }}">
+                            @endif
+                            @if (request('page'))
+                                <input type="hidden" name="page" value="{{ request('page') }}">
                             @endif
                             <input type="hidden" name="jurusan" value="{{ $kompetensi->id }}">
                             <button type="submit" class="dropdown-item">{{ $kompetensi->kompetensi }}</button>
@@ -63,8 +69,11 @@
                             @if (request('search'))
                                 <input type="hidden" name="search" value="{{ request('search') }}">
                             @endif
+                            @if (request('page'))
+                                <input type="hidden" name="page" value="{{ request('page') }}">
+                            @endif
                             <input type="hidden" name="kelas" value="{{ $row->id }}">
-                            <button type="submit" class="dropdown-item">{{ $row->nama }}</button>
+                            <button type="submit" class="dropdown-item">{{ $row->romawi }} {{ $row->nama }}</button>
                         </form>
                     </li>
                     @endforeach
@@ -83,6 +92,9 @@
                     @endif
                     @if (request('search'))
                         <input type="hidden" name="search" value="{{ request('search') }}">
+                    @endif
+                    @if (request('page'))
+                        <input type="hidden" name="page" value="{{ request('page') }}">
                     @endif
                     <button type="submit" class="btn btn-sm text-white px-3"
                         style="background-color: #3bae9c;border-radius: 5px;font-weight: 500;">Export</button>
@@ -139,16 +151,18 @@
                                 <button class="btn btn-sm btn-warning text-white" style="width: 5rem; margin: 0.1rem;border-radius: 5px;font-weight: 500;">Edit</button>
                             </form>
                             @endif
-                            @if (auth()->user()->can('delete_user'))
+                            @if (auth()->user()->can('delete_users'))
                             <button type="submit" class="btn btn-sm btn-danger"
-                                onclick="deleteData('{{ route('user.destroy', [$user->id]) }}')" style="width: 5rem; margin: 0.1rem;border-radius: 5px;font-weight: 500;">Hapus</button>
+                                onclick="deleteData('{{ route('users.destroy', ['role' => $role, 'id' => $user->id]) }}')" style="width: 5rem; margin: 0.1rem;border-radius: 5px;font-weight: 500;">Hapus</button>
                             @endif
                         </td>
                         @endif
                     </tr>
                     @endforeach
+
                 </tbody>
             </table>
+            {{ $users->links() }}
         </div>
     </div>
 </div>

@@ -37,10 +37,7 @@ class AgendaController extends Controller
 
         if ($role == 'siswa') {
             $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
-            $classes = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)
-                        ->when($tahun_ajaran, function ($q) use ($tahun_ajaran) {
-                            return $q->where('kelas.tahun_ajaran_id', $tahun_ajaran->id);
-                        })->get();
+            $classes = Kelas::getKelas($request);
             $return += [
                 'classes' => $classes,
             ];
@@ -72,7 +69,7 @@ class AgendaController extends Controller
             $return += ['gurus' => $gurus];
         }elseif($role == 'guru'){
             $data = User::findOrFail($id);
-            $kelas = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)->where('tahun_ajaran_id', $tahun_ajaran->id)->get();
+            $kelas = Kelas::getKelas($request);
             $return += ['kelas' => $kelas];
         }else{
             $data = User::findOrFail($id);
@@ -167,7 +164,7 @@ class AgendaController extends Controller
             $return += ['gurus' => $gurus];
         }elseif($role == 'guru'){
             $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
-            $classes = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)->where('tahun_ajaran_id', $tahun_ajaran->id)->get();
+            $classes = Kelas::getKelas($request);
             $return += ['classes' => $classes];
         }
 
@@ -231,7 +228,6 @@ class AgendaController extends Controller
     public function destroy(Request $request, $id)
     {
         $agenda = Agenda::findOrFail($id);
-        
         $agenda->delete();
 
         if ($request->role == 'siswa') {

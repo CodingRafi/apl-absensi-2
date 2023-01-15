@@ -15,16 +15,18 @@ class SekolahSeeder extends Seeder
      */
     public function run()
     {
-        Sekolah::create([
+        $sekolah = Sekolah::create([
             'nama' => 'SMK Taruna Bhakti',
             'npsn' => '20229232',
-            'tingkat' => 'smk',
+            'jenjang' => 'smk',
             'ref_provinsi_id' => 11,
             'ref_kabupaten_id' => 1102,
             'ref_kecamatan_id' => 110203,
             'ref_kelurahan_id' => 1102032001,
             'jalan' => 'asd'
         ]);
+
+        $sekolah->tingkat()->sync([10, 11, 12]);
 
         // Sekolah::create([
         //     'nama' => 'SMP Taruna Bhakti',

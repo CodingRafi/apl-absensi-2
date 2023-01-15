@@ -37,9 +37,9 @@
                     <option value="">Pilih Kelas</option>
                     @foreach ($classes as $kelas)
                     @if ($kelas->id == $agenda->kelas_id)
-                    <option value="{{ $kelas->id }}" selected>{{ $kelas->nama }}</option>
+                    <option value="{{ $kelas->id }}" selected>{{ $kelas->romawi }} {{ $kelas->nama }}</option>
                     @else
-                    <option value="{{ $kelas->id }}">{{ $kelas->nama }}</option>
+                    <option value="{{ $kelas->id }}">{{ $kelas->romawi }} {{ $kelas->nama }}</option>
                     @endif
                     @endforeach
                 </select>

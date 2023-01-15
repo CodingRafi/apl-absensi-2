@@ -81,7 +81,7 @@
                     <tr class="row">
                         <td class="col-lg-2" style="font-weight: 600;">Kelas</td>
                         <td class="col-lg-1">:</td>
-                        <td class="col-lg-9">{{ $user->kelas }}</td>
+                        <td class="col-lg-9">{{ $user->romawi }} {{ $user->kelas }}</td>
                     </tr>
                     @endif
                     @if (isset($user->kompetensi))

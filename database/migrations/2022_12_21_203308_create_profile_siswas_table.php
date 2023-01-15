@@ -22,13 +22,13 @@ return new class extends Migration
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('kompetensi_id')->constrained();
+            $table->foreignId('kompetensi_id')->nullable()->constrained();
             $table->foreignId('ref_agama_id')->contrained();
             $table->foreignId('ref_provinsi_id')->constrained();
             $table->foreignId('ref_kabupaten_id')->constrained();
             $table->foreignId('ref_kecamatan_id')->constrained();
             $table->foreignId('ref_kelurahan_id')->constrained();
-            $table->foreignId('tahun_ajaran_id')->constrained();
+            // $table->foreignId('tahun_ajaran_id')->constrained();
             $table->string('jalan');
             $table->timestamps();
         });

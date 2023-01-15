@@ -16,8 +16,8 @@ class KelasSeeder extends Seeder
     public function run()
     {
         Kelas::create([
-            'nama' => 'XII RPL 2',
-            'tahun_ajaran_id' => 1,
+            'nama' => 'RPL 2',
+            'ref_tingkat_id' => 12,
             'sekolah_id' => 1
         ]);
     }

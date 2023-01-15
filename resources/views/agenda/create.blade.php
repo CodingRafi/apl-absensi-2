@@ -71,7 +71,7 @@
                     <option value="">Pilih Kelas</option>
                     @if ($kelas)
                     @foreach ($kelas as $row)
-                    <option value="{{ $row->id }}">{{ $row->nama }}</option>
+                    <option value="{{ $row->id }}">{{ $row->romawi }} {{ $row->nama }}</option>
                     @endforeach
                     @endif
                 </select>

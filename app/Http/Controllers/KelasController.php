@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use DB, Auth;
 use App\Models\Kelas;
-use App\Models\Siswa;
+use App\Models\User;
 use App\Models\TahunAjaran;
 use App\Http\Requests\StoreKelasRequest;
 use App\Http\Requests\UpdateKelasRequest;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class KelasController extends Controller
 {
@@ -21,17 +23,7 @@ class KelasController extends Controller
 
     public function index(Request $request)
     {
-        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
-
-        $classes = Kelas::where('sekolah_id', \Auth::user()->sekolah_id)
-                        ->when($tahun_ajaran, function ($query) use($tahun_ajaran) {
-                            $query->where('tahun_ajaran_id', $tahun_ajaran->id);
-                        })->get(); 
-
-        return view('kelas.index', [
-            'classes' => $classes 
-        ]);
-
+        return view('kelas.index');
     }
 
     public function create()
@@ -41,10 +33,8 @@ class KelasController extends Controller
 
     public function store(StoreKelasRequest $request)
     {   
-        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
-
         Kelas::create([
-            'tahun_ajaran_id' => $tahun_ajaran->id,
+            'ref_tingkat_id' => $request->tingkat_id,
             'nama' => $request->nama,
             'sekolah_id' => \Auth::user()->sekolah_id
         ]);
@@ -74,6 +64,7 @@ class KelasController extends Controller
         $kelas = Kelas::findOrFail($id);
         if ($kelas->sekolah_id == \Auth::user()->sekolah->id) {
             $kelas->update([
+                'ref_tingkat_id' => $request->tingkat_id,
                 'nama' => $request->nama
             ]);
     
@@ -86,10 +77,9 @@ class KelasController extends Controller
     public function destroy(Request $request, $id)
     {
         $kelas = Kelas::findOrFail($id);
-
         if ($kelas->sekolah_id == \Auth::user()->sekolah->id) {
-            foreach ($kelas->siswa as $key => $siswa) {
-                Siswa::deleteSiswa($siswa->id);
+            foreach ($kelas->users as $key => $siswa) {
+                User::deleteUser('siswa', $siswa->id);
             }
     
             foreach ($kelas->agenda as $key => $agenda) {
@@ -102,5 +92,67 @@ class KelasController extends Controller
         }
 
         abort(403);
+    }
+
+    public function get_data(Request $request){
+        $tahun_ajarans = TahunAjaran::latest()->get();
+        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+        $kelas =  DB::table('kelas')
+                    ->select('kelas.*', 'ref_tingkats.romawi')
+                    ->join('ref_tingkats', 'ref_tingkats.id', 'kelas.ref_tingkat_id')
+                    ->join('user_kelas', 'user_kelas.kelas_id', 'kelas.id')
+                    ->where('user_kelas.tahun_ajaran_id', $tahun_ajaran->id)
+                    ->where('kelas.sekolah_id', Auth::user()->sekolah_id)
+                    ->distinct('user_kelas.kelas_id')
+                    ->get();
+        $to_kelas = Kelas::getKelas($request);
+        return response()->json([
+            'tahun_ajarans' => $tahun_ajarans,
+            'kelas' => $kelas,
+            'to_kelas' => $to_kelas
+        ], 200);
+    }
+
+    public function upgrade(Request $request){
+        $request->validate([
+            'tahun_ajaran_id' => 'required',
+            'kelas_id' => 'required',
+            'to_kelas_id' => 'required'
+        ]);
+
+        if ($request->kelas_id == $request->to_kelas_id) {
+            throw ValidationException::withMessages(['msg_error' => 'Tidak ada kenaikan kelas']);
+        } else {
+            $kelas = Kelas::where('id', $request->kelas_id)->first();
+            $to_kelas = Kelas::where('id', $request->to_kelas_id)->first();
+
+            if ($kelas->tingkat->key > $to_kelas->tingkat->key) {
+                return throw ValidationException::withMessages(['msg_error' => 'Maaf tidak bisa mundur kelas']);
+            } else {
+                $tahun_ajaran_old = DB::table('user_kelas')
+                                    ->select('tahun_ajarans.*')
+                                    ->join('tahun_ajarans', 'tahun_ajarans.id', 'user_kelas.tahun_ajaran_id')
+                                    ->where('user_kelas.kelas_id', $request->kelas_id)
+                                    ->distinct('user_kelas.kelas_id')
+                                    ->first();
+
+                $tahun_ajaran_new = DB::table('tahun_ajarans')->where('id', $request->tahun_ajaran_id)->first();
+                if ($tahun_ajaran_old->tahun_awal > $tahun_ajaran_new->tahun_awal && $tahun_ajaran_old->tahun_akhir > $tahun_ajaran_new->tahun_akhir && $tahun_ajaran_old->semester == $tahun_ajaran_new->semester) {
+                    return throw ValidationException::withMessages(['msg_error' => 'tidak bisa naik kelas tahun ajaran turun/tidak naik']);
+                }else{
+                    foreach ($kelas->users as $key => $user) {
+                        DB::table('user_kelas')->insert([
+                            'user_id' => $user->id,
+                            'kelas_id' => $request->to_kelas_id,
+                            'tahun_ajaran_id' => $request->tahun_ajaran_id
+                        ]);
+                    }
+
+                    return redirect()->back()->with('msg_success', 'Berhasil diupgrade');
+                }
+            }
+            
+        }
+        
     }
 }

@@ -71,8 +71,7 @@
                         @if (request('kelas'))
                         <input type="hidden" name="kelas" value="{{ request('kelas') }}">
                         @endif
-                        @if (request('jurusan') && Auth::user()->sekolah->tingkat == 'smk' ||
-                        Auth::user()->sekolah->tingkat == 'sma')
+                        @if (request('jurusan') && check_jenjang())
                         <input type="hidden" name="jurusan" value="{{ request('jurusan') }}">
                         @endif
                         <input type="text" class="form-control search" placeholder="Search" style="height: 1.9rem;"
@@ -100,15 +99,14 @@
                                     @if (request('bulan'))
                                     <input type="hidden" name="bulan" value="{{ request('bulan') }}">
                                     @endif
-                                    @if (request('jurusan') && Auth::user()->sekolah->tingkat == 'smk' ||
-                                    Auth::user()->sekolah->tingkat == 'sma')
+                                    @if (request('jurusan') && check_jenjang())
                                     <input type="hidden" name="jurusan" value="{{ request('jurusan') }}">
                                     @endif
                                     @if (request('search'))
                                     <input type="hidden" name="search" value="{{ request('search') }}">
                                     @endif
                                     <input type="hidden" name="kelas" value="{{ $row->id }}">
-                                    <button type="submit" class="dropdown-item">{{ $row->nama }}</button>
+                                    <button type="submit" class="dropdown-item">{{ $row->romawi }} {{ $row->nama }}</button>
                                 </form>
                             </li>
                             @endforeach
@@ -116,7 +114,7 @@
                     </div>
                 </div>
             </li>
-            @if ( Auth::user()->sekolah->tingkat == 'smk' )
+            @if (check_jenjang())
             <li class="nav-item">
                 <div class="input-group">
                     <div class="dropdown">

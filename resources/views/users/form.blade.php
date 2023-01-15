@@ -14,7 +14,7 @@
 </style>
 
 <form class="mt-5"
-    action="{{ (isset($data)) ? route('users.update', ['id' => $data->id, 'role' => $role]) : route('users.store', [$role]) }}"
+    action="{{ (isset($data)) ? route('users.update', ['id' => $data->user_id   , 'role' => $role]) : route('users.store', [$role]) }}"
     method="POST" enctype="multipart/form-data">
     @if (isset($data))
     @method('patch')
@@ -72,7 +72,7 @@
             value="{{ old('kelas_id') }}" style=" font-size: 15px; height: 6.5vh;" id="kelas_id">
             <option value="">Pilih Kelas</option>
             @foreach ($kelas as $row)
-            <option value="{{ $row->id }}" {{ isset($data) ? ($data->kelas_id == $row->id ? 'selected' : '') : (old('kelas_id') == $row->id ? 'selected' : '') }}>{{ $row->nama}}</option>
+            <option value="{{ $row->id }}" {{ isset($data) ? ($data->kelas_id == $row->id ? 'selected' : '') : (old('kelas_id') == $row->id ? 'selected' : '') }}>{{ $row->romawi }} {{ $row->nama }}</option>
             @endforeach
         </select>
         @error('kelas_id')
@@ -81,7 +81,7 @@
         </div>
         @enderror
     </div>
-    @if (Auth::user()->sekolah->tingkat == 'smk' || Auth::user()->sekolah->tingkat == 'sma')
+    @if (check_jenjang())
     <div class="mb-3">
         <label for="kompetensi_id" class="form-label">Kompetensi</label>
         <select class="form-select @error('kompetensi_id') is-invalid @enderror" aria-label="Default select example" name="kompetensi_id"
@@ -183,12 +183,10 @@
             value="{{ old('mapel[]') }}" style=" font-size: 15px; height: 6.5vh;" multiple id="mapel">
             @foreach ($mapels as $mapel)
             @if (isset($data) && count($data->mapel) > 0)
-            @foreach ($data->mapel as $mapel_pilih)
-            <option value="{{ $mapel->id }}" {{ $mapel->id == $mapel_pilih->id ? 'selected' : '' }}>{{ $mapel->nama }}
+            <option value="{{ $mapel->id }}" {{ (in_array($mapel->id, $data->mapel) ? 'selected' : '') }}>{{ $mapel->nama }}
             </option>
-            @endforeach
             @else
-            <option value="{{ $mapel->id }}">{{ $mapel->nama }}</option>
+            <option value="{{ $mapel->id }}" {{ old('mapel') ? (in_array($mapel->id, old('mapel')) ? 'selected' : '') : ''}}>{{ $mapel->nama }}</option>
             @endif
             @endforeach
         </select>

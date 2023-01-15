@@ -16,7 +16,7 @@
             <th align="center">Tanggal Lahir</th>
             @if ($role == 'siswa')
             <th align="center">Kelas</th>
-            @if ($role == 'siswa' && Auth::user()->sekolah->tingkat == 'sma' || Auth::user()->sekolah->tingkat == 'smk')
+            @if ($role == 'siswa' && check_jenjang())
             <th align="center">Kompetensi</th>
             @endif
             @endif
@@ -49,7 +49,7 @@
             <td align="center">{{ $user->tanggal_lahir }}</td>
             @if ($role == 'siswa')
             <td align="center">{{ $user->kelas }}</td>
-            @if ($role == 'siswa' && Auth::user()->sekolah->tingkat == 'sma' || Auth::user()->sekolah->tingkat == 'smk')
+            @if ($role == 'siswa' && check_jenjang())
             <td align="center">{{ $user->kompetensi }}</td>
             @endif
             @endif

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DB, Auth    ;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,9 +12,9 @@ class Kelas extends Model
 
     protected $guarded = ['id'];
 
-    public function tahun_ajaran(){
-        return $this->belongsTo(TahunAjaran::class);
-    }
+    // public function tahun_ajaran(){
+    //     return $this->belongsTo(TahunAjaran::class);
+    // }
 
     public function users(){
         return $this->belongsToMany(User::class, 'user_kelas');
@@ -33,5 +34,18 @@ class Kelas extends Model
 
     public function absensi_pelajaran(){
         return $this->hasMany(AbsensiPelajaran::class);
+    }
+
+    public function tingkat(){
+        return $this->belongsTo(ref_tingkat::class, 'ref_tingkat_id');
+    }
+
+    public static function getKelas($request){
+        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+        return DB::table('kelas')
+                    ->select('kelas.*', 'ref_tingkats.romawi')
+                    ->join('ref_tingkats', 'ref_tingkats.id', 'kelas.ref_tingkat_id')
+                    ->where('kelas.sekolah_id', Auth::user()->sekolah_id)
+                    ->get();
     }
 }

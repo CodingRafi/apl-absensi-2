@@ -16,7 +16,7 @@ class CheckSMKMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->sekolah->tingkat == 'smk' || Auth::user()->sekolah->tingkat == 'sma') {
+        if (check_jenjang()) {
             return $next($request);
         }
         

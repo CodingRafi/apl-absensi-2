@@ -13,19 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('kelas', function (Blueprint $table) {
+        Schema::create('ref_tingkats', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->foreignId('ref_tingkat_id')->constrained();
-            $table->foreignId('sekolah_id')->constrained();
+            $table->integer('key');
+            $table->string('romawi');
             $table->timestamps();
         });
 
-        Schema::create('user_kelas', function (Blueprint $table) {
+        Schema::create('sekolah_tingkat', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('kelas_id')->constrained();
-            $table->foreignId('tahun_ajaran_id')->constrained();
+            $table->foreignId('ref_tingkat_id')->constrained();
+            $table->foreignId('sekolah_id')->constrained();
             $table->timestamps();
         });
     }
@@ -37,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kelas');
+        Schema::dropIfExists('ref_tingkats');
     }
 };

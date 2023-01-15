@@ -42,4 +42,14 @@ class Controller extends BaseController
 
         return $date;
     }
+
+    public function parseDataToArray($datas){
+        $return = [];
+
+        foreach ($datas as $key => $data) {
+            array_push($return, $data->id);
+        }
+
+        return $return;
+    }
 }

@@ -22,7 +22,7 @@
                         @foreach ($classes as $kelas)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $kelas->nama }}</td>
+                            <td>{{ $kelas->romawi }} {{ $kelas->nama }}</td>
                             <td>
                                 <form action="{{ route('agenda.show', ['role' => 'siswa', 'id' => $kelas->id]) }}" method="get">
                                     @include('mypartials.tahunajaran')

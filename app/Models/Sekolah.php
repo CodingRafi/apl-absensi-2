@@ -38,5 +38,9 @@ class Sekolah extends Model
     public function jeda_presensi(){
         return $this->hasMany(JedaPresensi::class);
     }
+
+    public function tingkat(){
+        return $this->belongsToMany(ref_tingkat::class, 'sekolah_tingkat');
+    }
 }
 

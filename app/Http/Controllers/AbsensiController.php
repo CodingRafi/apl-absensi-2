@@ -33,32 +33,7 @@ class AbsensiController extends Controller
     }
 
     private function get_absensi(Request $request, $role, $tahun_ajaran, $date, $id = null){
-        $users = User::select('users.*')
-            ->when($role == 'siswa', function($q) use($role, $request, $tahun_ajaran, $id){
-                $q->join('profile_siswas', 'profile_siswas.user_id', 'users.id')
-                ->join('kelas', 'profile_siswas.kelas_id', 'kelas.id')
-                ->join('kompetensis', 'profile_siswas.kompetensi_id', 'kompetensis.id')
-                ->join('tahun_ajarans', 'tahun_ajarans.id', 'profile_siswas.tahun_ajaran_id')
-                ->where('profile_siswas.tahun_ajaran_id', $tahun_ajaran->id)
-                ->when($id, function($q) use($id, $role) {
-                    $q->where('users.id', $id);
-                })
-                ->when(!$id, function($q){
-                    $q->filterSiswa(request(['kelas', 'jurusan', 'search']));
-                });
-            })
-            ->when($role != 'siswa', function($q) use($role, $id){
-                $q->join('profile_users', 'profile_users.user_id', 'users.id')
-                    ->when($id, function($q) use($id, $role) {
-                        $q->where('users.id', $id);
-                    })
-                    ->when(!$id, function($q){
-                        $q->filterUser(request(['search']));
-                    });
-            })
-            ->role($role) 
-            ->where('users.sekolah_id', \Auth::user()->sekolah_id)
-            ->get();
+        $users = User::getUser($request, $role);
 
         $absensis = [];
 
@@ -82,10 +57,10 @@ class AbsensiController extends Controller
         ];
         
         if ($role == 'siswa') {
-            if (Auth::user()->sekolah->tingkat == 'smk' || Auth::user()->sekolah->tingkat == 'sma') {
+            if (check_jenjang()) {
                 $return += ['kompetensis' => DB::table('kompetensis')->where('sekolah_id', Auth::user()->sekolah_id)->get()];
             }
-            $return += ['kelas' => DB::table('kelas')->where('sekolah_id', Auth::user()->sekolah_id)->where('tahun_ajaran_id', $tahun_ajaran->id)->get()];
+            $return += ['kelas' => Kelas::getKelas($request)];
         }
 
         $absensis = $this->get_absensi($request, $role, $tahun_ajaran, $date);

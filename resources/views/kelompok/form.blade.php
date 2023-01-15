@@ -30,7 +30,6 @@
         </div>
         @enderror
     </div>
-    @dd($kelompok->user)
     <div class="mb-3">
         <label for="gurus" class="form-label">Guru</label>
         <select class="fstdropdown-select @error('gurus') is-invalid @enderror" name="gurus[]" id="gurus" style=" font-size: 15px; height: 6.5vh;" multiple>
