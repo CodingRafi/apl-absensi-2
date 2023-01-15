@@ -22,7 +22,7 @@ class AbsensiController extends Controller
         $rfid = Rfid::where('rfid_number', $request->rfid)->first();
         $now = Carbon::now();
 
-        // if (strtolower($now->isoFormat('dddd')) != 'minggu') {
+        if (strtolower($now->isoFormat('dddd')) != 'minggu') {
             if ($rfid) {
                 if ($rfid->status == 'aktif') {
                     $role = $rfid->user->getRoleNames()[0];
@@ -135,12 +135,12 @@ class AbsensiController extends Controller
                     'kode_respon' => '8'
                 ], 200);
             }
-        // }else{
-        //     return response()->json([
-        //         'message' => 'Sekarang hari minggu',
-        //         'kode_respon' => 9
-        //     ], 200);
-        // }
+        }else{
+            return response()->json([
+                'message' => 'Sekarang hari minggu',
+                'kode_respon' => 9
+            ], 200);
+        }
     }
 
     private function agenda($orderBy = 'asc', $role, $rfid, $now){
