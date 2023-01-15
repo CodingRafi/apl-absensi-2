@@ -25,8 +25,6 @@ class UpdateKelompokRequest extends FormRequest
     {
         return [
             'nama' => 'required',
-            'jam_masuk' => 'required',
-            'jam_pulang' => 'required',
         ];
     }
 }

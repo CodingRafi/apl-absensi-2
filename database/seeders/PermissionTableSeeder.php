@@ -104,6 +104,10 @@ class PermissionTableSeeder extends Seeder
 
             'export_absensi_pelajaran',
             'upgrade_kelas',
+
+            'add_kelompok_jadwal',
+            'edit_kelompok_jadwal',
+            'delete_kelompok_jadwal',
         ];
 
         foreach ($permissions as $permission) {

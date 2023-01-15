@@ -18,6 +18,7 @@ use App\Http\Controllers\JedaPresensiController;
 use App\Http\Controllers\RefKabupatenController;
 use App\Http\Controllers\RefKecamatanController;
 use App\Http\Controllers\RefKelurahanController;
+use App\Http\Controllers\KelompokJadwalController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\WaktuIstirahatController;
 use App\Http\Controllers\WaktuPelajaranController;
@@ -121,6 +122,13 @@ Route::group(['middleware' => ['auth']], function() {
     });
     
     Route::resource('kelompok', KelompokController::class);
+    Route::prefix('kelompok-jadwal')->name('kelompok-jadwal.')->group(function () {
+        Route::get('create/{id}', [KelompokJadwalController::class, 'create'])->name('create');
+        Route::post('store', [KelompokJadwalController::class, 'store'])->name('store');
+        Route::get('{id}/edit', [KelompokJadwalController::class, 'edit'])->name('edit');
+        Route::patch('{id}', [KelompokJadwalController::class, 'update'])->name('update');
+        Route::delete('{id}', [KelompokJadwalController::class, 'destroy'])->name('destroy');
+    });
     Route::resource('sekolah', App\Http\Controllers\SekolahController::class);
     Route::resource('jam-pelajaran', WaktuPelajaranController::class);
     Route::resource('jam-istirahat', WaktuIstirahatController::class);

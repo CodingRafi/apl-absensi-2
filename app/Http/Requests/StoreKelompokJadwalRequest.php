@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreKelompokRequest extends FormRequest
+class StoreKelompokJadwalRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,10 @@ class StoreKelompokRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama' => 'required',
+            'kelompok_id' => 'required',
+            'jam_masuk' => 'required',
+            'jam_pulang' => 'required',
+            'hari' => 'required'
         ];
     }
 }

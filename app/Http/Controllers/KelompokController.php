@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kelompok;
+use DB, Auth;
 use App\Models\User;
+use App\Models\Kelompok;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreKelompokRequest;
 use App\Http\Requests\UpdateKelompokRequest;
@@ -38,8 +39,6 @@ class KelompokController extends Controller
     {
         $kelompok = Kelompok::create([
             'nama' => $request->nama,
-            'jam_masuk' => $request->jam_masuk,
-            'jam_pulang' => $request->jam_pulang,
             'sekolah_id' => \Auth::user()->sekolah_id
         ]);
 
@@ -48,8 +47,24 @@ class KelompokController extends Controller
         return redirect()->route('kelompok.index')->with('msg_success', 'Berhasil menambah kelompok');
     }
 
-    public function show(){
-        abort(404);
+    public function show(Kelompok $kelompok){
+        if ($kelompok->sekolah_id != Auth::user()->sekolah_id) {
+            abort(403);
+        }
+
+        $agendas = [];
+
+        foreach (config('services.hari.value') as $hari) {
+            $agenda = DB::table('kelompok_jadwals')->select('jam_masuk', 'jam_pulang', 'id')->where('hari', $hari)->first();
+            $agendas[] = [
+                "hari" => $hari,
+                'jam_masuk' => $agenda ? $agenda->jam_masuk : '',
+                'jam_pulang' => $agenda ? $agenda->jam_pulang : '',
+                'id' => $agenda ? $agenda->id : ''
+            ];
+        }
+
+        return view('kelompok.show', compact('kelompok', 'agendas'));
     }
 
     public function edit(Kelompok $kelompok)
@@ -69,8 +84,6 @@ class KelompokController extends Controller
     {
         $kelompok->update([
             'nama' => $request->nama,
-            'jam_masuk' => $request->jam_masuk,
-            'jam_pulang' => $request->jam_pulang,
         ]);
         
         $kelompok->user()->sync($request->gurus);
@@ -87,7 +100,8 @@ class KelompokController extends Controller
     public function destroy(Kelompok $kelompok)
     {
         $kelompok->user()->sync([]);
+        $kelompok->kelompok_jadwal()->delete();
         $kelompok->delete();
-        return redirect()->back()->with('Berhasil menghapus kelompok');
+        return redirect()->back()->with('msg_success', 'Berhasil menghapus kelompok');
     }
 }

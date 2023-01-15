@@ -14,4 +14,8 @@ class Kelompok extends Model
     public function user(){
         return $this->belongsToMany(User::class);
     }
+
+    public function kelompok_jadwal(){
+        return $this->hasMany(KelompokJadwal::class);
+    }
 }

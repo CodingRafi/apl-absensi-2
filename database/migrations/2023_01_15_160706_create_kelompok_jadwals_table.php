@@ -13,17 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('kelompoks', function (Blueprint $table) {
+        Schema::create('kelompok_jadwals', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->foreignId('sekolah_id')->constrained();
-            $table->timestamps();
-        });
-
-        Schema::create('kelompok_user', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('kelompok_id');
+            $table->foreignId('kelompok_id')->constrained();
+            $table->enum('hari', config('services.hari.value'));
+            $table->time('jam_masuk');
+            $table->time('jam_pulang');
             $table->timestamps();
         });
     }
@@ -35,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kelompoks');
+        Schema::dropIfExists('kelompok_jadwals');
     }
 };

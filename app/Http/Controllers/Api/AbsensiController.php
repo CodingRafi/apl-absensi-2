@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Models\Absensi;
+use Carbon\Carbon;
+use App\Models\Rfid;
 use App\Models\User;
-use App\Models\TahunAjaran;
 use App\Models\Kelas;
-use App\Models\Kompetensi;
 use App\Models\Siswa;
 use App\Models\Agenda;
-use App\Models\Rfid;
+use App\Models\Absensi;
+use App\Models\Kompetensi;
+use App\Models\TahunAjaran;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAbsensiRequest;
 use App\Http\Requests\UpdateAbsensiRequest;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class AbsensiController extends Controller
 {
@@ -26,8 +26,12 @@ class AbsensiController extends Controller
             if ($rfid) {
                 if ($rfid->status == 'aktif') {
                     $role = $rfid->user->getRoleNames()[0];
-                    $agendas = $this->agenda('asc', $role, $rfid, $now);
-                    if (count($agendas) > 0) {
+                    $jadwal_kel = $rfid->user->kelompok()->first()->kelompok_jadwal()->where('hari', strtolower($now->isoFormat('dddd')))->first();
+                    if (!$jadwal_kel) {
+                        $agendas = $this->agenda('asc', $role, $rfid, $now);
+                    }
+                    
+                    if ($jadwal_kel || count($agendas) > 0) {
                         $hour = strtotime($now);
                         $tahun_ajaran = TahunAjaran::where('status', 'aktif')->first();
                         $absensi = Absensi::select('absensis.*')
@@ -38,8 +42,10 @@ class AbsensiController extends Controller
                                     ->first();
                         
                         if($absensi && $absensi->presensi_pulang === null){
-                            $agendas = $this->agenda('desc', $role, $rfid, $now);
-                            $timeUser = $agendas[0]->jam_akhir;
+                            if (!$jadwal_kel) {
+                                $agendas = $this->agenda('asc', $role, $rfid, $now);
+                            }
+                            $timeUser = $jadwal_kel ? $jadwal_kel->jam_pulang : $agendas[0]->jam_akhir;
                             if (date('H', $hour) > explode(':', $timeUser)[0]) {
                                 $absensi->update([
                                     'presensi_pulang' => Carbon::now()
@@ -67,7 +73,7 @@ class AbsensiController extends Controller
                         }else{
                             if(!$absensi){
                                 $now = Carbon::now();  
-                                $timeUser = $agendas[0]->waktu_pelajaran->jam_awal;
+                                $timeUser = $jadwal_kel ? $jadwal_kel->jam_masuk : $agendas[0]->waktu_pelajaran->jam_awal;
                                 
                                 if (date('H', $hour) < explode(':', $timeUser)[0]) {
                                     $absensi12 = Absensi::create([
@@ -79,7 +85,6 @@ class AbsensiController extends Controller
                                     
                                     return response()->json([
                                         'message' => 'Berhasil absen masuk',
-                                        'agendas' => $agendas,
                                         'hari' => strtolower($now->isoFormat('dddd')),
                                         'kode_respon' => '1',
                                         'user' => ($role == 'siswa' ? $rfid->user->profile_siswa : $rfid->user->profile_user)
@@ -94,7 +99,6 @@ class AbsensiController extends Controller
                 
                                     return response()->json([
                                         'message' => 'Berhasil absen masuk',
-                                        'agendas' => $agendas,
                                         'hari' => strtolower($now->isoFormat('dddd')),
                                         'kode_respon' => '1',
                                         'user' => ($role == 'siswa' ? $rfid->user->profile_siswa : $rfid->user->profile_user)
