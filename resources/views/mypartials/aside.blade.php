@@ -73,7 +73,7 @@
 
     @can('show_agenda_user')
     <li class="nav-item" style="transition: none;">
-      <form action="{{ route('agenda.show.user') }}" method="get">
+      <form action="{{ route('agenda.show', ['role' => Auth::user()->getRoleNames()[0], 'id' => Auth::user()->id]) }}" method="get">
         @include('mypartials.tahunajaran')
         <button class="nav-link {{ Request::is('kelompok') ? 'active' : '' }}"
           style="background-color: transparent; border: none; width: 100%; transition: none;">
@@ -130,8 +130,7 @@
             </form>
           </li>
           @endif
-          @if ((Auth::user()->sekolah) ? Auth::user()->sekolah->tingkat == 'smk' : false &&
-          auth()->user()->can('view_kompetensi'))
+          @if (auth()->user()->can('view_kompetensi') && check_jenjang())
           <li class="nav-item" style="transition: none;">
             <form action="{{ route('kompetensi.index') }}" method="get">
               @include('mypartials.tahunajaran')

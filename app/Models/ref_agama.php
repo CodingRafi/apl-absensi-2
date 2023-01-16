@@ -11,11 +11,11 @@ class ref_agama extends Model
 
     protected $guarded =['id'];
 
-    public function user(){
-        return $this->hasMany(User::class);
+    public function profile_siswa(){
+        return $this->hasMany(profile_siswa::class);
     }
 
-    public function siswa(){
-        return $this->hasMany(Siswa::class);
+    public function profile_user(){
+        return $this->hasMany(profile_user::class);
     }
 }

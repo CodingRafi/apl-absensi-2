@@ -77,19 +77,30 @@
                         <td class="bg-secondary" style="height: 2rem;"></td>
                         @else
                         @if ($row && $row->presensi_masuk)
+                        @if ($row->status_kehadiran_id)
                         @foreach ($status_kehadiran as $status)
                         @if ($status->id == $row->status_kehadiran_id)
                         <td class="text-white cell-table" style="cursor: pointer;background: {{ $status->color }}"
                             data-presensi="masuk"
-                            onclick="edit(this, {{ $absensi['user']->id }}, '{{ $date[$k] }}', {{ request('id') }}, {{ $row->id }})">{{
+                            onclick="edit(this, {{ $absensi['user']->id }}, '{{ $date[$k] }}', {{ request('id') }}, {{ $row->id }})">
+                            {{
                             explode(':', explode(' ',$row->presensi_masuk)[1])[0] }}:{{
                             explode(':', explode(' ',$row->presensi_masuk)[1])[1] }}
                         </td>
                         @endif
                         @endforeach
                         @else
+                        <td class="text-white cell-table" style="cursor: pointer;color: #000 !important" data-presensi="masuk"
+                            onclick="edit(this, {{ $absensi['user']->id }}, '{{ $date[$k] }}', {{ request('id') }}, {{ $row->id }})">
+                            {{
+                            explode(':', explode(' ',$row->presensi_masuk)[1])[0] }}:{{
+                            explode(':', explode(' ',$row->presensi_masuk)[1])[1] }}
+                        </td>
+                        @endif
+                        @else
                         <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;"
-                            onclick="edit(this, {{ $absensi['user']->id }}, '{{ $date[$k] }}', {{ request('id') }})" data-presensi="masuk">
+                            onclick="edit(this, {{ $absensi['user']->id }}, '{{ $date[$k] }}', {{ request('id') }})"
+                            data-presensi="masuk">
                         </td>
                         @endif
                         @endif
@@ -111,7 +122,8 @@
                 </button>
             </div>
             <div class="modal-body" style="padding: 15px;">
-                <form action="{{ route('absensi-pelajaran.presensi.store_update') }}" method="post" class="form-presensi">
+                <form action="{{ route('absensi-pelajaran.presensi.store_update') }}" method="post"
+                    class="form-presensi">
                     @csrf
                     <input type="hidden" name="user_id" class="user_id">
                     <input type="hidden" name="absensi_pelajaran_id" class="absensi_pelajaran_id">

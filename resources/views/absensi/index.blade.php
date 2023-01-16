@@ -106,7 +106,8 @@
                                     <input type="hidden" name="search" value="{{ request('search') }}">
                                     @endif
                                     <input type="hidden" name="kelas" value="{{ $row->id }}">
-                                    <button type="submit" class="dropdown-item">{{ $row->romawi }} {{ $row->nama }}</button>
+                                    <button type="submit" class="dropdown-item">{{ $row->romawi }} {{ $row->nama
+                                        }}</button>
                                 </form>
                             </li>
                             @endforeach
@@ -209,6 +210,7 @@
                         <td class="bg-secondary" style="height: 2rem;"></td>
                         @else
                         @if ($row && $row->presensi_masuk)
+                        @if ($row->status_kehadiran_id)
                         @foreach ($status_kehadiran as $status)
                         @if ($status->id == $row->status_kehadiran_id)
                         <td class="text-white cell-table" style="cursor: pointer;background: {{ $status->color }}"
@@ -219,6 +221,14 @@
                         </td>
                         @endif
                         @endforeach
+                        @else
+                        <td class="text-white cell-table" style="cursor: pointer;color: #000 !important"
+                            data-presensi="masuk"
+                            onclick="edit(this, {{ $absensi['user']->id }}, '{{ $date[$k] }}', {{ $row->id }})">{{
+                            explode(':', explode(' ',$row->presensi_masuk)[1])[0] }}:{{
+                            explode(':', explode(' ',$row->presensi_masuk)[1])[1] }}
+                        </td>
+                        @endif
                         @else
                         <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;"
                             onclick="edit(this, {{ $absensi['user']->id }}, '{{ $date[$k] }}')" data-presensi="masuk">
@@ -234,6 +244,7 @@
                         <td class="bg-secondary" style="height: 2rem;"></td>
                         @else
                         @if ($row && $row->presensi_pulang)
+                        @if ($row->status_kehadiran_id)
                         @foreach ($status_kehadiran as $status)
                         @if ($status->id == $row->status_kehadiran_id)
                         <td class="text-white cell-table" style="cursor: pointer;background: {{ $status->color }}"
@@ -244,6 +255,14 @@
                         </td>
                         @endif
                         @endforeach
+                        @else
+                        <td class="text-white cell-table" style="cursor: pointer;color: #000 !important;"
+                            data-presensi="pulang"
+                            onclick="edit(this, {{ $absensi['user']->id }}, '{{ $date[$k] }}', {{ $row->id }})">{{
+                            explode(':', explode(' ',$row->presensi_pulang)[1])[0] }}:{{
+                            explode(':', explode(' ',$row->presensi_pulang)[1])[1] }}
+                        </td>
+                        @endif
                         @else
                         <td class="cell-table" style="height: 2rem;border: 1px solid grey;cursor: pointer;"
                             onclick="edit(this, {{ $absensi['user']->id }}, '{{ $date[$k] }}')" data-presensi="pulang">

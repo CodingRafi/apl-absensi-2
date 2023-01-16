@@ -7,8 +7,6 @@ use App\Models\TahunAjaran;
 use App\Models\Kompetensi;
 use App\Models\Siswa;
 use App\Models\Absensi;
-use App\Http\Requests\StorePresensiRequest;
-use App\Http\Requests\UpdatePresensiRequest;
 use Carbon\Carbon;
 use App\Exports\PresensiExport;
 use Illuminate\Http\Request;
