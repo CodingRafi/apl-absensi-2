@@ -80,7 +80,7 @@
                                     </td>
                                     <td class="td-kosongkan" style="display: none;">
                                         <button type="button" class="btn btn-sm text-white btn-danger button-reset"
-                                            style="min-width: 5vw; margin: 2px;font-weight: 500;"
+                                            style="min-width: 5vw; margin: 2px;font-weight: 500; border-radius: 5px;"
                                             data-id="{{ $jam->id }}">Reset</button>
                                     </td>
                                 </tr>
@@ -110,7 +110,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <div class="d-flex justify-content-center"><button type="submit"
+                        <div class="d-flex justify-content-start"><button type="submit"
                                 class="btn text-white simpanJamPel"
                                 style="background-color: #3bae9c; display: none;">Simpan</button></div>
                     </div>

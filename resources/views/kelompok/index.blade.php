@@ -38,7 +38,7 @@
                                 @if (auth()->user()->can('edit_kelompok'))
                                 <form action="{{ route('kelompok.edit', [$kelompok->id]) }}" method="get">
                                     @include('mypartials.tahunajaran')
-                                    <button class="btn btn-sm btn-warning text-white" style="min-width: 5vw; margin: 2px;border-radius: 5px;font-weight: 500;">Edit</button>
+                                    <button class="btn btn-sm btn-warning text-white" style="min-width: 5rem; margin: 2px;border-radius: 5px;font-weight: 500;">Edit</button>
                                 </form>
                                 @endif
                                 @if (auth()->user()->can('delete_kelompok'))
