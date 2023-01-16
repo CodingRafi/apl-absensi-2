@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kompetensi;
-use App\Models\Siswa;
 use App\Models\TahunAjaran;
 use App\Http\Requests\StoreKompetensiRequest;
 use App\Http\Requests\UpdateKompetensiRequest;
@@ -80,8 +79,10 @@ class KompetensiController extends Controller
     {
         $kompetensi = Kompetensi::findOrFail($id);
         if ($kompetensi->sekolah_id == \Auth::user()->sekolah->id) {
-            foreach ($kompetensi->siswa as $key => $siswa) {
-                Siswa::deleteSiswa($siswa->id);
+            foreach ($kompetensi->profile_siswa as $key => $user) {
+                $user->update([
+                    'kompetensi_id' => null
+                ]);
             }
     
             $kompetensi->delete();

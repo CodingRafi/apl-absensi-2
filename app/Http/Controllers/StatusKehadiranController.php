@@ -99,6 +99,19 @@ class StatusKehadiranController extends Controller
      */
     public function destroy(StatusKehadiran $statusKehadiran)
     {
-        abort(404);
+        foreach ($statusKehadiran->presensi as $key => $presensi) {
+            $presensi->update([
+                'status_kehadiran_id' => null
+            ]);
+        }
+
+        foreach ($statusKehadiran->absensi as $key => $absensi) {
+            $absensi->update([
+                'status_kehadiran_id' => null
+            ]);
+        }
+
+        $statusKehadiran->delete();
+        return redirect()->back()->with('msg_success', 'Berhasil dihapus');
     }
 }

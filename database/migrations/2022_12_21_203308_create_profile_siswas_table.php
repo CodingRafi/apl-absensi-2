@@ -23,11 +23,11 @@ return new class extends Migration
             $table->date('tanggal_lahir');
             $table->foreignId('user_id')->constrained();
             $table->foreignId('kompetensi_id')->nullable()->constrained();
-            $table->foreignId('ref_agama_id')->contrained();
-            $table->foreignId('ref_provinsi_id')->constrained();
-            $table->foreignId('ref_kabupaten_id')->constrained();
-            $table->foreignId('ref_kecamatan_id')->constrained();
-            $table->foreignId('ref_kelurahan_id')->constrained();
+            $table->foreignId('ref_agama_id')->nullable()->contrained();
+            $table->foreignId('ref_provinsi_id')->nullable()->constrained();
+            $table->foreignId('ref_kabupaten_id')->nullable()->constrained();
+            $table->foreignId('ref_kecamatan_id')->nullable()->constrained();
+            $table->foreignId('ref_kelurahan_id')->nullable()->constrained();
             // $table->foreignId('tahun_ajaran_id')->constrained();
             $table->string('jalan');
             $table->timestamps();

@@ -11,16 +11,8 @@ class Presensi extends Model
 
     protected $guarded = ['id'];
 
-    public function siswa(){
-        return $this->belongsTo(Siswa::class);
-    }
-
     public function absensi_pelajaran(){
         return $this->belongsTo(AbsensiPelajaran::class);
-    }
-
-    public function absensi(){
-        return $this->belongsTo(Absensi::class);
     }
 
     public static function get_absensi($user, $dates, $tahun_ajaran){

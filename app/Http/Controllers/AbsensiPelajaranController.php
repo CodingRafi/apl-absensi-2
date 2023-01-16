@@ -25,17 +25,9 @@ class AbsensiPelajaranController extends Controller
          $this->middleware('permission:export_absensi_pelajaran', ['only' => ['export']]);
     }
 
-    public function get_presensi($tahun_ajaran, $date){
-        $users = User::select('users.*')
-            ->join('profile_siswas', 'profile_siswas.user_id', 'users.id')
-            ->join('kelas', 'profile_siswas.kelas_id', 'kelas.id')
-            ->join('kompetensis', 'profile_siswas.kompetensi_id', 'kompetensis.id')
-            ->join('tahun_ajarans', 'tahun_ajarans.id', 'profile_siswas.tahun_ajaran_id')
-            ->where('profile_siswas.tahun_ajaran_id', $tahun_ajaran->id)
-            ->filterSiswa(request(['kelas', 'jurusan', 'search']))
-            ->role('siswa') 
-            ->where('users.sekolah_id', \Auth::user()->sekolah_id)
-            ->get();
+    public function get_presensi($request, $date){
+        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+        $users = User::getUser($request, 'siswa');
 
         $absensis = [];
 
@@ -105,9 +97,8 @@ class AbsensiPelajaranController extends Controller
         }
 
         $status_kehadiran = DB::table('status_kehadirans')->get();
-        $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
         $date = $this->getdate();
-        $absensis = $this->get_presensi($tahun_ajaran, $date);
+        $absensis = $this->get_presensi($request, $date);
 
         return view('absensi_pelajaran.show', compact('absensi_pelajaran', 'status_kehadiran', 'absensis', 'date'));
     }
@@ -140,9 +131,11 @@ class AbsensiPelajaranController extends Controller
         }
 
         $check = AbsensiPelajaran::where('user_id', Auth::user()->id)
+                                    ->where('nama', $request->nama)
                                     ->where('kelas_id', $request->kelas_id)
                                     ->where('mapel_id', $request->mapel_id)
                                     ->first();
+                                    
         if ($check) {
             return redirect()->back()->with('msg_error', 'absensi pelajaran sudah ada');
         }
@@ -170,9 +163,20 @@ class AbsensiPelajaranController extends Controller
      * @param  \App\Models\AbsensiPelajaran  $absensiPelajaran
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AbsensiPelajaran $absensiPelajaran)
+    public function destroy($id)
     {
-        abort(404);
+        $absensiPelajaran = AbsensiPelajaran::findOrFail($id);
+        if (Auth::user()->sekolah_id != $absensiPelajaran->sekolah_id) {
+            abort(403);
+        }
+
+        foreach ($absensiPelajaran->presensi as $key => $presensi) {
+            $presensi->delete();
+        }
+
+        $absensiPelajaran->delete();
+
+        return redirect()->route('absensi-pelajaran.index')->with('msg_success', 'Berhasil dihapus');
     }
 
     public function get_kelas(Request $request){
@@ -183,8 +187,9 @@ class AbsensiPelajaranController extends Controller
         }
 
         $kelas = DB::table('agendas')
-                            ->select('kelas.*')
+                            ->select('kelas.*', 'ref_tingkats.romawi')
                             ->join('kelas', 'kelas.id', 'agendas.kelas_id')
+                            ->join('ref_tingkats', 'ref_tingkats.id', 'kelas.ref_tingkat_id')
                             ->leftJoin('absensi_pelajarans', function($join) use($request){
                                 $join->on('absensi_pelajarans.kelas_id', 'kelas.id')
                                     ->where('absensi_pelajarans.mapel_id', $request->mapel_id)

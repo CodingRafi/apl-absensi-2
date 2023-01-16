@@ -96,8 +96,23 @@ class RefAgamaController extends Controller
      * @param  \App\Models\ref_agama  $ref_agama
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ref_agama $ref_agama)
+    public function destroy($id)
     {
-        abort(404);
+        $ref_agama = ref_agama::findOrFail($id);
+
+        foreach ($ref_agama->profile_siswa as $key => $siswa) {
+            $siswa->update([
+                'ref_agama_id' => null
+            ]);
+        }
+
+        foreach ($ref_agama->profile_user as $key => $user) {
+            $user->update([
+                'ref_agama_id' => null
+            ]);
+        }
+
+        $ref_agama->delete();
+        return redirect()->back()->with('msg_success', 'Berhasil dihapus');
     }
 }

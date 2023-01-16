@@ -36,7 +36,7 @@
                         <td>{{ $sekolah->nama }}</td>
                         <td>{{ $sekolah->npsn }}</td>
                         <td>{{ $sekolah->kepala_sekolah }}</td>
-                        <td style="text-transform: uppercase;s">{{ $sekolah->tingkat }}</td>
+                        <td style="text-transform: uppercase;s">{{ $sekolah->jenjang }}</td>
                         <td>{{ $sekolah->alamat }}</td>
                         <td>{{ $sekolah->instagram }}</td>
                         <td>{{ $sekolah->youtube }}</td>

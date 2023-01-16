@@ -25,12 +25,25 @@ class AgendaController extends Controller
          $this->middleware('permission:delete_agenda', ['only' => ['destroy']]);
          $this->middleware('permission:show_agenda_user', ['only' => ['show_agenda_user']]);
     }
+
+    private function check($id){
+        if (!Auth::user()->hasRole('admin')) {
+            if (Auth::user()->id != $id) {
+                abort(403);
+            }
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request, $role){
+        if (!Auth::user()->hasRole('admin')) {
+            abort(403);
+        }
+
         $return = [
             'role' => $role
         ];
@@ -59,6 +72,7 @@ class AgendaController extends Controller
      */
     public function create(Request $request, $role, $id)
     {
+        $this->check($id);
         $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
         $jam_pelajarans = WaktuPelajaran::where('sekolah_id', \Auth::user()->sekolah_id)->get();
         $return = ['role' => $role, 'jam_pelajarans' => $jam_pelajarans];
@@ -138,6 +152,7 @@ class AgendaController extends Controller
      */
     public function show($role, $id)
     {
+        $this->check($id);
         $this->check_user($id, ($role == 'siswa' ? 'kelas' : $role));
         $agendas = Agenda::get_agenda($id, $role);
 
@@ -156,6 +171,7 @@ class AgendaController extends Controller
     public function edit(Request $request, $role, $id)
     {
         $agenda = Agenda::findOrFail($id);
+        $this->check($agenda->user_id);
         $jam_pelajarans = WaktuPelajaran::where('sekolah_id', \Auth::user()->sekolah_id)->get();
         $return = ['agenda' => $agenda, 'role' => $role, 'jam_pelajarans' => $jam_pelajarans];
 
@@ -228,6 +244,7 @@ class AgendaController extends Controller
     public function destroy(Request $request, $id)
     {
         $agenda = Agenda::findOrFail($id);
+        $this->check($agenda->user_id);
         $agenda->delete();
 
         if ($request->role == 'siswa') {
@@ -249,9 +266,10 @@ class AgendaController extends Controller
         $role = $user->getRoleNames()[0];
         $agendas = Agenda::get_agenda($user->id, $role);
 
-        return view('agenda.show_user',  [
+        return view('agenda.show',  [
             'role' => $role,
             'agendas' => $agendas,
+            'id' => $user->id
         ]);
     }
 }

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Auth, DB;
 use App\Models\User;
-use App\Models\Siswa;
 use App\Models\Sekolah;
 use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
@@ -75,6 +74,7 @@ class DashboardController extends Controller
                                 ->where('users.sekolah_id', Auth::user()->sekolah_id)
                                 ->groupBy('kompetensis.id')
                                 ->get()->toArray());
+
                 $return += ['kompetensis' => $kompetensis];
             }
             

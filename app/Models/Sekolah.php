@@ -42,5 +42,9 @@ class Sekolah extends Model
     public function tingkat(){
         return $this->belongsToMany(ref_tingkat::class, 'sekolah_tingkat');
     }
+
+    public function waktu_pelajaran(){
+        return $this->hasMany(WaktuPelajaran::class);
+    }
 }
 

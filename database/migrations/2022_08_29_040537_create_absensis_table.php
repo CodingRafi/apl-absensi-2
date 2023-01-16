@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('absensis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('status_kehadiran_id')->constrained();
+            $table->foreignId('status_kehadiran_id')->nullable()->constrained();
             $table->foreignId('tahun_ajaran_id')->constrained();
             $table->timestamp('presensi_masuk');
             $table->timestamp('presensi_pulang')->nullable();

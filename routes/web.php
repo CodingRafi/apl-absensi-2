@@ -71,7 +71,6 @@ Route::group(['middleware' => ['auth']], function() {
     });
        
     Route::get('/absensi/user', [AbsensiController::class, 'show_absensi_user'])->name('absensi.show.user');
-    Route::get('/jadwal/user', [AgendaController::class, 'show_agenda_user'])->name('agenda.show.user');
 
     Route::middleware(['check_role'])->group(function () {
         Route::name('users.')->prefix('users')->group(function () {
@@ -112,6 +111,7 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('/', [AbsensiPelajaranController::class, 'index'])->name('index');
         Route::get('/create', [AbsensiPelajaranController::class, 'create'])->name('create');
         Route::patch('/{id}', [AbsensiPelajaranController::class, 'update'])->name('update');
+        Route::delete('/{id}', [AbsensiPelajaranController::class, 'destroy'])->name('destroy');
         Route::post('/', [AbsensiPelajaranController::class, 'store'])->name('store');
         Route::get('/{id}', [AbsensiPelajaranController::class, 'show'])->name('show');
         Route::get('/{id}/export', [AbsensiPelajaranController::class, 'export'])->name('export');

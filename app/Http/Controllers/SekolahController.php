@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sekolah;
-use App\Models\Siswa;
+use App\Models\User;
 use App\Http\Requests\StoreSekolahRequest;
 use App\Http\Requests\UpdateSekolahRequest;
 use Illuminate\Http\Request;
@@ -120,87 +120,48 @@ class SekolahController extends Controller
     public function destroy(Sekolah $sekolah)
     {
         foreach ($sekolah->absensi_pelajaran as $key => $absensi_pelajaran) {
+            foreach ($absensi_pelajaran->presensi as $key => $presensi) {
+                $presensi->delete();
+            }
+    
             $absensi_pelajaran->delete();
         }
 
         foreach ($sekolah->user as $key => $user) {
-            if ($user->hasRole('guru')) {
-                if (count($user->mapel) > 0) {
-                    foreach ($user->mapel as $key => $mapel) {
-                        $mapel->user()->detach($user->id);
-                    }
-                }
-    
-                if(count($user->agenda) > 0){
-                    foreach ($user->agenda as $key => $agenda) {
-                        $agenda->delete();
-                    }
-                }
-            }
-            
-            if (count($user->absensi) > 0) {
-                foreach ($user->absensi as $key => $absensi) {
-                    $absensi->delete();
-                }
-            }
-    
-            if ($user->rfid) {
-                $user->rfid->delete();
-            }
-    
-            $user->delete();
+            User::deleteUser($user->getRoleNames()[0], $user->id);
         }
 
         foreach ($sekolah->kelas as $key => $kelas) {
-            foreach ($kelas->siswa as $key => $siswa) {
-                if ($siswa->rfid) {
-                    $siswa->rfid->delete();
-                }
-                foreach ($siswa->absensi as $key => $absensi) {
-                    $absensi->delete();
-                }
-                $siswa->delete();
-            }
-    
             foreach ($kelas->agenda as $key => $agenda) {
                 $agenda->delete();
             }
-    
             $kelas->delete();
-    
         }
 
         foreach ($sekolah->kompetensi as $key => $kompetensi) {
-            if (count($kompetensi->siswa) > 0) {
-                foreach ($kompetensi->siswa as $key => $siswa) {
-                    if ($siswa->rfid) {
-                        $siswa->rfid->delete();
-                    }
-                    foreach ($siswa->absensi as $key => $absensi) {
-                        $absensi->delete();
-                    }
-                    $siswa->delete();
-                }
-            }
-    
             $kompetensi->delete();
         }
 
         foreach ($sekolah->mapel as $key => $mapel) {
-            foreach ($mapel->user as $key => $guru) {
-                $guru->mapel()->detach($id);
-            }
-    
             foreach ($mapel->agenda as $key => $agenda) {
                 $agenda->delete();
             }
-    
             $mapel->delete();
+        }
+
+        foreach ($sekolah->waktu_pelajaran as $key => $waktu_pelajaran) {
+            foreach ($waktu_pelajaran->agenda as $key => $agenda) {
+                $agenda->delete();
+            }
+            $waktu_pelajaran->delete();
+        }
+
+        foreach ($sekolah->tingkat as $key => $tingkat) {
+            $sekolah->tingkat()->sync([]);
         }
 
         $sekolah->delete();
 
         return redirect()->back()->with('msg_success', 'Sekolah berhasil dihapus');
-
     }
 }

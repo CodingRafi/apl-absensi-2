@@ -123,8 +123,8 @@ class User extends Authenticatable
                             $qu->select('users.*');
                         })
                         ->join('user_kelas', 'user_kelas.user_id', 'users.id')
-                        ->join('kelas', 'user_kelas.kelas_id', 'kelas.id')
-                        ->join('kompetensis', 'profile_siswas.kompetensi_id', 'kompetensis.id')
+                        ->leftJoin('kelas', 'user_kelas.kelas_id', 'kelas.id')
+                        ->leftJoin('kompetensis', 'profile_siswas.kompetensi_id', 'kompetensis.id')
                         ->where('user_kelas.tahun_ajaran_id', $tahun_ajaran->id)
                         ->filterSiswa(request(['kelas', 'jurusan', 'search']));
                 })
@@ -163,8 +163,8 @@ class User extends Authenticatable
                                     ->join('user_kelas', 'user_kelas.user_id', 'users.id')
                                     ->join('kelas', 'user_kelas.kelas_id', 'kelas.id')
                                     ->join('ref_tingkats', 'ref_tingkats.id', 'kelas.ref_tingkat_id')
-                                    ->join('kompetensis', 'profile_siswas.kompetensi_id', 'kompetensis.id')
-                                    ->join('ref_agamas', 'profile_siswas.ref_agama_id', 'ref_agamas.id')
+                                    ->leftJoin('kompetensis', 'profile_siswas.kompetensi_id', 'kompetensis.id')
+                                    ->leftJoin('ref_agamas', 'profile_siswas.ref_agama_id', 'ref_agamas.id')
                                     ->join('ref_provinsis', 'profile_siswas.ref_provinsi_id', 'ref_provinsis.id')
                                     ->join('ref_kabupatens', 'profile_siswas.ref_kabupaten_id', 'ref_kabupatens.id')
                                     ->join('ref_kecamatans', 'profile_siswas.ref_kecamatan_id', 'ref_kecamatans.id')

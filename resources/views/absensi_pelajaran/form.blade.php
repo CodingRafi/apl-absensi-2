@@ -93,7 +93,7 @@
                         $('.div-kelas').css('display', 'block');
                         
                         $.each(response.datas, function(i,e){
-                            $('.div-kelas select').append(`<option value="${e.id}">${e.nama}</option>`)
+                            $('.div-kelas select').append(`<option value="${e.id}">${e.romawi} ${e.nama}</option>`)
                         })
 
                         if (val_selected !== null && val_selected !== "") {
