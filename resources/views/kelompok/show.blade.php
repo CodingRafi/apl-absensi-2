@@ -11,11 +11,11 @@
         </form>
         <form action="{{ route('kelompok-jadwal.create', [$kelompok->id]) }}" method="get">
             @include('mypartials.tahunajaran')
-            <button class="btn btn-sm btn-primary mr-2 float-right text-white" type="submit"
-                style="border-radius: 5px;font-weight: 500;">Create</button>
+            <button class="btn btn-sm mr-2 float-right text-white" type="submit"
+                style="background-color: #3bae9c; border-radius: 5px;font-weight: 500;">Create</button>
         </form>
         <h5 class="card-title">Detail</h5>
-        <div class="table table-responsive table-borderless table-hover d-flex" style="overflow-x: hidden;">
+        <div class="table table-responsive table-borderless table-hover text-center d-flex" style="overflow-x: hidden;">
             <table class="table align-middle">
                 <thead>
                     <tr>
