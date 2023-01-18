@@ -34,7 +34,7 @@ class WaktuPelajaranController extends Controller
 
     public function store(StoreWaktuPelajaranRequest $request)
     {
-        for ($i=1; $i <= env('JUMLAH_JAM_MAPEL'); $i++) { 
+        for ($i=1; $i <= config('services.jml_jam_mapel'); $i++) { 
             if ($request->input('jam_awal_' . $i)) {
                 $waktu_pelajaran = WaktuPelajaran::where('jam_ke', $i)->where('sekolah_id', \Auth::user()->sekolah_id)->first();
                 if ($waktu_pelajaran) {

@@ -113,9 +113,9 @@ class UserController extends Controller
 
         if ($request->rfid_number) {
             Rfid::create([
-                'rfid_number' => $number_rfid,
+                'rfid_number' => $request->rfid_number,
                 'user_id' => $user->id,
-                'status' => ($status == 'on') ? 'aktif' : 'tidak'
+                'status' => ($request->status ? (($request->status == 'on') ? 'aktif' : 'tidak') : 'tidak')
             ]);
         }
 

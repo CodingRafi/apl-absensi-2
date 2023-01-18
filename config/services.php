@@ -52,5 +52,7 @@ return [
         '10' => 'X',
         '11' => 'XI',
         '12' => 'XII',
-    ]
+    ], 
+    
+    'jml_jam_mapel' => env('JUMLAH_JAM_MAPEL', 16)
 ];

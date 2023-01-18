@@ -29,7 +29,7 @@ class WaktuPelajaran extends Model
 
     public static function get_wapel(){
         $jams = [];
-        for ($i=1; $i < env('JUMLAH_JAM_MAPEL'); $i++) { 
+        for ($i=1; $i < config('services.jml_jam_mapel'); $i++) { 
            $jams[] = WaktuPelajaran::where('jam_ke', $i)->where('sekolah_id', \Auth::user()->sekolah_id)->first();
         }
         return collect($jams);
