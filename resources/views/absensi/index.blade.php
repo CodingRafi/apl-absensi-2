@@ -295,7 +295,7 @@
                     <div class="card-body">
                         <div class="mb-3 div-keterangan">
                             <label for="keterangan" class="form-label">Keterangan</label>
-                            <select class="form-control text-dark select-kehadiran" name="status_kahadiran_id" required
+                            <select class="form-control text-dark select-kehadiran" name="status_kahadiran_id"
                                 id="keterangan">
                                 <option value="" selected>Pilih keterangan</option>
                                 @foreach ($status_kehadiran as $status)

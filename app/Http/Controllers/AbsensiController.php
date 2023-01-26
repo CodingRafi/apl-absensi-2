@@ -84,6 +84,10 @@ class AbsensiController extends Controller
         if ($request->presensi == 'masuk') {
             $absensi = Absensi::where('user_id', $request->user_id)->whereDate('presensi_masuk', $request->date)->first();
             if(!$absensi){
+                $request->validate([
+                    'status_kahadiran_id' => 'required',
+                    'presensi_masuk' => 'required'
+                ]);
                 $tahun_ajaran = TahunAjaran::where('status', 'aktif')->first();
                 Absensi::create([
                     'user_id' => $request->user_id,
