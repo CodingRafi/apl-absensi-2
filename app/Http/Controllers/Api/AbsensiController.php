@@ -144,12 +144,15 @@ class AbsensiController extends Controller
     }
 
     private function agenda($orderBy = 'asc', $role, $rfid, $now){
+        $tahun_ajaran = TahunAjaran::getTahunAjaran();
         return Agenda::select('agendas.*')
-                ->when($role == 'siswa', function($q) use($role, $rfid){
+                ->when($role == 'siswa', function($q) use($role, $rfid, $tahun_ajaran){
                     $q->join('users', 'agendas.user_id', 'users.id')
                     ->join('profile_siswas', 'profile_siswas.user_id', 'users.id')
-                    ->join('kelas', 'kelas.id', 'profile_siswas.kelas_id')
-                    ->where('kelas.id', $rfid->profile_siswa->kelas->id);
+                    ->join('user_kelas', 'user_kelas.user_id', 'users.id')
+                    ->join('kelas', 'user_kelas.kelas_id', 'kelas.id')
+                    ->where('user_kelas.tahun_ajaran_id', $tahun_ajaran->id);
+                    // ->where('kelas.id', $rfid->profile_siswa->kelas->id);
                 })
                 ->when($role != 'siswa', function($q) {
                     $q->join('users', 'agendas.user_id', 'users.id');

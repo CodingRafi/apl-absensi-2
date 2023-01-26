@@ -216,15 +216,17 @@ class AgendaController extends Controller
         $agenda->update($data);
         
         if ($request->role == 'siswa') {
-            if ($mapel_old->id != $request->mapel_id) {
-                $absensi_pelajaran->update([
-                    'mapel_id' => $request->mapel_id,
-                    'user_id' => $request->user_id
-                ]);
-            } else {
-                $absensi_pelajaran->update([
-                    'user_id' => $request->user_id
-                ]);
+            if ($absensi_pelajaran) {
+                if ($mapel_old->id != $request->mapel_id) {
+                    $absensi_pelajaran->update([
+                        'mapel_id' => $request->mapel_id,
+                        'user_id' => $request->user_id
+                    ]);
+                } else {
+                    $absensi_pelajaran->update([
+                        'user_id' => $request->user_id
+                    ]);
+                }
             }
         }
 

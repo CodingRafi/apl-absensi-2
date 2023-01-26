@@ -9,7 +9,6 @@
             @method('patch')
             @include('mypartials.tahunajaran')
             <input type="hidden" name="role" value="{{ $role }}">
-
             @if ($role == 'siswa')
             <div class="mb-3">
                 <label for="guru" class="form-label">Guru</label>
@@ -44,6 +43,20 @@
                     @endforeach
                 </select>
             </div>
+            @else
+            <div class="mb-3">
+                <label for="other" class="form-label">Kegiatan</label>
+                <textarea class="form-control @error('other') is-invalid @enderror" id="other" rows="3"
+                    name="other">{{ isset($data) ? $data->other : old('other') }}</textarea>
+                @error('other')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            @endif
+
+            @if ($role == 'guru' || $role == 'siswa')
             <div class="mb-3 div-mapel">
                 <label for="kompetensi" class="form-label">Mata Pelajaran</label>
                 <select class="form-select select-mapel" name="mapel_id" required>
@@ -57,35 +70,27 @@
                     @endforeach
                 </select>
             </div>
-            @else
-            <div class="mb-3">
-                <label for="other" class="form-label">Kegiatan</label>
-                <textarea class="form-control @error('other') is-invalid @enderror" id="other" rows="3" name="other">{{ isset($data) ? $data->other : old('other') }}</textarea>
-                @error('other')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
             @endif
-            
+
             <div class="mb-3">
                 <label for="kompetensi" class="form-label">Hari</label>
                 <select class="form-select" name="hari">
                     <option value="">Pilih Hari</option>
                     @foreach (config('services.hari.value') as $hari)
-                    <option value="{{ $hari }}" {{ $hari == $agenda->hari ? 'selected' : '' }}>{{ $hari }}</option>
+                    <option value="{{ $hari }}" {{ $hari==$agenda->hari ? 'selected' : '' }}>{{ $hari }}</option>
                     @endforeach
                 </select>
             </div>
             <div class="mb-3">
                 <label for="waktu_pelajaran" class="form-label">Jam Pelajaran</label>
                 <select class="form-select select-guru @error('waktu_pelajaran_id') is-invalid @enderror"
-                    name="waktu_pelajaran_id" value="{{ isset($data) ? $data->waktu_pelajaran_id : old('waktu_pelajaran_id') }}"
+                    name="waktu_pelajaran_id"
+                    value="{{ isset($data) ? $data->waktu_pelajaran_id : old('waktu_pelajaran_id') }}"
                     style=" font-size: 15px; height: 6.5vh;" id="waktu_pelajaran">
                     <option value="">Pilih Jam Pelajaran</option>
                     @foreach ($jam_pelajarans as $jam)
-                    <option value="{{ $jam->id }}" {{ ($jam->id == $agenda->waktu_pelajaran_id) ? 'selected' : '' }}>({{ $jam->jam_ke }}) {{ $jam->jam_awal }} - {{ $jam->jam_akhir }}
+                    <option value="{{ $jam->id }}" {{ ($jam->id == $agenda->waktu_pelajaran_id) ? 'selected' : '' }}>({{
+                        $jam->jam_ke }}) {{ $jam->jam_awal }} - {{ $jam->jam_akhir }}
                     </option>
                     @endforeach
                 </select>

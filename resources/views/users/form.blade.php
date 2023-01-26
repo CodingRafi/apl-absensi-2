@@ -265,17 +265,18 @@
         <label class="form-label">Status Rfid</label>
     </div>
     <div class="form-check">
+        {{-- @dd($data) --}}
         <input class="form-check-input" type="radio" name="status_rfid" id="aktif" value="on" {{ isset($data) ?
-            (($data->rfid) ?
-        ($data->rfid->status == 'aktif') ? 'checked' : '' : '') : '' }}>
+            (($data) ?
+        ($data->status == 'aktif') ? 'checked' : '' : '') : '' }}>
         <label class="form-check-label" for="aktif" style="margin-left: -0.1rem">
             Aktif
         </label>
     </div>
     <div class="form-check">
         <input class="form-check-input" type="radio" name="status_rfid" id="tidak" value="tidak" {{ isset($data) ?
-            (($data->rfid) ?
-        ($data->rfid->status == 'tidak') ? 'checked' : '' : '') : '' }}>
+            (($data) ?
+        ($data->status == 'tidak') ? 'checked' : '' : '') : '' }}>
         <label class="form-check-label" for="tidak" style="margin-left: -0.1rem">
             Tidak
         </label>
@@ -297,7 +298,7 @@
     <div class="mb-3">
         <label for="rfid" class="form-label">Rfid</label>
         <input type="text" class="form-control @error('rfid_number') is-invalid @enderror" placeholder="Masukan Rfid"
-            name="rfid_number" value="{{ isset($data) ? $data->rfid ? ($data->rfid->rfid_number) : '' : old('rfid') }}"
+            name="rfid_number" value="{{ isset($data) ? $data ? ($data->rfid_number) : '' : old('rfid') }}"
             style=" font-size: 15px; height: 6.5vh;" id="rfid">
         @error('rfid_number')
         <div class="invalid-feedback">

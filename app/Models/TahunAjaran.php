@@ -23,13 +23,17 @@ class TahunAjaran extends Model
         return $this->hasMany(AbsensiPelajaran::class);
     }
 
-    public static function getTahunAjaran($request){
+    public static function getTahunAjaran($request = null){
         $tahun_ajaran;
-        if($request->tahun_awal && $request->tahun_akhir && $request->semester){
-            $tahun_ajaran_query = TahunAjaran::where('tahun_awal', $request->tahun_awal)->where('tahun_akhir', $request->tahun_akhir)->where('semester', $request->semester)->first();
-            
-            if($tahun_ajaran_query){
-                $tahun_ajaran = $tahun_ajaran_query;
+        if ($request) {
+            if($request->tahun_awal && $request->tahun_akhir && $request->semester){
+                $tahun_ajaran_query = TahunAjaran::where('tahun_awal', $request->tahun_awal)->where('tahun_akhir', $request->tahun_akhir)->where('semester', $request->semester)->first();
+                
+                if($tahun_ajaran_query){
+                    $tahun_ajaran = $tahun_ajaran_query;
+                }else{
+                    $tahun_ajaran = TahunAjaran::where('status', 'aktif')->first();
+                }
             }else{
                 $tahun_ajaran = TahunAjaran::where('status', 'aktif')->first();
             }

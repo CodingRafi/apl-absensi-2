@@ -46,8 +46,8 @@
                         <td class="col-lg-2" style="font-weight: 600;">Mata Pelajaran</td>
                         <td class="col-lg-1">:</td>
                         <td class="col-lg-9">
-                            @foreach ($user->mapel as $mapel)
-                                {{ $mapel->nama }},
+                            @foreach ($user->mapel()->get() as $mapel)
+                                {{ $mapel['nama'] }},
                             @endforeach
                         </td>
                     </tr>
@@ -77,14 +77,14 @@
                         <td class="col-lg-1">:</td>
                         <td class="col-lg-9">{{ $user->jalan }}</td>
                     </tr>
-                    @if (isset($user->kelas))
+                    @if ($role == 'siswa' && isset($user->kelas))
                     <tr class="row">
                         <td class="col-lg-2" style="font-weight: 600;">Kelas</td>
                         <td class="col-lg-1">:</td>
                         <td class="col-lg-9">{{ $user->romawi }} {{ $user->kelas }}</td>
                     </tr>
                     @endif
-                    @if (isset($user->kompetensi))
+                    @if ($role == 'siswa' && isset($user->kompetensi))
                     <tr class="row">
                         <td class="col-lg-2" style="font-weight: 600;">Kompetensi Keahlian</td>
                         <td class="col-lg-1">:</td>
