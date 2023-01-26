@@ -38,7 +38,7 @@
                                 <th class="cell-table" style="cursor: pointer;">{{ $agenda->waktu_pelajaran->jam_ke }}</th>
                                 <td class="cell-table" style="cursor: pointer;">{{ date('H.i', strtotime($agenda->waktu_pelajaran->jam_awal)) }} - {{ date('H.i', strtotime($agenda->waktu_pelajaran->jam_akhir)) }}</td>
                                 {{-- @dd($agenda->mapel) --}}
-                                <td class="cell-table" style="cursor: pointer;">{{ ($role != 'siswa' && $role != 'guru') ? $agenda->other : (($role == 'guru') ? ($agenda->mapel->nama . ' (' . $agenda->kelas->tingkat->romawi . ' ' . $agenda->kelas->nama . ')') : ($agenda->mapel->nama . ' (' . $agenda->user->profile_userg->name . ')')) }}</td>
+                                <td class="cell-table" style="cursor: pointer;">{{ ($role != 'siswa' && $role != 'guru') ? $agenda->other : (($role == 'guru') ? ($agenda->mapel->nama . ' (' . $agenda->kelas->tingkat->romawi . ' ' . $agenda->kelas->nama . ')') : ($agenda->mapel->nama . ' (' . $agenda->user->profile_user->name . ')')) }}</td>
                                 @can('edit_agenda', 'delete_agenda')
                                 <td class="cell-table" style="cursor: pointer;">
                                     @can('edit_agenda')

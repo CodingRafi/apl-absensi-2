@@ -15,7 +15,7 @@
                                     <div class="col-md-12">
                                         <label for="namaRole" class="form-label">Nama Role</label>
                                         <input class="form-control @error('name') is-invalid @enderror" type="text"
-                                            value="{{ isset($role) ? $role->name : old('name') }}" id="namaRole"
+                                            value="{{ isset($data) ? $data->name : old('name') }}" id="namaRole"
                                             placeholder="Name Role" name="name" />
                                         @error('name')
                                             <div class="invalid-feedback d-block">

@@ -99,6 +99,11 @@ class UserController extends Controller
             ]);
             $data += ['nip' => $request->nip];
         }
+         
+        if ($request->file('profil')) {
+            $data['profil'] = $request->file('profil')->store('profil');
+            // dd($data);
+        }
         
         $user = User::create($data);
         $user->assignRole($role);
