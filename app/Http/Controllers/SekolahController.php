@@ -127,6 +127,12 @@ class SekolahController extends Controller
             $absensi_pelajaran->delete();
         }
 
+        foreach ($sekolah->kelompok as $key => $kelompok) {
+            $kelompok->user()->sync([]);
+            $kelompok->kelompok_jadwal()->delete();
+            $kelompok->delete();
+        }
+
         foreach ($sekolah->user as $key => $user) {
             User::deleteUser($user->getRoleNames()[0], $user->id);
         }

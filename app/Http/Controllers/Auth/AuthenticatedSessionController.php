@@ -19,7 +19,8 @@ class AuthenticatedSessionController extends Controller
      * @return \Illuminate\View\View
      */
     public function create()
-    {   $count_tahun_ajaran = DB::table('tahun_ajarans')->count();
+    {   
+        $count_tahun_ajaran = DB::table('tahun_ajarans')->count();
         return view('myauth.login', compact('count_tahun_ajaran'));
     }
 

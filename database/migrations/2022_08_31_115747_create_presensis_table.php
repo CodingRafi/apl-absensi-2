@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('absensi_pelajaran_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('status_kehadiran_id')->nullable()->constrained();
+            $table->foreignId('status_kehadiran_id')->constrained()->nullable();
             $table->timestamp('presensi_masuk')->nullable();
             $table->timestamps();
         });

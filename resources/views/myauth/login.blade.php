@@ -12,8 +12,8 @@
               @csrf
               <input type="hidden" class="role" name="role" id="">
               <div class="container p-0">
-                  <h3 class="mb-3" style="color: #263238;">Masuk</h3>
-                  <div class="mb-3">
+                <h3 class="mb-3" style="color: #263238;">Masuk</h3>
+                <div class="mb-3">
                       <select class="form-control select-pilihan text-dark" style="width: 100%; border-radius: 5px" name="role">
                           <option value="belum" selected>Masuk Sebagai</option>
                           @foreach ($roles as $role)

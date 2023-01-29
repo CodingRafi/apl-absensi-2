@@ -46,5 +46,9 @@ class Sekolah extends Model
     public function waktu_pelajaran(){
         return $this->hasMany(WaktuPelajaran::class);
     }
+
+    public function kelompok(){
+        return $this->hasMany(Kelompok::class);
+    }
 }
 

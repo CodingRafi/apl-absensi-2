@@ -13,16 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('jeda_presensis', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama');
-            $table->time('jam_masuk');
-            $table->time('jam_pulang');
-            $table->foreignId('role_id')->nullable();
-            $table->foreignId('sekolah_id')->constrained();
-            $table->integer('siswa')->nullable(); //todo 0 -> false 1 -> true
-            $table->timestamps();
-        });
+        // Schema::create('jeda_presensis', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string('nama');
+        //     $table->time('jam_masuk');
+        //     $table->time('jam_pulang');
+        //     $table->foreignId('role_id')->nullable();
+        //     $table->foreignId('sekolah_id')->constrained();
+        //     $table->integer('siswa')->nullable(); //todo 0 -> false 1 -> true
+        //     $table->timestamps();
+        // });
     }
 
     /**

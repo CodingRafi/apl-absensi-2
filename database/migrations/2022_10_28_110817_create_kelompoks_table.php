@@ -22,8 +22,8 @@ return new class extends Migration
 
         Schema::create('kelompok_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('kelompok_id');
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('kelompok_id')->constrained();
             $table->timestamps();
         });
     }
