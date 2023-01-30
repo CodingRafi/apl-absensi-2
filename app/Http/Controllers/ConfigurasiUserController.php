@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\User;
-use App\Models\Siswa;
 use App\Models\TahunAjaran;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules;

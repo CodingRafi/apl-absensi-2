@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use DB, Hash, Auth;
 use App\Models\Rfid;
 use App\Models\User;
-use App\Models\Siswa;
 use App\Models\Mapel;
 use App\Models\Kelas;
 use App\Models\ref_agama;

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Presensi;
 use App\Models\TahunAjaran;
 use App\Models\Kompetensi;
-use App\Models\Siswa;
 use App\Models\Absensi;
 use Carbon\Carbon;
 use App\Exports\PresensiExport;

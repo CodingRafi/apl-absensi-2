@@ -7,7 +7,6 @@ use Carbon\Carbon;
 use App\Models\Rfid;
 use App\Models\User;
 use App\Models\Kelas;
-use App\Models\Siswa;
 use App\Models\Agenda;
 use App\Models\Absensi;
 use App\Models\Kompetensi;
