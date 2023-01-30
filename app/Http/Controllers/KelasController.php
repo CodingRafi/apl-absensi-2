@@ -136,8 +136,10 @@ class KelasController extends Controller
                                     ->distinct('user_kelas.kelas_id')
                                     ->first();
 
+                                    
                 $tahun_ajaran_new = DB::table('tahun_ajarans')->where('id', $request->tahun_ajaran_id)->first();
-                if ($tahun_ajaran_old->tahun_awal > $tahun_ajaran_new->tahun_awal && $tahun_ajaran_old->tahun_akhir > $tahun_ajaran_new->tahun_akhir && $tahun_ajaran_old->semester == $tahun_ajaran_new->semester) {
+
+                if ($tahun_ajaran_old->tahun_awal >= $tahun_ajaran_new->tahun_awal && $tahun_ajaran_old->tahun_akhir >= $tahun_ajaran_new->tahun_akhir && $tahun_ajaran_old->semester == $tahun_ajaran_new->semester) {
                     return throw ValidationException::withMessages(['msg_error' => 'tidak bisa naik kelas tahun ajaran turun/tidak naik']);
                 }else{
                     foreach ($kelas->users as $key => $user) {

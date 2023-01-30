@@ -33,7 +33,8 @@ class UserSeeder extends Seeder
             ],
             'guru' => [
                 'name_long' => 'Guru',
-                'permission' => ['43','44', '45', '46', '47', '48', '49', '52', '69', '35', '36', '37']
+                'permission' => ['43','44', '45', '46', '47', '48', '49', '52', '69', '35', '36', '37
+                ']
             ],
             'karyawan' => [
                 'name_long' => 'Karyawan',
