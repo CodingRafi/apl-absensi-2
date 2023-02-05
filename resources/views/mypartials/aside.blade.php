@@ -62,7 +62,7 @@
     <li class="nav-item" style="transition: none;">
       <form action="{{ route('absensi.show.user') }}" method="get">
         @include('mypartials.tahunajaran')
-        <button class="nav-link {{ Request::is('kelompok') ? 'active' : '' }}"
+        <button class="nav-link {{ Request::is('absensi/user') ? 'active' : '' }}"
           style="background-color: transparent; border: none; width: 100%; transition: none;">
           <i class="bi bi-hourglass-split mr-3"></i>
           <span class="menu-title">Absensi</span>
@@ -75,7 +75,7 @@
     <li class="nav-item" style="transition: none;">
       <form action="{{ route('agenda.show', ['role' => Auth::user()->getRoleNames()[0], 'id' => Auth::user()->id]) }}" method="get">
         @include('mypartials.tahunajaran')
-        <button class="nav-link {{ Request::is('kelompok') ? 'active' : '' }}"
+        <button class="nav-link {{ Request::is('agenda*') ? 'active' : '' }}"
           style="background-color: transparent; border: none; width: 100%; transition: none;">
           <i class="bi bi-hourglass-split mr-3"></i>
           <span class="menu-title">Jadwal</span>
