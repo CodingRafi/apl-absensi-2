@@ -2,7 +2,7 @@
 
 @section('tambahcss')
     <style>
-        @media (min-width: 894px) {
+        /* @media (min-width: 894px) {
             .card-body{
                 display: flex;
             }
@@ -30,15 +30,19 @@
             .judul{
                 width: 50%;
             }
+        } */
+        .bg{
+            background-color: #d9d9d950; 
+            border-radius: 5px; 
+            padding: 5px;
         }
-
     </style>
 @endsection
 
 @section('container')
-    <div class="card" style=" background-color:#3bae9c; border-radius: 10px; padding: 3vw">
+    <div class="card" style="border-radius: 10px; padding: 3vw">
         <div class="card-body p-0">
-            <div class="kiri" style="min-width: 20vw; display: flex; justify-content:center">
+            {{-- <div class="kiri" style="min-width: 20vw; display: flex; justify-content:center">
                 @if (Auth::user()->profil != '/img/profil.png')
                 <img src="{{ asset('storage/' . Auth::user()->profil) }}" alt="image" style="width: 10rem; height: 10rem; border: 3px solid white; border-radius: 50%; object-fit: cover">
                 @else 
@@ -153,6 +157,72 @@
                         <button type="submit" class="btn" style=" min-width: 10rem; background-color: red; color:#ffffff; margin: 2%; text-align:center">Kembali</button>
                     </form>
                 </div>
+            </div> --}}
+            <form action="/dashboard" method="get">
+                @include('mypartials.tahunajaran')
+                <button class="btn btn-sm btn-danger float-right" style="font-weight: 500;">
+                    Kembali
+                </button>
+            </form>
+            <div class="content d-flex align-items-center gap-5">
+                <div class="profil">
+                    @if (Auth::user()->profil != '/img/profil.png')
+                    <img src="{{ asset('storage/' . Auth::user()->profil) }}" alt="image" style="width: 10rem; height: 10rem; border-radius: 50%; object-fit: cover">
+                    @else
+                    <img src="{{ Auth::user()->profil }}" alt="image" style="width: 10rem; height: 10rem; border: 3px solid grey;border-radius: 50%;">
+                    @endif
+                </div>
+                <div class="data-profil">
+                    <div class="bg mt-2">
+                        <h4 style="font-weight: 700; margin: 0;">{{ Auth::user()->profile_user->name }}</h4>
+                    </div>
+                    @if ( Auth::user()->email )  
+                        <div class="bg mt-2">
+                            <p style="font-size: 1rem; margin: 0;" class="value">{{ Auth::user()->email }}</p>
+                        </div>
+                    @endif
+                    @if (Auth::user()->getTable() == 'users') 
+                        @if (Auth::user()->hasRole('guru') || Auth::user()->hasRole('karyawan'))
+                            @if (Auth::user()->nip)
+                                    <div class="bg mt-2">
+                                        <p class="title">NIP</p>
+                                    </div>
+                                    <div class="bg mt-2">
+                                        <p class="value">{{ Auth::user()->nip }}</p>
+                                    </div>
+                            @endif
+                        @endif   
+                    @else
+                        @if ( Auth::user()->nipd )  
+                            <div class="bg mt-2">
+                                <p class="title">NIPD</p>
+                            </div>
+                            <div class="bg mt-2">
+                                <p class="value">{{ Auth::user()->nipd }}</p>
+                            </div>
+                        @endif
+                            <div class="bg mt-2">
+                                <p class="title">Kelas</p>
+                            </div>
+                            <div class="bg mt-2"><p class="value">{{ Auth::user()->kelas->nama }}</p></div>
+                            <div class="bg mt-2">
+                                <p class="title">Jurusan</p>
+                            </div>
+                            <div class="bg mt-2"><p class="value">{{ Auth::user()->kompetensi->kompetensi }}</p></div>
+                    @endif
+                </div>
+            </div>
+            <div class="d-flex float-right gap-2">
+                <form action="/edit-profile" method="get">
+                    @include('mypartials.tahunajaran')
+                    <button type="submit" class="btn btn-sm text-white" style="background-color: #3bae9c; font-weight: 500;">Edit Profil Saya</button>
+                </form>
+                @if ( Auth::user()->email)
+                <form action="/ubah-password" method="get">
+                    @include('mypartials.tahunajaran')
+                    <button type="submit" class="btn btn-sm text-white" style="background-color: #3bae9c; font-weight: 500;">Ubah Password</button>
+                </form>
+                @endif
             </div>
         </div>
     </div>
