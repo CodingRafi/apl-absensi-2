@@ -154,7 +154,7 @@ class AgendaController extends Controller
     {
         $this->check($id);
         $this->check_user($id, ($role == 'siswa' ? 'kelas' : $role));
-        $agendas = Agenda::get_agenda(($role == 'siswa' ? get_kelas($id) : $id), $role);
+        $agendas = Agenda::get_agenda(($role == 'siswa' ? (!Auth::user()->hasRole('admin') ? get_kelas($id) : $id) : $id), $role);
 
         return view('agenda.show',  [
             'role' => $role,

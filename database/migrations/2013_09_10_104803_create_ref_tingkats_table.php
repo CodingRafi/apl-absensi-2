@@ -36,5 +36,6 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('ref_tingkats');
+        Schema::dropIfExists('sekolah_tingkat');
     }
 };

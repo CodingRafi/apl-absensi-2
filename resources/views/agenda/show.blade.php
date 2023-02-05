@@ -54,6 +54,14 @@
                                 </td>
                                 @endcan
                             </tr>
+                            @if ($agenda->waktu_pelajaran->waktu_istirahat)
+                            <tr class="bg-info">
+                                <td>
+                                    <td>{{ date('H.i', strtotime($agenda->waktu_pelajaran->waktu_istirahat->jam_awal)) }} - {{ date('H.i', strtotime($agenda->waktu_pelajaran->waktu_istirahat->jam_akhir)) }}</td>
+                                    <td colspan="3">Istirahat</td>
+                                </td>
+                            </tr>
+                            @endif
                             @endforeach
                         </tbody>
                     </table>

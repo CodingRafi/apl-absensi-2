@@ -122,7 +122,7 @@ class TahunAjaranController extends Controller
         $tahunAjaran->update([
             'tahun_awal' => $request->tahun_awal,
             'tahun_akhir' => $request->tahun_akhir,
-            'tahun_semester' => $request->tahun_semester,
+            'semester' => $request->semester,
             'status' => ($request->status) ? 'aktif' : 'tidak',
         ]);
         

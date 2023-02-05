@@ -136,8 +136,8 @@
                             @foreach ($waktu_istirahats as $key => $waktu_istirahat)
                             <tr class="text-center">
                                 <td>{{ $waktu_istirahat->waktu_pelajaran->jam_ke }}</td>
-                                <td class="jam-awal-istirahat-{{ $key+1 }}">{{ $waktu_istirahat->jam_awal }}</td>
-                                <td class="jam-akhir-istirahat-{{ $key+1 }}">{{ $waktu_istirahat->jam_akhir }}</td>
+                                <td class="jam-awal-istirahat-{{ $key+1 }}">{{ date('h:i', strtotime($waktu_istirahat->jam_awal)) }}</td>
+                                <td class="jam-akhir-istirahat-{{ $key+1 }}">{{ date('h:i', strtotime($waktu_istirahat->jam_akhir)) }}</td>
                                 <td>
                                     @include('mypartials.tahunajaran')
                                     <button class="btn btn-sm text-white btn-warning edit-jam-istirahat"

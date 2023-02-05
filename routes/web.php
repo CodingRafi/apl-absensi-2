@@ -71,7 +71,8 @@ Route::group(['middleware' => ['auth']], function() {
     });
        
     Route::get('/absensi/user', [AbsensiController::class, 'show_absensi_user'])->name('absensi.show.user');
-
+    Route::post('/users/siswa/{id}/down', [UserController::class, 'down'])->name('users.down');
+    
     Route::middleware(['check_role'])->group(function () {
         Route::name('users.')->prefix('users')->group(function () {
             // Route::resource('siswa', SiswaController::class);
@@ -83,6 +84,8 @@ Route::group(['middleware' => ['auth']], function() {
             Route::patch('{role}/{id}', [UserController::class, 'update'])->name('update');
             Route::delete('{role}/{id}', [UserController::class, 'destroy'])->name('destroy');
         });
+
+        // Downgrade
 
         // Export dan Import User
         Route::get('/import/users/{role}', [UserController::class, 'import']);

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use DB, Hash, Auth;
 use App\Models\Rfid;
 use App\Models\User;
-use App\Models\Siswa;
 use App\Models\Mapel;
 use App\Models\Kelas;
 use App\Models\ref_agama;
@@ -19,6 +18,7 @@ use App\Http\Requests\UpdateUserRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\UsersExport;
 use App\Imports\UsersImport;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -305,5 +305,47 @@ class UserController extends Controller
         $user->assignRole('yayasan');
 
         return TahunAjaran::redirectWithTahunAjaranManual('/', $request, 'Berhasil menambahkan yayasan');
+    }
+
+    public function down(Request $request, $id){
+        $user = User::findOrFail($id);
+
+        if ($user->hasRole('siswa')) {
+            if ($user->kelas->count() > 1) {
+                $tahun_ajaran = TahunAjaran::getTahunAjaran($request);
+                $kelas_latest = DB::table('users')->select('ref_tingkats.key')
+                                                    ->join('user_kelas', 'user_kelas.user_id', 'users.id')
+                                                    ->join('kelas', 'kelas.id', 'user_kelas.kelas_id')
+                                                    ->join('ref_tingkats', 'ref_tingkats.id', 'kelas.ref_tingkat_id')
+                                                    ->orderBy('ref_tingkats.key', 'desc')
+                                                    ->first();
+    
+                $kelas_request = $user->kelas()->where('tahun_ajaran_id', $tahun_ajaran->id)->first();
+    
+                if ($kelas_latest->key == $kelas_request->tingkat->key) {
+                    $absensi_pelajaran = $user->absensi_pelajaran()->where('tahun_ajaran_id', $tahun_ajaran->id)->get();
+                    
+                    foreach ($absensi_pelajaran as $key => $absensi) {
+                        $absensi->delete();
+                    }
+    
+                    $absensis = $user->absensi()->where('tahun_ajaran_id', $tahun_ajaran->id)->get();
+    
+                    foreach ($absensis as $key => $absensi) {
+                        $absensi->delete();
+                    }
+    
+                    $kelas_request->pivot->delete();
+    
+                    return redirect()->back()->with('msg_success', 'Berhasil di downgrade');
+                } else {
+                    return redirect()->back()->with('msg_error', 'tidak bisa di down ini bukan kelas yang paling tinggi');
+                }
+            } else {
+                return redirect()->back()->with('msg_error', 'tidak bisa di down karena hanya tinggal 1 kelas saja');
+            }
+        }else{
+            return redirect()->back()->with('msg_error', 'bukan siswa');
+        }
     }
 }
