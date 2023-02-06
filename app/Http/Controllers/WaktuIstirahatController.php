@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\WaktuIstirahat;
 use App\Models\TahunAjaran;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreWaktuIstirahatRequest;
 use App\Http\Requests\UpdateWaktuIstirahatRequest;
 
