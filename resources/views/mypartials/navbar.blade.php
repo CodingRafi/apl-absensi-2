@@ -1,3 +1,9 @@
+<style>
+    .profile:hover, .logout:hover{
+        background-color: rgba(128, 128, 128, 0.13);
+    }
+</style>
+
 <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
         <form action="/dashboard" method="get">
@@ -67,7 +73,7 @@
                     <span class="text-white badge text-user d-block" style="background-color:#3bae9ddc; border:1.5px solid #308b7d; font-weight: 600; display:flex;justify-content:center; width:fit-content !important; text-transform: capitalize; float: right"><i class="bi bi-info-circle mr-2"></i><span class="text-user" style="font-size: 12px; margin-top:1px; display: inline-block;">Masuk Sebagai {{ (Auth::user()->getTable() == 'users') ? str_replace("_", " ", Auth::user()->getRoleNames()->first())  : 'Siswa' }}</span>
                     </span>
                 </div>
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="profileDropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="profileDropdown" style="cursor: pointer;">
                     @if (Auth::user()->profil != '/img/profil.png')
                     <img src="{{ asset('storage/' . Auth::user()->profil) }}" alt="profile" />
                     @else
@@ -75,7 +81,7 @@
                     @endif
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown" id="profil">
-                    <form action="/user-settings" method="get">
+                    <form action="/user-settings" method="get" class="profile">
                         @include('mypartials.tahunajaran')
                         <button class="dropdown-item" tabindex="-1" type="submit"
                             style="border: none; background: none; color: grey;">
@@ -83,7 +89,7 @@
                         Profile
                         </button>
                     </form>
-                    <form action="/logout" method="post">
+                    <form action="/logout" method="post" class="logout">
                         @csrf
                         <button class="dropdown-item text-danger" tabindex="-1" type="submit"
                             style="border: none; background: none; color: grey;">
