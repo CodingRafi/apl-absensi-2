@@ -87,7 +87,7 @@
 </div>
 @else
     <div class="row">
-        <div class="card col-lg-8 mb-3">
+        <div class="card col-lg mb-3">
             <div class="card-body">
                 <div class="title" style="display: flex; justify-content: space-between">
                     <h4 class="card-title">Profile Sekolah</h4>
@@ -142,16 +142,14 @@
                             </tr>
                         </table>
                     </div>
-                    <div class="col-lg-4">
-                        <img src="{{ Auth::user()->sekolah->logo != '/img/tutwuri.png' ? asset('storage/' . Auth::user()->sekolah->logo) : Auth::user()->sekolah->logo }}"
-                            alt="" scale="1/1"
-                            style="width: 10rem; object-fit: cover; border-radius: 5px; display: block;">
+                    <div class="col-lg-4 d-flex justify-content-center p-1">
+                        <img src="{{ Auth::user()->sekolah->logo != '/img/tutwuri.png' ? asset('storage/' . Auth::user()->sekolah->logo) : Auth::user()->sekolah->logo }}" alt="" scale="1/1" style="width: 10rem; object-fit: cover; border-radius: 5px; display: block;">
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
-            @if (auth()->user()->can('view_users') && !Auth::user()->hasRole('yayasan'))
+        @if (auth()->user()->can('view_users') && !Auth::user()->hasRole('yayasan'))
+            <div class="col-lg-4">
                 <div class="card mb-3" style="height: 15rem;overflow: auto;">
                     <div class="card-body">
                         <div class="title-yayasan" style="display: flex; justify-content: space-between">
@@ -188,8 +186,8 @@
                         @endif
                     </div>
                 </div>
-            @endif
-        </div>
+            </div>
+        @endif
     </div>
     {{-- @if (auth()->user()->can('view_users') && !Auth::user()->hasRole('yayasan'))
     <div class="col-md-4">
