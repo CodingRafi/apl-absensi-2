@@ -50,5 +50,21 @@ class Sekolah extends Model
     public function kelompok(){
         return $this->hasMany(Kelompok::class);
     }
+
+    public function ref_provinsi(){
+        return $this->belongsTo(ref_provinsi::class);
+    }
+
+    public function ref_kabupaten(){
+        return $this->belongsTo(ref_kabupaten::class);
+    }
+    
+    public function ref_kecamatan(){
+        return $this->belongsTo(ref_kecamatan::class);
+    }
+
+    public function ref_kelurahan(){
+        return $this->belongsTo(ref_kelurahan::class);
+    }
 }
 
