@@ -41,26 +41,26 @@
                         <td>
                             <form action="{{ route('absensi-pelajaran.show', [$absensi_pelajaran->id]) }}" method="get">
                                 @include('mypartials.tahunajaran')
-                                <button type="submit" class="btn btn-sm text-white mb-2"
-                                    style="border-radius: 5px; font-weight: 500; background-color: #3bae9c">Tambah
+                                <button type="submit" class="btn btn-sm text-white mb-1"
+                                    style="border-radius: 5px; font-weight: 500; background-color: #3bae9c; min-width: 7rem;">Tambah
                                     Presensi</button>
                             </form>
                             @can('edit_absensi_pelajaran', 'delete_absensi_pelajaran')
-                            <div class="d-flex justify-content-center gap-3">
+                            {{-- <div class="d-flex justify-content-center gap-3"> --}}
                                 @can('edit_absensi_pelajaran')
                                 <form action="{{ route('absensi-pelajaran.edit', [$absensi_pelajaran->id]) }}"
                                     method="get">
                                     @include('mypartials.tahunajaran')
-                                    <button type="submit" class="btn btn-sm btn-warning text-white"
-                                        style="border-radius: 5px; font-weight: 500;">Edit</button>
+                                    <button type="submit" class="btn btn-sm btn-warning text-white mb-1"
+                                        style="border-radius: 5px; font-weight: 500; min-width: 7rem;">Edit</button>
                                 </form>
                                 @endcan
                                 @can('delete_absensi_pelajaran')
                                 <button type="submit" class="btn btn-sm btn-danger"
                                     onclick="deleteData('{{ route('absensi-pelajaran.destroy', [$absensi_pelajaran->id]) }}')"
-                                    style="width: 5rem; margin: 0.1rem;border-radius: 5px;font-weight: 500;">Hapus</button>
+                                    style="width: 5rem; margin: 0.1rem;border-radius: 5px;font-weight: 500; min-width: 7rem;">Hapus</button>
                                 @endcan
-                            </div>
+                            {{-- </div> --}}
                             @endcan
                         </td>
                     </tr>

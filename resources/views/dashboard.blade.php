@@ -86,70 +86,108 @@
     </div>
 </div>
 @else
-    <div class="card mb-3" style="min-height: 17rem;overflow: auto;">
-        <div class="card-body">
-            <div class="title" style="display: flex; justify-content: space-between">
-                <h4 class="card-title">Profile Sekolah</h4>
-                @if (auth()->user()->can('edit_sekolah'))
-                <form action="{{ route('sekolah.edit.own') }}" method="get">
-                    @include('mypartials.tahunajaran')
-                    <button class="btn btn-warning btn-sm text-white"
-                        style="min-width: 5vw;font-weight: 500;border-radius: 5px;">Edit</button>
-                </form>
-                @endif
-            </div>
-            <div class="row">
-                <div class="col-lg-9">
-                    <table class="table table-responsive table-borderless">
-                        <tr>
-                            <td class="title">Nama Sekolah</td>
-                            <td>:</td>
-                            <td>{{ Auth::user()->sekolah->nama }}</td>
-                        </tr>
-                        <tr>
-                            <td class="title">NPSN</td>
-                            <td>:</td>
-                            <td>{{ Auth::user()->sekolah->npsn }}</td>
-                        </tr>
-                        <tr>
-                            <td class="title">Kepala Sekolah</td>
-                            <td>:</td>
-                            <td>{{ Auth::user()->sekolah->kepala_sekolah }}</td>
-                        </tr>
-                        <tr>
-                            <td class="title">Alamat</td>
-                            <td>:</td>
-                            <td>{{ Auth::user()->sekolah->alamat }}</td>
-                        </tr>
-                        <tr>
-                            <td class="d-flex gap-3">
-                                @if ( Auth::user()->sekolah->instagram )
-                                <a href="{{ Auth::user()->sekolah->instagram }}"><i class="bi bi-instagram"
-                                        style="color: purple;"></i></a>
-                                @endif
-                                @if ( Auth::user()->sekolah->youtube )
-                                <a href="{{ Auth::user()->sekolah->youtube }}"><i class="bi bi-youtube"
-                                        style="color: red"></i></a>
-                                @endif
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                @if ( Auth::user()->sekolah->youtube )
-                                <a href="{{ Auth::user()->sekolah->youtube }}"><i class="bi bi-youtube"
-                                        style="color: red"></i></a>
-                                @endif
-                            </td>
-                        </tr>
-                    </table>
+    <div class="row">
+        <div class="card col-lg mb-3">
+            <div class="card-body">
+                <div class="title" style="display: flex; justify-content: space-between">
+                    <h4 class="card-title">Profile Sekolah</h4>
+                    @if (auth()->user()->can('edit_sekolah'))
+                    <form action="{{ route('sekolah.edit.own') }}" method="get">
+                        @include('mypartials.tahunajaran')
+                        <button class="btn btn-warning btn-sm text-white"
+                            style="min-width: 5vw;font-weight: 500;border-radius: 5px;">Edit</button>
+                    </form>
+                    @endif
                 </div>
-                <div class="col-lg-3">
-                    <img src="{{ Auth::user()->sekolah->logo != '/img/tutwuri.png' ? asset('storage/' . Auth::user()->sekolah->logo) : Auth::user()->sekolah->logo }}"
-                        alt="" scale="1/1"
-                        style="width: 10rem; object-fit: cover; border-radius: 5px; display: block;">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <table class="table table-responsive table-borderless">
+                            <tr>
+                                <td class="title">Nama Sekolah</td>
+                                <td>:</td>
+                                <td>{{ Auth::user()->sekolah->nama }}</td>
+                            </tr>
+                            <tr>
+                                <td class="title">NPSN</td>
+                                <td>:</td>
+                                <td>{{ Auth::user()->sekolah->npsn }}</td>
+                            </tr>
+                            <tr>
+                                <td class="title">Kepala Sekolah</td>
+                                <td>:</td>
+                                <td>{{ Auth::user()->sekolah->kepala_sekolah }}</td>
+                            </tr>
+                            <tr>
+                                <td class="title">Alamat</td>
+                                <td>:</td>
+                                <td>
+                                    {{ Auth::user()->sekolah->jalan }},
+                                    {{ Auth::user()->sekolah->ref_kelurahan->nama }}, 
+                                    {{ Auth::user()->sekolah->ref_kecamatan->nama }}, 
+                                    {{ Auth::user()->sekolah->ref_kabupaten->nama }}, 
+                                    {{ Auth::user()->sekolah->ref_provinsi->nama }}. 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="d-flex gap-3">
+                                    @if ( Auth::user()->sekolah->instagram )
+                                    <a href="{{ Auth::user()->sekolah->instagram }}"><i class="bi bi-instagram"
+                                            style="color: purple;"></i></a>
+                                    @endif
+                                    @if ( Auth::user()->sekolah->youtube )
+                                    <a href="{{ Auth::user()->sekolah->youtube }}"><i class="bi bi-youtube"
+                                            style="color: red"></i></a>
+                                    @endif
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-lg-4 d-flex justify-content-center p-1">
+                        <img src="{{ Auth::user()->sekolah->logo != '/img/tutwuri.png' ? asset('storage/' . Auth::user()->sekolah->logo) : Auth::user()->sekolah->logo }}" alt="" scale="1/1" style="width: 10rem; object-fit: cover; border-radius: 5px; display: block;">
+                    </div>
                 </div>
             </div>
         </div>
+        @if (auth()->user()->can('view_users') && !Auth::user()->hasRole('yayasan'))
+            <div class="col-lg-4">
+                <div class="card mb-3" style="height: 15rem;overflow: auto;">
+                    <div class="card-body">
+                        <div class="title-yayasan" style="display: flex; justify-content: space-between">
+                            <h4 class="card-title">Yayasan</h4>
+                            @if (!$yayasan)
+                            <form action="/create-yayasan" method="get">
+                                @include('mypartials.tahunajaran')
+                                <button type="submit" class="btn btn-sm text-white p-0"
+                                    style="background-color: #369488; min-width: 5rem; height: 1.5rem; font-weight: 500; border-radius: 5px;">Tambah</button>
+                            </form>
+                            @endif
+                        </div>
+                        @if ($yayasan)
+                        <div class="table table-responsive table-hover text-center" style="border-radius: 3px;">
+                            <table class="table align-middle">
+                                <thead style="background-color: #3bae9ddc; color: aliceblue;">
+                                    <tr>
+                                        <th style="width: 5%;">Nama</th>
+                                        <th style="width: 5%;">Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 15%; height: 8vh">{{ $yayasan->profile_user->name }}</td>
+                                        <td style="width: 15%; height: 8vh">{{ $yayasan->email }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        @else
+                        <div class="alert alert-danger" role="alert">
+                            Maaf tidak ada data yayasan ditemukan
+                        </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
     {{-- @if (auth()->user()->can('view_users') && !Auth::user()->hasRole('yayasan'))
     <div class="col-md-4">

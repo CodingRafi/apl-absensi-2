@@ -88,7 +88,7 @@
     <li class="nav-item" style="transition: none;">
       <form action="{{ route('absensi-pelajaran.index') }}" method="get">
         @include('mypartials.tahunajaran')
-        <button class="nav-link {{ Request::is('presensi*') ? 'active' : '' }}"
+        <button class="nav-link {{ Request::is('absensi-pelajaran*') ? 'active' : '' }}"
           style="background-color: transparent; border: none;  width: 100%; transition: none;">
           <i class="bi bi-calendar3 mr-3"></i>
           <span class="menu-title">Presensi Pelajaran</span>
