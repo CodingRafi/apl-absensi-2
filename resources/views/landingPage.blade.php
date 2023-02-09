@@ -59,13 +59,45 @@
                 font-size: 90px;
             }
         }
+        /*  */
+        .body-swipper {
+            display: flex;
+            align-items: start;
+            justify-content: center;
+            height: 100vh;
+        }
+        .swiper {
+            height: 80vh;
+            padding-bottom: 60px !important;
+        }
+        .swiper .swiper-wrapper {
+            display: flex;
+            align-items: center;
+        }
+        .swiper .swiper-slide {
+            border-radius: 15px;
+            height: 200px !important;
+            width: 200px !important;
+            background: linear-gradient(130deg, #3bae9c, #57e0cb);
+            color: white;
+            border: 1px solid #fff;
+            transition: 0.2s;
+        }
+        .swiper .swiper-slide.active {
+            margin-bottom: 10rem;
+        }
+        .w-rap{
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+        }
     </style>
 
     <title>Go Tap Landing Page</title>
   </head>
   <body>
     <div class="container p-0">
-        <div class="session1 px-5" id="home" style="height: 100vh;">
+        <div class="session1 px-5" id="home" style="height: 95vh;">
             {{-- navbar --}}
             <nav class="navbar navbar-expand-lg">
                 <div class="container-fluid mt-1 mb-1">
@@ -114,7 +146,7 @@
             </div>
             {{-- end content --}}
         </div>
-        <div class="session2 px-5 py-5" id="aboutUs" style="background-color: #E7E7E7; height: 100vh;">
+        <div class="session2 px-5 py-5" id="aboutUs" style="background-color: #E7E7E7; height: 95vh;">
             <div class="row px-3">
                 <div style="color: black; border-left: 3px solid black;"><h2>About Us</h2></div>
                 <span style="color: #9B9B9B;"><h6>Your solution to absenteeism <br> easily and quickly</h6></span>
@@ -128,13 +160,40 @@
                 </div>
             </div>
         </div>
-        <div class="session3 px-5 py-5" id="features" style="height: 100vh;">
+        <div class="session3 px-5 py-5" id="features" style="height: 95vh;">
             <div class="row px-3">
                 <div style="color: black; border-left: 3px solid black;"><h2>Features</h2></div>
                 <span style="color: #9B9B9B;"><h6>Your solution to absenteeism <br> easily and quickly</h6></span>
             </div>
+            <div class="body-swipper">
+                <div class="swiper">
+                    <div class="swiper-wrapper">
+                      <div class="swiper-slide">
+                        <div class="w-rap"><img src="{{ asset('img/1.svg') }}" alt=""></div>
+                        <span class="d-flex justify-content-center mt-3"></span>
+                      </div>
+                      <div class="swiper-slide">
+                        <div class="w-rap"><img src="{{ asset('img/2.svg') }}" alt=""></div>
+                        <span class="d-flex justify-content-center mt-3">Dapat manage absensi</span>
+                      </div>
+                      <div class="swiper-slide">
+                        <div class="w-rap"><img src="{{ asset('img/3.svg') }}" alt=""></div>
+                        <span class="d-flex justify-content-center mt-3">Dapat manage user</span>
+                      </div>
+                      <div class="swiper-slide">
+                        <div class="w-rap"><img src="{{ asset('img/4.svg') }}" alt=""></div>
+                        <span class="d-flex justify-content-center mt-3">Dapat manage sekolah</span>
+                      </div>
+                      <div class="swiper-slide">
+                        <div class="w-rap"><img src="{{ asset('img/5.svg') }}" alt=""></div>
+                        <span class="d-flex justify-content-center mt-3"></span>
+                      </div>
+                    </div>
+                  </div>
+            </div>
         </div>
-        <div class="session4 px-5 py-5" id="faq" style="background-color: #E7E7E7; height: 100vh;">
+        </div>
+        <div class="session4 px-5 py-5" id="faq" style="background-color: #E7E7E7; height: 95vh;">
             <div class="row px-3">
                 <div style="color: black; border-left: 3px solid black;"><h2>FAQ</h2></div>
                 <span style="color: #9B9B9B;"><h6>Your solution to absenteeism <br> easily and quickly</h6></span>
@@ -193,9 +252,9 @@
                 </div>
             </div>
         </div>
-        <footer class="footer fixed-bottom bg-white w-100" style="border-top: 2px solid #6c757d8a;">
+        <footer class="footer fixed-bottom bg-white w-100" style="border-top: 2px solid #6c757d8a; height: 5vh;">
             <div class="container-fluid">
-                <div class="text-center mt-2 mb-2">
+                <div class="text-center">
                     <span class="text-muted">All rights reserved</span>
                 </div>
             </div>
@@ -204,5 +263,24 @@
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!-- Style -->
+    <link href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" rel="stylesheet">
+    <!-- Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.6/swiper-bundle.min.js"></script>
+    <script>
+        const swiper = new Swiper(".swiper", {
+            slidesPerView: 5.2,
+            spaceBetween: 30,
+            loop: true,
+            grabCursor: true,
+            centeredSlides: true,
+            slideActiveClass: "active",
+            autoplay: {
+                enabled: true,
+                delay: 2000
+            }
+        });
+
+    </script>
   </body>
 </html>
