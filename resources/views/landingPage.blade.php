@@ -76,8 +76,8 @@
         }
         .swiper .swiper-slide {
             border-radius: 15px;
-            height: 200px !important;
-            width: 200px !important;
+            height: 250px !important;
+            width: 250px !important;
             background: linear-gradient(130deg, #3bae9c, #57e0cb);
             color: white;
             border: 1px solid #fff;
@@ -269,8 +269,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.6/swiper-bundle.min.js"></script>
     <script>
         const swiper = new Swiper(".swiper", {
-            slidesPerView: 5.2,
-            spaceBetween: 30,
+            slidesPerView: 4,
+            spaceBetween: 50,
             loop: true,
             grabCursor: true,
             centeredSlides: true,
