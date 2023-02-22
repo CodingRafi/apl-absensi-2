@@ -45,7 +45,7 @@ class AbsensiController extends Controller
                             if (!$jadwal_kel) {
                                 $agendas = $this->agenda('asc', $role, $rfid, $now);
                             }
-                            $timeUser = $jadwal_kel ? $jadwal_kel->jam_pulang : $agendas[0]->jam_akhir;
+                            $timeUser = $jadwal_kel ? $jadwal_kel->jam_pulang : $agendas[0]->waktu_pelajaran->jam_akhir;
                             if (date('H', $hour) > explode(':', $timeUser)[0]) {
                                 $absensi->update([
                                     'presensi_pulang' => Carbon::now()
