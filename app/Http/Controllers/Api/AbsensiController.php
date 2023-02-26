@@ -68,7 +68,7 @@ class AbsensiController extends Controller
                                 return response()->json([
                                     'message' => 'Belom Pulang',
                                     'kode_respon' => '5'
-                                ], 200);
+                                ], 400);
                             }
                         }else{
                             if(!$absensi){
@@ -107,38 +107,38 @@ class AbsensiController extends Controller
                                     return response()->json([
                                         'message' => 'Maaf anda sudah terlambat. Silahkan lapor ke guru piket',
                                         'kode_respon' => '4'
-                                    ], 200);
+                                    ], 400);
                                 }
                             }else{
                                 return response()->json([
                                     'message' => 'hari ini sudah absen masuk ataupun pulang',
                                     'kode_respon' => '3'
-                                ], 200);
+                                ], 400);
                             }
                         }
                     }else{
                         return response()->json([
                             'message' => 'anda tidak memiliki agenda',
                             'kode_respon' => '6',
-                        ], 200);
+                        ], 400);
                     }
                 }else{
                     return response()->json([
                         'message' => 'Rfid tidak aktif',
                         'kode_respon' => '7'
-                    ], 200);
+                    ], 400);
                 }
             }else{
                 return response()->json([
                     'message' => 'Rfid tidak ditemukan',
                     'kode_respon' => '8'
-                ], 200);
+                ], 400);
             }
         }else{
             return response()->json([
                 'message' => 'Sekarang hari minggu',
                 'kode_respon' => 9
-            ], 200);
+            ], 400);
         }
     }
 
