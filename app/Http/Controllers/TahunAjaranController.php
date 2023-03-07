@@ -112,18 +112,18 @@ class TahunAjaranController extends Controller
     public function update(UpdateTahunAjaranRequest $request, TahunAjaran $tahunAjaran)
     {
         if($request->status == 'on'){
-            foreach (TahunAjaran::all() as $key => $tahunAjaran) {
-                $tahunAjaran->update([
+            foreach (TahunAjaran::all() as $key => $tahun) {
+                $tahun->update([
                     'status' => 'tidak'
                 ]);
             }
         }
-
+        
         $tahunAjaran->update([
             'tahun_awal' => $request->tahun_awal,
             'tahun_akhir' => $request->tahun_akhir,
             'semester' => $request->semester,
-            'status' => ($request->status) ? 'aktif' : 'tidak',
+            'status' => ($request->status && $request->status == 'on') ? 'aktif' : 'tidak',
         ]);
         
         if (!TahunAjaran::where('status', 'aktif')->first()) {

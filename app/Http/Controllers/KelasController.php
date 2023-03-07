@@ -120,9 +120,9 @@ class KelasController extends Controller
             'to_kelas_id' => 'required'
         ]);
 
-        if ($request->kelas_id == $request->to_kelas_id) {
-            throw ValidationException::withMessages(['msg_error' => 'Tidak ada kenaikan kelas']);
-        } else {
+        // if ($request->kelas_id == $request->to_kelas_id) {
+        //     throw ValidationException::withMessages(['msg_error' => 'Tidak ada kenaikan kelas']);
+        // } else {
             $kelas = Kelas::where('id', $request->kelas_id)->first();
             $to_kelas = Kelas::where('id', $request->to_kelas_id)->first();
 
@@ -154,7 +154,7 @@ class KelasController extends Controller
                 }
             }
             
-        }
+        // }
         
     }
 }

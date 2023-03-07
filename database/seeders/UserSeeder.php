@@ -72,27 +72,27 @@ class UserSeeder extends Seeder
         ]);
 
         // User Admin SMK TB
-        $adminsmk = User::create([
-            'email' => 'adminsmk@gmail.com',
-            'password' => bcrypt('password'),
-            'sekolah_id' => 1
-        ])->assignRole('admin');
+        // $adminsmk = User::create([
+        //     'email' => 'adminsmk@gmail.com',
+        //     'password' => bcrypt('password'),
+        //     'sekolah_id' => 1
+        // ])->assignRole('admin');
 
-        profile_user::create([
-            'name' => 'Admin SMK',
-            'user_id' => $adminsmk->id
-        ]);
+        // profile_user::create([
+        //     'name' => 'Admin SMK',
+        //     'user_id' => $adminsmk->id
+        // ]);
 
         // User Yayasan SMK TB
-        $yayasan = User::create([
-            'email' => 'yayasan@gmail.com',
-            'password' => bcrypt('password'),
-            'sekolah_id' => 1
-        ])->assignRole('yayasan');
+        // $yayasan = User::create([
+        //     'email' => 'yayasan@gmail.com',
+        //     'password' => bcrypt('password'),
+        //     'sekolah_id' => 1
+        // ])->assignRole('yayasan');
 
-        profile_user::create([
-            'name' => 'Yayasan SMK',
-            'user_id' => $yayasan->id
-        ]);
+        // profile_user::create([
+        //     'name' => 'Yayasan SMK',
+        //     'user_id' => $yayasan->id
+        // ]);
     }
 }
